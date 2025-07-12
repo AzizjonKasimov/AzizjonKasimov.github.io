@@ -5,28 +5,36 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: read      # for checkout
-  pages: write        # to deploy Pages site
-  id-token: write     # required by the deploy-pages action
+  contents: read        # allow checkout
+  pages: write          # allow Pages deployment
+  id-token: write       # required for the deploy-pages action
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'
-      - run: |
+          node-version: '20'    # Node 20+ for Vite v7
+
+      - name: Install dependencies & build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        run: |
           npm ci
-          npm run build
-      - name: Upload artifact
+          npm run build       # emits ./dist
+
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./dist
+          path: ./dist        # point at your build output
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/deploy-pages@v1
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
