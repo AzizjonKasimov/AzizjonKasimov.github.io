@@ -25,12 +25,12 @@ jobs:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: |
           npm ci
-          npm run build       # emits ./dist
+          npm run build       # emits ./docs
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist        # point at your build output
+          path: ./docs        # point at your build output
 
   deploy:
     needs: build
