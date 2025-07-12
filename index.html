@@ -1,3 +1,4 @@
+<!--index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,35 +29,30 @@
     </form>
   </div>
 
-  <script>
+  <script type="module">
     const form = document.getElementById('chat-form');
     const input = document.getElementById('message-input');
     const messagesEl = document.getElementById('messages');
-    const API_URL = 'https://resume-website-backend-40i7.onrender.com/api/chat/';
-
-    function formatMessage(markdown) {
-    // escape HTML-special chars first (important if messages come from users!)
-    const escaped = markdown
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-
-    // replace *bold*
-    const withBold = escaped.replace(/\*(.+?)\*/g, '<strong>$1</strong>');
-
-    // replace newlines
-    return withBold.replace(/\n/g, '<br>');
-  }
+    const API_URL = import.meta.env.VITE_API_URL;
 
     function appendMessage(text, sender) {
       const msgEl = document.createElement('div');
       msgEl.classList.add('message', sender);
       const bubble = document.createElement('div');
       bubble.classList.add('bubble');
-      bubble.innerHTML = formatMessage(text);
+      bubble.textContent = text;
       msgEl.appendChild(bubble);
       messagesEl.appendChild(msgEl);
       messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+    // 1. Try to load an existing session ID
+    let sessionId = localStorage.getItem('chat_session_id');
+
+    // 2. If none exists, generate a new one and save it
+    if (!sessionId) {
+      // modern browsers support crypto.randomUUID()
+      sessionId = crypto.randomUUID();
+      localStorage.setItem('chat_session_id', sessionId);
     }
 
     form.addEventListener('submit', async e => {
@@ -67,10 +63,14 @@
       input.value = '';
 
       try {
+          const payload = {
+          message: userMessage,
+          session_id: sessionId
+        };
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userMessage })
+          body: JSON.stringify(payload)
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
