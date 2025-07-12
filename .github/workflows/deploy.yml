@@ -1,35 +1,32 @@
-name: Build & Deploy to /docs
+name: Build & Deploy to GitHub Pages
+
 on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read      # for checkout
+  pages: write        # to deploy Pages site
+  id-token: write     # required by the deploy-pages action
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '20'
-
-      - name: Install & Build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-        run: |
+      - run: |
           npm ci
           npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist
 
-      - name: Move build to docs/
-        run: |
-          rm -rf docs
-          mv dist docs
-
-      - name: Commit /docs
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs
-          git commit -m "🚀 Deploy to /docs"
-          git push
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/deploy-pages@v1
