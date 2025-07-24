@@ -1,31 +1,331 @@
-<!--index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chatbot</title>
+  <title>Resume Assistant</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .chat-container { width: 100%; max-width: 400px; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
-    .messages { flex: 1; padding: 16px; overflow-y: auto; }
-    .message { margin-bottom: 12px; display: flex; }
-    .message.user { justify-content: flex-end; }
-    .message.bot { justify-content: flex-start; }
-    .bubble { max-width: 70%; padding: 8px 12px; border-radius: 16px; }
-    .user .bubble { background: #007bff; color: #fff; border-bottom-right-radius: 4px; }
-    .bot .bubble { background: #e5e5ea; color: #000; border-bottom-left-radius: 4px; }
-    .input-area { display: flex; border-top: 1px solid #ddd; }
-    .input-area input { flex: 1; padding: 12px; border: none; outline: none; }
-    .input-area button { padding: 12px; border: none; background: #007bff; color: #fff; cursor: pointer; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      height: 80vh;
+      max-height: 700px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .chat-header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .chat-header p {
+      opacity: 0.9;
+      font-size: 0.9rem;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f8f9fa;
+      scroll-behavior: smooth;
+    }
+
+    .messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .messages::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    .messages::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+
+    .message {
+      margin-bottom: 20px;
+      display: flex;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .bubble {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      position: relative;
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
+
+    .user .bubble {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border-bottom-right-radius: 6px;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+
+    .bot .bubble {
+      background: #fff;
+      color: #2c3e50;
+      border-bottom-left-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 1px solid #e1e8ed;
+    }
+
+    /* Formatted text styles for bot responses */
+    .bot .bubble h1, .bot .bubble h2, .bot .bubble h3 {
+      color: #2c3e50;
+      margin: 8px 0 4px 0;
+      font-weight: 600;
+    }
+
+    .bot .bubble h1 { font-size: 1.2em; }
+    .bot .bubble h2 { font-size: 1.1em; }
+    .bot .bubble h3 { font-size: 1em; }
+
+    .bot .bubble p {
+      margin: 6px 0;
+      line-height: 1.5;
+    }
+
+    .bot .bubble ul, .bot .bubble ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+
+    .bot .bubble li {
+      margin: 4px 0;
+      line-height: 1.4;
+    }
+
+    .bot .bubble strong {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .bot .bubble em {
+      font-style: italic;
+      color: #5a6c7d;
+    }
+
+    .bot .bubble code {
+      background: #f1f3f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+
+    .bot .bubble blockquote {
+      border-left: 3px solid #667eea;
+      margin: 8px 0;
+      padding-left: 12px;
+      color: #5a6c7d;
+      font-style: italic;
+    }
+
+    .typing-indicator {
+      display: none;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .typing-indicator.show {
+      display: flex;
+    }
+
+    .typing-dots {
+      background: #fff;
+      border: 1px solid #e1e8ed;
+      border-radius: 18px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .typing-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c1c1c1;
+      margin: 0 2px;
+      animation: typing 1.4s infinite ease-in-out;
+    }
+
+    .typing-dots span:nth-child(1) { animation-delay: 0s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
+      30% { transform: translateY(-10px); opacity: 1; }
+    }
+
+    .input-area {
+      display: flex;
+      padding: 20px;
+      background: #fff;
+      border-top: 1px solid #e1e8ed;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e1e8ed;
+      border-radius: 25px;
+      outline: none;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-area input:focus {
+      border-color: #667eea;
+    }
+
+    .input-area button {
+      padding: 12px 20px;
+      border: none;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-size: 16px;
+    }
+
+    .input-area button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .input-area button:active {
+      transform: translateY(0);
+    }
+
+    .input-area button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .welcome-message {
+      text-align: center;
+      color: #666;
+      padding: 40px 20px;
+      font-style: italic;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .chat-container {
+        height: 90vh;
+        border-radius: 12px;
+      }
+
+      .chat-header {
+        padding: 15px;
+        border-radius: 12px 12px 0 0;
+      }
+
+      .messages {
+        padding: 15px;
+      }
+
+      .bubble {
+        max-width: 85%;
+      }
+
+      .input-area {
+        padding: 15px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="chat-container">
-    <div class="messages" id="messages"></div>
+    <div class="chat-header">
+      <h1>Azizjon Kasimov</h1>
+      <p>Chat with my AI assistant to learn about my experience and skills</p>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="welcome-message">
+        👋 Hi! I'm Azizjon's AI assistant. Ask me about his skills, experience, projects, education, or anything else
+        you'd like to know about him!
+      </div>
+    </div>
+
+    <div class="typing-indicator" id="typing-indicator">
+      <div class="typing-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
     <form class="input-area" id="chat-form">
-      <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off" required />
-      <button type="submit">Send</button>
+      <input type="text" id="message-input" placeholder="Ask about my experience, skills, projects..." autocomplete="off" required />
+      <button type="submit" id="send-button">Send</button>
     </form>
   </div>
 
@@ -33,24 +333,99 @@
     const form = document.getElementById('chat-form');
     const input = document.getElementById('message-input');
     const messagesEl = document.getElementById('messages');
-    const API_URL = import.meta.env.VITE_API_URL;
+    const sendButton = document.getElementById('send-button');
+    const typingIndicator = document.getElementById('typing-indicator');
+
+    // Import the API URL from environment variables
+    const API_URL = import.meta.env?.VITE_API_URL;
+
+    // Text formatting functions
+    function formatLLMResponse(text) {
+      // Convert markdown-like formatting to HTML
+      let formatted = text
+        // Headers
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+
+        // Bold and italic
+        .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+
+        // Code blocks and inline code
+        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+
+        // Lists - handle numbered and bulleted
+        .replace(/^\d+\.\s+(.*$)/gim, '<li>$1</li>')
+        .replace(/^[\-\*\+]\s+(.*$)/gim, '<li>$1</li>')
+
+        // Blockquotes
+        .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+
+        // Line breaks
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+
+      // Wrap consecutive <li> elements in appropriate list tags
+      formatted = formatted
+        .replace(/(<li>.*?<\/li>)(\s*<li>.*?<\/li>)*/g, function(match) {
+          // Check if it starts with numbers (ordered list) or bullets (unordered)
+          const isOrdered = /^\d+\./.test(text.match(/(?:^|\n)[\d\-\*\+\.].*?(?=\n|$)/)?.[0] || '');
+          const listTag = isOrdered ? 'ol' : 'ul';
+          return `<${listTag}>${match}</${listTag}>`;
+        });
+
+      // Wrap in paragraphs if no other block elements
+      if (!formatted.includes('<h') && !formatted.includes('<ul') && !formatted.includes('<ol') && !formatted.includes('<blockquote')) {
+        formatted = `<p>${formatted}</p>`;
+      }
+
+      return formatted;
+    }
 
     function appendMessage(text, sender) {
       const msgEl = document.createElement('div');
       msgEl.classList.add('message', sender);
       const bubble = document.createElement('div');
       bubble.classList.add('bubble');
-      bubble.textContent = text;
+
+      if (sender === 'bot') {
+        // Format the bot response
+        bubble.innerHTML = formatLLMResponse(text);
+      } else {
+        // Keep user messages as plain text for security
+        bubble.textContent = text;
+      }
+
       msgEl.appendChild(bubble);
       messagesEl.appendChild(msgEl);
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
-    // 1. Try to load an existing session ID
-    let sessionId = localStorage.getItem('chat_session_id');
 
-    // 2. If none exists, generate a new one and save it
+    function showTypingIndicator() {
+      typingIndicator.classList.add('show');
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function hideTypingIndicator() {
+      typingIndicator.classList.remove('show');
+    }
+
+    function setLoading(loading) {
+      sendButton.disabled = loading;
+      sendButton.textContent = loading ? 'Sending...' : 'Send';
+      if (loading) {
+        showTypingIndicator();
+      } else {
+        hideTypingIndicator();
+      }
+    }
+
+    // Session management
+    let sessionId = localStorage.getItem('chat_session_id');
     if (!sessionId) {
-      // modern browsers support crypto.randomUUID()
       sessionId = crypto.randomUUID();
       localStorage.setItem('chat_session_id', sessionId);
     }
@@ -59,25 +434,46 @@
       e.preventDefault();
       const userMessage = input.value.trim();
       if (!userMessage) return;
+
       appendMessage(userMessage, 'user');
       input.value = '';
+      setLoading(true);
 
       try {
-          const payload = {
+        const payload = {
           message: userMessage,
           session_id: sessionId
         };
+
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
+
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
         const data = await res.json();
-        appendMessage(data.response || data.reply || 'No response', 'bot');
+        const response = data.response || data.reply || 'No response received';
+
+        appendMessage(response, 'bot');
       } catch (err) {
-        console.error(err);
-        appendMessage('Error contacting server', 'bot');
+        console.error('Error:', err);
+        appendMessage('Sorry, I encountered an error. Please try again.', 'bot');
+      } finally {
+        setLoading(false);
+        input.focus();
+      }
+    });
+
+    // Auto-focus input on load
+    input.focus();
+
+    // Handle Enter key for better UX
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        form.dispatchEvent(new Event('submit'));
       }
     });
   </script>
