@@ -413,6 +413,7 @@
     const messagesEl = document.getElementById('messages');
     const sendButton = document.getElementById('send-button');
     const typingIndicator = document.getElementById('typing-indicator');
+    const conversationHistory = [];
 
     // Import the API URL from environment variables
     const API_URL = import.meta.env?.VITE_API_URL;
@@ -506,6 +507,15 @@
       const messagesEl = document.getElementById('messages');
       messagesEl.appendChild(msgEl);
       messagesEl.scrollTop = messagesEl.scrollHeight;
+
+      const record = {
+        id: msgId,
+        sender,
+        text: sender === 'user'
+          ? text
+          : bubble.innerText   // plain‑text version of the bot reply
+      };
+      conversationHistory.push(record);
     }
 
     function showTypingIndicator() {
@@ -560,6 +570,7 @@
       if (!pendingFeedback) return;
       const { messageId, type } = pendingFeedback;
       const text = textarea.value.trim();
+      const history = conversationHistory;  // snapshot of all messages so far
       // hide modal
       modal.style.display = 'none';
 
@@ -574,10 +585,11 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            session_id: sessionId,
-            message_id: messageId,
-            feedback: type,      // 'up' or 'down'
-            comment: text        // user’s textual feedback
+              session_id: sessionId,
+              message_id: messageId,
+              feedback: type,      // 'up' or 'down'
+              comment: text,       // user’s textual feedback
+              history: history
           })
         });
       } catch (err) {
