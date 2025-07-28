@@ -1,11 +1,24 @@
-# AzizjonKasimov.github.io
-Personal resume website
+# Interactive Chatbot Resume Website (Frontend)
 
-Make sure to have LLM API key in .env file. It should be named as 'VITE_API_URL'.
+An interactive resume website where visitors can chat with an AI chatbot to learn about my personal experience and 
+qualifications. Built with Vite and deployed via GitHub Pages. You can visit the live website at 
+[https://azizjonkasimov.github.io](https://azizjonkasimov.github.io).
 
-I also implemented Google Analytics to track the visits to the website.
+## Features
+- Interactive AI chatbot for resume inquiries
+- GitHub Pages hosting with automatic CI/CD deployment
+- Dynamic responses via custom LLM API
+- Google Analytics tracking
+- Responsive design
 
-# Run to test locally
+## Setup
+1. Add your LLM API URL to `.env` file as `VITE_API_URL`
+2. Push to main branch for automatic deployment
+
+## Development
 ```bash
+# Local development
 npm run dev
-```
+
+# Test build
+npm run build
