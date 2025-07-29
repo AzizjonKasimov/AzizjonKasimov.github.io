@@ -27,6 +27,9 @@ jobs:
           npm ci
           npm run build       # emits ./docs
 
+      - name: Add .nojekyll file
+        run: touch ./docs/.nojekyll
+
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
