@@ -416,7 +416,7 @@
     const conversationHistory = [];
 
     // Import the API URL from environment variables
-    const API_URL = import.meta.env?.VITE_API_URL;
+    const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL;
 
     // Text formatting functions
     function formatLLMResponse(text) {
@@ -581,7 +581,7 @@
       // send to server
       try {
         // feedback-submission in handleFeedback()
-        await fetch(`${API_URL}/api/feedback/`, {
+        await fetch(`${API_BASE_URL}/api/feedback/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -621,7 +621,7 @@
           session_id: sessionId
         };
 
-        const res = await fetch(`${API_URL}/api/chat/`, {
+        const res = await fetch(`${API_BASE_URL}/api/chat/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
