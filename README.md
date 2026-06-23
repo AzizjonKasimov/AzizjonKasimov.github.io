@@ -11,13 +11,13 @@ This repository contains the frontend application for the Interactive Chatbot Re
 ## Architecture
 
 - **Frontend**: This repository (Vite + Vanilla JavaScript)
-- **Backend**: [Chatbot Resume Website Backend](https://github.com/AzizjonKasimov/chatbot_resume_website_backend) (Django + Gemini AI)
+- **Backend**: [Chatbot Resume Website Backend](https://github.com/AzizjonKasimov/chatbot_resume_website_backend) (Django + Groq)
 
 ## Features
 
 ### Core Functionality
 - **AI-Powered Conversations**: Interactive chatbot that answers questions about your professional background
-- **Dynamic API Integration**: Real-time responses from custom Django backend with Gemini AI
+- **Dynamic API Integration**: Real-time responses from custom Django backend using Groq, with backend-managed fallback behavior when provider limits are reached
 - **User Feedback System**: Collect visitor feedback and automatically send via email
 - **Responsive Design**: Optimized experience across desktop, tablet, and mobile devices
 
