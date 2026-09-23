@@ -2,3 +2,7 @@
 .idea/
 node_modules/
 docs/
+
+# Local agent loader pointers (canonical files live in my_agent_configs)
+/AGENTS.md
+/CLAUDE.md
