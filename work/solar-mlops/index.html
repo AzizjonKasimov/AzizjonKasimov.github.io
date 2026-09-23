@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Solar forecasting and anomaly detection in production — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: leading the team that took solar power forecasting and solar power-plant anomaly detection into production. Forecast error 9% to 7%, anomaly precision up ~35%, deploys from 3 hours to 15 minutes."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/solar-mlops/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Solar forecasting and anomaly detection in production — case study" />
+    <meta
+      property="og:description"
+      content="Forecast error 9% to 7%, anomaly precision up ~35% and recall up ~37%, deploys from 3 hours to 15 minutes, 80% less manual ops work."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/solar-mlops/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#work">← All work</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Production</span>
+            <span class="mono">Recs Innovation · 2024</span>
+          </div>
+          <h1>Solar forecasting and anomaly detection, in production</h1>
+          <p class="lead">
+            At Recs Innovation I was promoted twice, from intern to AI Team Lead. I led the team that took solar power
+            forecasting and anomaly detection for solar power plants into production, with the inference services
+            connected to a Virtual Power Plant (VPP) platform.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>Data Science Intern → AI Developer → AI Team Lead (Mar–Nov 2024). Led the ML, backend, and frontend teams.</dd>
+            </div>
+            <div>
+              <dt>Result</dt>
+              <dd>Forecast error from 9% to 7%. Anomaly precision up ~35%, recall up ~37%. Deploys from 3 hours to 15 minutes.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>PyTorch, graph neural network (GNNAD), FastAPI, Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana, MLflow</dd>
+            </div>
+            <div>
+              <dt>Business impact</dt>
+              <dd>Revenue from power brokerage on the Korea Power Exchange (KPX). 80% less manual ops work (~$48K/year).</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>The company needed two models working in production, not just in experiments:</p>
+            <ul>
+              <li>
+                a <strong>solar generation forecast</strong> accurate enough for power brokerage on the Korea Power
+                Exchange (KPX), and
+              </li>
+              <li><strong>anomaly detection</strong> that watches data from solar power plants.</li>
+            </ul>
+            <p>Both had to run reliably and plug into a commercial VPP platform.</p>
+
+            <h2>System overview</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Plant data</span>
+                  <span class="step-desc">Multivariate time-series data from solar power plants.</span>
+                </li>
+                <li>
+                  <span class="step-name">Training</span>
+                  <span class="step-desc">PyTorch models, with experiments tracked in MLflow. The anomaly detector retrains nightly.</span>
+                </li>
+                <li>
+                  <span class="step-name">Models</span>
+                  <span class="step-desc">A solar generation forecast and a graph-based (GNN) anomaly detector.</span>
+                </li>
+                <li>
+                  <span class="step-name">Inference APIs</span>
+                  <span class="step-desc">FastAPI services expose the forecasts and anomaly results.</span>
+                </li>
+                <li>
+                  <span class="step-name">VPP platform</span>
+                  <span class="step-desc">The services plug into a commercial Virtual Power Plant platform.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>CI/CD</strong>GitHub Actions deploys containerized services</li>
+                <li><strong>Infrastructure</strong>Docker Compose services with PostgreSQL</li>
+                <li><strong>Monitoring</strong>Prometheus metrics and Grafana dashboards</li>
+              </ul>
+              <figcaption id="flow-caption">Simplified view of the production setup.</figcaption>
+            </figure>
+
+            <h2>Forecasting</h2>
+            <ul>
+              <li>
+                As AI Developer, I built a PyTorch solar generation forecast with under 10% average error. That qualified
+                the company for KPX business.
+              </li>
+              <li>
+                As team lead, I cut the forecast error from 9% to 7% (22% lower), which enabled revenue from KPX power
+                brokerage.
+              </li>
+            </ul>
+
+            <h2>Anomaly detection for solar power plants</h2>
+            <p>
+              I worked on multivariate time-series anomaly detection with a graph-based model (GNNAD). The gains came step
+              by step:
+            </p>
+            <ul>
+              <li>
+                <strong>Clearer view of errors.</strong> I refactored the open-source codebase heavily and added plots that
+                compare predictions with actual data for every feature.
+              </li>
+              <li><strong>Better error calculation:</strong> precision +5%, recall +7%.</li>
+              <li>
+                <strong>Hourly thresholds:</strong> 24 thresholds instead of one global threshold, to follow how the error
+                changes during the day. Recall +10%.
+              </li>
+              <li>
+                <strong>Cleaner training data:</strong> removing anomalous points from the training set gave precision +30%
+                and recall +20%.
+              </li>
+              <li>
+                <strong>Honest validation:</strong> cross-validation that matches production, with 16-point inference
+                windows, hourly thresholds, and nightly retraining.
+              </li>
+            </ul>
+            <p>
+              <strong>Overall, precision rose by about 35% and recall by about 37%.</strong> Earlier, as an intern, I had
+              tuned the GNN model to 70% precision and 50% recall, tracked the experiments in MLflow, and built the FastAPI
+              endpoints that connect the anomaly detection system to the VPP platform.
+            </p>
+
+            <h2>MLOps and deployment</h2>
+            <ul>
+              <li>
+                I containerized the anomaly detection system and automated deployments with GitHub Actions. Deployment
+                time fell from 3 hours to 15 minutes.
+              </li>
+              <li>
+                I built end-to-end MLOps infrastructure with Docker Compose, GitHub Actions, PostgreSQL, Prometheus, and
+                Grafana. Manual operations fell by 80%, saving about $48K a year.
+              </li>
+            </ul>
+
+            <h2>Leading the team</h2>
+            <p>
+              As AI Team Lead, I managed the ML, backend, and frontend teams and made sure the models plugged cleanly into
+              the VPP platform.
+            </p>
+
+            <h2>Results</h2>
+            <ul class="metric-grid">
+              <li><span class="num">9% → 7%</span><span class="lbl">forecast error, enabling KPX power-brokerage revenue</span></li>
+              <li><span class="num">+35% / +37%</span><span class="lbl">anomaly-detection precision / recall</span></li>
+              <li><span class="num">3 h → 15 min</span><span class="lbl">deployment time</span></li>
+              <li><span class="num">−80%</span><span class="lbl">manual operations work (~$48K/year)</span></li>
+            </ul>
+            <p>
+              Screenshots of both systems are attached to this role on my
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn profile</a>.
+            </p>
+
+            <p class="callout">
+              This write-up is simplified. It contains no employer code, internal data, or private URLs.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/aws-data-pipeline/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">Serverless data pipeline on AWS</span>
+            </a>
+            <a class="next" href="/work/catalog-agent/">
+              <span class="dir">Next →</span>
+              <span class="ttl">LangGraph agent for catalog data</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>AI semantic search for auto parts — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: natural-language search that finds the exact auto part for a specific car. Vector search, NER, LLM query cleanup, and an accuracy test suite. 95%+ on the required 3,000-part test."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/semantic-search/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="AI semantic search for auto parts — case study" />
+    <meta
+      property="og:description"
+      content="Vector search, entity recognition, and LLM query cleanup, with an automated accuracy test suite. 95%+ on the required 3,000-part test."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/semantic-search/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#work">← All work</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Production</span>
+            <span class="mono">G-Man Auto Parts · 2025–2026</span>
+          </div>
+          <h1>AI semantic search for auto parts</h1>
+          <p class="lead">
+            Buyers and suppliers needed to find the exact part for a specific car by typing plain words, in more than one
+            language. I built the search end to end, plus a test suite that proved it met the 95% accuracy bar.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>Only AI/ML engineer. I owned the design, embeddings, entity recognition, LLM steps, evaluation, and production.</dd>
+            </div>
+            <div>
+              <dt>Result</dt>
+              <dd>95%+ accuracy on the required 3,000-part test. The R&amp;D project was approved.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Python, Django REST Framework, Weaviate, spaCy, OpenAI API (GPT-4o-mini), Celery, PostgreSQL, AWS S3, React</dd>
+            </div>
+            <div>
+              <dt>Scale</dt>
+              <dd>A catalog of 2M+ parts records and 300K+ searchable listings (Kia, Hyundai, SsangYong, Chevrolet)</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>
+              People describe the same part in many ways: “headlight” or “head lamp”, informal names, or other
+              languages. But the right answer is one part number for one exact car: brand, model, year, fuel,
+              transmission, generation, and side (left or right, front or rear).
+            </p>
+            <p>
+              Rigid keyword filters could not handle this. The company needed natural-language search that returns the
+              correct part with high precision. It also had to pass a formal accuracy test for an R&amp;D project.
+            </p>
+
+            <h2>How a query flows</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Language check</span>
+                  <span class="step-desc">A small language detector runs first, so the LLM is only called when it is needed.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM normalization</span>
+                  <span class="step-desc">Non-English queries are translated and cleaned up (GPT-4o-mini).</span>
+                </li>
+                <li>
+                  <span class="step-name">Entity extraction</span>
+                  <span class="step-desc">spaCy NER finds brand, model, year, fuel, transmission, part name, side, and generation.</span>
+                </li>
+                <li>
+                  <span class="step-name">Filtered vector search</span>
+                  <span class="step-desc">The entities become exact filters on top of a semantic search in Weaviate.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM re-ranking</span>
+                  <span class="step-desc">An LLM post-filter drops clearly wrong results and re-orders the rest.</span>
+                </li>
+                <li>
+                  <span class="step-name">Results</span>
+                  <span class="step-desc">Product search for buyers, or catalog matching for suppliers.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Django REST API</strong>Serves both search modes to the store and admin tools</li>
+                <li><strong>Accuracy test suite</strong>Runs the same pipeline on a fixed test set</li>
+                <li><strong>S3 reports</strong>Every test run is saved and survives redeploys</li>
+              </ul>
+              <figcaption id="flow-caption">Simplified view of the production search pipeline.</figcaption>
+            </figure>
+
+            <h2>What I built</h2>
+            <ul>
+              <li>
+                <strong>Vector search core.</strong> I embedded the parts catalog in Weaviate and built the search service
+                in Django REST Framework. I designed the text that gets embedded (field labels, part side, car year, and
+                curated synonyms) to raise recall.
+              </li>
+              <li>
+                <strong>Entities as hard filters.</strong> spaCy pulls structured facts out of a free-text query and turns
+                them into exact filters. The vector search handles wording; the filters make sure the car and the side are
+                right.
+              </li>
+              <li>
+                <strong>Two search modes.</strong> Product search for buyers. Auto-matching for suppliers: an uploaded part
+                is matched to catalog records, and each distinct part number becomes its own result.
+              </li>
+              <li>
+                <strong>Multilingual queries.</strong> Non-English queries go through an LLM step. Moving from GPT-3.5-Turbo
+                to GPT-4o-mini gave better quality at a lower cost, and the language check keeps LLM calls to a minimum.
+              </li>
+              <li>
+                <strong>Relevance tuning.</strong> An LLM re-ranker removes clearly wrong results. A part-name alias system
+                (for example, “headlight” → “Head Lamp Assembly”) raised accuracy on everyday wording.
+              </li>
+              <li>
+                <strong>Frontend wiring.</strong> I connected the React/TypeScript store and admin tools to the search APIs:
+                filters feed the query, matches autofill forms, and results sort by relevance with a certainty threshold.
+              </li>
+            </ul>
+
+            <h2>Measuring accuracy</h2>
+            <p>
+              Accuracy had to be measured, not guessed. I built an internal testing page that runs the same pipeline as
+              production search on a fixed, curated test set.
+            </p>
+            <ul>
+              <li><strong>Metrics:</strong> accuracy@1 and accuracy@3, precision, recall, F1, a confusion matrix, and cross-validation.</li>
+              <li><strong>Repeatable runs:</strong> automated or manual. Each run records who ran it and whether LLM preprocessing was on.</li>
+              <li><strong>Safe by design:</strong> test data lives in separate collections, with guards so a test can never touch production data.</li>
+              <li><strong>Error analysis:</strong> I traced “no results” cases to stale test objects, SKU-to-catalog mismatches, clashing entity patterns, and body-color handling, then fixed each one.</li>
+            </ul>
+
+            <h2>Results</h2>
+            <ul class="metric-grid">
+              <li><span class="num">95%+</span><span class="lbl">accuracy on the required 3,000-part evaluation set</span></li>
+              <li><span class="num">Approved</span><span class="lbl">R&amp;D project, after passing the accuracy bar</span></li>
+              <li><span class="num">300K+</span><span class="lbl">searchable listings, on a catalog of 2M+ parts records</span></li>
+            </ul>
+            <p>
+              The search went live in production for both buyers and suppliers. I also ran the automated accuracy tests
+              in production and fixed the issues they found.
+            </p>
+
+            <p class="callout">
+              This write-up is simplified. It contains no employer code, internal data, or private URLs.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/catalog-agent/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">LangGraph agent for catalog data</span>
+            </a>
+            <a class="next" href="/work/aws-data-pipeline/">
+              <span class="dir">Next →</span>
+              <span class="ttl">Serverless data pipeline on AWS</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

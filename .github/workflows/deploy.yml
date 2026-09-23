@@ -2,43 +2,47 @@ name: Build & Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: read        # allow checkout
-  pages: write          # allow Pages deployment
-  id-token: write       # required for the deploy-pages action
+  contents: read # allow checkout
+  pages: write # allow Pages deployment
+  id-token: write # required for the deploy-pages action
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'    # Node 20+ for Vite v7
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies & build
-        env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         run: |
           npm ci
           npm run build
 
       - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: ./docs        # point at your build output
+          path: ./docs # Vite build output
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        id: deployment
+        uses: actions/deploy-pages@v5

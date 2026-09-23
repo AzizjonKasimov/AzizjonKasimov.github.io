@@ -1,0 +1,100 @@
+<!doctype html>
+<!-- Source for public/og-image.png (1200x630). Re-render with tools/render-images.ps1. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      body {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        padding: 72px 80px 64px;
+        background:
+          radial-gradient(900px 520px at 100% 0%, rgb(60 198 184 / 0.18), transparent 60%),
+          #0e1113;
+        color: #e8ebee;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+
+      .mark {
+        display: grid;
+        place-items: center;
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        background: #3cc6b8;
+        color: #062220;
+        font: 700 26px/1 "Cascadia Mono", Consolas, monospace;
+      }
+
+      h1 {
+        margin: 36px 0 0;
+        font-size: 84px;
+        font-weight: 700;
+        letter-spacing: -2px;
+        line-height: 1;
+      }
+
+      .role {
+        margin: 14px 0 0;
+        color: #3cc6b8;
+        font-size: 40px;
+        font-weight: 600;
+      }
+
+      .tagline {
+        margin: 22px 0 0;
+        color: #b6bdc4;
+        font-size: 30px;
+      }
+
+      .stats {
+        display: flex;
+        gap: 44px;
+        margin-top: auto;
+        padding-top: 28px;
+        border-top: 1px solid #262d32;
+      }
+
+      .stats b {
+        display: block;
+        font-size: 34px;
+        font-weight: 700;
+      }
+
+      .stats span {
+        color: #8f98a0;
+        font-size: 19px;
+      }
+
+      .url {
+        position: absolute;
+        top: 88px;
+        right: 80px;
+        color: #8f98a0;
+        font: 22px "Cascadia Mono", Consolas, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mark">AK</div>
+    <div class="url">azizjonkasimov.github.io</div>
+    <h1>Azizjon Kasimov</h1>
+    <p class="role">AI/ML Engineer</p>
+    <p class="tagline">Production AI: LLM and vector search, AWS data pipelines, MLOps</p>
+    <div class="stats">
+      <div><b>95%+</b><span>search accuracy</span></div>
+      <div><b>2M+</b><span>parts in the AI search</span></div>
+      <div><b>9% → 7%</b><span>forecast error</span></div>
+      <div><b>−80%</b><span>manual ops work</span></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Serverless data pipeline on AWS — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: an event-driven AWS pipeline (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch) that collected used-parts market data, reaching about 5M listings per day in testing."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/aws-data-pipeline/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Serverless data pipeline on AWS — case study" />
+    <meta
+      property="og:description"
+      content="Lambda workers, SQS with a dead-letter queue, EventBridge schedules, PostgreSQL, and CloudWatch alarms. About 5M listings per day in testing."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/aws-data-pipeline/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#work">← All work</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Production</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>Serverless data pipeline on AWS</h1>
+          <p class="lead">
+            Pricing research needed a steady feed of used-parts market data. I designed, built, and ran an event-driven
+            pipeline on AWS that reached about 5 million listings a day in testing.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>Sole designer, builder, and operator, as part of taking over AWS from a senior engineer who left.</dd>
+            </div>
+            <div>
+              <dt>Result</dt>
+              <dd>~5M listings per day in testing. Ran daily in production with monitoring and alerts.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>AWS Lambda (Docker images), SQS, EventBridge, RDS PostgreSQL, RDS Proxy, CloudWatch, SNS, ECR, Python</dd>
+            </div>
+            <div>
+              <dt>Scope</dt>
+              <dd>Marketplace listings for the 7 vehicle brands the company handles, collected every day</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>
+              The company's price-prediction work needed broad, fresh market data. The target was about 5 million
+              listings a day across the 7 vehicle brands it handles.
+            </p>
+            <p>
+              The pipeline had to be reliable, stay within budget, and cope with a source that limits how fast it can be
+              read.
+            </p>
+
+            <h2>Architecture</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Schedule</span>
+                  <span class="step-desc">EventBridge starts each crawl cycle. A small Lambda resets the day's targets.</span>
+                </li>
+                <li>
+                  <span class="step-name">Queue</span>
+                  <span class="step-desc">SQS holds the work. It replaced an earlier “database as a queue” design. Failed messages go to a dead-letter queue.</span>
+                </li>
+                <li>
+                  <span class="step-name">Workers</span>
+                  <span class="step-desc">Lambda functions, packaged as Docker images, fetch and parse pages in parallel.</span>
+                </li>
+                <li>
+                  <span class="step-name">Storage</span>
+                  <span class="step-desc">Listings land in RDS PostgreSQL, with RDS Proxy for connection pooling. Writes are incremental and atomic.</span>
+                </li>
+                <li>
+                  <span class="step-name">Alerts</span>
+                  <span class="step-desc">CloudWatch metrics and alarms, with notifications through SNS.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Retry and recovery</strong>Safe target claiming, retries, stuck-job recovery, and DLQ redrive</li>
+                <li><strong>Monitoring Lambda</strong>Read-only job that reports database health to CloudWatch</li>
+                <li><strong>Health checks</strong>AWS CLI scripts that run on any OS</li>
+              </ul>
+              <figcaption id="flow-caption">Simplified view. Service names are generic AWS building blocks.</figcaption>
+            </figure>
+
+            <h2>Built to slow down, not fall over</h2>
+            <p>A data source that limits request rates will push back. The pipeline was designed for that:</p>
+            <ul>
+              <li>
+                <strong>Circuit breaker.</strong> When pages start getting blocked, workers pause instead of retrying
+                harder. A shared cooldown state lives in PostgreSQL.
+              </li>
+              <li>
+                <strong>Adaptive rate limiting.</strong> Request timing has jitter, the pipeline backs off automatically
+                when the source pushes back, and workers ramp up gradually after a cooldown.
+              </li>
+              <li>
+                <strong>Safe concurrency.</strong> Workers claim targets safely, retry, and recover stuck jobs, so many of
+                them can run in parallel without clashing.
+              </li>
+            </ul>
+
+            <h2>Observability and operations</h2>
+            <ul>
+              <li>
+                <strong>Alarms</strong> for the things that matter: orchestrator down, worker failures, concurrency
+                throttling, queue backlog and message age, blocked-page rate, database write failures, and listings per day.
+              </li>
+              <li>
+                <strong>Health checks</strong> with AWS CLI scripts, plus a small read-only Lambda that posts database
+                health to CloudWatch.
+              </li>
+              <li>
+                <strong>Written procedures</strong> for throttling or stopping Lambdas and purging queues, so a runaway
+                job can't run up costs.
+              </li>
+            </ul>
+
+            <h2>Hardening after senior review</h2>
+            <p>
+              PostgreSQL statement timeouts, a URL allow-list, response-size limits, failing fast on suspicious empty
+              pages, atomic write paths, and structured failure capture. I also removed an expensive
+              <code>COUNT(*)</code> from the hot path, added index maintenance tools, and set retention policies for ECR
+              images and CloudWatch logs to control cost.
+            </p>
+
+            <h2>Results</h2>
+            <ul class="metric-grid">
+              <li><span class="num">~5M/day</span><span class="lbl">listings, reaching the target in testing</span></li>
+              <li><span class="num">Daily</span><span class="lbl">collection, storage, and alerting in production</span></li>
+              <li><span class="num">7 brands</span><span class="lbl">covered for the company's pricing research</span></li>
+            </ul>
+            <p>
+              <strong>What I learned:</strong> when the source tightened its rate limits, sustainable throughput fell to
+              about 5,000 listings a day, which became the normal operating rate. At this scale, the real limit is often
+              the data source, not the infrastructure, so back-off has to be part of the design from day one.
+            </p>
+
+            <p class="callout">
+              This write-up is simplified. It contains no employer code, internal data, or private URLs, and the data
+              source is not named.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/semantic-search/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">AI semantic search for auto parts</span>
+            </a>
+            <a class="next" href="/work/solar-mlops/">
+              <span class="dir">Next →</span>
+              <span class="ttl">Solar forecasting and anomaly detection</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

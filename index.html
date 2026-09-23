@@ -1,422 +1,528 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FK1J6QDJP"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-1FK1J6QDJP');
-  </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume Assistant</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      margin: 0;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .chat-container {
-      width: 100%;
-      max-width: 600px;
-      height: 80vh;
-      max-height: 700px;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .chat-header {
-      background: linear-gradient(135deg, #2c3e50, #34495e);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      border-radius: 16px 16px 0 0;
-    }
-
-    .chat-header h1 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .chat-header p {
-      opacity: 0.9;
-      font-size: 0.9rem;
-    }
-
-    .messages {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      background: #f8f9fa;
-      scroll-behavior: smooth;
-    }
-
-    .messages::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .messages::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-
-    .messages::-webkit-scrollbar-thumb {
-      background: #c1c1c1;
-      border-radius: 3px;
-    }
-
-    .message {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-        animation: fadeInUp 0.3s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Azizjon Kasimov — AI/ML Engineer</title>
+    <meta
+      name="description"
+      content="AI/ML engineer in South Korea. I build AI systems that run in production: LLM and vector search, data pipelines on AWS, and MLOps. Case studies, experience, and contact."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="Azizjon Kasimov — AI/ML Engineer" />
+    <meta
+      property="og:description"
+      content="I build AI systems that run in production: LLM and vector search, data pipelines on AWS, and MLOps."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/" />
+    <meta name="google-site-verification" content="Eyk_MeCGxmd6FsdZy5qMTfHjQb61vRYbiHgkDRmeils" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Azizjon Kasimov",
+        "jobTitle": "AI/ML Engineer",
+        "url": "https://azizjonkasimov.github.io/",
+        "email": "mailto:azizkhasimov@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Daejeon", "addressCountry": "KR" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Woosong University" },
+        "knowsAbout": [
+          "Machine learning",
+          "LLM systems",
+          "Retrieval-augmented generation",
+          "Vector search",
+          "MLOps",
+          "AWS",
+          "Python"
+        ],
+        "knowsLanguage": ["en", "ru", "uz", "ko"],
+        "sameAs": ["https://www.linkedin.com/in/azizjon-kasimov", "https://github.com/AzizjonKasimov"]
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    </script>
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
 
-    .message.bot .bubble,
-    .message.bot .feedback {
-      align-self: flex-start;
-    }
+    <main id="main">
+      <section class="hero container" aria-labelledby="hero-title">
+        <h1 id="hero-title">Azizjon Kasimov</h1>
+        <p class="role">AI/ML Engineer</p>
+        <p class="lead">
+          I build AI systems that run in production: LLM and vector search, data pipelines on AWS, and MLOps.
+        </p>
+        <p class="sub">
+          2+ years of building and running AI/ML systems. Most recently I was the only AI/ML engineer at a used
+          auto-parts e-commerce company. Before that, I led an AI team in renewable energy.
+        </p>
+        <p class="availability">
+          Based in Daejeon, South Korea. Open to AI/ML engineering roles in Seoul (on-site or hybrid), remote roles, and
+          relocation to Europe or the UK.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+            Email me
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="https://github.com/AzizjonKasimov" rel="me">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57l-.02-2.04c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.6-2.8 5.62-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .32.21.69.82.57A12 12 0 0 0 12 .3" /></svg>
+            GitHub
+          </a>
+        </div>
 
-    .message.user .bubble,
-    .message.user .feedback {
-      align-self: flex-end;
-    }
+        <dl class="stats">
+          <div class="stat">
+            <dt>Search accuracy on a required 3,000-part test. R&amp;D project approved.</dt>
+            <dd>95%+</dd>
+          </div>
+          <div class="stat">
+            <dt>Auto parts covered by the AI search I built</dt>
+            <dd>2M+</dd>
+          </div>
+          <div class="stat">
+            <dt>Solar forecast error, which enabled power-brokerage revenue</dt>
+            <dd>9% → 7%</dd>
+          </div>
+          <div class="stat">
+            <dt>Less manual ops work after MLOps automation (~$48K/year)</dt>
+            <dd>−80%</dd>
+          </div>
+        </dl>
+      </section>
 
-    .feedback {
-      margin-top: 6px;
-      display: flex;
-      gap: 12px;
-      font-size: 1.2rem;
-    }
-    .feedback .thumb {
-      cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-    .feedback .thumb:hover {
-      transform: scale(1.2);
-    }
-    .feedback .selected {
-      filter: brightness(1.3);
-    }
+      <section class="section container" id="work" aria-labelledby="work-title">
+        <div class="section-head">
+          <p class="eyebrow">Selected work</p>
+          <h2 id="work-title">Production AI, from problem to monitored system</h2>
+          <p>
+            Four projects that show how I work. Each case study covers the problem, what I built, how I measured it,
+            and the result. Details are simplified, and there is no employer code or private data.
+          </p>
+        </div>
 
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .modal-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    }
-    .modal-content p {
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-    .modal-content textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      resize: vertical;
-    }
-    .modal-buttons {
-      text-align: right;
-    }
-    .modal-buttons button {
-      margin-left: 8px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    #feedback-submit {
-      background: #667eea;
-      color: #fff;
-    }
-    #feedback-cancel {
-      background: #eee;
-    }
+        <div class="card-grid">
+          <article class="card card-link">
+            <div class="card-meta">
+              <span class="badge badge-prod">Production</span>
+              <span class="mono">G-Man Auto Parts · 2025–2026</span>
+            </div>
+            <h3><a href="/work/semantic-search/">AI semantic search for auto parts</a></h3>
+            <p>
+              Natural-language search that finds the exact part for a specific car, in more than one language. Vector
+              search, entity recognition, and LLM query cleanup, plus an automated accuracy test suite.
+            </p>
+            <p class="result">95%+ accuracy on the required 3,000-part test. The R&amp;D project was approved.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>Python</li>
+              <li>Django REST</li>
+              <li>Weaviate</li>
+              <li>spaCy</li>
+              <li>OpenAI API</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Read the case study <span>→</span></span>
+          </article>
 
-    .bubble {
-      max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 18px;
-      position: relative;
-      word-wrap: break-word;
-      line-height: 1.4;
-    }
+          <article class="card card-link">
+            <div class="card-meta">
+              <span class="badge badge-prod">Production</span>
+              <span class="mono">G-Man Auto Parts · 2026</span>
+            </div>
+            <h3><a href="/work/aws-data-pipeline/">Serverless data pipeline on AWS</a></h3>
+            <p>
+              An event-driven pipeline that collects used-parts market data for pricing research. Lambda workers, an SQS
+              queue with a dead-letter queue, scheduled runs, PostgreSQL, and CloudWatch alarms.
+            </p>
+            <p class="result">About 5M listings per day in testing. Ran daily in production with monitoring and alerts.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>AWS Lambda</li>
+              <li>SQS</li>
+              <li>EventBridge</li>
+              <li>PostgreSQL</li>
+              <li>CloudWatch</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Read the case study <span>→</span></span>
+          </article>
 
-    .user .bubble {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #fff;
-      border-bottom-right-radius: 6px;
-      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-    }
+          <article class="card card-link">
+            <div class="card-meta">
+              <span class="badge badge-prod">Production</span>
+              <span class="mono">Recs Innovation · 2024</span>
+            </div>
+            <h3><a href="/work/solar-mlops/">Solar forecasting and anomaly detection, in production</a></h3>
+            <p>
+              I led the team that took solar power forecasting and anomaly detection for solar power plants into
+              production, connected to a Virtual Power Plant platform.
+            </p>
+            <p class="result">
+              Forecast error from 9% to 7%. Anomaly precision up ~35%, recall up ~37%. Deploys from 3 hours to 15 minutes.
+            </p>
+            <ul class="tags" aria-label="Technologies">
+              <li>PyTorch</li>
+              <li>GNN</li>
+              <li>FastAPI</li>
+              <li>Docker</li>
+              <li>GitHub Actions</li>
+              <li>Grafana</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Read the case study <span>→</span></span>
+          </article>
 
-    .bot .bubble {
-      background: #fff;
-      color: #2c3e50;
-      border-bottom-left-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border: 1px solid #e1e8ed;
-    }
+          <article class="card card-link">
+            <div class="card-meta">
+              <span class="badge badge-proto">Prototype</span>
+              <span class="mono">G-Man Auto Parts · 2026</span>
+            </div>
+            <h3><a href="/work/catalog-agent/">LangGraph agent for catalog data</a></h3>
+            <p>
+              An agent workflow that turns a simple request (brand, model, year, region) into clean, catalog-ready parts
+              data, with scheduling, resumable jobs, and a report the data team can check.
+            </p>
+            <p class="result">Working prototype built for the data team. Not in production when I left.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>LangGraph</li>
+              <li>OpenAI API</li>
+              <li>APScheduler</li>
+              <li>PostgreSQL</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Read the case study <span>→</span></span>
+          </article>
+        </div>
 
-    /* Formatted text styles for bot responses */
-    .bot .bubble h1, .bot .bubble h2, .bot .bubble h3 {
-      color: #2c3e50;
-      margin: 8px 0 4px 0;
-      font-weight: 600;
-    }
+        <h3 class="subhead">Also at G-Man Auto Parts</h3>
+        <ul class="mini-list">
+          <li>
+            <h4>Used-parts price prediction</h4>
+            <p>
+              R&amp;D on a pricing model that combines depreciation, demand, and live market signals. Tested with MAE and
+              MAPE: about 70–80% accuracy on a small real-world test set.
+            </p>
+          </li>
+          <li>
+            <h4>Bilingual product summaries</h4>
+            <p>
+              An LLM pipeline that wrote English and Korean summaries for all ~40K products, with rules from domain
+              experts. Proof of concept.
+            </p>
+          </li>
+          <li>
+            <h4>Data migration at scale</h4>
+            <p>
+              Migrated ~40K company records and loaded 2M+ third-party catalog records, with deduplication and safe,
+              atomic writes.
+            </p>
+          </li>
+        </ul>
+      </section>
 
-    .bot .bubble h1 { font-size: 1.2em; }
-    .bot .bubble h2 { font-size: 1.1em; }
-    .bot .bubble h3 { font-size: 1em; }
+      <section class="section container" id="how-i-build" aria-labelledby="build-title">
+        <div class="section-head">
+          <p class="eyebrow">How I build</p>
+          <h2 id="build-title">AI-native engineering, with guardrails</h2>
+          <p>
+            Since April 2026, I build most software by directing coding agents: Claude Code and Codex. The agents write
+            fast. The rules, project notes, and checks around them keep the work reliable.
+          </p>
+        </div>
 
-    .bot .bubble p {
-      margin: 6px 0;
-      line-height: 1.5;
-    }
+        <div class="card-grid card-grid-3">
+          <article class="card card-plain">
+            <div class="card-meta"><span class="mono">Private repo · 2026</span></div>
+            <h3>Shared rules for coding agents</h3>
+            <p>
+              One central set of rules and project notes, used in 19 projects (9 company, 10 personal). Claude Code and
+              Codex load the same standards and keep context between sessions. If the rules can't be loaded, the agent
+              must stop and ask.
+            </p>
+            <p>
+              Agents keep changes small, update the docs, never read secrets or change production databases, and must
+              pass a real end-to-end check before a task counts as done.
+            </p>
+          </article>
 
-    .bot .bubble ul, .bot .bubble ol {
-      margin: 8px 0;
-      padding-left: 20px;
-    }
+          <article class="card card-plain">
+            <div class="card-meta"><span class="mono">Private repo · TypeScript · 2026</span></div>
+            <h3>Private AI gateway</h3>
+            <p>
+              A small service, backed by Claude, that gives my apps one AI endpoint. It returns output that matches a
+              JSON Schema and accepts OpenAI-style requests, so existing clients work unchanged.
+            </p>
+            <p>
+              It also runs agent turns where the model plans and the calling app runs its own tools, so app data never
+              lives on the gateway.
+            </p>
+          </article>
 
-    .bot .bubble li {
-      margin: 4px 0;
-      line-height: 1.4;
-    }
+          <article class="card card-plain">
+            <div class="card-meta"><span class="mono">Android · 2026</span></div>
+            <h3>Five Android apps, built entirely with AI agents</h3>
+            <p>
+              Expenses (my daily finance app), Network App, OneShot Reminder, Notes, and Life Simulator. AI output is
+              checked against a fixed schema, and the user confirms it before anything is saved. Each app updates itself
+              from signed GitHub Releases.
+            </p>
+            <ul class="card-links">
+              <li><a href="https://github.com/AzizjonKasimov/network-app">Network App</a></li>
+              <li><a href="https://github.com/AzizjonKasimov/oneshot-reminder">OneShot Reminder</a></li>
+              <li><a href="https://github.com/AzizjonKasimov/note-taking-app">Notes</a></li>
+              <li><a href="https://github.com/AzizjonKasimov/life_simulator_app">Life Simulator</a></li>
+            </ul>
+          </article>
 
-    .bot .bubble strong {
-      color: #2c3e50;
-      font-weight: 600;
-    }
+        </div>
 
-    .bot .bubble em {
-      font-style: italic;
-      color: #5a6c7d;
-    }
+        <p class="note">
+          Earlier ML work: diabetic-retinopathy image classification for freelance clients, an
+          <a href="https://github.com/AzizjonKasimov/image-to-text_model">image captioning model</a> (ResNet50 + LSTM),
+          and reinforcement-learning experiments for solar forecasting. More on
+          <a href="https://github.com/AzizjonKasimov?tab=repositories">GitHub</a>.
+        </p>
+      </section>
 
-    .bot .bubble code {
-      background: #f1f3f4;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.9em;
-    }
+      <section class="section container" id="experience" aria-labelledby="experience-title">
+        <div class="section-head">
+          <p class="eyebrow">Experience</p>
+          <h2 id="experience-title">Where I've worked</h2>
+        </div>
 
-    .bot .bubble blockquote {
-      border-left: 3px solid #667eea;
-      margin: 8px 0;
-      padding-left: 12px;
-      color: #5a6c7d;
-      font-style: italic;
-    }
+        <ol class="timeline">
+          <li class="role-item">
+            <p class="role-when">
+              <span class="mono">Mar 2025 – Jul 2026</span>
+              South Korea (remote)
+            </p>
+            <div class="role-body">
+              <h3>AI/ML Engineer</h3>
+              <p class="org"><strong>G-Man Auto Parts</strong> · used auto-parts e-commerce</p>
+              <ul class="bullets">
+                <li>
+                  The only AI/ML engineer. Designed and ran the AI search, data pipelines, and AWS setup, and took over AWS
+                  from a senior engineer who left. Also built backend (Django) and frontend (React) features.
+                </li>
+                <li>
+                  Built an AI search for 2M+ auto parts (Weaviate, spaCy, OpenAI). It reached 95%+ accuracy on a required
+                  3,000-part test, and the R&amp;D project was approved.
+                </li>
+                <li>
+                  Built a serverless AWS data pipeline (Lambda, SQS, EventBridge, PostgreSQL) that collected ~5M listings
+                  per day in testing, with automatic retries and failure alerts.
+                </li>
+                <li>
+                  Made services safer after senior code review (timeouts, URL allow-lists, safe database writes) and split
+                  a 6,000-line Django file into smaller modules.
+                </li>
+                <li>
+                  Worked with technical PMs, explained results and trade-offs to the CEO, COO, and data-labeling team, and
+                  informally mentored a junior teammate.
+                </li>
+              </ul>
+            </div>
+          </li>
 
-    .typing-indicator {
-      display: none;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+          <li class="role-item">
+            <p class="role-when">
+              <span class="mono">Nov 2024 – Feb 2025</span>
+              Remote
+            </p>
+            <div class="role-body">
+              <h3>ML Engineer &amp; Data Scientist (freelance)</h3>
+              <p class="org"><strong>Upwork</strong> · medical image analysis</p>
+              <ul class="bullets">
+                <li>
+                  Built models that classify diabetic-retinopathy severity from retinal images (PyTorch, ResNet50). Reached
+                  about 70% accuracy in the first project and about 80% in the second, using preprocessing, data
+                  augmentation, and transfer learning.
+                </li>
+              </ul>
+            </div>
+          </li>
 
-    .typing-indicator.show {
-      display: flex;
-    }
+          <li class="role-item">
+            <p class="role-when">
+              <span class="mono">Mar 2024 – Nov 2024</span>
+              Naju, South Korea
+            </p>
+            <div class="role-body">
+              <h3>AI Team Lead</h3>
+              <p class="org"><strong>Recs Innovation</strong> · renewable energy</p>
+              <p class="progression">Promoted twice: Data Science Intern → AI Developer → AI Team Lead</p>
+              <ul class="bullets">
+                <li>
+                  Led ML, backend, and frontend teams to launch solar power forecasting and anomaly detection for solar power
+                  plants, connected to a Virtual Power Plant platform through FastAPI.
+                </li>
+                <li>
+                  Automated deployment and monitoring (Docker, GitHub Actions, Prometheus, Grafana). Deployment time fell
+                  from 3 hours to 15 minutes, and manual work fell 80% (~$48K saved per year).
+                </li>
+                <li>
+                  Cut forecast error from 9% to 7%, which enabled revenue from power brokerage on the Korea Power Exchange.
+                  Improved anomaly-detection precision by ~35% and recall by ~37%.
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </section>
 
-    .typing-dots {
-      background: #fff;
-      border: 1px solid #e1e8ed;
-      border-radius: 18px;
-      padding: 12px 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+      <section class="section container" id="skills" aria-labelledby="skills-title">
+        <div class="section-head">
+          <p class="eyebrow">Skills</p>
+          <h2 id="skills-title">What I work with</h2>
+        </div>
 
-    .typing-dots span {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #c1c1c1;
-      margin: 0 2px;
-      animation: typing 1.4s infinite ease-in-out;
-    }
+        <dl class="skills">
+          <div class="skill-row">
+            <dt>LLM &amp; search</dt>
+            <dd>
+              RAG, vector search (Weaviate), LangGraph, LangChain, OpenAI, Claude and Gemini APIs, prompt engineering,
+              LLM re-ranking, Neo4j and knowledge graphs
+            </dd>
+          </div>
+          <div class="skill-row">
+            <dt>Machine learning</dt>
+            <dd>
+              PyTorch, TensorFlow, scikit-learn, Hugging Face, spaCy (NER), time-series forecasting, anomaly detection,
+              computer vision
+            </dd>
+          </div>
+          <div class="skill-row">
+            <dt>Evaluation</dt>
+            <dd>
+              accuracy@k, precision / recall / F1, confusion matrices, cross-validation, MAE / MAPE, reproducible test
+              sets, error analysis
+            </dd>
+          </div>
+          <div class="skill-row">
+            <dt>Backend &amp; data</dt>
+            <dd>Python, Django REST Framework, FastAPI, Celery, PostgreSQL, REST APIs, data migration, Playwright</dd>
+          </div>
+          <div class="skill-row">
+            <dt>Cloud &amp; MLOps</dt>
+            <dd>
+              AWS (Lambda, SQS, EventBridge, RDS, S3, CloudWatch, ECR), Docker, GitHub Actions, Prometheus, Grafana, MLflow
+            </dd>
+          </div>
+          <div class="skill-row">
+            <dt>AI-assisted development</dt>
+            <dd>Claude Code, Codex CLI, Cursor, agent rule and context files (AGENTS.md, CLAUDE.md)</dd>
+          </div>
+          <div class="skill-row">
+            <dt>Also</dt>
+            <dd>TypeScript and React (frontend features and integration), Chrome extensions</dd>
+          </div>
+        </dl>
+      </section>
 
-    .typing-dots span:nth-child(1) { animation-delay: 0s; }
-    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+      <section class="section container" id="education" aria-labelledby="education-title">
+        <div class="section-head">
+          <p class="eyebrow">Education &amp; credentials</p>
+          <h2 id="education-title">Education, awards, and certifications</h2>
+        </div>
 
-    @keyframes typing {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
-      30% { transform: translateY(-10px); opacity: 1; }
-    }
+        <div class="cred-grid">
+          <div>
+            <h3>Education</h3>
+            <ul class="cred-list">
+              <li>
+                <span class="what">B.S. Future Technologies (AI / Data Science)</span>
+                <span class="who">Woosong University, Daejeon</span>
+                <span class="when">2020 – 2024 · GPA 4.39 / 4.5 · four full scholarships</span>
+              </li>
+            </ul>
+            <h3 class="subhead">Community</h3>
+            <ul class="cred-list">
+              <li>
+                <span class="what">Daejeon Global Tech Coffee</span>
+                <span class="who">
+                  Started an English-friendly meetup in Daejeon for people in tech, AI, and data. Later sessions added a
+                  screen for code and AI-agent demos.
+                </span>
+                <span class="when">Since January 2026</span>
+              </li>
+            </ul>
+          </div>
 
-    .input-area {
-      display: flex;
-      padding: 20px;
-      background: #fff;
-      border-top: 1px solid #e1e8ed;
-      align-items: center;
-      gap: 12px;
-    }
+          <div>
+            <h3>Awards</h3>
+            <ul class="cred-list">
+              <li>
+                <span class="what">Excellence Award, Software-Centered University Competition</span>
+                <span class="who">Team project: odor prediction for water-treatment plants from time-series data</span>
+                <span class="when">Woosong University · Dec 2023</span>
+              </li>
+              <li>
+                <span class="what">Practical Application Award, LINC 3.0 Smart City Challenge</span>
+                <span class="who">Same project, in a university–industry program in Daejeon</span>
+                <span class="when">Dec 2023</span>
+              </li>
+              <li>
+                <span class="what">Finalist, Silicon Valley Business Plan Competition</span>
+                <span class="who">Led a team of five with an AI language-learning MVP</span>
+                <span class="when">Berkeley AMENA Center &amp; Silicon Valley Business Forum · May 2023</span>
+              </li>
+            </ul>
+          </div>
 
-    .input-area input {
-      flex: 1;
-      padding: 12px 16px;
-      border: 2px solid #e1e8ed;
-      border-radius: 25px;
-      outline: none;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
-    }
+          <div>
+            <h3>Certifications</h3>
+            <ul class="cred-list">
+              <li>
+                <a class="what" href="https://www.coursera.org/account/accomplishments/records/RYY8XQWFGMQ6">Machine Learning in Production</a>
+                <span class="when">DeepLearning.AI · 2024</span>
+              </li>
+              <li>
+                <a class="what" href="https://www.coursera.org/account/accomplishments/specialization/VSSWBDDGNX4Y">Mathematics for ML and Data Science</a>
+                <span class="when">DeepLearning.AI · 2024</span>
+              </li>
+              <li>
+                <a class="what" href="https://www.credly.com/badges/aaa7f165-1c9a-4a0e-9419-b61f184309d4">Deep Learning Specialization</a>
+                <span class="when">DeepLearning.AI · 2023</span>
+              </li>
+              <li>
+                <a class="what" href="https://graphacademy.neo4j.com/c/d1e50896-ac48-4057-bc94-eaacbc5c4897/">Building Knowledge Graphs with LLMs</a>
+                <span class="when">Neo4j GraphAcademy · 2025 · one of nine Neo4j courses</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    .input-area input:focus {
-      border-color: #667eea;
-    }
+      <section class="section container" id="contact" aria-labelledby="contact-title">
+        <div class="contact-box">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2 id="contact-title">Let's talk</h2>
+            <p>
+              I'm looking for AI/ML engineering roles: LLM and search systems, MLOps, AI backend, and data platforms.
+              Email is the fastest way to reach me.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">azizkhasimov@gmail.com</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+              <a class="btn" href="https://github.com/AzizjonKasimov" rel="me">GitHub</a>
+            </div>
+          </div>
+          <dl class="facts">
+            <div>
+              <dt>Location</dt>
+              <dd>Daejeon, South Korea</dd>
+            </div>
+            <div>
+              <dt>Open to</dt>
+              <dd>Seoul (on-site or hybrid), remote, relocation to Europe or the UK</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>English (fluent), Russian (native), Uzbek (conversational), Korean (conversational, learning)</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
 
-    .input-area button {
-      padding: 12px 20px;
-      border: none;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: #fff;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      font-size: 16px;
-    }
-
-    .input-area button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
-
-    .input-area button:active {
-      transform: translateY(0);
-    }
-
-    .input-area button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .welcome-message {
-      text-align: center;
-      color: #666;
-      padding: 40px 20px;
-      font-style: italic;
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      .chat-container {
-        height: 90vh;
-        border-radius: 12px;
-      }
-
-      .chat-header {
-        padding: 15px;
-        border-radius: 12px 12px 0 0;
-      }
-
-      .messages {
-        padding: 15px;
-      }
-
-      .bubble {
-        max-width: 85%;
-      }
-
-      .input-area {
-        padding: 15px;
-      }
-    }
-  </style>
-  <meta name="google-site-verification" content="Eyk_MeCGxmd6FsdZy5qMTfHjQb61vRYbiHgkDRmeils" />
-</head>
-<body>
-  <div class="chat-container">
-    <div class="chat-header">
-      <h1>Azizjon Kasimov</h1>
-      <p>Chat with my AI assistant to learn about my experience and skills</p>
-    </div>
-
-    <div class="messages" id="messages">
-      <div class="welcome-message">
-        👋 Hi! I'm Azizjon's AI assistant. Ask me about his skills, experience, projects, education, or anything else
-        you'd like to know about him!
-      </div>
-    </div>
-
-    <div class="typing-indicator" id="typing-indicator">
-      <div class="typing-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-
-    <form class="input-area" id="chat-form">
-      <input type="text" id="message-input" placeholder="Ask about my experience, skills, projects..." autocomplete="off" required />
-      <button type="submit" id="send-button">Send</button>
-    </form>
-  </div>
-
-  <script type="module" src="/main.js"></script>
-  <div id="feedback-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-      <p id="feedback-question">…</p>
-      <textarea id="feedback-text" rows="4" placeholder="Your feedback…"></textarea>
-      <div class="modal-buttons">
-        <button id="feedback-submit">Submit</button>
-        <button id="feedback-cancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-</body>
+    <!-- include: partials/footer.html -->
+  </body>
 </html>

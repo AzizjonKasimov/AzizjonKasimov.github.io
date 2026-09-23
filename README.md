@@ -1,116 +1,80 @@
-# Interactive Chatbot Resume Website - Frontend
+# Azizjon Kasimov — Portfolio Website
 
-An interactive resume website where visitors can engage with an AI chatbot to discover professional experience, skills, and qualifications. Built with modern web technologies and deployed seamlessly via GitHub Pages.
+**Live:** [azizjonkasimov.github.io](https://azizjonkasimov.github.io)
 
-🌐 **Live Demo**: [https://azizjonkasimov.github.io](https://azizjonkasimov.github.io)
+A fast, static portfolio for job applications: a homepage that answers "who, what, proof, and how to
+reach me" in a few seconds, plus case-study pages for the main projects. There is no backend and no
+client-side framework. The pages are plain HTML and CSS, built with Vite and deployed to GitHub Pages
+by GitHub Actions.
 
-## Overview
+## Structure
 
-This repository contains the frontend application for the Interactive Chatbot Resume project. The website provides an engaging way for visitors to learn about your background through natural conversation with an AI-powered chatbot, rather than browsing a traditional static resume.
+| Path | Purpose |
+| --- | --- |
+| `index.html` | Homepage: headline metrics, selected work, experience, skills, credentials, contact |
+| `work/<slug>/index.html` | Case-study pages (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) |
+| `404.html` | Not-found page; GitHub Pages serves it for unknown URLs |
+| `partials/` | Shared `<head>` tags, header, and footer, inlined into every page at build time |
+| `src/styles.css` | All styles, including the dark theme and print styles |
+| `public/` | Files copied as-is: favicon, social preview image, touch icon, `robots.txt`, `sitemap.xml` |
+| `tools/` | HTML sources and the render script for the social preview image and touch icon |
+| `vite.config.mjs` | The page list and the small partial-include plugin |
 
-## Architecture
+## Development
 
-- **Frontend**: This repository (Vite + Vanilla JavaScript)
-- **Backend**: [Chatbot Resume Website Backend](https://github.com/AzizjonKasimov/chatbot_resume_website_backend) (Django + Groq)
+Requires Node.js 20.19+ or 22.12+.
 
-## Features
-
-### Core Functionality
-- **AI-Powered Conversations**: Interactive chatbot that answers questions about your professional background
-- **Dynamic API Integration**: Real-time responses from custom Django backend using Groq, with backend-managed fallback behavior when provider limits are reached
-- **User Feedback System**: Collect visitor feedback and automatically send via email
-- **Responsive Design**: Optimized experience across desktop, tablet, and mobile devices
-
-### Deployment & Analytics
-- **GitHub Pages Hosting**: Automatic deployment with zero configuration
-- **CI/CD Pipeline**: Automated builds and deployments via GitHub Actions
-- **Google Analytics**: Track visitor engagement and popular questions
-- **SEO Optimization**: Google Search Console integration for better discoverability
-
-## Tech Stack
-
-- **Build Tool**: Vite (fast development and optimized builds)
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **Deployment**: GitHub Pages with GitHub Actions
-- **Analytics**: Google Analytics, Google Search Console
-
-## Quick Start
-
-### Prerequisites
-- Node.js (version 20 or higher)
-- npm or yarn package manager
-
-### Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/AzizjonKasimov/AzizjonKasimov.github.io.git
-   cd your-frontend-repo
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   
-   Create a `.env` file in the root directory:
-   ```env
-   VITE_API_BASE_URL=https://your-backend-domain.com/
-   ```
-   
-   For local development with backend running locally:
-   ```env
-   VITE_API_BASE_URL=http://localhost:8000/
-   ```
-
-4. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-### Deployment
-
-#### GitHub Pages (Recommended)
-
-1. **Enable GitHub Pages**
-   - Go to your repository settings
-   - Navigate to "Pages" section
-   - Set source to "GitHub Actions"
-
-2. **Automatic Deployment**
-   - The included `.github/workflows/deploy.yml` handles automatic deployment
-   - Simply push to the `main` branch to trigger deployment
-   - Your site will be available at `https://your-username.github.io/repository-name`
-
-## Development Commands
-
-```bash
-# Start development server with hot reload
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
+```powershell
+npm install
+npm run dev       # dev server at http://localhost:5173
+npm run build     # production build into docs/
+npm run preview   # serve docs/ at http://localhost:4173
 ```
 
-## Customization
+Pages include shared markup with `<!-- include: partials/<file>.html -->`, and `{{year}}` is replaced
+with the current year at build time.
 
-### Backend Integration
-- Update `VITE_API_BASE_URL` in your `.env` file to point to your deployed backend
-- Ensure your backend is configured with the appropriate CORS settings for your frontend domain
+## Content rules
 
-### Analytics Setup
-- Add your Google Analytics tracking ID to the HTML template
-- Configure Google Search Console for your domain
+- Keep every claim factual and consistent with the resume and LinkedIn profile. Do not invent
+  employers, dates, titles, metrics, or outcomes.
+- Case studies are simplified and sanitized: no employer code, private data, internal URLs, or
+  proprietary implementation details, and third-party data sources are not named.
+- No phone number or visa details on public pages.
 
-### Styling & Branding
-- Modify CSS files to match your personal brand colors and typography
-- Update favicon and meta tags for proper social media sharing
+## Adding a case study
+
+1. Copy an existing `work/<slug>/index.html` into a new folder and replace the content.
+2. Add the page to `pages` in `vite.config.mjs` and a `<url>` entry to `public/sitemap.xml`.
+3. Add a card to the Selected work section in `index.html`, and update the previous/next links at the
+   bottom of the neighboring case studies.
+
+## Social preview image and touch icon
+
+`public/og-image.png` (1200×630, used by LinkedIn and other link previews) and
+`public/apple-touch-icon.png` are rendered from `tools/social-card.html` and `tools/touch-icon.html`
+with headless Edge or Chrome:
+
+```powershell
+.\tools\render-images.ps1
+```
+
+Re-run it after changing the headline or the metrics on the card.
+
+## Deployment
+
+Every push to `main` runs `.github/workflows/deploy.yml`: it builds with Node 22 and deploys `docs/`
+to GitHub Pages. The repository's Pages source must be set to **GitHub Actions**. No secrets or
+environment variables are needed.
+
+To check a deploy, open the **Actions** tab for the latest "Build & Deploy to GitHub Pages" run, then
+load the live site and one case-study page.
+
+## Analytics
+
+Google Analytics 4 is loaded from `partials/head.html` (visits, referrers, outbound clicks). The Google
+Search Console verification tag is in the homepage `<head>`.
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+[MIT](LICENSE)

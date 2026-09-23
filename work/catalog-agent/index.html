@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>LangGraph agent for catalog data — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: a LangGraph agent workflow that turns a short request into clean, catalog-ready auto-parts data, with scheduling, resumable jobs, and reports the data team can check."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/catalog-agent/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="LangGraph agent for catalog data — case study" />
+    <meta
+      property="og:description"
+      content="An agent workflow that resolves vehicle variants, fetches catalog data, normalizes and maps it, and writes it in resumable batches."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/catalog-agent/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#work">← All work</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Prototype</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>LangGraph agent for catalog data</h1>
+          <p class="lead">
+            Loading third-party catalog data was slow, manual work for the data team. I built an agent workflow that
+            turns a short request into clean, catalog-ready parts data, with scheduling, resumable jobs, and a report
+            anyone can check.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>Sole developer: research, architecture, the agent, scheduling, and the demo UI.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Working prototype with a demo UI for the data team. Not in production when I left in July 2026.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Python, LangGraph, OpenAI API, APScheduler, PostgreSQL</dd>
+            </div>
+            <div>
+              <dt>Scope</dt>
+              <dd>Brand, model, year, and region requests for the 7 vehicle brands the company handles</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>
+              Loading third-party vehicle and parts data into the company catalog was repetitive manual work. Someone had
+              to pick many parameters, download the data, clean it, and map each record into the right catalog tables.
+            </p>
+            <p>The goal was to automate this, so the data team could stop doing it by hand.</p>
+
+            <h2>How it works</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Request</span>
+                  <span class="step-desc">Brand, model, year, and region, chosen from drop-down lists.</span>
+                </li>
+                <li>
+                  <span class="step-name">Resolve variants</span>
+                  <span class="step-desc">Find every matching vehicle variant and expand it into the catalog scope to fetch.</span>
+                </li>
+                <li>
+                  <span class="step-name">Fetch</span>
+                  <span class="step-desc">Call the third-party catalog API, with caching and retries.</span>
+                </li>
+                <li>
+                  <span class="step-name">Normalize and map</span>
+                  <span class="step-desc">Clean the records and map them to the right catalog tables.</span>
+                </li>
+                <li>
+                  <span class="step-name">Write</span>
+                  <span class="step-desc">Save to PostgreSQL in batches, with checkpoints so a job can resume or be cancelled safely.</span>
+                </li>
+                <li>
+                  <span class="step-name">Report</span>
+                  <span class="step-desc">Show how each batch was normalized and mapped, so the data team can check it.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Scheduler</strong>APScheduler with a small UI for scheduled and manual runs</li>
+                <li><strong>Cache</strong>Catalog data cached down to the group level</li>
+                <li><strong>Controls</strong>Scope limits, job status, and visible API usage</li>
+              </ul>
+              <figcaption id="flow-caption">Simplified view of the agent workflow.</figcaption>
+            </figure>
+
+            <h2>What I built</h2>
+            <ul>
+              <li>
+                <strong>Started simple, then made it predictable.</strong> The first version took a natural-language
+                request, had a clarification step, and traced every agent step for debugging. Once the workflow was
+                stable, I replaced free text with drop-down inputs, so runs are repeatable.
+              </li>
+              <li>
+                <strong>Why LangGraph.</strong> The LLM does only a small part of the work. LangGraph still pays off: the
+                workflow is structured, easy to inspect, and able to resume after a failure.
+              </li>
+              <li>
+                <strong>Built for very large jobs.</strong> Chunked, resumable saves handle vehicle models with 100K+
+                variations.
+              </li>
+              <li>
+                <strong>Scheduling.</strong> APScheduler with a small UI for scheduled and manual runs, including a fix for
+                duplicate job registration.
+              </li>
+              <li>
+                <strong>Output people can audit.</strong> Automatic reports show how each batch was normalized and mapped,
+                so non-engineers can review the result.
+              </li>
+              <li>
+                <strong>Documentation.</strong> Reference docs for the catalog schema: which tables the agent reads, and
+                which it writes.
+              </li>
+            </ul>
+
+            <h2>Engineering judgment</h2>
+            <p>
+              Before building, I compared build and buy. I looked at existing AI data-collection tools and workflow
+              engines (Airflow, Prefect, Celery) and chose a lightweight approach that fit the project's stage, with a
+              path to scale later.
+            </p>
+            <p>
+              I also kept job scope and billable API use visible, instead of hiding them behind autonomous behavior. The
+              design cuts manual work while keeping people in control of cost and data.
+            </p>
+
+            <h2>Status</h2>
+            <p>
+              A working prototype with scheduling and a demo UI for the data team. It was being merged into a single
+              internal admin tool. It was not in production when I left in July 2026.
+            </p>
+
+            <p class="callout">
+              This write-up is simplified. It contains no employer code, internal data, or private URLs.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/solar-mlops/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">Solar forecasting and anomaly detection</span>
+            </a>
+            <a class="next" href="/work/semantic-search/">
+              <span class="dir">Next →</span>
+              <span class="ttl">AI semantic search for auto parts</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>
