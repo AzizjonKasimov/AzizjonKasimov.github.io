@@ -19,8 +19,8 @@ added one at a time.
 | `partials/` | Shared `<head>` tags, header (with the language menu), and footer, inlined into every page at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
 | `src/styles.css` | All styles, including the dark theme and print styles |
-| `public/` | Files copied as-is: favicon, social preview image, touch icon, `robots.txt` |
-| `tools/` | The translation and language-redirect checks, and the sources and render script for the social preview image and touch icon |
+| `public/` | Files copied as-is: favicon, social preview image, touch icon, certificate scans (`certificates/`), `robots.txt` |
+| `tools/` | The translation and language-redirect checks, the certificate image script, and the sources and render script for the social preview image and touch icon |
 | `vite.config.mjs` | The build: one entry per page and language, the partial-include plugin, and the generated `sitemap.xml` |
 
 ## Development
@@ -63,7 +63,9 @@ folder: `/work/solar-mlops/` in Korean is `/ko/work/solar-mlops/`.
 
 Change the English page first, then make the same change in every translation, and run
 `npm run check`. The check (`tools/check-translations.mjs`, read-only) fails if a translation's markup,
-links, technology tags, code, icons, or numbers differ from English, or if its head tags are wrong.
+links, image files, technology tags, code, icons, or numbers differ from English, or if its head tags
+are wrong. Links to pages go to the translation's own folder (`/ko/work/...`); links to files, such as
+the certificate images, stay exactly as in English.
 Numbers are compared by value, so each language can use its own format (`2M+` is `200만+` in Korean).
 `npm run build` runs the check first, so a failing check also stops the deploy.
 
@@ -85,7 +87,7 @@ sentence you change.
   employers, dates, titles, metrics, or outcomes.
 - Case studies are simplified and sanitized: no employer code, private data, internal URLs, or
   proprietary implementation details, and third-party data sources are not named.
-- No phone number or visa details on public pages.
+- No phone number, visa details, or date of birth on public pages, including in certificate scans.
 - Translations say the same thing as English: nothing added, dropped, or made stronger. Names,
   company names, and technology names stay as written in English.
 
@@ -109,6 +111,24 @@ with headless Edge or Chrome:
 
 Re-run it after changing the headline or the metrics on the card. All languages share this English
 image.
+
+## Certificate scans
+
+The homepage shows the diploma and award certificates as a row of thumbnails, each linking to the
+full scan. The images are in `public/certificates/`, and every language uses the same files. The
+original PDFs are kept in the private portfolio repo. To add a certificate:
+
+1. Check the scan for private details first, because the site is public. The Korean diploma is not
+   shown, for example, because it includes the date of birth.
+2. Make the images. The script writes `<name>.jpg` (1240 px wide, to read) and `<name>-thumb.jpg`
+   (400 px wide) and drops the scan's metadata:
+
+   ```powershell
+   .\tools\certificate-images.ps1 -Source <scan.pdf|.jpg|.png> -Name <file-name>
+   ```
+
+3. Add a card to the certificate gallery in `index.html` and in every translation, then run
+   `npm run check`.
 
 ## Deployment
 

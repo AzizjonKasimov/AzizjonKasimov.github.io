@@ -5,8 +5,9 @@
 //
 // A translation must have:
 // - the right <html lang>, canonical URL, and og:url, and a translated title and description;
-// - the same body markup as English (elements, classes, ids, and links), with internal links
-//   under its language folder, e.g. /ko/work/semantic-search/;
+// - the same body markup as English (elements, classes, ids, links, and image sources), with links
+//   to pages under its language folder, e.g. /ko/work/semantic-search/, and links to files, such
+//   as /certificates/woosong-diploma.jpg, exactly as in English;
 // - identical technology tags, code, and inline SVG icons;
 // - the same numbers. Values are compared, not text, so "2M+" (en) and "200만+" (ko) both count
 //   as 2,000,000. English numbers written as words ("four", "twice") may appear as digits in a
@@ -88,6 +89,10 @@ function numbersIn(text, code) {
   return values
 }
 
+// A site path is a page when it ends in a folder or .html, before any #fragment or ?query. Other
+// paths, such as /certificates/woosong-diploma.jpg, are files that every language shares.
+const isPage = (path) => /(?:\/|\.html)$/.test(path.replace(/[?#].*$/, ''))
+
 // Opening tags with the attributes that define structure and navigation.
 function markupOf(html, code, report) {
   const body = bodyOf(html)
@@ -98,12 +103,12 @@ function markupOf(html, code, report) {
     const line = lineAt(html, offset + match.index)
     const attr = (name) => attrs.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1]
     let href = attr('href')
-    if (code !== 'en' && href?.startsWith('/')) {
+    if (code !== 'en' && href?.startsWith('/') && isPage(href)) {
       if (href.startsWith(`/${code}/`)) href = href.slice(code.length + 1)
       else report(`line ${line}: internal link ${href} is not under /${code}/`)
     }
     const parts = [tag]
-    for (const [name, value] of [['class', attr('class')], ['id', attr('id')], ['href', href], ['rel', attr('rel')], ['aria-labelledby', attr('aria-labelledby')]]) {
+    for (const [name, value] of [['class', attr('class')], ['id', attr('id')], ['href', href], ['src', attr('src')], ['rel', attr('rel')], ['aria-labelledby', attr('aria-labelledby')]]) {
       if (value !== undefined) parts.push(`${name}="${value}"`)
     }
     tokens.push({ text: `<${parts.join(' ')}>`, line })

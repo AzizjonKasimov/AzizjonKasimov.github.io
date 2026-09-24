@@ -969,6 +969,83 @@ strong {
   }
 }
 
+/* Certificate scans: each thumbnail links to the full-size image. */
+.certs .subhead {
+  margin-bottom: 6px;
+}
+
+.certs-note {
+  margin-bottom: 18px;
+  color: var(--text-2);
+  font-size: 0.9375rem;
+}
+
+.cert-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.cert {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cert:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.cert img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.cert-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.cert:hover .cert-name {
+  color: var(--accent);
+}
+
+.cert-when {
+  margin-top: 2px;
+  color: var(--text-3);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .cert-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cert-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
 /* ==========================================================================
    Contact
    ========================================================================== */
@@ -1466,7 +1543,8 @@ strong {
   .contact-box .actions,
   .card-cta,
   .case-footer,
-  .case-cta {
+  .case-cta,
+  .certs {
     display: none !important;
   }
 
