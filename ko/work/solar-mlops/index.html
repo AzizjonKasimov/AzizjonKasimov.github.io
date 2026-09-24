@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>프로덕션 환경의 태양광 발전량 예측과 이상 탐지 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="프로젝트 사례: 태양광 발전량 예측과 태양광 발전소 이상 탐지를 프로덕션에 적용한 팀을 이끈 경험. 예측 오차 9%에서 7%로, 이상 탐지 precision 약 35% 향상, 배포 시간 3시간에서 15분으로."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ko/work/solar-mlops/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="프로덕션 환경의 태양광 발전량 예측과 이상 탐지 — 프로젝트 사례" />
+    <meta
+      property="og:description"
+      content="예측 오차 9%에서 7%로, 이상 탐지 precision 약 35%·recall 약 37% 향상, 배포 시간 3시간에서 15분으로, 수동 운영 업무 80% 감소."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ko/work/solar-mlops/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ko/#work">← 전체 프로젝트</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">프로덕션</span>
+            <span class="mono">Recs Innovation · 2024</span>
+          </div>
+          <h1>프로덕션 환경의 태양광 발전량 예측과 이상 탐지</h1>
+          <p class="lead">
+            Recs Innovation에서 인턴으로 시작해 두 차례 승진하여 AI Team Lead가 되었습니다. 태양광 발전량 예측과 태양광
+            발전소 이상 탐지를 프로덕션에 적용한 팀을 이끌었고, 추론 서비스는 가상발전소(VPP) 플랫폼에 연동되었습니다.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>역할</dt>
+              <dd>Data Science Intern → AI Developer → AI Team Lead (2024년 3월–11월). ML, 백엔드, 프론트엔드 팀을 이끌었습니다.</dd>
+            </div>
+            <div>
+              <dt>결과</dt>
+              <dd>예측 오차 9%에서 7%로 감소. 이상 탐지 precision 약 35%, recall 약 37% 향상. 배포 시간 3시간에서 15분으로 단축.</dd>
+            </div>
+            <div>
+              <dt>기술 스택</dt>
+              <dd>PyTorch, 그래프 신경망(GNNAD), FastAPI, Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana, MLflow</dd>
+            </div>
+            <div>
+              <dt>비즈니스 효과</dt>
+              <dd>한국전력거래소(KPX) 전력 중개 수익. 수동 운영 업무 80% 감소(연 약 48,000달러).</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>문제</h2>
+            <p>회사에는 실험 단계를 넘어 프로덕션에서 작동하는 모델 두 가지가 필요했습니다.</p>
+            <ul>
+              <li>
+                한국전력거래소(KPX)의 전력 중개에 쓸 수 있을 만큼 정확한 <strong>태양광 발전량 예측</strong>
+              </li>
+              <li>태양광 발전소 데이터를 감시하는 <strong>이상 탐지</strong></li>
+            </ul>
+            <p>두 모델 모두 안정적으로 실행되고 상용 VPP 플랫폼에 연동되어야 했습니다.</p>
+
+            <h2>시스템 개요</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">발전소 데이터</span>
+                  <span class="step-desc">태양광 발전소의 다변량 시계열 데이터.</span>
+                </li>
+                <li>
+                  <span class="step-name">학습</span>
+                  <span class="step-desc">PyTorch 모델을 학습하고, 실험은 MLflow로 추적합니다. 이상 탐지 모델은 매일 밤 재학습합니다.</span>
+                </li>
+                <li>
+                  <span class="step-name">모델</span>
+                  <span class="step-desc">태양광 발전량 예측 모델과 그래프 기반(GNN) 이상 탐지 모델.</span>
+                </li>
+                <li>
+                  <span class="step-name">추론 API</span>
+                  <span class="step-desc">FastAPI 서비스가 예측 결과와 이상 탐지 결과를 제공합니다.</span>
+                </li>
+                <li>
+                  <span class="step-name">VPP 플랫폼</span>
+                  <span class="step-desc">서비스는 상용 가상발전소(VPP) 플랫폼에 연동됩니다.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>CI/CD</strong>GitHub Actions로 컨테이너 서비스 배포</li>
+                <li><strong>인프라</strong>PostgreSQL을 포함한 Docker Compose 서비스</li>
+                <li><strong>모니터링</strong>Prometheus 지표와 Grafana 대시보드</li>
+              </ul>
+              <figcaption id="flow-caption">프로덕션 구성을 단순화한 구조입니다.</figcaption>
+            </figure>
+
+            <h2>발전량 예측</h2>
+            <ul>
+              <li>
+                AI Developer로서 평균 오차 10% 미만의 PyTorch 태양광 발전량 예측 모델을 만들었습니다. 이 결과로 회사는
+                KPX 사업 참여 자격을 얻었습니다.
+              </li>
+              <li>
+                팀 리더로서 예측 오차를 9%에서 7%로 줄였고(22% 감소), 이를 통해 KPX 전력 중개 수익이 가능해졌습니다.
+              </li>
+            </ul>
+
+            <h2>태양광 발전소 이상 탐지</h2>
+            <p>
+              그래프 기반 모델(GNNAD)을 사용한 다변량 시계열 이상 탐지를 맡았습니다. 성능은 단계적으로 향상되었습니다.
+            </p>
+            <ul>
+              <li>
+                <strong>오류를 더 명확하게.</strong> 오픈소스 코드베이스를 대폭 리팩터링하고, 모든 피처에 대해 예측값과
+                실제 데이터를 비교하는 그래프를 추가했습니다.
+              </li>
+              <li><strong>오차 계산 개선:</strong> precision +5%, recall +7%.</li>
+              <li>
+                <strong>시간대별 임계값:</strong> 하루 동안의 오차 변화를 반영하기 위해 하나의 전역 임계값 대신 24개의
+                임계값을 사용했습니다. Recall +10%.
+              </li>
+              <li>
+                <strong>더 깨끗한 학습 데이터:</strong> 학습 데이터에서 이상값을 제거해 precision +30%, recall +20%를
+                얻었습니다.
+              </li>
+              <li>
+                <strong>현실적인 검증:</strong> 16포인트 추론 윈도우, 시간대별 임계값, 매일 밤 재학습 등 프로덕션과 같은
+                조건의 교차 검증.
+              </li>
+            </ul>
+            <p>
+              <strong>전체적으로 precision은 약 35%, recall은 약 37% 향상되었습니다.</strong> 그전에 인턴으로서 GNN
+              모델을 precision 70%, recall 50%까지 튜닝하고, MLflow로 실험을 추적했으며, 이상 탐지 시스템을 VPP 플랫폼에
+              연결하는 FastAPI 엔드포인트를 만들었습니다.
+            </p>
+
+            <h2>MLOps와 배포</h2>
+            <ul>
+              <li>
+                이상 탐지 시스템을 컨테이너화하고 GitHub Actions로 배포를 자동화했습니다. 배포 시간이 3시간에서 15분으로
+                줄었습니다.
+              </li>
+              <li>
+                Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana로 엔드투엔드 MLOps 인프라를
+                구축했습니다. 수동 운영이 80% 줄어 연간 약 48,000달러를 절감했습니다.
+              </li>
+            </ul>
+
+            <h2>팀 리딩</h2>
+            <p>
+              AI Team Lead로서 ML, 백엔드, 프론트엔드 팀을 관리하고, 모델이 VPP 플랫폼에 문제없이 연동되도록 했습니다.
+            </p>
+
+            <h2>결과</h2>
+            <ul class="metric-grid">
+              <li><span class="num">9% → 7%</span><span class="lbl">예측 오차, KPX 전력 중개 수익의 기반</span></li>
+              <li><span class="num">+35% / +37%</span><span class="lbl">이상 탐지 precision / recall</span></li>
+              <li><span class="num">3시간 → 15분</span><span class="lbl">배포 시간</span></li>
+              <li><span class="num">−80%</span><span class="lbl">수동 운영 업무(연 약 48,000달러)</span></li>
+            </ul>
+            <p>
+              두 시스템의 스크린샷은 제
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn 프로필</a>의 해당 경력 항목에 첨부되어
+              있습니다.
+            </p>
+
+            <p class="callout">
+              이 글은 단순화한 내용입니다. 회사 코드, 내부 데이터, 비공개 URL은 포함하지 않았습니다.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="다른 프로젝트 사례">
+            <a href="/ko/work/aws-data-pipeline/">
+              <span class="dir">← 이전</span>
+              <span class="ttl">AWS 서버리스 데이터 파이프라인</span>
+            </a>
+            <a class="next" href="/ko/work/catalog-agent/">
+              <span class="dir">다음 →</span>
+              <span class="ttl">카탈로그 데이터용 LangGraph 에이전트</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="연락처">
+            <p><strong>이런 일을 맡길 사람을 찾고 계신가요?</strong> AI/ML 엔지니어 직무 제안을 기다리고 있습니다.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">이메일 보내기</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

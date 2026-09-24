@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>자동차 부품 AI 의미 검색 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="프로젝트 사례: 특정 차량에 맞는 정확한 자동차 부품을 자연어로 찾는 검색. 벡터 검색, NER, LLM 질의 정제, 정확도 테스트 스위트. 필수 3,000개 부품 테스트에서 95% 이상."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ko/work/semantic-search/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="자동차 부품 AI 의미 검색 — 프로젝트 사례" />
+    <meta
+      property="og:description"
+      content="벡터 검색, 개체명 인식, LLM 질의 정제와 자동 정확도 테스트 스위트. 필수 3,000개 부품 테스트에서 95% 이상."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ko/work/semantic-search/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ko/#work">← 전체 프로젝트</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">프로덕션</span>
+            <span class="mono">G-Man Auto Parts · 2025–2026</span>
+          </div>
+          <h1>자동차 부품 AI 의미 검색</h1>
+          <p class="lead">
+            구매자와 공급업체는 여러 언어의 평범한 단어만으로 특정 차량에 맞는 정확한 부품을 찾을 수 있어야 했습니다. 저는
+            검색을 처음부터 끝까지 구축했고, 95% 정확도 기준을 충족한다는 것을 입증한 테스트 스위트도 만들었습니다.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>역할</dt>
+              <dd>유일한 AI/ML 엔지니어. 설계, 임베딩, 개체명 인식, LLM 단계, 평가, 프로덕션 운영을 맡았습니다.</dd>
+            </div>
+            <div>
+              <dt>결과</dt>
+              <dd>필수 3,000개 부품 테스트에서 95% 이상 정확도. R&amp;D 과제가 승인되었습니다.</dd>
+            </div>
+            <div>
+              <dt>기술 스택</dt>
+              <dd>Python, Django REST Framework, Weaviate, spaCy, OpenAI API (GPT-4o-mini), Celery, PostgreSQL, AWS S3, React</dd>
+            </div>
+            <div>
+              <dt>규모</dt>
+              <dd>200만 건 이상의 부품 레코드 카탈로그와 30만 개 이상의 검색 가능한 매물 (Kia, Hyundai, SsangYong, Chevrolet)</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>문제</h2>
+            <p>
+              사람들은 같은 부품을 여러 방식으로 부릅니다. “headlight”나 “head lamp”처럼 표현이 다르기도 하고, 비공식
+              명칭이나 다른 언어를 쓰기도 합니다. 하지만 정답은 정확히 한 차량에 맞는 하나의 부품 번호입니다. 브랜드, 모델,
+              연식, 연료, 변속기, 세대, 위치(좌/우, 앞/뒤)가 모두 맞아야 합니다.
+            </p>
+            <p>
+              경직된 키워드 필터로는 이를 처리할 수 없었습니다. 회사에는 올바른 부품을 높은 정밀도로 찾아 주는 자연어
+              검색이 필요했고, R&amp;D 과제를 위한 공식 정확도 테스트도 통과해야 했습니다.
+            </p>
+
+            <h2>검색 요청 처리 흐름</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">언어 확인</span>
+                  <span class="step-desc">작은 언어 감지기가 먼저 실행되어, 필요할 때만 LLM을 호출합니다.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM 정규화</span>
+                  <span class="step-desc">영어가 아닌 질의를 번역하고 정리합니다(GPT-4o-mini).</span>
+                </li>
+                <li>
+                  <span class="step-name">개체 추출</span>
+                  <span class="step-desc">spaCy NER이 브랜드, 모델, 연식, 연료, 변속기, 부품명, 위치, 세대를 찾아냅니다.</span>
+                </li>
+                <li>
+                  <span class="step-name">필터 적용 벡터 검색</span>
+                  <span class="step-desc">추출한 개체를 Weaviate 의미 검색 위에 정확한 필터로 적용합니다.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM 재정렬</span>
+                  <span class="step-desc">LLM 후처리 필터가 명백히 틀린 결과를 제거하고 나머지의 순서를 다시 정합니다.</span>
+                </li>
+                <li>
+                  <span class="step-name">결과</span>
+                  <span class="step-desc">구매자에게는 상품 검색, 공급업체에게는 카탈로그 매칭 결과를 제공합니다.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Django REST API</strong>두 가지 검색 모드를 스토어와 관리자 도구에 제공</li>
+                <li><strong>정확도 테스트 스위트</strong>고정된 테스트 세트로 같은 파이프라인을 실행</li>
+                <li><strong>S3 리포트</strong>모든 테스트 실행 결과를 저장하며 재배포 후에도 유지</li>
+              </ul>
+              <figcaption id="flow-caption">프로덕션 검색 파이프라인을 단순화한 구조입니다.</figcaption>
+            </figure>
+
+            <h2>구축한 내용</h2>
+            <ul>
+              <li>
+                <strong>벡터 검색 핵심.</strong> 부품 카탈로그를 Weaviate에 임베딩하고 Django REST Framework로 검색
+                서비스를 만들었습니다. recall을 높이기 위해 임베딩할 텍스트(필드 라벨, 부품 위치, 차량 연식, 선별한
+                동의어)를 직접 설계했습니다.
+              </li>
+              <li>
+                <strong>개체를 엄격한 필터로.</strong> spaCy가 자유 형식 질의에서 구조화된 정보를 뽑아 정확한 필터로
+                바꿉니다. 표현의 차이는 벡터 검색이 처리하고, 차량과 위치가 맞는지는 필터가 보장합니다.
+              </li>
+              <li>
+                <strong>두 가지 검색 모드.</strong> 구매자를 위한 상품 검색과 공급업체를 위한 자동 매칭입니다. 자동
+                매칭은 업로드된 부품을 카탈로그 레코드와 연결하고, 서로 다른 부품 번호마다 별도의 결과를 만듭니다.
+              </li>
+              <li>
+                <strong>다국어 질의.</strong> 영어가 아닌 질의는 LLM 단계를 거칩니다. GPT-3.5-Turbo에서 GPT-4o-mini로 바꿔
+                더 낮은 비용으로 더 좋은 품질을 얻었고, 언어 확인 단계로 LLM 호출을 최소화했습니다.
+              </li>
+              <li>
+                <strong>관련성 튜닝.</strong> LLM 재정렬기가 명백히 틀린 결과를 제거합니다. 부품명 별칭 시스템(예:
+                “headlight” → “Head Lamp Assembly”)으로 일상적인 표현의 정확도를 높였습니다.
+              </li>
+              <li>
+                <strong>프론트엔드 연동.</strong> React/TypeScript 스토어와 관리자 도구를 검색 API에 연결했습니다. 필터가
+                질의에 반영되고, 매칭 결과가 입력 폼을 자동으로 채우며, 결과는 확신도 임계값과 함께 관련성 순으로
+                정렬됩니다.
+              </li>
+            </ul>
+
+            <h2>정확도 측정</h2>
+            <p>
+              정확도는 추측이 아니라 측정해야 했습니다. 프로덕션 검색과 같은 파이프라인을 선별된 고정 테스트 세트로
+              실행하는 내부 테스트 페이지를 만들었습니다.
+            </p>
+            <ul>
+              <li><strong>지표:</strong> accuracy@1, accuracy@3, precision, recall, F1, 혼동 행렬, 교차 검증.</li>
+              <li><strong>반복 가능한 실행:</strong> 자동 또는 수동으로 실행합니다. 실행마다 실행한 사람과 LLM 전처리 사용 여부를 기록합니다.</li>
+              <li><strong>안전한 설계:</strong> 테스트 데이터는 별도 컬렉션에 두고, 테스트가 프로덕션 데이터에 절대 접근하지 못하도록 보호 장치를 두었습니다.</li>
+              <li><strong>오류 분석:</strong> “결과 없음” 사례의 원인을 오래된 테스트 객체, SKU와 카탈로그 불일치, 충돌하는 개체 패턴, 차체 색상 처리에서 찾아 하나씩 해결했습니다.</li>
+            </ul>
+
+            <h2>결과</h2>
+            <ul class="metric-grid">
+              <li><span class="num">95%+</span><span class="lbl">필수 3,000개 부품 평가 세트의 정확도</span></li>
+              <li><span class="num">승인</span><span class="lbl">정확도 기준을 통과한 R&amp;D 과제</span></li>
+              <li><span class="num">30만+</span><span class="lbl">검색 가능한 매물 (200만 건 이상의 부품 레코드 카탈로그 기반)</span></li>
+            </ul>
+            <p>
+              검색은 구매자와 공급업체 모두를 위해 프로덕션에 출시되었습니다. 프로덕션에서도 자동 정확도 테스트를
+              실행하고, 발견된 문제를 해결했습니다.
+            </p>
+
+            <p class="callout">
+              이 글은 단순화한 내용입니다. 회사 코드, 내부 데이터, 비공개 URL은 포함하지 않았습니다.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="다른 프로젝트 사례">
+            <a href="/ko/work/catalog-agent/">
+              <span class="dir">← 이전</span>
+              <span class="ttl">카탈로그 데이터용 LangGraph 에이전트</span>
+            </a>
+            <a class="next" href="/ko/work/aws-data-pipeline/">
+              <span class="dir">다음 →</span>
+              <span class="ttl">AWS 서버리스 데이터 파이프라인</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="연락처">
+            <p><strong>이런 일을 맡길 사람을 찾고 계신가요?</strong> AI/ML 엔지니어 직무 제안을 기다리고 있습니다.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">이메일 보내기</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -1,18 +1,19 @@
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main">{{ui.skip}}</a>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href="/" aria-label="Azizjon Kasimov, home">
+        <a class="brand" href="{{home}}" aria-label="{{ui.home}}">
           <span class="brand-mark" aria-hidden="true">AK</span>
           <span class="brand-name">Azizjon Kasimov</span>
         </a>
-        <nav class="site-nav" aria-label="Main">
+        <nav class="site-nav" aria-label="{{ui.nav}}">
           <ul>
-            <li><a href="/#work">Work</a></li>
-            <li class="nav-optional"><a href="/#how-i-build">How I build</a></li>
-            <li><a href="/#experience">Experience</a></li>
-            <li class="nav-optional"><a href="/#skills">Skills</a></li>
-            <li><a href="/#contact">Contact</a></li>
+            <li><a href="{{home}}#work">{{ui.work}}</a></li>
+            <li class="nav-optional"><a href="{{home}}#how-i-build">{{ui.build}}</a></li>
+            <li><a href="{{home}}#experience">{{ui.experience}}</a></li>
+            <li class="nav-optional"><a href="{{home}}#skills">{{ui.skills}}</a></li>
+            <li><a href="{{home}}#contact">{{ui.contact}}</a></li>
           </ul>
         </nav>
+        {{languageMenu}}
       </div>
     </header>

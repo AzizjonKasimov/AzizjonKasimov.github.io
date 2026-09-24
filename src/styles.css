@@ -30,6 +30,7 @@
   --radius: 12px;
   --radius-sm: 8px;
   --shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 4px 16px rgb(16 24 40 / 0.05);
+  --shadow-pop: 0 2px 6px rgb(16 24 40 / 0.06), 0 12px 32px rgb(16 24 40 / 0.14);
   --container: 1080px;
   --reading: 720px;
   --gutter: clamp(16px, 4vw, 32px);
@@ -57,7 +58,17 @@
     --info: #8aa6ff;
     --info-soft: rgb(138 166 255 / 0.13);
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
+    --shadow-pop: 0 2px 6px rgb(0 0 0 / 0.35), 0 12px 32px rgb(0 0 0 / 0.5);
   }
+}
+
+/* Korean pages: name the platform Korean fonts so Hangul gets a clear, modern font. The mono
+   fonts have no Hangul, and the generic monospace fallback is the dated GulimChe on Windows, so
+   Hangul in mono labels falls back to the same sans fonts instead. */
+:root:lang(ko) {
+  --font-sans: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Sans KR", monospace;
 }
 
 /* ==========================================================================
@@ -84,6 +95,12 @@ body {
   font: 400 1.0625rem/1.65 var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Korean separates words with spaces, so wrap lines between words, not inside them. */
+:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 h1,
@@ -144,6 +161,18 @@ strong {
 .skip-link:focus {
   top: 12px;
   color: var(--on-accent);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .container {
@@ -218,6 +247,10 @@ strong {
   font: 700 0.8125rem/1 var(--font-mono);
 }
 
+.site-nav {
+  margin-left: auto;
+}
+
 .site-nav ul {
   display: flex;
   gap: 4px;
@@ -250,6 +283,114 @@ strong {
 
   .site-nav a {
     padding: 6px 8px;
+  }
+}
+
+/* Language menu: a details/summary disclosure, so it opens without JavaScript. */
+.lang-menu {
+  position: relative;
+  flex: none;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--text-2);
+  font: 600 0.8125rem/1 var(--font-mono);
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.lang-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.lang-toggle:hover,
+.lang-menu[open] > .lang-toggle {
+  border-color: var(--text-3);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.lang-toggle svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.lang-toggle .chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.15s ease;
+}
+
+.lang-menu[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.lang-list {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-pop);
+  list-style: none;
+}
+
+.lang-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+
+.lang-list a:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.lang-list a[aria-current] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.lang-list a[aria-current]::after {
+  content: "✓";
+}
+
+/* Phones: tighter spacing so three menu items and the language button fit in every language. */
+@media (max-width: 480px) {
+  .site-header .container {
+    gap: 10px;
+  }
+
+  .site-nav a {
+    padding: 6px;
+  }
+
+  .lang-toggle {
+    padding: 0 8px;
+  }
+
+  .lang-toggle .chevron {
+    display: none;
   }
 }
 
@@ -1267,6 +1408,15 @@ strong {
 
 .site-footer a:hover {
   color: var(--accent);
+}
+
+.site-footer .translation-note {
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+}
+
+.site-footer .translation-note a {
+  text-decoration: underline;
 }
 
 .not-found {

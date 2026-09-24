@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "check": "node tools/check-translations.mjs",
+    "build": "node tools/check-translations.mjs && vite build && node tools/check-language-redirect.mjs",
     "preview": "vite preview"
   },
   "repository": {
