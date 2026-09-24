@@ -9,9 +9,9 @@
 //   to pages under its language folder, e.g. /ko/work/semantic-search/, and links to files, such
 //   as /certificates/woosong-diploma.jpg, exactly as in English;
 // - identical technology tags, code, and inline SVG icons;
-// - the same numbers. Values are compared, not text, so "2M+" (en) and "200만+" (ko) both count
-//   as 2,000,000. English numbers written as words ("four", "twice") may appear as digits in a
-//   translation.
+// - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), and "2 Mio.+"
+//   (de) all count as 2,000,000. English numbers written as words ("four", "twice") may appear as
+//   digits in a translation.
 // - none of the banned words below.
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -25,6 +25,7 @@ const root = resolve(import.meta.dirname, '..')
 const numberFormats = {
   en: { group: ',', decimal: '\\.', scales: { million: 1e6 } },
   ko: { group: ',', decimal: '\\.', scales: { 만: 1e4 } },
+  de: { group: '\\.', decimal: ',', scales: { Mio: 1e6, Millionen: 1e6 } },
 }
 
 const englishNumberWords = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, twice: 2 }
@@ -34,6 +35,10 @@ const banned = {
   all: [
     [/\bRex\b/i, 'the company is spelled "Recs Innovation"'],
     [/Kotlin/i, 'Kotlin is never listed as a skill'],
+  ],
+  de: [
+    [/Ingenieur/i, 'job titles stay in English: "Ingenieur" is a protected title in Germany'],
+    [/\b(?:du|dich|dir|dein\w*)\b/i, 'address the reader formally, with "Sie"'],
   ],
 }
 

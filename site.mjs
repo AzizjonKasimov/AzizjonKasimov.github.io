@@ -15,7 +15,7 @@ export const pages = [
   'work/catalog-agent/index.html',
 ]
 
-// Languages are added one at a time: Korean first, then Russian, Uzbek, German, and Chinese.
+// Languages are added one at a time: Korean, then German. Russian, Uzbek, and Chinese are next.
 // `code` is the URL folder, the hreflang value, and what the browser's languages are matched
 // against. `htmlLang` goes in <html lang>. `name` is shown in the language menu, in its own
 // language. In `translated`, the part in braces becomes a link to the English version of the page.
@@ -60,6 +60,27 @@ export const locales = [
       email: '이메일',
       imageAlt: 'Azizjon Kasimov, AI/ML 엔지니어',
       translated: '이 페이지는 {영어 원문}을 번역한 것입니다.',
+    },
+  },
+  {
+    code: 'de',
+    htmlLang: 'de',
+    ogLocale: 'de_DE',
+    name: 'Deutsch',
+    short: 'DE',
+    ui: {
+      skip: 'Zum Inhalt springen',
+      home: 'Azizjon Kasimov, Startseite',
+      nav: 'Hauptmenü',
+      work: 'Projekte',
+      build: 'Arbeitsweise',
+      experience: 'Erfahrung',
+      skills: 'Kenntnisse',
+      contact: 'Kontakt',
+      language: 'Sprache',
+      email: 'E-Mail',
+      imageAlt: 'Azizjon Kasimov, AI/ML Engineer',
+      translated: 'Diese Seite ist eine Übersetzung des {englischen Originals}.',
     },
   },
 ]

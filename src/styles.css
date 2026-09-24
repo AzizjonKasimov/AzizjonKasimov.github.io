@@ -103,6 +103,14 @@ body {
   overflow-wrap: break-word;
 }
 
+/* German has long compound words, such as Anomalieerkennung, that would overflow headings and
+   narrow columns on phones. Hyphenate long words only, with at least 4 letters on each side. */
+:lang(de) {
+  hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  overflow-wrap: break-word;
+}
+
 h1,
 h2,
 h3,

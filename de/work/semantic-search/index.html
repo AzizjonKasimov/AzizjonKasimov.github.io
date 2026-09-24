@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Semantische KI-Suche für Autoteile – Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Fallstudie: Suche in natürlicher Sprache, die das genau passende Autoteil für ein bestimmtes Auto findet. Vektorsuche, NER, LLM-Bereinigung der Anfragen und eine Testsuite für die Genauigkeit. Mindestens 95 % im vorgegebenen Test mit 3.000 Teilen."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/semantic-search/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Semantische KI-Suche für Autoteile – Fallstudie" />
+    <meta
+      property="og:description"
+      content="Vektorsuche, Entitätserkennung und LLM-Bereinigung der Anfragen, mit einer automatisierten Testsuite für die Genauigkeit. Mindestens 95 % im vorgegebenen Test mit 3.000 Teilen."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/semantic-search/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/de/#work">← Alle Projekte</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">In Produktion</span>
+            <span class="mono">G-Man Auto Parts · 2025–2026</span>
+          </div>
+          <h1>Semantische KI-Suche für Autoteile</h1>
+          <p class="lead">
+            Käufer und Lieferanten mussten das genau passende Teil für ein bestimmtes Auto mit einfachen Worten finden können,
+            und das in mehreren Sprachen. Ich habe die Suche von Anfang bis Ende gebaut, dazu eine Testsuite, die belegte, dass
+            sie die Vorgabe von 95&nbsp;% Genauigkeit erfüllte.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Meine Rolle</dt>
+              <dd>Allein zuständig für KI/ML: Design, Embeddings, Entitätserkennung, LLM-Schritte, Evaluation und Produktivbetrieb lagen bei mir.</dd>
+            </div>
+            <div>
+              <dt>Ergebnis</dt>
+              <dd>Mindestens 95&nbsp;% Genauigkeit im vorgegebenen Test mit 3.000 Teilen. Das F&amp;E-Projekt wurde genehmigt.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Python, Django REST Framework, Weaviate, spaCy, OpenAI API (GPT-4o-mini), Celery, PostgreSQL, AWS S3, React</dd>
+            </div>
+            <div>
+              <dt>Größenordnung</dt>
+              <dd>Ein Katalog mit über 2&nbsp;Mio. Teiledatensätzen und über 300.000 durchsuchbaren Angeboten (Kia, Hyundai, SsangYong, Chevrolet)</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Das Problem</h2>
+            <p>
+              Menschen beschreiben dasselbe Teil auf viele Arten: „headlight“ oder „head lamp“, umgangssprachliche Namen
+              oder andere Sprachen. Die richtige Antwort ist aber eine Teilenummer für ein ganz bestimmtes Auto: Marke,
+              Modell, Baujahr, Kraftstoff, Getriebe, Generation und Seite (links oder rechts, vorne oder hinten).
+            </p>
+            <p>
+              Starre Stichwortfilter kamen damit nicht zurecht. Das Unternehmen brauchte eine Suche in natürlicher Sprache,
+              die mit hoher Präzision das richtige Teil liefert. Außerdem musste sie einen formalen Genauigkeitstest für ein
+              F&amp;E-Projekt bestehen.
+            </p>
+
+            <h2>So läuft eine Suchanfrage ab</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Sprachprüfung</span>
+                  <span class="step-desc">Zuerst läuft eine kleine Spracherkennung, damit das LLM nur bei Bedarf aufgerufen wird.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM-Normalisierung</span>
+                  <span class="step-desc">Anfragen, die nicht auf Englisch sind, werden übersetzt und bereinigt (GPT-4o-mini).</span>
+                </li>
+                <li>
+                  <span class="step-name">Entitätsextraktion</span>
+                  <span class="step-desc">spaCy-NER erkennt Marke, Modell, Baujahr, Kraftstoff, Getriebe, Teilename, Seite und Generation.</span>
+                </li>
+                <li>
+                  <span class="step-name">Gefilterte Vektorsuche</span>
+                  <span class="step-desc">Die Entitäten werden zu exakten Filtern über einer semantischen Suche in Weaviate.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM-Re-Ranking</span>
+                  <span class="step-desc">Ein LLM-Nachfilter entfernt klar falsche Treffer und sortiert den Rest neu.</span>
+                </li>
+                <li>
+                  <span class="step-name">Ergebnisse</span>
+                  <span class="step-desc">Produktsuche für Käufer oder Katalogabgleich für Lieferanten.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Django REST API</strong>Stellt beide Suchmodi für den Shop und die Admin-Tools bereit</li>
+                <li><strong>Testsuite für die Genauigkeit</strong>Führt dieselbe Pipeline auf einem festen Testdatensatz aus</li>
+                <li><strong>S3-Berichte</strong>Jeder Testlauf wird gespeichert und übersteht Redeployments</li>
+              </ul>
+              <figcaption id="flow-caption">Vereinfachte Darstellung der Such-Pipeline im Produktivbetrieb.</figcaption>
+            </figure>
+
+            <h2>Was ich gebaut habe</h2>
+            <ul>
+              <li>
+                <strong>Kern der Vektorsuche.</strong> Ich habe den Teilekatalog in Weaviate eingebettet und den Suchdienst mit
+                Django REST Framework gebaut. Den Text, der eingebettet wird (Feldbezeichnungen, Einbauseite, Baujahr und
+                kuratierte Synonyme), habe ich so gestaltet, dass der Recall steigt.
+              </li>
+              <li>
+                <strong>Entitäten als harte Filter.</strong> spaCy zieht strukturierte Fakten aus einer Freitext-Anfrage und
+                macht daraus exakte Filter. Die Vektorsuche kümmert sich um die Formulierung, die Filter sorgen dafür, dass Auto
+                und Seite stimmen.
+              </li>
+              <li>
+                <strong>Zwei Suchmodi.</strong> Produktsuche für Käufer. Automatischer Abgleich für Lieferanten: Ein
+                hochgeladenes Teil wird Katalogdatensätzen zugeordnet, und jede eindeutige Teilenummer wird zu einem eigenen Treffer.
+              </li>
+              <li>
+                <strong>Mehrsprachige Anfragen.</strong> Anfragen, die nicht auf Englisch sind, laufen durch einen LLM-Schritt.
+                Der Wechsel von GPT-3.5-Turbo zu GPT-4o-mini brachte bessere Qualität bei geringeren Kosten, und die
+                Sprachprüfung hält LLM-Aufrufe auf einem Minimum.
+              </li>
+              <li>
+                <strong>Relevanz-Tuning.</strong> Ein LLM-Re-Ranker entfernt klar falsche Treffer. Ein Alias-System für
+                Teilenamen (zum Beispiel „headlight“ → „Head Lamp Assembly“) erhöhte die Genauigkeit bei alltäglichen
+                Formulierungen.
+              </li>
+              <li>
+                <strong>Anbindung ans Frontend.</strong> Ich habe den Shop und die Admin-Tools (React/TypeScript) an die
+                Such-APIs angebunden: Filter fließen in die Anfrage ein, Treffer füllen Formulare automatisch aus, und
+                Ergebnisse werden nach Relevanz sortiert, mit einer Konfidenzschwelle.
+              </li>
+            </ul>
+
+            <h2>Genauigkeit messen</h2>
+            <p>
+              Die Genauigkeit musste gemessen und nicht geschätzt werden. Ich habe eine interne Testseite gebaut, die dieselbe
+              Pipeline wie die Produktivsuche auf einem festen, kuratierten Testdatensatz ausführt.
+            </p>
+            <ul>
+              <li><strong>Metriken:</strong> accuracy@1 und accuracy@3, Precision, Recall, F1, eine Konfusionsmatrix und Kreuzvalidierung.</li>
+              <li><strong>Wiederholbare Läufe:</strong> automatisch oder manuell. Jeder Lauf hält fest, wer ihn gestartet hat und ob die LLM-Vorverarbeitung aktiv war.</li>
+              <li><strong>Von Grund auf sicher:</strong> Testdaten liegen in eigenen Collections, mit Schutzmechanismen, damit ein Test nie Produktionsdaten berühren kann.</li>
+              <li><strong>Fehleranalyse:</strong> Ich habe Fälle ohne Treffer auf veraltete Testobjekte, Abweichungen zwischen SKU und Katalog, kollidierende Entitätsmuster und die Behandlung von Karosseriefarben zurückgeführt und jeden davon behoben.</li>
+            </ul>
+
+            <h2>Ergebnisse</h2>
+            <ul class="metric-grid">
+              <li><span class="num">95&nbsp;%+</span><span class="lbl">Genauigkeit auf dem vorgegebenen Evaluationsdatensatz mit 3.000 Teilen</span></li>
+              <li><span class="num">Genehmigt</span><span class="lbl">F&amp;E-Projekt, nach Erreichen der Genauigkeitsvorgabe</span></li>
+              <li><span class="num">300.000+</span><span class="lbl">durchsuchbare Angebote, auf einem Katalog mit über 2&nbsp;Mio. Teiledatensätzen</span></li>
+            </ul>
+            <p>
+              Die Suche ging für Käufer und Lieferanten in Produktion. Außerdem habe ich die automatisierten
+              Genauigkeitstests in der Produktivumgebung ausgeführt und die gefundenen Probleme behoben.
+            </p>
+
+            <p class="callout">
+              Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine
+              privaten URLs.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Weitere Fallstudien">
+            <a href="/de/work/catalog-agent/">
+              <span class="dir">← Vorherige</span>
+              <span class="ttl">LangGraph-Agent für Katalogdaten</span>
+            </a>
+            <a class="next" href="/de/work/aws-data-pipeline/">
+              <span class="dir">Nächste →</span>
+              <span class="ttl">Serverlose Datenpipeline auf AWS</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Kontakt">
+            <p><strong>Sie suchen Verstärkung für solche Aufgaben?</strong> Ich bin offen für Stellen als AI/ML Engineer.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">E-Mail schreiben</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

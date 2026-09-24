@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Solarprognose und Anomalieerkennung im Produktivbetrieb – Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Fallstudie: Leitung des Teams, das Solarstromprognosen und Anomalieerkennung für Solarkraftwerke in Produktion brachte. Prognosefehler von 9 % auf 7 %, Precision der Anomalieerkennung ~35 % höher, Deployments von 3 Stunden auf 15 Minuten."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/solar-mlops/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Solarprognose und Anomalieerkennung im Produktivbetrieb – Fallstudie" />
+    <meta
+      property="og:description"
+      content="Prognosefehler von 9 % auf 7 %, Precision der Anomalieerkennung ~35 % und Recall ~37 % höher, Deployments von 3 Stunden auf 15 Minuten, 80 % weniger manueller Betriebsaufwand."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/solar-mlops/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/de/#work">← Alle Projekte</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">In Produktion</span>
+            <span class="mono">Recs Innovation · 2024</span>
+          </div>
+          <h1>Solarprognose und Anomalieerkennung im Produktivbetrieb</h1>
+          <p class="lead">
+            Bei Recs Innovation wurde ich zweimal befördert, vom Praktikum bis zur Rolle als AI Team Lead. Ich habe das Team
+            geleitet, das Solarstromprognosen und Anomalieerkennung für Solarkraftwerke in Produktion gebracht hat. Die
+            Inferenzdienste waren an eine Plattform für virtuelle Kraftwerke (VPP) angebunden.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Meine Rolle</dt>
+              <dd>Data Science Intern → AI Developer → AI Team Lead (März–Nov. 2024). Leitung der ML-, Backend- und Frontend-Teams.</dd>
+            </div>
+            <div>
+              <dt>Ergebnis</dt>
+              <dd>Prognosefehler von 9&nbsp;% auf 7&nbsp;%. Precision der Anomalieerkennung ~35&nbsp;% höher, Recall ~37&nbsp;% höher. Deployments von 3 Stunden auf 15 Minuten.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>PyTorch, Graph Neural Network (GNNAD), FastAPI, Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana, MLflow</dd>
+            </div>
+            <div>
+              <dt>Geschäftlicher Nutzen</dt>
+              <dd>Einnahmen aus der Stromvermittlung an der Korea Power Exchange (KPX). 80&nbsp;% weniger manueller Betriebsaufwand (~48.000&nbsp;$/Jahr).</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Das Problem</h2>
+            <p>Das Unternehmen brauchte zwei Modelle, die in Produktion funktionieren, nicht nur im Experiment:</p>
+            <ul>
+              <li>
+                eine <strong>Prognose der Solarstromerzeugung</strong>, genau genug für die Stromvermittlung an der Korea Power
+                Exchange (KPX), und
+              </li>
+              <li>eine <strong>Anomalieerkennung</strong>, die Daten von Solarkraftwerken überwacht.</li>
+            </ul>
+            <p>Beide mussten zuverlässig laufen und sich in eine kommerzielle VPP-Plattform einfügen.</p>
+
+            <h2>Systemüberblick</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Anlagendaten</span>
+                  <span class="step-desc">Multivariate Zeitreihendaten von Solarkraftwerken.</span>
+                </li>
+                <li>
+                  <span class="step-name">Training</span>
+                  <span class="step-desc">PyTorch-Modelle, Experimente in MLflow nachverfolgt. Der Anomaliedetektor wird jede Nacht neu trainiert.</span>
+                </li>
+                <li>
+                  <span class="step-name">Modelle</span>
+                  <span class="step-desc">Eine Prognose der Solarstromerzeugung und ein graphbasierter Anomaliedetektor (GNN).</span>
+                </li>
+                <li>
+                  <span class="step-name">Inferenz-APIs</span>
+                  <span class="step-desc">FastAPI-Dienste stellen die Prognosen und die Ergebnisse der Anomalieerkennung bereit.</span>
+                </li>
+                <li>
+                  <span class="step-name">VPP-Plattform</span>
+                  <span class="step-desc">Die Dienste sind an eine kommerzielle Plattform für virtuelle Kraftwerke angebunden.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>CI/CD</strong>GitHub Actions deployt containerisierte Dienste</li>
+                <li><strong>Infrastruktur</strong>Docker-Compose-Dienste mit PostgreSQL</li>
+                <li><strong>Monitoring</strong>Prometheus-Metriken und Grafana-Dashboards</li>
+              </ul>
+              <figcaption id="flow-caption">Vereinfachte Darstellung des Produktivsystems.</figcaption>
+            </figure>
+
+            <h2>Prognose</h2>
+            <ul>
+              <li>
+                Als AI Developer habe ich mit PyTorch eine Prognose der Solarstromerzeugung gebaut, mit weniger als
+                10&nbsp;% durchschnittlichem Fehler. Damit qualifizierte sich das Unternehmen für das Geschäft an der KPX.
+              </li>
+              <li>
+                Als Team Lead habe ich den Prognosefehler von 9&nbsp;% auf 7&nbsp;% gesenkt (22&nbsp;% weniger) und damit
+                Einnahmen aus der Stromvermittlung an der KPX ermöglicht.
+              </li>
+            </ul>
+
+            <h2>Anomalieerkennung für Solarkraftwerke</h2>
+            <p>
+              Ich habe an der Anomalieerkennung für multivariate Zeitreihen mit einem graphbasierten Modell (GNNAD) gearbeitet.
+              Die Verbesserungen kamen Schritt für Schritt:
+            </p>
+            <ul>
+              <li>
+                <strong>Klarerer Blick auf Fehler.</strong> Ich habe die Open-Source-Codebasis stark überarbeitet und
+                Diagramme ergänzt, die Vorhersagen und tatsächliche Daten für jedes Feature vergleichen.
+              </li>
+              <li><strong>Bessere Fehlerberechnung:</strong> Precision +5&nbsp;%, Recall +7&nbsp;%.</li>
+              <li>
+                <strong>Stündliche Schwellenwerte:</strong> 24 Schwellenwerte statt eines globalen, damit sie dem Verlauf des
+                Fehlers über den Tag folgen. Recall +10&nbsp;%.
+              </li>
+              <li>
+                <strong>Sauberere Trainingsdaten:</strong> Das Entfernen anomaler Punkte aus dem Trainingsdatensatz brachte
+                Precision +30&nbsp;% und Recall +20&nbsp;%.
+              </li>
+              <li>
+                <strong>Ehrliche Validierung:</strong> Kreuzvalidierung wie im Produktivbetrieb, mit Inferenzfenstern von
+                16 Punkten, stündlichen Schwellenwerten und nächtlichem Neutraining.
+              </li>
+            </ul>
+            <p>
+              <strong>Insgesamt stieg die Precision um rund 35&nbsp;% und der Recall um rund 37&nbsp;%.</strong> Zuvor hatte
+              ich im Praktikum das GNN-Modell auf 70&nbsp;% Precision und 50&nbsp;% Recall abgestimmt, die Experimente in
+              MLflow nachverfolgt und die FastAPI-Endpunkte gebaut, die das Anomalieerkennungssystem mit der VPP-Plattform
+              verbinden.
+            </p>
+
+            <h2>MLOps und Deployment</h2>
+            <ul>
+              <li>
+                Ich habe das Anomalieerkennungssystem containerisiert und Deployments mit GitHub Actions automatisiert. Die
+                Deployment-Zeit sank von 3 Stunden auf 15 Minuten.
+              </li>
+              <li>
+                Ich habe eine durchgängige MLOps-Infrastruktur mit Docker Compose, GitHub Actions, PostgreSQL, Prometheus und
+                Grafana aufgebaut. Der manuelle Betriebsaufwand sank um 80&nbsp;%, was rund 48.000&nbsp;$ pro Jahr einsparte.
+              </li>
+            </ul>
+
+            <h2>Teamleitung</h2>
+            <p>
+              Als AI Team Lead habe ich die ML-, Backend- und Frontend-Teams geführt und dafür gesorgt, dass sich die Modelle
+              sauber in die VPP-Plattform einfügten.
+            </p>
+
+            <h2>Ergebnisse</h2>
+            <ul class="metric-grid">
+              <li><span class="num">9&nbsp;% → 7&nbsp;%</span><span class="lbl">Prognosefehler, Grundlage für Einnahmen aus der Stromvermittlung an der KPX</span></li>
+              <li><span class="num">+35&nbsp;% / +37&nbsp;%</span><span class="lbl">Precision / Recall der Anomalieerkennung</span></li>
+              <li><span class="num">3&nbsp;h → 15&nbsp;min</span><span class="lbl">Deployment-Zeit</span></li>
+              <li><span class="num">−80&nbsp;%</span><span class="lbl">manueller Betriebsaufwand (~48.000&nbsp;$/Jahr)</span></li>
+            </ul>
+            <p>
+              Screenshots beider Systeme sind dieser Stelle in meinem
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn-Profil</a> angehängt.
+            </p>
+
+            <p class="callout">
+              Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine
+              privaten URLs.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Weitere Fallstudien">
+            <a href="/de/work/aws-data-pipeline/">
+              <span class="dir">← Vorherige</span>
+              <span class="ttl">Serverlose Datenpipeline auf AWS</span>
+            </a>
+            <a class="next" href="/de/work/catalog-agent/">
+              <span class="dir">Nächste →</span>
+              <span class="ttl">LangGraph-Agent für Katalogdaten</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Kontakt">
+            <p><strong>Sie suchen Verstärkung für solche Aufgaben?</strong> Ich bin offen für Stellen als AI/ML Engineer.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">E-Mail schreiben</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>LangGraph-Agent für Katalogdaten – Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Fallstudie: ein LangGraph-Agenten-Workflow, der aus einer kurzen Anfrage saubere, katalogfertige Autoteiledaten macht, mit Zeitplanung, fortsetzbaren Jobs und Berichten, die das Datenteam prüfen kann."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/catalog-agent/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="LangGraph-Agent für Katalogdaten – Fallstudie" />
+    <meta
+      property="og:description"
+      content="Ein Agenten-Workflow, der Fahrzeugvarianten auflöst, Katalogdaten abruft, normalisiert und zuordnet und sie in fortsetzbaren Batches schreibt."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/catalog-agent/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/de/#work">← Alle Projekte</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Prototyp</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>LangGraph-Agent für Katalogdaten</h1>
+          <p class="lead">
+            Katalogdaten von Drittanbietern zu laden, war für das Datenteam langsame Handarbeit. Ich habe einen
+            Agenten-Workflow gebaut, der aus einer kurzen Anfrage saubere, katalogfertige Teiledaten macht, mit Zeitplanung,
+            fortsetzbaren Jobs und einem Bericht, den alle prüfen können.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Meine Rolle</dt>
+              <dd>Alleinige Entwicklung: Recherche, Architektur, der Agent, die Zeitplanung und die Demo-Oberfläche.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Funktionsfähiger Prototyp mit Demo-Oberfläche für das Datenteam. Bei meinem Ausscheiden im Juli 2026 nicht in Produktion.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Python, LangGraph, OpenAI API, APScheduler, PostgreSQL</dd>
+            </div>
+            <div>
+              <dt>Umfang</dt>
+              <dd>Anfragen nach Marke, Modell, Baujahr und Region für die 7 Fahrzeugmarken des Unternehmens</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Das Problem</h2>
+            <p>
+              Fahrzeug- und Teiledaten von Drittanbietern in den Firmenkatalog zu laden, war wiederkehrende Handarbeit.
+              Jemand musste viele Parameter auswählen, die Daten herunterladen, bereinigen und jeden Datensatz den richtigen
+              Katalogtabellen zuordnen.
+            </p>
+            <p>Ziel war es, das zu automatisieren, damit das Datenteam es nicht mehr von Hand erledigen muss.</p>
+
+            <h2>So funktioniert es</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Anfrage</span>
+                  <span class="step-desc">Marke, Modell, Baujahr und Region, ausgewählt aus Drop-down-Listen.</span>
+                </li>
+                <li>
+                  <span class="step-name">Varianten auflösen</span>
+                  <span class="step-desc">Alle passenden Fahrzeugvarianten finden und daraus den abzurufenden Katalogumfang ableiten.</span>
+                </li>
+                <li>
+                  <span class="step-name">Abrufen</span>
+                  <span class="step-desc">Die Katalog-API des Drittanbieters aufrufen, mit Caching und Wiederholungsversuchen.</span>
+                </li>
+                <li>
+                  <span class="step-name">Normalisieren und zuordnen</span>
+                  <span class="step-desc">Datensätze bereinigen und den richtigen Katalogtabellen zuordnen.</span>
+                </li>
+                <li>
+                  <span class="step-name">Schreiben</span>
+                  <span class="step-desc">In Batches in PostgreSQL speichern, mit Checkpoints, damit sich ein Job sicher fortsetzen oder abbrechen lässt.</span>
+                </li>
+                <li>
+                  <span class="step-name">Bericht</span>
+                  <span class="step-desc">Zeigen, wie jeder Batch normalisiert und zugeordnet wurde, damit das Datenteam ihn prüfen kann.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Scheduler</strong>APScheduler mit einer kleinen Oberfläche für geplante und manuelle Läufe</li>
+                <li><strong>Cache</strong>Katalogdaten bis auf Gruppenebene zwischengespeichert</li>
+                <li><strong>Kontrolle</strong>Umfangsgrenzen, Jobstatus und sichtbare API-Nutzung</li>
+              </ul>
+              <figcaption id="flow-caption">Vereinfachte Darstellung des Agenten-Workflows.</figcaption>
+            </figure>
+
+            <h2>Was ich gebaut habe</h2>
+            <ul>
+              <li>
+                <strong>Einfach angefangen, dann berechenbar gemacht.</strong> Die erste Version nahm eine Anfrage in
+                natürlicher Sprache entgegen, hatte einen Rückfrageschritt und protokollierte jeden Agentenschritt zum Debuggen.
+                Sobald der Workflow stabil lief, habe ich den Freitext durch Drop-down-Eingaben ersetzt, damit Läufe
+                wiederholbar sind.
+              </li>
+              <li>
+                <strong>Warum LangGraph.</strong> Das LLM erledigt nur einen kleinen Teil der Arbeit. LangGraph lohnt sich
+                trotzdem: Der Workflow ist strukturiert, leicht nachzuvollziehen und kann nach einem Fehler fortgesetzt werden.
+              </li>
+              <li>
+                <strong>Für sehr große Jobs gebaut.</strong> Stückweises, fortsetzbares Speichern bewältigt Fahrzeugmodelle
+                mit über 100.000 Varianten.
+              </li>
+              <li>
+                <strong>Zeitplanung.</strong> APScheduler mit einer kleinen Oberfläche für geplante und manuelle Läufe,
+                einschließlich eines Fixes für doppelt registrierte Jobs.
+              </li>
+              <li>
+                <strong>Nachprüfbare Ergebnisse.</strong> Automatische Berichte zeigen, wie jeder Batch normalisiert und
+                zugeordnet wurde, sodass auch Personen ohne technischen Hintergrund das Ergebnis prüfen können.
+              </li>
+              <li>
+                <strong>Dokumentation.</strong> Referenzdokumentation zum Katalogschema: welche Tabellen der Agent liest und
+                welche er schreibt.
+              </li>
+            </ul>
+
+            <h2>Technische Abwägungen</h2>
+            <p>
+              Vor dem Bau habe ich Eigenentwicklung und Zukauf verglichen. Ich habe bestehende KI-Tools zur Datenerfassung und
+              Workflow-Engines (Airflow, Prefect, Celery) geprüft und einen schlanken Ansatz gewählt, der zur Projektphase
+              passte und sich später skalieren lässt.
+            </p>
+            <p>
+              Außerdem habe ich den Jobumfang und die kostenpflichtige API-Nutzung sichtbar gehalten, statt sie hinter
+              autonomem Verhalten zu verstecken. Das Design reduziert Handarbeit, während Menschen die Kontrolle über Kosten und
+              Daten behalten.
+            </p>
+
+            <h2>Status</h2>
+            <p>
+              Ein funktionsfähiger Prototyp mit Zeitplanung und einer Demo-Oberfläche für das Datenteam. Er wurde gerade in ein
+              einheitliches internes Admin-Tool integriert. Bei meinem Ausscheiden im Juli 2026 war er nicht in Produktion.
+            </p>
+
+            <p class="callout">
+              Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine
+              privaten URLs.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Weitere Fallstudien">
+            <a href="/de/work/solar-mlops/">
+              <span class="dir">← Vorherige</span>
+              <span class="ttl">Solarprognose und Anomalieerkennung</span>
+            </a>
+            <a class="next" href="/de/work/semantic-search/">
+              <span class="dir">Nächste →</span>
+              <span class="ttl">Semantische KI-Suche für Autoteile</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Kontakt">
+            <p><strong>Sie suchen Verstärkung für solche Aufgaben?</strong> Ich bin offen für Stellen als AI/ML Engineer.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">E-Mail schreiben</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

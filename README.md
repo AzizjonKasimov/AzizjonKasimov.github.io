@@ -5,7 +5,7 @@
 A fast, static portfolio for job applications: a homepage that answers "who, what, proof, and how to
 reach me" in a few seconds, plus case-study pages for the main projects. There is no backend and no
 client-side framework. The pages are plain HTML and CSS, built with Vite and deployed to GitHub Pages
-by GitHub Actions. The site is in English and Korean. Russian, Uzbek, German, and Chinese will be
+by GitHub Actions. The site is in English, Korean, and German. Russian, Uzbek, and Chinese will be
 added one at a time.
 
 ## Structure
@@ -14,7 +14,7 @@ added one at a time.
 | --- | --- |
 | `index.html` | Homepage: headline metrics, selected work, experience, skills, credentials, contact |
 | `work/<slug>/index.html` | Case-study pages (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) |
-| `ko/` | The same pages in Korean; each new language gets its own folder |
+| `ko/`, `de/` | The same pages in Korean and German; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
 | `partials/` | Shared `<head>` tags, header (with the language menu), and footer, inlined into every page at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
@@ -44,7 +44,7 @@ that the build fills in for each page's language. An unknown placeholder stops t
 English pages live at the site root, and each translation has the same paths under its language
 folder: `/work/solar-mlops/` in Korean is `/ko/work/solar-mlops/`.
 
-- **Language menu:** a globe button with the current language code (EN, KO) sits at the right of the
+- **Language menu:** a globe button with the current language code (EN, KO, DE) sits at the right of the
   header on every page. It opens a list of the site's languages, each linking to the same page in that
   language. It works without JavaScript.
 - **Automatic choice:** when a visitor opens an English page from outside the site (a search result,
@@ -66,7 +66,8 @@ Change the English page first, then make the same change in every translation, a
 links, image files, technology tags, code, icons, or numbers differ from English, or if its head tags
 are wrong. Links to pages go to the translation's own folder (`/ko/work/...`); links to files, such as
 the certificate images, stay exactly as in English.
-Numbers are compared by value, so each language can use its own format (`2M+` is `200만+` in Korean).
+Numbers are compared by value, so each language can use its own format (`2M+` is `200만+` in Korean
+and `2 Mio.+` in German, and `4.39` is `4,39` in German).
 `npm run build` runs the check first, so a failing check also stops the deploy.
 
 The check cannot tell whether a sentence still says the same thing, so reread each translated
@@ -78,8 +79,9 @@ sentence you change.
    and the header and footer text).
 2. Add its number format, and any words it must never use, to `tools/check-translations.mjs`.
 3. Translate every page into `<code>/` and run `npm run check`.
-4. If the script needs its own fonts or line breaking, add `:lang(<code>)` rules to `src/styles.css`,
-   as Korean has. Check the pages on a phone and on desktop, in light and dark themes.
+4. If the language needs its own fonts, line breaking, or hyphenation, add `:lang(<code>)` rules to
+   `src/styles.css`, as Korean and German have. Check the pages on a phone and on desktop, in light
+   and dark themes.
 
 ## Content rules
 
