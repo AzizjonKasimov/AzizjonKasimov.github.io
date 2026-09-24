@@ -280,12 +280,16 @@ strong {
   color: var(--text);
 }
 
-@media (max-width: 720px) {
-  .brand-name {
+/* Narrow windows and tablets: drop the two optional links, so the longest menu labels (German)
+   still fit next to the name and the language button. */
+@media (max-width: 860px) {
+  .site-nav .nav-optional {
     display: none;
   }
+}
 
-  .site-nav .nav-optional {
+@media (max-width: 720px) {
+  .brand-name {
     display: none;
   }
 
