@@ -981,7 +981,8 @@ strong {
   }
 }
 
-/* Certificate scans: each thumbnail links to the full-size image. */
+/* Certificate scans: each thumbnail links to the full-size image. Six scans fill one row on
+   desktop, two rows of three on tablets, and three rows of two on phones. */
 .certs .subhead {
   margin-bottom: 6px;
 }
@@ -994,7 +995,8 @@ strong {
 
 .cert-gallery {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* minmax(0, 1fr) keeps the columns equal when a caption holds a long word. */
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 16px;
   padding: 0;
   list-style: none;
@@ -1045,7 +1047,7 @@ strong {
   line-height: 1.4;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .cert-gallery {
     grid-template-columns: repeat(3, 1fr);
   }

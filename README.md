@@ -116,12 +116,14 @@ image.
 
 ## Certificate scans
 
-The homepage shows the diploma and award certificates as a row of thumbnails, each linking to the
-full scan. The images are in `public/certificates/`, and every language uses the same files. The
-original PDFs are kept in the private portfolio repo. To add a certificate:
+The homepage shows the two diplomas and the award certificates as a gallery of thumbnails, each
+linking to the full scan. The images are in `public/certificates/`, and every language uses the
+same files. The original PDFs are kept in the private portfolio repo. To add a certificate:
 
-1. Check the scan for private details first, because the site is public. The Korean diploma is not
-   shown, for example, because it includes the date of birth.
+1. Check the scan for private details first, because the site is public, and cover them before
+   making the images. The Korean diploma, for example, is shown from a copy with the date of birth
+   covered (`education/certificates/woosong-diploma-ko-birthdate-covered.jpg` in the portfolio
+   repo).
 2. Make the images. The script writes `<name>.jpg` (1240 px wide, to read) and `<name>-thumb.jpg`
    (400 px wide) and drops the scan's metadata:
 
@@ -130,7 +132,9 @@ original PDFs are kept in the private portfolio repo. To add a certificate:
    ```
 
 3. Add a card to the certificate gallery in `index.html` and in every translation, then run
-   `npm run check`.
+   `npm run check`. The gallery has 6 columns on desktop, 3 on tablets, and 2 on phones (see
+   `.cert-gallery` in `src/styles.css`), so the six scans fill even rows; change the column counts
+   if the number of scans changes.
 
 ## Deployment
 
