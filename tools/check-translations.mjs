@@ -9,9 +9,9 @@
 //   to pages under its language folder, e.g. /ko/work/semantic-search/, and links to files, such
 //   as /certificates/woosong-diploma.jpg, exactly as in English;
 // - identical technology tags, code, and inline SVG icons;
-// - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), and "2 Mio.+"
-//   (de) all count as 2,000,000. English numbers written as words ("four", "twice") may appear as
-//   digits in a translation.
+// - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), "2 Mio.+" (de),
+//   and "2 млн+" (ru) all count as 2,000,000. English numbers written as words ("four", "twice")
+//   may appear as digits in a translation.
 // - none of the banned words below.
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -21,11 +21,13 @@ import { SITE_URL, locales, localizedFile, pages, urlPath } from '../site.mjs'
 const root = resolve(import.meta.dirname, '..')
 
 // Each language's digit-group and decimal separators, and scale words that multiply the number
-// before them. Attached "M" and "K" (2M, 300K) work in every language.
+// before them. Attached "M" and "K" (2M, 300K) work in every language. Russian groups digits
+// with a space (300 000), usually a non-breaking one.
 const numberFormats = {
   en: { group: ',', decimal: '\\.', scales: { million: 1e6 } },
   ko: { group: ',', decimal: '\\.', scales: { 만: 1e4 } },
   de: { group: '\\.', decimal: ',', scales: { Mio: 1e6, Millionen: 1e6 } },
+  ru: { group: '[ \\u00a0\\u202f]', decimal: ',', scales: { млн: 1e6, тыс: 1e3 } },
 }
 
 const englishNumberWords = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, twice: 2 }
@@ -39,6 +41,11 @@ const banned = {
   de: [
     [/Ingenieur/i, 'job titles stay in English: "Ingenieur" is a protected title in Germany'],
     [/\b(?:du|dich|dir|dein\w*)\b/i, 'address the reader formally, with "Sie"'],
+  ],
+  // \b only knows Latin letters, so Russian words are bounded by Cyrillic lookarounds.
+  ru: [
+    [/(?<![а-яё])(?:ты|тебя|тебе|тобой|тво(?:й|я|ё|е|и|его|ей|ему|им|ими|их|ю))(?![а-яё])/i, 'address the reader formally, with "вы"'],
+    [/Котлин/i, 'Kotlin is never listed as a skill'],
   ],
 }
 

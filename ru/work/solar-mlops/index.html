@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Прогноз солнечной генерации и обнаружение аномалий в продакшене — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Кейс: руководство командой, которая вывела в продакшен прогнозирование выработки солнечной энергии и обнаружение аномалий на солнечных электростанциях. Ошибка прогноза снижена с 9% до 7%, precision обнаружения аномалий выше на ~35%, деплой за 15 минут вместо 3 часов."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ru/work/solar-mlops/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Прогноз солнечной генерации и обнаружение аномалий в продакшене — кейс" />
+    <meta
+      property="og:description"
+      content="Ошибка прогноза снижена с 9% до 7%, precision обнаружения аномалий выше на ~35%, recall — на ~37%, деплой за 15 минут вместо 3 часов, ручной операционной работы на 80% меньше."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ru/work/solar-mlops/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ru/#work">← Все проекты</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">В продакшене</span>
+            <span class="mono">Recs Innovation · 2024</span>
+          </div>
+          <h1>Прогноз солнечной генерации и обнаружение аномалий в продакшене</h1>
+          <p class="lead">
+            В Recs Innovation меня дважды повышали: от стажёра до AI Team Lead. Я руководил командой, которая вывела в
+            продакшен прогнозирование выработки и обнаружение аномалий для солнечных электростанций, а сервисы инференса были
+            подключены к платформе виртуальной электростанции (VPP).
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Моя роль</dt>
+              <dd>Data Science Intern → AI Developer → AI Team Lead (март–ноябрь 2024). Руководил ML-, бэкенд- и фронтенд-командами.</dd>
+            </div>
+            <div>
+              <dt>Результат</dt>
+              <dd>Ошибка прогноза — с 9% до 7%. Precision обнаружения аномалий выше на ~35%, recall — на ~37%. Деплой за 15 минут вместо 3 часов.</dd>
+            </div>
+            <div>
+              <dt>Стек</dt>
+              <dd>PyTorch, графовая нейросеть (GNNAD), FastAPI, Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana, MLflow</dd>
+            </div>
+            <div>
+              <dt>Эффект для бизнеса</dt>
+              <dd>Доход от посредничества в торговле электроэнергией на бирже Korea Power Exchange (KPX). Ручной операционной работы на 80% меньше (~$48&nbsp;тыс. в год).</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Задача</h2>
+            <p>Компании были нужны две модели, которые работают в продакшене, а не только в экспериментах:</p>
+            <ul>
+              <li>
+                <strong>прогноз солнечной генерации</strong>, достаточно точный для посредничества в торговле электроэнергией
+                на бирже Korea Power Exchange (KPX), и
+              </li>
+              <li><strong>обнаружение аномалий</strong>, которое отслеживает данные солнечных электростанций.</li>
+            </ul>
+            <p>Обе должны были надёжно работать и подключаться к коммерческой платформе VPP.</p>
+
+            <h2>Обзор системы</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Данные электростанций</span>
+                  <span class="step-desc">Многомерные временные ряды с солнечных электростанций.</span>
+                </li>
+                <li>
+                  <span class="step-name">Обучение</span>
+                  <span class="step-desc">Модели на PyTorch, эксперименты отслеживаются в MLflow. Детектор аномалий переобучается каждую ночь.</span>
+                </li>
+                <li>
+                  <span class="step-name">Модели</span>
+                  <span class="step-desc">Прогноз солнечной генерации и графовый (GNN) детектор аномалий.</span>
+                </li>
+                <li>
+                  <span class="step-name">API для инференса</span>
+                  <span class="step-desc">Сервисы на FastAPI отдают прогнозы и результаты обнаружения аномалий.</span>
+                </li>
+                <li>
+                  <span class="step-name">Платформа VPP</span>
+                  <span class="step-desc">Сервисы подключаются к коммерческой платформе виртуальной электростанции.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>CI/CD</strong>GitHub Actions деплоит сервисы в контейнерах</li>
+                <li><strong>Инфраструктура</strong>Сервисы в Docker Compose с PostgreSQL</li>
+                <li><strong>Мониторинг</strong>Метрики Prometheus и дашборды Grafana</li>
+              </ul>
+              <figcaption id="flow-caption">Упрощённая схема продакшен-среды.</figcaption>
+            </figure>
+
+            <h2>Прогнозирование</h2>
+            <ul>
+              <li>
+                На позиции AI Developer я создал на PyTorch прогноз солнечной генерации со средней ошибкой меньше 10%. Благодаря
+                этому компания получила допуск к работе на KPX.
+              </li>
+              <li>
+                Уже как тимлид я снизил ошибку прогноза с 9% до 7% (на 22%), что открыло доход от посредничества в торговле
+                электроэнергией на KPX.
+              </li>
+            </ul>
+
+            <h2>Обнаружение аномалий на солнечных электростанциях</h2>
+            <p>
+              Я работал над обнаружением аномалий в многомерных временных рядах с помощью графовой модели (GNNAD). Результат
+              улучшался шаг за шагом:
+            </p>
+            <ul>
+              <li>
+                <strong>Наглядность ошибок.</strong> Я основательно переработал open-source-код и добавил графики, которые
+                сравнивают предсказания с фактическими данными по каждому признаку.
+              </li>
+              <li><strong>Более точный расчёт ошибки:</strong> precision +5%, recall +7%.</li>
+              <li>
+                <strong>Почасовые пороги:</strong> 24 порога вместо одного глобального, чтобы учитывать, как ошибка меняется в
+                течение дня. Recall +10%.
+              </li>
+              <li>
+                <strong>Более чистые обучающие данные:</strong> удаление аномальных точек из обучающей выборки дало precision
+                +30% и recall +20%.
+              </li>
+              <li>
+                <strong>Честная валидация:</strong> кросс-валидация в тех же условиях, что и в продакшене: окна инференса по 16
+                точек, почасовые пороги и ночное переобучение.
+              </li>
+            </ul>
+            <p>
+              <strong>В итоге рост precision составил около 35%, а recall — около 37%.</strong> Ещё раньше, будучи стажёром, я
+              настроил GNN-модель до precision 70% и recall 50%, отслеживал эксперименты в MLflow и сделал эндпоинты на FastAPI,
+              которые подключают систему обнаружения аномалий к платформе VPP.
+            </p>
+
+            <h2>MLOps и деплой</h2>
+            <ul>
+              <li>
+                Я упаковал систему обнаружения аномалий в контейнеры и автоматизировал деплой с помощью GitHub Actions. Время
+                деплоя сократилось с 3 часов до 15 минут.
+              </li>
+              <li>
+                Я построил сквозную MLOps-инфраструктуру на Docker Compose, GitHub Actions, PostgreSQL, Prometheus и Grafana.
+                Объём ручных операций сократился на 80%, что экономит около $48&nbsp;тыс. в год.
+              </li>
+            </ul>
+
+            <h2>Руководство командой</h2>
+            <p>
+              На позиции AI Team Lead я руководил ML-, бэкенд- и фронтенд-командами и следил за тем, чтобы модели без проблем
+              интегрировались в платформу VPP.
+            </p>
+
+            <h2>Результаты</h2>
+            <ul class="metric-grid">
+              <li><span class="num">9% → 7%</span><span class="lbl">ошибка прогноза; это открыло доход от посредничества на KPX</span></li>
+              <li><span class="num">+35% / +37%</span><span class="lbl">precision / recall обнаружения аномалий</span></li>
+              <li><span class="num">3&nbsp;ч → 15&nbsp;мин</span><span class="lbl">время деплоя</span></li>
+              <li><span class="num">−80%</span><span class="lbl">ручной операционной работы (~$48&nbsp;тыс. в год)</span></li>
+            </ul>
+            <p>
+              Скриншоты обеих систем прикреплены к этой должности в моём
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">профиле LinkedIn</a>.
+            </p>
+
+            <p class="callout">
+              Это описание упрощено. В нём нет кода работодателя, внутренних данных и закрытых URL.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Другие кейсы">
+            <a href="/ru/work/aws-data-pipeline/">
+              <span class="dir">← Предыдущий</span>
+              <span class="ttl">Бессерверный пайплайн данных на AWS</span>
+            </a>
+            <a class="next" href="/ru/work/catalog-agent/">
+              <span class="dir">Следующий →</span>
+              <span class="ttl">LangGraph-агент для данных каталога</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Контакты">
+            <p><strong>Ищете специалиста для похожих задач?</strong> Я открыт к предложениям на позицию AI/ML-инженера.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Написать мне</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>
