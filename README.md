@@ -5,8 +5,8 @@
 A fast, static portfolio for job applications: a homepage that answers "who, what, proof, and how to
 reach me" in a few seconds, plus case-study pages for the main projects. There is no backend and no
 client-side framework. The pages are plain HTML and CSS, built with Vite and deployed to GitHub Pages
-by GitHub Actions. The site is in English, Korean, German, and Russian. Uzbek and Chinese will be
-added one at a time.
+by GitHub Actions. The site is in English, Korean, German, Russian, and Uzbek. Chinese will be
+added next.
 
 ## Structure
 
@@ -14,7 +14,7 @@ added one at a time.
 | --- | --- |
 | `index.html` | Homepage: headline metrics, selected work, experience, skills, credentials, contact |
 | `work/<slug>/index.html` | Case-study pages (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) |
-| `ko/`, `de/`, `ru/` | The same pages in Korean, German, and Russian; each new language gets its own folder |
+| `ko/`, `de/`, `ru/`, `uz/` | The same pages in Korean, German, Russian, and Uzbek; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
 | `partials/` | Shared `<head>` tags, header (with the language menu), and footer, inlined into every page at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
@@ -64,7 +64,7 @@ fit, it wraps instead of pushing the page sideways.
 English pages live at the site root, and each translation has the same paths under its language
 folder: `/work/solar-mlops/` in Korean is `/ko/work/solar-mlops/`.
 
-- **Language menu:** a globe button with the current language code (EN, KO, DE, RU) sits at the right of the
+- **Language menu:** a globe button with the current language code (EN, KO, DE, RU, UZ) sits at the right of the
   header on every page. It opens a list of the site's languages, each linking to the same page in that
   language. It works without JavaScript.
 - **Automatic choice:** when a visitor opens an English page from outside the site (a search result,
@@ -87,7 +87,9 @@ links, image files, technology tags, code, icons, or numbers differ from English
 are wrong. Links to pages go to the translation's own folder (`/ko/work/...`); links to files, such as
 the certificate images, stay exactly as in English.
 Numbers are compared by value, so each language can use its own format (`2M+` is `200만+` in Korean,
-`2 Mio.+` in German, and `2 млн+` in Russian; `4.39` is `4,39` in German and Russian).
+`2 Mio.+` in German, `2 млн+` in Russian, and `2 mln+` in Uzbek; `4.39` is `4,39` in German, Russian,
+and Uzbek). Uzbek text writes oʻ and gʻ with ʻ (U+02BB) and the tutuq belgisi with ʼ (U+02BC), as
+in maʼlumot; the check rejects typed apostrophes, which look the same.
 `npm run build` runs the check first, so a failing check also stops the deploy.
 
 The check cannot tell whether a sentence still says the same thing, so reread each translated

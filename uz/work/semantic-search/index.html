@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Avtoehtiyot qismlar uchun AI semantik qidiruv — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: muayyan avtomobil uchun aynan kerakli ehtiyot qismni oddiy soʻzlar bilan topadigan qidiruv. Vektor qidiruv, NER, soʻrovlarni LLM yordamida tozalash va aniqlik testlari toʻplami. 3000 ta qismdan iborat majburiy testda 95%+."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/semantic-search/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Avtoehtiyot qismlar uchun AI semantik qidiruv — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Vektor qidiruv, nomlangan obyektlarni aniqlash va soʻrovlarni LLM yordamida tozalash, aniqlikni avtomatik tekshiradigan testlar toʻplami bilan. 3000 ta qismdan iborat majburiy testda 95%+."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/semantic-search/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#work">← Barcha loyihalar</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Ishga tushirilgan</span>
+            <span class="mono">G-Man Auto Parts · 2025–2026</span>
+          </div>
+          <h1>Avtoehtiyot qismlar uchun AI semantik qidiruv</h1>
+          <p class="lead">
+            Xaridorlar va yetkazib beruvchilar muayyan avtomobil uchun aynan kerakli qismni oddiy soʻzlar bilan, bir nechta
+            tilda topa olishi kerak edi. Qidiruvni boshidan oxirigacha yaratdim, shuningdek 95% aniqlik talabi bajarilganini
+            isbotlagan testlar toʻplamini ham qurdim.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Yagona AI/ML muhandisi. Dizayn, embeddinglar, obyektlarni aniqlash, LLM bosqichlari, baholash va ishga tushirish uchun men javob berganman.</dd>
+            </div>
+            <div>
+              <dt>Natija</dt>
+              <dd>3000 ta qismdan iborat majburiy testda 95%+ aniqlik. R&amp;D loyihasi tasdiqlandi.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>Python, Django REST Framework, Weaviate, spaCy, OpenAI API (GPT-4o-mini), Celery, PostgreSQL, AWS S3, React</dd>
+            </div>
+            <div>
+              <dt>Koʻlam</dt>
+              <dd>2&nbsp;milliondan ortiq qism yozuvi boʻlgan katalog va 300&nbsp;mingdan ortiq qidirsa boʻladigan eʼlon (Kia, Hyundai, SsangYong, Chevrolet)</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>
+              Odamlar bir xil qismni turlicha ataydi: “headlight” yoki “head lamp”, norasmiy nomlar yoki boshqa tillardagi
+              soʻzlar. Lekin toʻgʻri javob — aniq bir avtomobil uchun bitta qism raqami: marka, model, yil, yoqilgʻi turi,
+              uzatmalar qutisi, avlod va tomon (chap yoki oʻng, old yoki orqa).
+            </p>
+            <p>
+              Qatʼiy kalit soʻz filtrlari bu vazifani uddalay olmadi. Kompaniyaga toʻgʻri qismni yuqori aniqlik bilan
+              topadigan, tabiiy tilni tushunadigan qidiruv kerak edi. U R&amp;D loyihasi uchun rasmiy aniqlik sinovidan ham
+              oʻtishi kerak edi.
+            </p>
+
+            <h2>Soʻrov qanday qayta ishlanadi</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Tilni aniqlash</span>
+                  <span class="step-desc">Avval tilni aniqlovchi kichik model ishlaydi, shuning uchun LLM faqat kerak boʻlganda chaqiriladi.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM bilan normallashtirish</span>
+                  <span class="step-desc">Ingliz tilida boʻlmagan soʻrovlar tarjima qilinadi va tozalanadi (GPT-4o-mini).</span>
+                </li>
+                <li>
+                  <span class="step-name">Obyektlarni ajratish</span>
+                  <span class="step-desc">spaCy NER marka, model, yil, yoqilgʻi, uzatmalar qutisi, qism nomi, tomon va avlodni topadi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Filtrlangan vektor qidiruv</span>
+                  <span class="step-desc">Topilgan obyektlar Weaviate bazasidagi semantik qidiruvga qoʻshimcha aniq filtrga aylanadi.</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM bilan qayta saralash</span>
+                  <span class="step-desc">LLM post-filtri yaqqol notoʻgʻri natijalarni olib tashlaydi va qolganlarini qayta tartiblaydi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Natijalar</span>
+                  <span class="step-desc">Xaridorlar uchun mahsulot qidiruvi yoki yetkazib beruvchilar uchun katalog bilan moslashtirish.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Django REST API</strong>Ikkala qidiruv rejimini doʻkon va admin vositalariga taqdim etadi</li>
+                <li><strong>Aniqlik testlari toʻplami</strong>Xuddi shu konveyerni belgilangan test toʻplamida ishga tushiradi</li>
+                <li><strong>S3 hisobotlari</strong>Har bir test natijasi saqlanadi va qayta joylashtirishdan keyin ham yoʻqolmaydi</li>
+              </ul>
+              <figcaption id="flow-caption">Ishlab turgan qidiruv konveyerining soddalashtirilgan sxemasi.</figcaption>
+            </figure>
+
+            <h2>Nima yaratdim</h2>
+            <ul>
+              <li>
+                <strong>Vektor qidiruv yadrosi.</strong> Ehtiyot qismlar katalogini Weaviate bazasiga embedding koʻrinishida
+                joyladim va qidiruv xizmatini Django REST Framework yordamida qurdim. Recall koʻrsatkichini oshirish uchun
+                embedding qilinadigan matnni (maydon nomlari, qism tomoni, avtomobil yili va tanlangan sinonimlar) oʻzim
+                loyihaladim.
+              </li>
+              <li>
+                <strong>Obyektlar qatʼiy filtr sifatida.</strong> spaCy erkin matnli soʻrovdan tuzilgan faktlarni ajratib oladi
+                va ularni aniq filtrlarga aylantiradi. Vektor qidiruv turli ifodalarni tushunadi, filtrlar esa avtomobil va
+                tomon toʻgʻri boʻlishini kafolatlaydi.
+              </li>
+              <li>
+                <strong>Ikki qidiruv rejimi.</strong> Xaridorlar uchun mahsulot qidiruvi. Yetkazib beruvchilar uchun avtomatik
+                moslashtirish: yuklangan qism katalog yozuvlari bilan solishtiriladi va har bir alohida qism raqami alohida
+                natija boʻladi.
+              </li>
+              <li>
+                <strong>Koʻp tilli soʻrovlar.</strong> Ingliz tilida boʻlmagan soʻrovlar LLM bosqichidan oʻtadi. GPT-3.5-Turbo
+                oʻrniga GPT-4o-mini modeliga oʻtish sifatni oshirib, xarajatni kamaytirdi, tilni aniqlash bosqichi esa LLM chaqiruvlarini
+                minimal darajada ushlab turadi.
+              </li>
+              <li>
+                <strong>Relevantlikni sozlash.</strong> LLM yordamidagi qayta saralovchi yaqqol notoʻgʻri natijalarni olib
+                tashlaydi. Qism nomlari uchun muqobil nomlar tizimi (masalan, “headlight” → “Head Lamp Assembly”) kundalik
+                ifodalardagi aniqlikni oshirdi.
+              </li>
+              <li>
+                <strong>Frontend bilan ulash.</strong> React/TypeScript doʻkoni va admin vositalarini qidiruv API xizmatlariga
+                uladim: filtrlar soʻrovga uzatiladi, topilgan mosliklar formalarni avtomatik toʻldiradi, natijalar esa ishonch
+                chegarasi bilan relevantlik boʻyicha saralanadi.
+              </li>
+            </ul>
+
+            <h2>Aniqlikni oʻlchash</h2>
+            <p>
+              Aniqlikni taxmin qilish emas, oʻlchash kerak edi. Ishlab turgan qidiruv bilan bir xil konveyerni belgilangan,
+              saralangan test toʻplamida ishga tushiradigan ichki test sahifasini yaratdim.
+            </p>
+            <ul>
+              <li><strong>Metrikalar:</strong> accuracy@1 va accuracy@3, precision, recall, F1, confusion matrix va kross-validatsiya.</li>
+              <li><strong>Takrorlanadigan sinovlar:</strong> avtomatik yoki qoʻlda. Har bir sinovda uni kim ishga tushirgani va LLM orqali oldindan ishlov berish yoqilgan-yoqilmagani qayd etiladi.</li>
+              <li><strong>Xavfsiz dizayn:</strong> test maʼlumotlari alohida kolleksiyalarda saqlanadi, himoya choralari esa testning ishchi maʼlumotlarga tegishiga hech qachon yoʻl qoʻymaydi.</li>
+              <li><strong>Xatoliklar tahlili:</strong> “natija yoʻq” holatlarining sabablarini aniqladim: eskirgan test obyektlari, SKU va katalog oʻrtasidagi nomuvofiqliklar, bir-biriga zid obyekt shablonlari va kuzov rangini qayta ishlash. Keyin har birini tuzatdim.</li>
+            </ul>
+
+            <h2>Natijalar</h2>
+            <ul class="metric-grid">
+              <li><span class="num">95%+</span><span class="lbl">3000 ta qismdan iborat majburiy baholash toʻplamida aniqlik</span></li>
+              <li><span class="num">Tasdiqlandi</span><span class="lbl">R&amp;D loyihasi, aniqlik talabidan oʻtgach</span></li>
+              <li><span class="num">300&nbsp;ming+</span><span class="lbl">qidirsa boʻladigan eʼlon, 2&nbsp;mln+ qism yozuvidan iborat katalogda</span></li>
+            </ul>
+            <p>
+              Qidiruv xaridorlar va yetkazib beruvchilar uchun ishga tushirildi. Shuningdek, avtomatik aniqlik testlarini ishchi
+              muhitda ham oʻtkazdim va ular topgan muammolarni tuzatdim.
+            </p>
+
+            <p class="callout">
+              Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/catalog-agent/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">Katalog maʼlumotlari uchun LangGraph agenti</span>
+            </a>
+            <a class="next" href="/uz/work/aws-data-pipeline/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">AWS asosidagi serversiz maʼlumotlar konveyeri</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

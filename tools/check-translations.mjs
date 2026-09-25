@@ -10,7 +10,7 @@
 //   as /certificates/woosong-diploma.jpg, exactly as in English;
 // - identical technology tags, code, and inline SVG icons;
 // - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), "2 Mio.+" (de),
-//   and "2 млн+" (ru) all count as 2,000,000. English numbers written as words ("four", "twice")
+//   "2 млн+" (ru), and "2 mln+" (uz) all count as 2,000,000. English numbers written as words ("four", "twice")
 //   may appear as digits in a translation.
 // - none of the banned words below.
 
@@ -21,13 +21,14 @@ import { SITE_URL, locales, localizedFile, pages, urlPath } from '../site.mjs'
 const root = resolve(import.meta.dirname, '..')
 
 // Each language's digit-group and decimal separators, and scale words that multiply the number
-// before them. Attached "M" and "K" (2M, 300K) work in every language. Russian groups digits
-// with a space (300 000), usually a non-breaking one.
+// before them. Attached "M" and "K" (2M, 300K) work in every language. Russian and Uzbek group
+// digits with a space (300 000), usually a non-breaking one.
 const numberFormats = {
   en: { group: ',', decimal: '\\.', scales: { million: 1e6 } },
   ko: { group: ',', decimal: '\\.', scales: { 만: 1e4 } },
   de: { group: '\\.', decimal: ',', scales: { Mio: 1e6, Millionen: 1e6 } },
   ru: { group: '[ \\u00a0\\u202f]', decimal: ',', scales: { млн: 1e6, тыс: 1e3 } },
+  uz: { group: '[ \\u00a0\\u202f]', decimal: ',', scales: { mln: 1e6, million: 1e6, ming: 1e3 } },
 }
 
 const englishNumberWords = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, twice: 2 }
@@ -46,6 +47,14 @@ const banned = {
   ru: [
     [/(?<![а-яё])(?:ты|тебя|тебе|тобой|тво(?:й|я|ё|е|и|его|ей|ему|им|ими|их|ю))(?![а-яё])/i, 'address the reader formally, with "вы"'],
     [/Котлин/i, 'Kotlin is never listed as a skill'],
+  ],
+  // Uzbek Latin writes oʻ and gʻ with ʻ (U+02BB) and the tutuq belgisi with ʼ (U+02BC), as in
+  // maʼlumot. Typed apostrophes look the same but break search and spell checking.
+  uz: [
+    [/(?<!\p{L})(?:sen|seni|senga|sendan|senda|sening|senlar\p{L}*)(?!\p{L})/iu, 'address the reader formally, with "Siz"'],
+    [/\p{L}['‘’`]/u, 'write oʻ and gʻ with ʻ (U+02BB) and the tutuq belgisi with ʼ (U+02BC)'],
+    [/[oOgG]ʼ/u, 'oʻ and gʻ take ʻ (U+02BB), not ʼ (U+02BC)'],
+    [/(?<![oOgG])ʻ/u, 'ʻ (U+02BB) follows only o and g; the tutuq belgisi is ʼ (U+02BC)'],
   ],
 }
 

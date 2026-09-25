@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Katalog maʼlumotlari uchun LangGraph agenti — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: qisqa soʻrovni katalogga tayyor, toza avtoehtiyot qismlar maʼlumotiga aylantiradigan LangGraph agent jarayoni. Jadval boʻyicha ishga tushirish, davom ettirsa boʻladigan vazifalar va maʼlumotlar jamoasi tekshira oladigan hisobotlar bilan."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/catalog-agent/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Katalog maʼlumotlari uchun LangGraph agenti — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Avtomobil variantlarini aniqlaydigan, katalog maʼlumotlarini yuklab oladigan, ularni normallashtirib moslashtiradigan va davom ettirsa boʻladigan paketlarda yozadigan agent jarayoni."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/catalog-agent/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#work">← Barcha loyihalar</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Prototip</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>Katalog maʼlumotlari uchun LangGraph agenti</h1>
+          <p class="lead">
+            Uchinchi tomon katalog maʼlumotlarini yuklash maʼlumotlar jamoasi uchun sekin va qoʻlda bajariladigan ish edi.
+            Qisqa soʻrovni katalogga tayyor, toza ehtiyot qismlar maʼlumotiga aylantiradigan agent jarayonini yaratdim. Unda
+            jadval boʻyicha ishga tushirish, davom ettirsa boʻladigan vazifalar va har kim tekshira oladigan hisobot bor.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Yagona dasturchi: tadqiqot, arxitektura, agent, jadval boʻyicha ishga tushirish va demo interfeys.</dd>
+            </div>
+            <div>
+              <dt>Holat</dt>
+              <dd>Maʼlumotlar jamoasi uchun demo interfeysli ishlaydigan prototip. 2026-yil iyulda ishdan ketganimda hali ishga tushirilmagan edi.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>Python, LangGraph, OpenAI API, APScheduler, PostgreSQL</dd>
+            </div>
+            <div>
+              <dt>Qamrov</dt>
+              <dd>Kompaniya ishlaydigan 7 ta avtomobil markasi uchun marka, model, yil va hudud boʻyicha soʻrovlar</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>
+              Uchinchi tomon avtomobil va ehtiyot qismlar maʼlumotlarini kompaniya katalogiga yuklash takrorlanuvchi qoʻl
+              mehnati edi. Kimdir koʻplab parametrlarni tanlashi, maʼlumotlarni yuklab olishi, tozalashi va har bir yozuvni
+              katalogning kerakli jadvallariga moslashtirishi kerak edi.
+            </p>
+            <p>Maqsad bu ishni avtomatlashtirish edi, shunda maʼlumotlar jamoasi uni qoʻlda bajarmaydi.</p>
+
+            <h2>Qanday ishlaydi</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Soʻrov</span>
+                  <span class="step-desc">Marka, model, yil va hudud ochiladigan roʻyxatlardan tanlanadi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Variantlarni aniqlash</span>
+                  <span class="step-desc">Mos keladigan barcha avtomobil variantlarini topish va ularni yuklab olinadigan katalog qamroviga kengaytirish.</span>
+                </li>
+                <li>
+                  <span class="step-name">Yuklab olish</span>
+                  <span class="step-desc">Uchinchi tomon katalog API xizmatini keshlash va qayta urinishlar bilan chaqirish.</span>
+                </li>
+                <li>
+                  <span class="step-name">Normallashtirish va moslashtirish</span>
+                  <span class="step-desc">Yozuvlarni tozalash va katalogning kerakli jadvallariga moslashtirish.</span>
+                </li>
+                <li>
+                  <span class="step-name">Yozish</span>
+                  <span class="step-desc">PostgreSQL bazasiga paketlab saqlash. Nazorat nuqtalari tufayli vazifani xavfsiz davom ettirish yoki bekor qilish mumkin.</span>
+                </li>
+                <li>
+                  <span class="step-name">Hisobot</span>
+                  <span class="step-desc">Har bir paket qanday normallashtirilgani va moslashtirilganini koʻrsatish, shunda maʼlumotlar jamoasi uni tekshira oladi.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Rejalashtiruvchi</strong>Rejali va qoʻlda ishga tushirish uchun kichik interfeysli APScheduler</li>
+                <li><strong>Kesh</strong>Katalog maʼlumotlari guruh darajasigacha keshlanadi</li>
+                <li><strong>Nazorat</strong>Qamrov cheklovlari, vazifa holati va API sarfini koʻrsatish</li>
+              </ul>
+              <figcaption id="flow-caption">Agent jarayonining soddalashtirilgan sxemasi.</figcaption>
+            </figure>
+
+            <h2>Nima yaratdim</h2>
+            <ul>
+              <li>
+                <strong>Oddiydan boshladim, keyin natijani barqaror qildim.</strong> Birinchi versiya tabiiy tildagi soʻrovni
+                qabul qilardi, aniqlashtirish bosqichiga ega edi va nosozliklarni tuzatish uchun agentning har bir qadamini qayd
+                etardi. Jarayon barqarorlashgach, erkin matnni ochiladigan roʻyxatlar bilan almashtirdim, shunda natijalar
+                takrorlanadigan boʻldi.
+              </li>
+              <li>
+                <strong>Nega LangGraph.</strong> LLM ishning faqat kichik qismini bajaradi. Shunga qaramay, LangGraph oʻzini
+                oqlaydi: jarayon tuzilgan, uni tekshirish oson va nosozlikdan keyin davom ettirish mumkin.
+              </li>
+              <li>
+                <strong>Juda katta vazifalar uchun.</strong> Qismlarga boʻlingan, davom ettirsa boʻladigan saqlash
+                100&nbsp;mingdan ortiq variantga ega avtomobil modellarini ham uddalaydi.
+              </li>
+              <li>
+                <strong>Jadval boʻyicha ishga tushirish.</strong> Rejali va qoʻlda ishga tushirish uchun kichik interfeysli
+                APScheduler, jumladan vazifalarning takroriy roʻyxatga olinishi xatosini tuzatish.
+              </li>
+              <li>
+                <strong>Tekshirsa boʻladigan natija.</strong> Avtomatik hisobotlar har bir paket qanday normallashtirilgani va
+                moslashtirilganini koʻrsatadi, shuning uchun muhandis boʻlmagan xodimlar ham natijani tekshira oladi.
+              </li>
+              <li>
+                <strong>Hujjatlar.</strong> Katalog sxemasi boʻyicha maʼlumotnoma: agent qaysi jadvallarni oʻqiydi va qaysilariga
+                yozadi.
+              </li>
+            </ul>
+
+            <h2>Muhandislik qarorlari</h2>
+            <p>
+              Qurishdan oldin tayyor yechimni sotib olish va oʻzimiz yaratish variantlarini solishtirdim. Mavjud AI maʼlumot
+              yigʻish vositalari va jarayonlarni boshqarish tizimlarini (Airflow, Prefect, Celery) koʻrib chiqdim hamda loyiha
+              bosqichiga mos, keyinchalik kengaytirish imkoniyati bor yengil yondashuvni tanladim.
+            </p>
+            <p>
+              Shuningdek, vazifa qamrovi va pullik API sarfini avtonom xatti-harakatlar ortiga yashirmasdan, koʻrinadigan qilib
+              qoldirdim. Bu dizayn qoʻl mehnatini kamaytiradi, xarajat va maʼlumotlar ustidan nazoratni esa odamlar qoʻlida
+              qoldiradi.
+            </p>
+
+            <h2>Holat</h2>
+            <p>
+              Jadval boʻyicha ishga tushirish va maʼlumotlar jamoasi uchun demo interfeysga ega ishlaydigan prototip. U yagona
+              ichki admin vositasiga birlashtirilayotgan edi. 2026-yil iyulda ishdan ketganimda hali ishga tushirilmagan edi.
+            </p>
+
+            <p class="callout">
+              Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/solar-mlops/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">Quyosh energiyasi bashorati va anomaliyalarni aniqlash</span>
+            </a>
+            <a class="next" href="/uz/work/semantic-search/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">Avtoehtiyot qismlar uchun AI semantik qidiruv</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

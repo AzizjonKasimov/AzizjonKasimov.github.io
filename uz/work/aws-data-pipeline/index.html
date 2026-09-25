@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>AWS asosidagi serversiz maʼlumotlar konveyeri — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: ishlatilgan ehtiyot qismlar bozori maʼlumotlarini yigʻgan, hodisalarga asoslangan AWS konveyeri (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch). Testlarda kuniga taxminan 5 mln eʼlon."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/aws-data-pipeline/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="AWS asosidagi serversiz maʼlumotlar konveyeri — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Lambda ishchi funksiyalari, dead-letter queue bilan SQS, EventBridge jadvallari, PostgreSQL va CloudWatch ogohlantirishlari. Testlarda kuniga taxminan 5 mln eʼlon."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/aws-data-pipeline/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#work">← Barcha loyihalar</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Ishga tushirilgan</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>AWS asosidagi serversiz maʼlumotlar konveyeri</h1>
+          <p class="lead">
+            Narxlarni tadqiq qilish uchun ishlatilgan ehtiyot qismlar bozoridan doimiy maʼlumot oqimi kerak edi. AWS
+            platformasida hodisalarga asoslangan konveyerni loyihaladim, qurdim va qoʻllab-quvvatladim. U testlarda kuniga
+            taxminan 5&nbsp;million eʼlonga yetdi.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Konveyerni yolgʻiz oʻzim loyihaladim, qurdim va yuritdim. Bu ishdan ketgan katta muhandisdan AWS boʻyicha masʼuliyatni qabul qilib olishning bir qismi edi.</dd>
+            </div>
+            <div>
+              <dt>Natija</dt>
+              <dd>Testlarda kuniga ~5&nbsp;mln eʼlon. Har kuni monitoring va ogohlantirishlar bilan real ishlagan.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>AWS Lambda (Docker obrazlari), SQS, EventBridge, RDS PostgreSQL, RDS Proxy, CloudWatch, SNS, ECR, Python</dd>
+            </div>
+            <div>
+              <dt>Qamrov</dt>
+              <dd>Kompaniya ishlaydigan 7 ta avtomobil markasi boʻyicha marketpleys eʼlonlari, har kuni yigʻiladi</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>
+              Kompaniyaning narxlarni bashorat qilish ishi uchun keng qamrovli va yangi bozor maʼlumotlari kerak edi. Maqsad —
+              kompaniya ishlaydigan 7 ta avtomobil markasi boʻyicha kuniga taxminan 5&nbsp;million eʼlon.
+            </p>
+            <p>
+              Konveyer ishonchli ishlashi, byudjet doirasida qolishi va oʻqish tezligini cheklaydigan manba bilan ishlay
+              olishi kerak edi.
+            </p>
+
+            <h2>Arxitektura</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Jadval</span>
+                  <span class="step-desc">EventBridge har bir yigʻish siklini ishga tushiradi. Kichik Lambda funksiyasi kunlik maqsadlarni qayta oʻrnatadi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Navbat</span>
+                  <span class="step-desc">Vazifalar SQS navbatida saqlanadi. U avvalgi “maʼlumotlar bazasi navbat sifatida” yechimini almashtirdi. Xatolik bergan xabarlar dead-letter queue navbatiga oʻtadi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Ishchi funksiyalar</span>
+                  <span class="step-desc">Docker obrazlari sifatida qadoqlangan Lambda funksiyalari sahifalarni parallel yuklab oladi va tahlil qiladi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Saqlash</span>
+                  <span class="step-desc">Eʼlonlar RDS PostgreSQL bazasiga yoziladi, ulanishlar puli uchun RDS Proxy ishlatiladi. Yozuv bosqichma-bosqich va atomar.</span>
+                </li>
+                <li>
+                  <span class="step-name">Ogohlantirishlar</span>
+                  <span class="step-desc">CloudWatch metrikalari va ogohlantirishlari, bildirishnomalar SNS orqali yuboriladi.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Qayta urinish va tiklash</strong>Maqsadlarni xavfsiz band qilish, qayta urinishlar, qotib qolgan vazifalarni tiklash va DLQ xabarlarini qayta yuborish</li>
+                <li><strong>Monitoring Lambda funksiyasi</strong>Maʼlumotlar bazasi holatini CloudWatch xizmatiga yuboradigan, faqat oʻqiydigan vazifa</li>
+                <li><strong>Holat tekshiruvlari</strong>Istalgan operatsion tizimda ishlaydigan AWS CLI skriptlari</li>
+              </ul>
+              <figcaption id="flow-caption">Soddalashtirilgan sxema. Xizmat nomlari — standart AWS qurilish bloklari.</figcaption>
+            </figure>
+
+            <h2>Qulab tushmasdan, sekinlashadigan qilib qurilgan</h2>
+            <p>Soʻrovlar tezligini cheklaydigan maʼlumot manbai qarshilik koʻrsatadi. Konveyer shunga moslab loyihalangan:</p>
+            <ul>
+              <li>
+                <strong>Circuit breaker.</strong> Sahifalar bloklana boshlaganda ishchi funksiyalar soʻrovlarni yanada kuchliroq
+                takrorlash oʻrniga pauza qiladi. Umumiy pauza holati PostgreSQL bazasida saqlanadi.
+              </li>
+              <li>
+                <strong>Moslashuvchan tezlik cheklovi.</strong> Soʻrovlar orasidagi vaqt biroz tasodifiy (jitter), manba
+                qarshilik koʻrsatganda konveyer avtomatik ravishda sekinlashadi, pauzadan soʻng esa ishchi funksiyalar yuklamani
+                asta-sekin oshiradi.
+              </li>
+              <li>
+                <strong>Xavfsiz parallellik.</strong> Ishchi funksiyalar maqsadlarni xavfsiz band qiladi, qayta urinadi va qotib
+                qolgan vazifalarni tiklaydi, shuning uchun ularning koʻpchiligi bir-biriga xalaqit bermasdan parallel ishlay oladi.
+              </li>
+            </ul>
+
+            <h2>Monitoring va ekspluatatsiya</h2>
+            <ul>
+              <li>
+                <strong>Ogohlantirishlar</strong> muhim holatlar uchun: orkestrator ishdan chiqishi, ishchi funksiyalar
+                nosozligi, parallellik cheklanishi (throttling), navbatda toʻplangan xabarlar va ularning yoshi, bloklangan
+                sahifalar ulushi, maʼlumotlar bazasiga yozishdagi xatolar va kunlik eʼlonlar soni.
+              </li>
+              <li>
+                <strong>Holat tekshiruvlari</strong> AWS CLI skriptlari bilan, shuningdek maʼlumotlar bazasi holatini CloudWatch
+                xizmatiga yuboradigan, faqat oʻqiydigan kichik Lambda funksiyasi.
+              </li>
+              <li>
+                <strong>Yozma yoʻriqnomalar</strong> Lambda funksiyalarini cheklash yoki toʻxtatish va navbatlarni tozalash
+                uchun, shunda nazoratdan chiqqan vazifa xarajatlarni oshirib yubora olmaydi.
+              </li>
+            </ul>
+
+            <h2>Katta hamkasblar tekshiruvidan keyingi mustahkamlash</h2>
+            <p>
+              PostgreSQL soʻrovlari uchun taymautlar, ruxsat etilgan URL roʻyxati, javob hajmi cheklovlari, shubhali boʻsh
+              sahifalarda darhol toʻxtash, atomar yozish yoʻllari va nosozliklarni tuzilgan holda qayd etish. Shuningdek, qimmat
+              <code>COUNT(*)</code> soʻrovini eng koʻp ishlaydigan qismdan olib tashladim, indekslarga xizmat koʻrsatish
+              vositalarini qoʻshdim va xarajatlarni nazorat qilish uchun ECR obrazlari hamda CloudWatch loglarini saqlash
+              muddatlarini belgiladim.
+            </p>
+
+            <h2>Natijalar</h2>
+            <ul class="metric-grid">
+              <li><span class="num">~5&nbsp;mln/kun</span><span class="lbl">eʼlon, testlarda maqsadga erishildi</span></li>
+              <li><span class="num">Har kuni</span><span class="lbl">real ishda yigʻish, saqlash va ogohlantirish</span></li>
+              <li><span class="num">7 ta marka</span><span class="lbl">kompaniyaning narx tadqiqoti uchun qamrab olindi</span></li>
+            </ul>
+            <p>
+              <strong>Nimani oʻrgandim:</strong> manba soʻrovlar tezligi cheklovlarini kuchaytirganda barqaror oʻtkazuvchanlik
+              kuniga taxminan 5000 eʼlongacha tushdi va bu odatiy ish rejimiga aylandi. Bunday koʻlamda haqiqiy cheklov
+              koʻpincha infratuzilma emas, balki maʼlumot manbai boʻladi, shuning uchun sekinlashish (back-off) mexanizmi
+              birinchi kundan loyihaga kiritilishi kerak.
+            </p>
+
+            <p class="callout">
+              Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq, maʼlumot
+              manbai esa nomlanmagan.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/semantic-search/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">Avtoehtiyot qismlar uchun AI semantik qidiruv</span>
+            </a>
+            <a class="next" href="/uz/work/solar-mlops/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">Quyosh energiyasi bashorati va anomaliyalarni aniqlash</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: quyosh energiyasini bashorat qilish va quyosh elektr stansiyalarida anomaliyalarni aniqlash tizimlarini ishga tushirgan jamoaga rahbarlik. Bashorat xatoligi 9 foizdan 7 foizga tushdi, anomaliyalar boʻyicha precision ~35 foizga oshdi, joylashtirish 3 soatdan 15 daqiqaga qisqardi."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/solar-mlops/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Bashorat xatoligi 9 foizdan 7 foizga tushdi, anomaliyalar boʻyicha precision ~35 foizga va recall ~37 foizga oshdi, joylashtirish 3 soatdan 15 daqiqaga qisqardi, qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/solar-mlops/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#work">← Barcha loyihalar</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Ishga tushirilgan</span>
+            <span class="mono">Recs Innovation · 2024</span>
+          </div>
+          <h1>Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish</h1>
+          <p class="lead">
+            Recs Innovation kompaniyasida lavozimim ikki marta oshirildi: amaliyotchidan AI Team Lead darajasigacha. Quyosh
+            energiyasini bashorat qilish va quyosh elektr stansiyalarida anomaliyalarni aniqlash tizimlarini ishga tushirgan
+            jamoaga rahbarlik qildim. Inferens xizmatlari virtual elektr stansiyasi (VPP) platformasiga ulangan edi.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Data Science Intern → AI Developer → AI Team Lead (mart–noyabr 2024). ML, backend va frontend jamoalariga rahbarlik qildim.</dd>
+            </div>
+            <div>
+              <dt>Natija</dt>
+              <dd>Bashorat xatoligi 9 foizdan 7 foizga tushdi. Anomaliyalar boʻyicha precision ~35 foizga, recall ~37 foizga oshdi. Joylashtirish 3 soatdan 15 daqiqaga qisqardi.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>PyTorch, graf neyron tarmogʻi (GNNAD), FastAPI, Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana, MLflow</dd>
+            </div>
+            <div>
+              <dt>Biznesga taʼsiri</dt>
+              <dd>Korea Power Exchange (KPX) birjasida elektr energiyasi vositachiligidan daromad. Qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi (yiliga ~$48&nbsp;ming).</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>Kompaniyaga faqat tajribalarda emas, real ishda ishlaydigan ikkita model kerak edi:</p>
+            <ul>
+              <li>
+                Korea Power Exchange (KPX) birjasida elektr energiyasi vositachiligi uchun yetarlicha aniq
+                <strong>quyosh generatsiyasi bashorati</strong>;
+              </li>
+              <li>quyosh elektr stansiyalari maʼlumotlarini kuzatadigan <strong>anomaliyalarni aniqlash tizimi</strong>.</li>
+            </ul>
+            <p>Ikkalasi ham ishonchli ishlashi va tijoriy VPP platformasiga ulanishi kerak edi.</p>
+
+            <h2>Tizim sxemasi</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">Stansiya maʼlumotlari</span>
+                  <span class="step-desc">Quyosh elektr stansiyalaridan olingan koʻp oʻlchovli vaqt qatorlari.</span>
+                </li>
+                <li>
+                  <span class="step-name">Oʻqitish</span>
+                  <span class="step-desc">PyTorch modellari, tajribalar MLflow orqali kuzatiladi. Anomaliyalarni aniqlash modeli har kecha qayta oʻqitiladi.</span>
+                </li>
+                <li>
+                  <span class="step-name">Modellar</span>
+                  <span class="step-desc">Quyosh generatsiyasi bashorati va grafga asoslangan (GNN) anomaliya detektori.</span>
+                </li>
+                <li>
+                  <span class="step-name">Inferens API</span>
+                  <span class="step-desc">FastAPI xizmatlari bashoratlar va anomaliya natijalarini taqdim etadi.</span>
+                </li>
+                <li>
+                  <span class="step-name">VPP platformasi</span>
+                  <span class="step-desc">Xizmatlar tijoriy virtual elektr stansiyasi platformasiga ulanadi.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>CI/CD</strong>GitHub Actions konteynerlashtirilgan xizmatlarni joylashtiradi</li>
+                <li><strong>Infratuzilma</strong>PostgreSQL bilan ishlaydigan Docker Compose xizmatlari</li>
+                <li><strong>Monitoring</strong>Prometheus metrikalari va Grafana panellari</li>
+              </ul>
+              <figcaption id="flow-caption">Ishlab turgan tizimning soddalashtirilgan sxemasi.</figcaption>
+            </figure>
+
+            <h2>Bashorat qilish</h2>
+            <ul>
+              <li>
+                AI Developer sifatida oʻrtacha xatoligi 10 foizdan past boʻlgan, PyTorch asosidagi quyosh generatsiyasi
+                bashoratini yaratdim. Shu tufayli kompaniya KPX bozorida ishlash talablariga javob berdi.
+              </li>
+              <li>
+                Jamoa rahbari sifatida bashorat xatoligini 9 foizdan 7 foizga tushirdim (22 foizga kam). Bu KPX birjasida
+                elektr energiyasi vositachiligidan daromad olish imkonini berdi.
+              </li>
+            </ul>
+
+            <h2>Quyosh elektr stansiyalari uchun anomaliyalarni aniqlash</h2>
+            <p>
+              Grafga asoslangan model (GNNAD) yordamida koʻp oʻlchovli vaqt qatorlarida anomaliyalarni aniqlash ustida ishladim.
+              Yaxshilanishlar bosqichma-bosqich keldi:
+            </p>
+            <ul>
+              <li>
+                <strong>Xatolarni aniqroq koʻrish.</strong> Ochiq kodli kod bazasini jiddiy qayta ishladim va har bir belgi
+                (feature) boʻyicha bashoratlarni real maʼlumotlar bilan solishtiradigan grafiklar qoʻshdim.
+              </li>
+              <li><strong>Xatolikni yaxshiroq hisoblash:</strong> precision +5%, recall +7%.</li>
+              <li>
+                <strong>Soatlik chegaralar:</strong> kun davomida xatolik qanday oʻzgarishini kuzatish uchun bitta umumiy chegara
+                oʻrniga 24 ta chegara. Recall +10%.
+              </li>
+              <li>
+                <strong>Tozaroq oʻqitish maʼlumotlari:</strong> oʻqitish toʻplamidan anomal nuqtalarni olib tashlash natijasida
+                precision +30%, recall +20%.
+              </li>
+              <li>
+                <strong>Halol validatsiya:</strong> real ishdagi sharoitga mos kross-validatsiya — 16 nuqtali inferens oynalari,
+                soatlik chegaralar va har kecha qayta oʻqitish.
+              </li>
+            </ul>
+            <p>
+              <strong>Umuman olganda, precision taxminan 35 foizga, recall esa taxminan 37 foizga oshdi.</strong> Undan oldin,
+              amaliyotchi boʻlganimda, GNN modelini 70% precision va 50% recall darajasigacha sozlaganman, tajribalarni MLflow
+              orqali kuzatganman va anomaliyalarni aniqlash tizimini VPP platformasiga ulaydigan FastAPI endpointlarini
+              yaratganman.
+            </p>
+
+            <h2>MLOps va joylashtirish</h2>
+            <ul>
+              <li>
+                Anomaliyalarni aniqlash tizimini konteynerlashtirdim va joylashtirishni GitHub Actions yordamida
+                avtomatlashtirdim. Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi.
+              </li>
+              <li>
+                Docker Compose, GitHub Actions, PostgreSQL, Prometheus va Grafana yordamida toʻliq (end-to-end) MLOps
+                infratuzilmasini qurdim. Qoʻlda bajariladigan operatsiyalar 80 foizga kamaydi va bu yiliga taxminan
+                $48&nbsp;ming tejadi.
+              </li>
+            </ul>
+
+            <h2>Jamoaga rahbarlik</h2>
+            <p>
+              AI Team Lead sifatida ML, backend va frontend jamoalarini boshqardim va modellarning VPP platformasiga toʻgʻri
+              ulanishini taʼminladim.
+            </p>
+
+            <h2>Natijalar</h2>
+            <ul class="metric-grid">
+              <li><span class="num">9% → 7%</span><span class="lbl">bashorat xatoligi; KPX birjasida vositachilik daromadiga imkon berdi</span></li>
+              <li><span class="num">+35% / +37%</span><span class="lbl">anomaliyalarni aniqlash: precision / recall</span></li>
+              <li><span class="num">3&nbsp;soat → 15&nbsp;daqiqa</span><span class="lbl">joylashtirish vaqti</span></li>
+              <li><span class="num">−80%</span><span class="lbl">qoʻlda bajariladigan operatsion ishlar (yiliga ~$48&nbsp;ming)</span></li>
+            </ul>
+            <p>
+              Ikkala tizimning skrinshotlari
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn profilimda</a> shu lavozimga biriktirilgan.
+            </p>
+
+            <p class="callout">
+              Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/aws-data-pipeline/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">AWS asosidagi serversiz maʼlumotlar konveyeri</span>
+            </a>
+            <a class="next" href="/uz/work/catalog-agent/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">Katalog maʼlumotlari uchun LangGraph agenti</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>
