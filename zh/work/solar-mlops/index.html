@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>投入生产的光伏发电预测与异常检测 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：带领团队将光伏发电预测和光伏电站异常检测投入生产。预测误差从 9% 降至 7%，异常检测精确率提升约 35%，部署时间从 3 小时缩短至 15 分钟。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/solar-mlops/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="投入生产的光伏发电预测与异常检测 — 项目案例" />
+    <meta
+      property="og:description"
+      content="预测误差从 9% 降至 7%，异常检测精确率提升约 35%、召回率提升约 37%，部署时间从 3 小时缩短至 15 分钟，人工运维工作减少 80%。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/solar-mlops/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#work">← 全部项目</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">已上线</span>
+            <span class="mono">Recs Innovation · 2024</span>
+          </div>
+          <h1>投入生产的光伏发电预测与异常检测</h1>
+          <p class="lead">
+            在 Recs Innovation，我两次获得晋升，从实习生成为 AI Team Lead。我带领团队将光伏发电预测和光伏电站异常检测投入生产，推理服务接入了虚拟电厂（VPP）平台。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>Data Science Intern → AI Developer → AI Team Lead（2024 年 3 月至 11 月）。带领机器学习、后端和前端团队。</dd>
+            </div>
+            <div>
+              <dt>成果</dt>
+              <dd>预测误差从 9% 降至 7%。异常检测精确率提升约 35%，召回率提升约 37%。部署时间从 3 小时缩短至 15 分钟。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>PyTorch、图神经网络（GNNAD）、FastAPI、Docker Compose、GitHub Actions、PostgreSQL、Prometheus、Grafana、MLflow</dd>
+            </div>
+            <div>
+              <dt>业务影响</dt>
+              <dd>在 Korea Power Exchange（KPX）获得电力中介收入。人工运维工作减少 80%（每年约 4.8 万美元）。</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>公司需要两个在生产环境中运行的模型，而不只是停留在实验阶段：</p>
+            <ul>
+              <li>
+                一个足够准确、可用于 Korea Power Exchange（KPX）电力中介交易的<strong>光伏发电预测</strong>；以及
+              </li>
+              <li>一个监测光伏电站数据的<strong>异常检测</strong>系统。</li>
+            </ul>
+            <p>两者都必须稳定运行，并接入一个商业化的 VPP 平台。</p>
+
+            <h2>系统概览</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">电站数据</span>
+                  <span class="step-desc">来自光伏电站的多变量时间序列数据。</span>
+                </li>
+                <li>
+                  <span class="step-name">训练</span>
+                  <span class="step-desc">PyTorch 模型，实验记录在 MLflow 中。异常检测器每晚重新训练。</span>
+                </li>
+                <li>
+                  <span class="step-name">模型</span>
+                  <span class="step-desc">光伏发电预测模型和基于图（GNN）的异常检测器。</span>
+                </li>
+                <li>
+                  <span class="step-name">推理 API</span>
+                  <span class="step-desc">FastAPI 服务提供预测和异常检测结果。</span>
+                </li>
+                <li>
+                  <span class="step-name">VPP 平台</span>
+                  <span class="step-desc">这些服务接入一个商业化的虚拟电厂平台。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>CI/CD</strong>GitHub Actions 部署容器化服务</li>
+                <li><strong>基础设施</strong>Docker Compose 服务与 PostgreSQL</li>
+                <li><strong>监控</strong>Prometheus 指标和 Grafana 仪表盘</li>
+              </ul>
+              <figcaption id="flow-caption">生产环境部署的简化示意图。</figcaption>
+            </figure>
+
+            <h2>发电预测</h2>
+            <ul>
+              <li>
+                作为 AI Developer，我用 PyTorch 构建了光伏发电预测模型，平均误差低于 10%，使公司具备了参与 KPX 业务的资格。
+              </li>
+              <li>
+                作为团队负责人，我把预测误差从 9% 降到 7%（降低 22%），从而带来了 KPX 电力中介收入。
+              </li>
+            </ul>
+
+            <h2>光伏电站异常检测</h2>
+            <p>
+              我使用基于图的模型（GNNAD）进行多变量时间序列异常检测。效果是一步步提升的：
+            </p>
+            <ul>
+              <li>
+                <strong>更清楚地看到误差。</strong>我大幅重构了开源代码库，并添加了逐个特征对比预测值与实际数据的图表。
+              </li>
+              <li><strong>更好的误差计算：</strong>精确率 +5%，召回率 +7%。</li>
+              <li>
+                <strong>按小时设定阈值：</strong>用 24 个阈值代替一个全局阈值，以跟随误差在一天中的变化。召回率 +10%。
+              </li>
+              <li>
+                <strong>更干净的训练数据：</strong>从训练集中剔除异常点后，精确率 +30%，召回率 +20%。
+              </li>
+              <li>
+                <strong>贴近生产的验证：</strong>与生产环境一致的交叉验证，采用 16 点推理窗口、按小时设定的阈值和每晚重新训练。
+              </li>
+            </ul>
+            <p>
+              <strong>总体而言，精确率提升了约 35%，召回率提升了约 37%。</strong>更早之前，作为实习生，我将 GNN 模型调优到 70% 的精确率和 50% 的召回率，用 MLflow 跟踪实验，并构建了将异常检测系统接入 VPP 平台的 FastAPI 接口。
+            </p>
+
+            <h2>MLOps 与部署</h2>
+            <ul>
+              <li>
+                我将异常检测系统容器化，并用 GitHub Actions 实现了自动部署。部署时间从 3 小时缩短至 15 分钟。
+              </li>
+              <li>
+                我用 Docker Compose、GitHub Actions、PostgreSQL、Prometheus 和 Grafana 搭建了端到端的 MLOps 基础设施。人工操作减少了 80%，每年节省约 4.8 万美元。
+              </li>
+            </ul>
+
+            <h2>带领团队</h2>
+            <p>
+              作为 AI Team Lead，我管理机器学习、后端和前端团队，并确保模型顺利接入 VPP 平台。
+            </p>
+
+            <h2>结果</h2>
+            <ul class="metric-grid">
+              <li><span class="num">9% → 7%</span><span class="lbl">预测误差，带来 KPX 电力中介收入</span></li>
+              <li><span class="num">+35% / +37%</span><span class="lbl">异常检测精确率 / 召回率</span></li>
+              <li><span class="num">3 小时 → 15 分钟</span><span class="lbl">部署时间</span></li>
+              <li><span class="num">−80%</span><span class="lbl">人工运维工作（每年约 4.8 万美元）</span></li>
+            </ul>
+            <p>
+              两个系统的截图附在我的
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn 个人资料</a>中这段经历的下方。
+            </p>
+
+            <p class="callout">
+              本文已做简化，不含任何雇主代码、内部数据或私有网址。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/aws-data-pipeline/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">基于 AWS 的无服务器数据管道</span>
+            </a>
+            <a class="next" href="/zh/work/catalog-agent/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">用于目录数据的 LangGraph 智能体</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -10,8 +10,8 @@
 //   as /certificates/woosong-diploma.jpg, exactly as in English;
 // - identical technology tags, code, and inline SVG icons;
 // - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), "2 Mio.+" (de),
-//   "2 млн+" (ru), and "2 mln+" (uz) all count as 2,000,000. English numbers written as words ("four", "twice")
-//   may appear as digits in a translation.
+//   "2 млн+" (ru), "2 mln+" (uz), and "200 万+" (zh) all count as 2,000,000. English numbers
+//   written as words ("four", "twice") may appear as digits in a translation.
 // - none of the banned words below.
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -29,6 +29,7 @@ const numberFormats = {
   de: { group: '\\.', decimal: ',', scales: { Mio: 1e6, Millionen: 1e6 } },
   ru: { group: '[ \\u00a0\\u202f]', decimal: ',', scales: { млн: 1e6, тыс: 1e3 } },
   uz: { group: '[ \\u00a0\\u202f]', decimal: ',', scales: { mln: 1e6, million: 1e6, ming: 1e3 } },
+  zh: { group: ',', decimal: '\\.', scales: { 万: 1e4, 亿: 1e8 } },
 }
 
 const englishNumberWords = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, twice: 2 }
@@ -55,6 +56,10 @@ const banned = {
     [/\p{L}['‘’`]/u, 'write oʻ and gʻ with ʻ (U+02BB) and the tutuq belgisi with ʼ (U+02BC)'],
     [/[oOgG]ʼ/u, 'oʻ and gʻ take ʻ (U+02BB), not ʼ (U+02BC)'],
     [/(?<![oOgG])ʻ/u, 'ʻ (U+02BB) follows only o and g; the tutuq belgisi is ʼ (U+02BC)'],
+  ],
+  zh: [
+    [/你/, 'address the reader politely, with "您"'],
+    [/\p{Script=Han}[,.:;!?()]|[,:;!?()]\p{Script=Han}/u, 'use full-width punctuation (，。：；！？（）) next to Chinese characters'],
   ],
 }
 
@@ -83,8 +88,8 @@ function visibleText(html) {
   return decode([titleOf(html), metaOf(html, 'description'), metaOf(html, 'og:title'), metaOf(html, 'og:description'), body].join('\n'))
 }
 
-// Numeric values in a text. Years count; Korean month numbers (3월) are skipped because English
-// writes months as words.
+// Numeric values in a text. Years count; Korean and Chinese month numbers (3월, 3 月) are skipped
+// because English writes months as words.
 function numbersIn(text, code) {
   const { group, decimal, scales } = numberFormats[code]
   const number = `\\d{1,3}(?:${group}\\d{3})+(?:${decimal}\\d+)?|\\d+(?:${decimal}\\d+)?`
@@ -97,7 +102,7 @@ function numbersIn(text, code) {
   const values = new Set()
   for (const match of text.matchAll(pattern)) {
     const [whole, digits, suffix, word] = match
-    if (/^\s?월/.test(text.slice(match.index + whole.length))) continue
+    if (/^\s?[월月]/.test(text.slice(match.index + whole.length))) continue
     const plain = digits.replace(new RegExp(group, 'g'), '').replace(new RegExp(decimal), '.')
     const scale = suffix ? { M: 1e6, K: 1e3 }[suffix] : word ? scales[word] : 1
     values.add(Math.round(Number(plain) * scale * 1000) / 1000)

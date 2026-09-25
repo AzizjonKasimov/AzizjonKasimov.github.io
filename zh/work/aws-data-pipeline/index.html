@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>基于 AWS 的无服务器数据管道 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：一个事件驱动的 AWS 数据管道（Lambda、SQS、EventBridge、PostgreSQL、CloudWatch），采集二手零件市场数据，测试中达到每天约 500 万条商品信息。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/aws-data-pipeline/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="基于 AWS 的无服务器数据管道 — 项目案例" />
+    <meta
+      property="og:description"
+      content="Lambda 工作函数、带死信队列的 SQS、EventBridge 定时任务、PostgreSQL 和 CloudWatch 告警。测试中每天约 500 万条商品信息。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/aws-data-pipeline/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#work">← 全部项目</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">已上线</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>基于 AWS 的无服务器数据管道</h1>
+          <p class="lead">
+            定价研究需要稳定的二手零件市场数据来源。我在 AWS 上设计、构建并运维了一个事件驱动的数据管道，测试中达到每天约 500 万条商品信息。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>唯一的设计者、开发者和运维者，这是我在一位资深工程师离职后接手 AWS 工作的一部分。</dd>
+            </div>
+            <div>
+              <dt>成果</dt>
+              <dd>测试中每天约 500 万条商品信息。在生产环境中每日运行，配有监控和告警。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>AWS Lambda（Docker 镜像）、SQS、EventBridge、RDS PostgreSQL、RDS Proxy、CloudWatch、SNS、ECR、Python</dd>
+            </div>
+            <div>
+              <dt>范围</dt>
+              <dd>公司经营的 7 个汽车品牌在交易平台上的商品信息，每天采集</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>
+              公司的价格预测工作需要广泛且新鲜的市场数据。目标是针对公司经营的 7 个汽车品牌，每天采集约 500 万条商品信息。
+            </p>
+            <p>
+              这个数据管道必须稳定可靠、控制在预算之内，并能应对一个限制读取速度的数据源。
+            </p>
+
+            <h2>架构</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">调度</span>
+                  <span class="step-desc">EventBridge 启动每一轮采集。一个小型 Lambda 函数重置当天的目标。</span>
+                </li>
+                <li>
+                  <span class="step-name">队列</span>
+                  <span class="step-desc">SQS 存放待处理的任务，取代了早期“把数据库当队列”的设计。失败的消息会进入死信队列。</span>
+                </li>
+                <li>
+                  <span class="step-name">工作函数</span>
+                  <span class="step-desc">打包成 Docker 镜像的 Lambda 函数并行抓取和解析页面。</span>
+                </li>
+                <li>
+                  <span class="step-name">存储</span>
+                  <span class="step-desc">商品信息写入 RDS PostgreSQL，并通过 RDS Proxy 实现连接池。写入是增量且原子的。</span>
+                </li>
+                <li>
+                  <span class="step-name">告警</span>
+                  <span class="step-desc">CloudWatch 指标和告警，通过 SNS 发送通知。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>重试与恢复</strong>安全地认领目标、重试、恢复卡住的任务，以及重新投递 DLQ 消息</li>
+                <li><strong>监控 Lambda</strong>只读任务，把数据库健康状况上报到 CloudWatch</li>
+                <li><strong>健康检查</strong>可在任何操作系统上运行的 AWS CLI 脚本</li>
+              </ul>
+              <figcaption id="flow-caption">简化示意图。服务名称均为通用的 AWS 组件。</figcaption>
+            </figure>
+
+            <h2>宁可减速，也不宕机</h2>
+            <p>限制请求频率的数据源会进行反制。这个管道就是为此而设计的：</p>
+            <ul>
+              <li>
+                <strong>熔断机制。</strong>当页面开始被拦截时，工作函数会暂停，而不是更猛烈地重试。共享的冷却状态保存在 PostgreSQL 中。
+              </li>
+              <li>
+                <strong>自适应限流。</strong>请求时间带有随机抖动；当数据源开始反制时，管道会自动退避；冷却结束后，工作函数会逐步恢复负载。
+              </li>
+              <li>
+                <strong>安全并发。</strong>工作函数能安全地认领目标、重试并恢复卡住的任务，因此许多工作函数可以并行运行而互不冲突。
+              </li>
+            </ul>
+
+            <h2>可观测性与运维</h2>
+            <ul>
+              <li>
+                <strong>告警</strong>覆盖真正重要的情况：编排器宕机、工作函数失败、并发限流、队列积压和消息滞留时长、页面被拦截的比例、数据库写入失败，以及每天的商品信息数量。
+              </li>
+              <li>
+                <strong>健康检查</strong>使用 AWS CLI 脚本，另有一个小型只读 Lambda 函数把数据库健康状况上报到 CloudWatch。
+              </li>
+              <li>
+                <strong>书面操作规程</strong>说明如何限制或停止 Lambda 函数、如何清空队列，防止失控的任务推高成本。
+              </li>
+            </ul>
+
+            <h2>资深评审后的加固</h2>
+            <p>
+              PostgreSQL 语句超时、URL 白名单、响应大小限制、遇到可疑的空页面时快速失败、原子写入路径，以及结构化的失败记录。我还把开销很大的
+              <code>COUNT(*)</code> 从热点路径中移除，添加了索引维护工具，并为 ECR 镜像和 CloudWatch 日志设置了保留策略，以控制成本。
+            </p>
+
+            <h2>结果</h2>
+            <ul class="metric-grid">
+              <li><span class="num">~500 万/天</span><span class="lbl">商品信息，测试中达到目标</span></li>
+              <li><span class="num">每日</span><span class="lbl">在生产环境中采集、存储和告警</span></li>
+              <li><span class="num">7 个品牌</span><span class="lbl">覆盖公司的价格研究</span></li>
+            </ul>
+            <p>
+              <strong>经验总结：</strong>当数据源收紧频率限制后，可持续的吞吐量降到每天约 5000 条商品信息，并成为常态运行速率。在这种规模下，真正的瓶颈往往是数据源，而不是基础设施，因此退避机制必须从第一天起就纳入设计。
+            </p>
+
+            <p class="callout">
+              本文已做简化，不含任何雇主代码、内部数据或私有网址，也没有透露数据来源。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/semantic-search/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">汽车零部件 AI 语义搜索</span>
+            </a>
+            <a class="next" href="/zh/work/solar-mlops/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">光伏发电预测与异常检测</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

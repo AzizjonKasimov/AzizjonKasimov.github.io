@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>汽车零部件 AI 语义搜索 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：用自然语言为特定车型找到准确汽车零件的搜索系统。向量搜索、NER、LLM 查询清洗和准确率测试套件。在规定的 3000 个零件测试中准确率达 95%+。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/semantic-search/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="汽车零部件 AI 语义搜索 — 项目案例" />
+    <meta
+      property="og:description"
+      content="向量搜索、实体识别和 LLM 查询清洗，配有自动化准确率测试套件。在规定的 3000 个零件测试中准确率达 95%+。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/semantic-search/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#work">← 全部项目</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">已上线</span>
+            <span class="mono">G-Man Auto Parts · 2025–2026</span>
+          </div>
+          <h1>汽车零部件 AI 语义搜索</h1>
+          <p class="lead">
+            买家和供应商需要用普通的词语、以多种语言，为特定车型找到准确的零件。我端到端地构建了这套搜索，并开发了一套测试套件，证明它达到了 95% 的准确率要求。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>公司唯一的 AI/ML 工程师。负责设计、向量嵌入、实体识别、LLM 步骤、评估和生产上线。</dd>
+            </div>
+            <div>
+              <dt>成果</dt>
+              <dd>在规定的 3000 个零件测试中准确率达 95%+。研发项目已获批准。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>Python、Django REST Framework、Weaviate、spaCy、OpenAI API（GPT-4o-mini）、Celery、PostgreSQL、AWS S3、React</dd>
+            </div>
+            <div>
+              <dt>规模</dt>
+              <dd>超过 200 万条零件记录的目录，以及超过 30 万条可搜索的商品信息（Kia、Hyundai、SsangYong、Chevrolet）</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>
+              人们对同一个零件有很多种说法：“headlight”或“head lamp”、非正式的叫法，或者其他语言。但正确答案只有一个：一辆确切车型对应的一个零件编号，涉及品牌、车型、年份、燃料、变速箱、代次和位置（左或右、前或后）。
+            </p>
+            <p>
+              僵硬的关键词过滤无法应对这种情况。公司需要一种能以高精度返回正确零件的自然语言搜索，而且它还必须通过研发项目的正式准确率测试。
+            </p>
+
+            <h2>查询的处理流程</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">语言检测</span>
+                  <span class="step-desc">先运行一个小型语言检测器，只在需要时才调用 LLM。</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM 规范化</span>
+                  <span class="step-desc">非英语查询会被翻译并清洗（GPT-4o-mini）。</span>
+                </li>
+                <li>
+                  <span class="step-name">实体抽取</span>
+                  <span class="step-desc">spaCy NER 识别品牌、车型、年份、燃料、变速箱、零件名称、位置和代次。</span>
+                </li>
+                <li>
+                  <span class="step-name">带过滤的向量搜索</span>
+                  <span class="step-desc">识别出的实体成为 Weaviate 语义搜索之上的精确过滤条件。</span>
+                </li>
+                <li>
+                  <span class="step-name">LLM 重排序</span>
+                  <span class="step-desc">LLM 后置过滤器剔除明显错误的结果，并对其余结果重新排序。</span>
+                </li>
+                <li>
+                  <span class="step-name">结果</span>
+                  <span class="step-desc">为买家提供商品搜索，为供应商提供目录匹配。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Django REST API</strong>为商城和后台工具提供两种搜索模式</li>
+                <li><strong>准确率测试套件</strong>在固定测试集上运行同一条流水线</li>
+                <li><strong>S3 报告</strong>每次测试运行都会被保存，重新部署后也不会丢失</li>
+              </ul>
+              <figcaption id="flow-caption">生产环境搜索流水线的简化示意图。</figcaption>
+            </figure>
+
+            <h2>我构建了什么</h2>
+            <ul>
+              <li>
+                <strong>向量搜索核心。</strong>我把零件目录嵌入到 Weaviate 中，并用 Django REST Framework 构建了搜索服务。为了提高召回率，我设计了用于嵌入的文本（字段标签、零件位置、车辆年份和精选同义词）。
+              </li>
+              <li>
+                <strong>实体作为硬过滤条件。</strong>spaCy 从自由文本查询中提取结构化信息，并把它们变成精确的过滤条件。向量搜索负责处理措辞差异，过滤条件则确保车型和位置正确。
+              </li>
+              <li>
+                <strong>两种搜索模式。</strong>为买家提供商品搜索。为供应商提供自动匹配：上传的零件会与目录记录进行匹配，每个不同的零件编号作为一条单独的结果。
+              </li>
+              <li>
+                <strong>多语言查询。</strong>非英语查询会经过一个 LLM 步骤。从 GPT-3.5-Turbo 换成 GPT-4o-mini 后，质量更好、成本更低，而语言检测让 LLM 调用保持在最低限度。
+              </li>
+              <li>
+                <strong>相关性调优。</strong>LLM 重排序器会剔除明显错误的结果。零件名称别名系统（例如“headlight” → “Head Lamp Assembly”）提高了日常说法的准确率。
+              </li>
+              <li>
+                <strong>前端对接。</strong>我把 React/TypeScript 商城和后台工具接入了搜索 API：筛选条件会传入查询，匹配结果会自动填写表单，搜索结果按相关性排序并设有置信度阈值。
+              </li>
+            </ul>
+
+            <h2>衡量准确率</h2>
+            <p>
+              准确率必须靠测量，而不是靠猜测。我构建了一个内部测试页面，在一个固定的、精心整理的测试集上运行与生产搜索相同的流水线。
+            </p>
+            <ul>
+              <li><strong>指标：</strong>accuracy@1 和 accuracy@3、精确率、召回率、F1、混淆矩阵和交叉验证。</li>
+              <li><strong>可重复运行：</strong>自动或手动运行。每次运行都会记录运行者，以及是否开启了 LLM 预处理。</li>
+              <li><strong>安全设计：</strong>测试数据存放在独立的集合中，并设有防护措施，确保测试绝不会触碰生产数据。</li>
+              <li><strong>错误分析：</strong>我把“无结果”的情况追溯到过期的测试对象、SKU 与目录不匹配、相互冲突的实体模式以及车身颜色的处理问题，并逐一修复。</li>
+            </ul>
+
+            <h2>结果</h2>
+            <ul class="metric-grid">
+              <li><span class="num">95%+</span><span class="lbl">在规定的 3000 个零件评估集上的准确率</span></li>
+              <li><span class="num">已获批准</span><span class="lbl">研发项目，在达到准确率要求之后</span></li>
+              <li><span class="num">30 万+</span><span class="lbl">可搜索的商品信息，基于超过 200 万条零件记录的目录</span></li>
+            </ul>
+            <p>
+              该搜索已面向买家和供应商在生产环境上线。我还在生产环境中运行了自动化准确率测试，并修复了测试发现的问题。
+            </p>
+
+            <p class="callout">
+              本文已做简化，不含任何雇主代码、内部数据或私有网址。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/catalog-agent/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">用于目录数据的 LangGraph 智能体</span>
+            </a>
+            <a class="next" href="/zh/work/aws-data-pipeline/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">基于 AWS 的无服务器数据管道</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

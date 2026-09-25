@@ -71,6 +71,14 @@
     "Malgun Gothic", "Noto Sans KR", monospace;
 }
 
+/* Chinese pages: body text already falls back to the platform's Simplified Chinese sans font, but
+   the generic monospace fallback for Chinese is the dated serif NSimSun on Windows, so Chinese in
+   mono labels (dates, badges) falls back to the sans fonts instead. */
+:root:lang(zh) {
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, "PingFang SC",
+    "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", monospace;
+}
+
 /* ==========================================================================
    Base
    ========================================================================== */

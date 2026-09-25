@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>用于目录数据的 LangGraph 智能体 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：一个 LangGraph 智能体工作流，把简短的请求转换为干净、可直接入库的汽车零件目录数据，支持定时调度、可断点续跑的任务，以及数据团队可以核查的报告。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/catalog-agent/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="用于目录数据的 LangGraph 智能体 — 项目案例" />
+    <meta
+      property="og:description"
+      content="一个智能体工作流：解析车型变体、获取目录数据、进行规范化与映射，并以可断点续跑的批次写入。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/catalog-agent/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#work">← 全部项目</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">原型</span>
+            <span class="mono">G-Man Auto Parts · 2026</span>
+          </div>
+          <h1>用于目录数据的 LangGraph 智能体</h1>
+          <p class="lead">
+            导入第三方目录数据曾是数据团队缓慢的手工工作。我构建了一个智能体工作流，把简短的请求转换成干净、可直接入库的零件数据，支持定时调度、可断点续跑的任务，以及任何人都能核查的报告。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>唯一的开发者：负责调研、架构、智能体、定时调度和演示界面。</dd>
+            </div>
+            <div>
+              <dt>状态</dt>
+              <dd>为数据团队打造的可运行原型，带有演示界面。我于 2026 年 7 月离职时，它尚未投入生产。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>Python、LangGraph、OpenAI API、APScheduler、PostgreSQL</dd>
+            </div>
+            <div>
+              <dt>范围</dt>
+              <dd>针对公司经营的 7 个汽车品牌，按品牌、车型、年份和地区发出的请求</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>
+              把第三方车辆和零件数据导入公司目录是重复的手工工作。需要有人选择许多参数、下载数据、清洗数据，并把每条记录映射到正确的目录表中。
+            </p>
+            <p>目标是把这项工作自动化，让数据团队不必再手动处理。</p>
+
+            <h2>工作原理</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-name">请求</span>
+                  <span class="step-desc">从下拉列表中选择品牌、车型、年份和地区。</span>
+                </li>
+                <li>
+                  <span class="step-name">解析变体</span>
+                  <span class="step-desc">找到所有匹配的车型变体，并展开为需要获取的目录范围。</span>
+                </li>
+                <li>
+                  <span class="step-name">获取</span>
+                  <span class="step-desc">调用第三方目录 API，带缓存和重试。</span>
+                </li>
+                <li>
+                  <span class="step-name">规范化与映射</span>
+                  <span class="step-desc">清洗记录，并映射到正确的目录表。</span>
+                </li>
+                <li>
+                  <span class="step-name">写入</span>
+                  <span class="step-desc">分批保存到 PostgreSQL，并设有检查点，使任务可以安全地续跑或取消。</span>
+                </li>
+                <li>
+                  <span class="step-name">报告</span>
+                  <span class="step-desc">展示每个批次是如何规范化和映射的，方便数据团队核查。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>调度器</strong>APScheduler，配有用于定时和手动运行的小型界面</li>
+                <li><strong>缓存</strong>目录数据缓存到分组级别</li>
+                <li><strong>管控</strong>范围限制、任务状态和可见的 API 用量</li>
+              </ul>
+              <figcaption id="flow-caption">智能体工作流的简化示意图。</figcaption>
+            </figure>
+
+            <h2>我构建了什么</h2>
+            <ul>
+              <li>
+                <strong>先求简单，再求可预测。</strong>第一个版本接收自然语言请求，带有澄清步骤，并记录智能体的每一步以便调试。工作流稳定后，我把自由文本换成了下拉选项，让每次运行都可以重复。
+              </li>
+              <li>
+                <strong>为什么用 LangGraph。</strong>LLM 只承担一小部分工作，但 LangGraph 依然物有所值：工作流结构清晰、易于检查，并能在失败后续跑。
+              </li>
+              <li>
+                <strong>为超大任务而设计。</strong>分块、可续跑的保存方式能处理拥有超过 10 万个变体的车型。
+              </li>
+              <li>
+                <strong>定时调度。</strong>APScheduler 配有用于定时和手动运行的小型界面，我还修复了任务重复注册的问题。
+              </li>
+              <li>
+                <strong>可审核的输出。</strong>自动生成的报告展示每个批次是如何规范化和映射的，非工程人员也能审核结果。
+              </li>
+              <li>
+                <strong>文档。</strong>目录结构的参考文档：智能体读取哪些表、写入哪些表。
+              </li>
+            </ul>
+
+            <h2>工程判断</h2>
+            <p>
+              在动手之前，我比较了自建与采购两种方案。我研究了现有的 AI 数据采集工具和工作流引擎（Airflow、Prefect、Celery），选择了一种符合项目阶段的轻量方案，并保留了日后扩展的路径。
+            </p>
+            <p>
+              我还让任务范围和计费 API 的用量保持可见，而不是把它们隐藏在自主行为背后。这种设计减少了手工工作，同时让人始终掌控成本和数据。
+            </p>
+
+            <h2>状态</h2>
+            <p>
+              一个带定时调度和演示界面的可运行原型，供数据团队使用。当时它正在被整合进一个统一的内部管理工具。我于 2026 年 7 月离职时，它尚未投入生产。
+            </p>
+
+            <p class="callout">
+              本文已做简化，不含任何雇主代码、内部数据或私有网址。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/solar-mlops/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">光伏发电预测与异常检测</span>
+            </a>
+            <a class="next" href="/zh/work/semantic-search/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">汽车零部件 AI 语义搜索</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>
