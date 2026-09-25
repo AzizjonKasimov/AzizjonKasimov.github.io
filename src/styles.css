@@ -259,8 +259,13 @@ strong {
   margin-left: auto;
 }
 
+/* If the menu ever gets too long for the screen, such as with a large text setting, it wraps to a
+   second line instead of pushing the page sideways. tools/check-layout.mjs fails the build when
+   the menu wraps at any tested screen width. */
 .site-nav ul {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 4px;
   padding: 0;
   list-style: none;
@@ -273,6 +278,7 @@ strong {
   color: var(--text-2);
   font-size: 0.9375rem;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .site-nav a:hover {
@@ -402,6 +408,14 @@ strong {
   }
 
   .lang-toggle .chevron {
+    display: none;
+  }
+}
+
+/* The narrowest phones (320px, such as an iPhone SE with Display Zoom): drop Experience as well,
+   so the menu fits in every language with room for wider phone fonts. */
+@media (max-width: 359px) {
+  .site-nav .nav-secondary {
     display: none;
   }
 }

@@ -20,24 +20,44 @@ added one at a time.
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
 | `src/styles.css` | All styles, including the dark theme and print styles |
 | `public/` | Files copied as-is: favicon, social preview image, touch icon, certificate scans (`certificates/`), `robots.txt` |
-| `tools/` | The translation and language-redirect checks, the certificate image script, and the sources and render script for the social preview image and touch icon |
+| `tools/` | The translation, language-redirect, and layout checks, the certificate image script, and the sources and render script for the social preview image and touch icon |
 | `vite.config.mjs` | The build: one entry per page and language, the partial-include plugin, and the generated `sitemap.xml` |
 
 ## Development
 
-Requires Node.js 20.19+ or 22.12+.
+Requires Node.js 20.19+ or 22.12+, and Microsoft Edge or Google Chrome for the layout check.
 
 ```powershell
 npm install
 npm run dev       # dev server at http://localhost:5173
 npm run check     # compare every translation with its English page
-npm run build     # that check, a production build into docs/, then the language redirect check
+npm run build     # that check, a production build into docs/, then the language redirect and layout checks
 npm run preview   # serve docs/ at http://localhost:4173
 ```
 
 Pages include shared markup with `<!-- include: partials/<file>.html -->`. The partials use
 `{{name}}` placeholders, such as `{{ui.work}}` for a menu label or `{{year}}` for the current year,
 that the build fills in for each page's language. An unknown placeholder stops the build.
+
+### Layout check
+
+`tools/check-layout.mjs` (read-only, run by `npm run build`) opens every built page in every language
+in headless Edge or Chrome, with the language menu open, at about 40 screen widths from 320px (the
+narrowest phone screen that web accessibility rules require) to 1440px, including both sides of
+every width breakpoint in `src/styles.css`. It fails when:
+
+- the page scrolls sideways, or anything reaches past the left or right edge of the screen;
+- text sticks out of its box, such as a long word poking out of a card or a button;
+- the header does not fit on one row.
+
+It measures text in Arial and Courier New, or on Linux their twins Liberation Sans and Liberation
+Mono. The twins have identical letter widths, so a PC and GitHub's build server get the same result.
+To run it again without rebuilding: `node tools/check-layout.mjs`.
+
+When it fails, fix the CSS or the text; do not weaken the check. If a layout bug ever gets past it,
+extend the check so it catches that bug too. The header menu drops links as the screen narrows (five
+links on wide screens, three at 860px and narrower, two below 360px), and if the menu still does not
+fit, it wraps instead of pushing the page sideways.
 
 ## Languages
 
@@ -80,8 +100,9 @@ sentence you change.
 2. Add its number format, and any words it must never use, to `tools/check-translations.mjs`.
 3. Translate every page into `<code>/` and run `npm run check`.
 4. If the language needs its own fonts, line breaking, or hyphenation, add `:lang(<code>)` rules to
-   `src/styles.css`, as Korean and German have. Check the pages on a phone and on desktop, in light
-   and dark themes.
+   `src/styles.css`, as Korean and German have. Run `npm run build`: the layout check tests the new
+   pages at every screen width. Also look at the pages on a phone and on desktop, in light and dark
+   themes.
 
 ## Content rules
 
@@ -139,8 +160,10 @@ same files. The original PDFs are kept in the private portfolio repo. To add a c
 ## Deployment
 
 Every push to `main` runs `.github/workflows/deploy.yml`: it builds with Node 22 (the build runs the
-translation and language-redirect checks) and deploys `docs/` to GitHub Pages. The repository's Pages source must be
-set to **GitHub Actions**. No secrets or environment variables are needed.
+translation, language-redirect, and layout checks, with the Chrome that GitHub's build server has
+installed) and deploys `docs/` to GitHub Pages. A failing check stops the deploy, and the live site
+keeps the last good version. The repository's Pages source must be set to **GitHub Actions**. No
+secrets or environment variables are needed.
 
 To check a deploy, open the **Actions** tab for the latest "Build & Deploy to GitHub Pages" run, then
 load the live site, one case-study page, and one translated page such as `/ko/`.
