@@ -1,27 +1,57 @@
 <svg viewBox="0 0 320 100">
-  <circle class="art-panel" cx="30" cy="46" r="17" />
-  <path class="art-accent-line" d="M30 36v10l7 4" />
-  <path class="art-flow" d="M52 46h14" />
-  <path class="art-flow" d="m62 42 4 4-4 4" />
-  <rect class="art-panel" x="72" y="24" width="46" height="44" rx="8" />
-  <rect class="art-chip" x="79" y="32" width="32" height="7" rx="3.5" />
-  <rect class="art-chip" x="79" y="42.5" width="32" height="7" rx="3.5" />
-  <rect class="art-chip" x="79" y="53" width="32" height="7" rx="3.5" />
-  <path class="art-dash" d="M95 68v9" />
-  <rect class="art-dash" x="80" y="77" width="30" height="12" rx="4" />
-  <path class="art-flow" d="M118 46c14 0 14-24 28-24M118 46h28M118 46c14 0 14 24 28 24" />
-  <circle class="art-panel" cx="157" cy="22" r="11" />
-  <circle class="art-panel" cx="157" cy="46" r="11" />
-  <circle class="art-panel" cx="157" cy="70" r="11" />
-  <path class="art-accent-line" d="M152.5 16h3l6.5 12M158.4 22l-5.4 6" />
-  <path class="art-accent-line" d="M152.5 40h3l6.5 12M158.4 46l-5.4 6" />
-  <path class="art-accent-line" d="M152.5 64h3l6.5 12M158.4 70l-5.4 6" />
-  <path class="art-flow" d="M168 22c16 0 16 24 32 24M168 46h32M168 70c16 0 16-24 32-24" />
-  <path class="art-flow" d="m196 42 4 4-4 4" />
-  <path class="art-panel" d="M208 30c0-4 9-7 20-7s20 3 20 7v32c0 4-9 7-20 7s-20-3-20-7z" />
-  <path class="art-line" d="M208 30c0 4 9 7 20 7s20-3 20-7" />
-  <path class="art-line" d="M208 46c0 4 9 7 20 7s20-3 20-7" />
-  <path class="art-dash" d="M252 42h18" />
-  <path class="art-accent-line" d="M279 36a8 8 0 0 1 16 0c0 8 4 10 4 10h-24s4-2 4-10" />
-  <path class="art-accent-line" d="M284 50a3 3 0 0 0 6 0" />
+  <circle class="art-panel pop" cx="30" cy="46" r="17" />
+  <g class="turn" style="--at: 150ms; --dur: 800ms; transform-origin: 30px 46px">
+    <path class="art-accent-line hover-tick" d="M30 36v10l7 4" style="transform-origin: 30px 46px" />
+  </g>
+  <path class="art-flow draw" d="M52 46h14" pathLength="1" style="--at: 350ms; --dur: 220ms" />
+  <path class="art-flow pop" d="m62 42 4 4-4 4" style="--at: 520ms" />
+  <path class="art-pulse" d="M52 46h14" pathLength="100" />
+  <rect class="art-panel rise" x="72" y="24" width="46" height="44" rx="8" style="--at: 540ms" />
+  <rect class="art-chip rise" x="79" y="32" width="32" height="7" rx="3.5" style="--at: 660ms; --rise: -5px" />
+  <rect class="art-chip rise" x="79" y="42.5" width="32" height="7" rx="3.5" style="--at: 740ms; --rise: -5px" />
+  <rect class="art-chip rise" x="79" y="53" width="32" height="7" rx="3.5" style="--at: 820ms; --rise: -5px" />
+  <g class="fade" style="--at: 900ms">
+    <path class="art-dash" d="M95 68v9" />
+    <rect class="art-dash" x="80" y="77" width="30" height="12" rx="4" />
+  </g>
+  <path class="art-flow draw" d="M118 46c14 0 14-24 28-24" pathLength="1" style="--at: 920ms; --dur: 320ms" />
+  <path class="art-flow draw" d="M118 46h28" pathLength="1" style="--at: 920ms; --dur: 320ms" />
+  <path class="art-flow draw" d="M118 46c14 0 14 24 28 24" pathLength="1" style="--at: 920ms; --dur: 320ms" />
+  <path class="art-pulse" d="M118 46c14 0 14-24 28-24" pathLength="100" style="--pulse-at: 0.5s" />
+  <path class="art-pulse" d="M118 46h28" pathLength="100" style="--pulse-at: 0.5s" />
+  <path class="art-pulse" d="M118 46c14 0 14 24 28 24" pathLength="100" style="--pulse-at: 0.5s" />
+  <g class="pop" style="--at: 1140ms">
+    <circle class="art-panel" cx="157" cy="22" r="11" />
+    <path class="art-accent-line" d="M152.5 16h3l6.5 12M158.4 22l-5.4 6" />
+  </g>
+  <g class="pop" style="--at: 1200ms">
+    <circle class="art-panel" cx="157" cy="46" r="11" />
+    <path class="art-accent-line" d="M152.5 40h3l6.5 12M158.4 46l-5.4 6" />
+  </g>
+  <g class="pop" style="--at: 1260ms">
+    <circle class="art-panel" cx="157" cy="70" r="11" />
+    <path class="art-accent-line" d="M152.5 64h3l6.5 12M158.4 70l-5.4 6" />
+  </g>
+  <path class="art-flow draw" d="M168 22c16 0 16 24 32 24" pathLength="1" style="--at: 1340ms; --dur: 320ms" />
+  <path class="art-flow draw" d="M168 46h32" pathLength="1" style="--at: 1340ms; --dur: 320ms" />
+  <path class="art-flow draw" d="M168 70c16 0 16-24 32-24" pathLength="1" style="--at: 1340ms; --dur: 320ms" />
+  <path class="art-pulse" d="M168 22c16 0 16 24 32 24" pathLength="100" style="--pulse-at: 1s" />
+  <path class="art-pulse" d="M168 46h32" pathLength="100" style="--pulse-at: 1s" />
+  <path class="art-pulse" d="M168 70c16 0 16-24 32-24" pathLength="100" style="--pulse-at: 1s" />
+  <path class="art-flow pop" d="m196 42 4 4-4 4" style="--at: 1580ms" />
+  <g class="rise" style="--at: 1600ms">
+    <path class="art-panel" d="M208 30c0-4 9-7 20-7s20 3 20 7v32c0 4-9 7-20 7s-20-3-20-7z" />
+    <path class="art-line" d="M208 30c0 4 9 7 20 7s20-3 20-7" />
+    <path class="art-line" d="M208 46c0 4 9 7 20 7s20-3 20-7" />
+  </g>
+  <path class="art-dash fade" d="M252 42h18" style="--at: 1780ms" />
+  <path class="art-pulse" d="M252 42h18" pathLength="100" style="--pulse-at: 1.5s" />
+  <g class="pop" style="--at: 1840ms">
+    <g class="ring" style="--at: 1960ms; --dur: 900ms; transform-origin: 287px 28px">
+      <g class="hover-swing" style="transform-origin: 287px 28px">
+        <path class="art-accent-line" d="M279 36a8 8 0 0 1 16 0c0 8 4 10 4 10h-24s4-2 4-10" />
+        <path class="art-accent-line" d="M284 50a3 3 0 0 0 6 0" />
+      </g>
+    </g>
+  </g>
 </svg>

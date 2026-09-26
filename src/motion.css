@@ -1,0 +1,577 @@
+/* ==========================================================================
+   Motion: the photo, charts, drawings, and diagrams animate once, when they
+   first scroll into view. Imported at the top of styles.css.
+   ========================================================================== */
+
+/* How it works:
+   - A small script at the end of partials/head.html adds .motion to <html>. When one of these
+     items first scrolls into view, the script gives it .in-view and --n, its place among the
+     items of the same figure, list, or card grid that came into view at the same time, so they
+     play in turn: .stat, .card-art, .steps > li, .sidecars, .trace-steps > li, .chart, .shots > li.
+   - Until then, every animation inside the item waits at its first frame (--play). Anything new
+     that animates must sit inside one of these items, or be added to the script's list.
+   - An animation only brings a thing into the place it has without motion, so the still page is
+     the last frame. Nothing moves without the script, for visitors who ask for reduced motion, or
+     in print: every rule here needs .motion and the screen and no-preference media query.
+   - The work-card drawings also play a loop while their card is hovered or focused.
+   - tools/check-layout.mjs checks the layout with reduced motion, then scrolls through every page
+     with motion on and fails if the page scrolls sideways or an animation still waits at the end. */
+
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Parts of the drawings that only show in the hover loop: a dash that travels along a line (the
+   path has pathLength="100") and a ring that spreads out from a dot. */
+.art-pulse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 30 140;
+  stroke-dashoffset: 32;
+  opacity: 0;
+}
+
+.art-ripple {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.art-ripple-alert {
+  stroke: var(--alert);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise, 8px));
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+/* Chart bars grow to their --v width. */
+@keyframes grow {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes stretch {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* A line draws itself: the path has pathLength="1", so one dash covers all of it. */
+@keyframes draw {
+  from {
+    stroke-dasharray: 1 1.2;
+    stroke-dashoffset: 1.1;
+  }
+
+  to {
+    stroke-dasharray: 1 1.2;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Uncovers a thing from left to right. The margins keep round line ends and glyph edges whole. */
+@keyframes wipe {
+  from {
+    clip-path: inset(-4px calc(100% + 4px) -4px -4px);
+  }
+
+  to {
+    clip-path: inset(-4px -4px -4px -4px);
+  }
+}
+
+@keyframes turn {
+  from {
+    opacity: 0;
+    transform: rotate(-120deg) scale(0.4);
+  }
+}
+
+@keyframes ring {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  15% {
+    transform: rotate(18deg);
+  }
+
+  30% {
+    transform: rotate(-14deg);
+  }
+
+  45% {
+    transform: rotate(9deg);
+  }
+
+  60% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(2deg);
+  }
+}
+
+/* A connector line grows from its start in the accent color, then settles to its own color. */
+@keyframes connect-y {
+  from {
+    transform: scaleY(0);
+    background-color: var(--accent);
+  }
+
+  60% {
+    transform: scaleY(1);
+    background-color: var(--accent);
+  }
+}
+
+@keyframes connect-x {
+  from {
+    transform: scaleX(0);
+    background-color: var(--accent);
+  }
+
+  60% {
+    transform: scaleX(1);
+    background-color: var(--accent);
+  }
+}
+
+/* A ring spreads out from a diagram step as it starts. */
+@keyframes ping {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  to {
+    box-shadow: 0 0 0 12px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
+@keyframes flash {
+  from {
+    border-color: var(--ok);
+    background-color: var(--ok-soft);
+  }
+}
+
+@keyframes strike {
+  from {
+    color: var(--text);
+    text-decoration-color: transparent;
+  }
+}
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+/* Hover loops. A loop lasts 2.4s, and the dashes that travel along a drawing's lines start in turn
+   (--pulse-at), so one bit of data seems to flow through the whole drawing. */
+@keyframes travel {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: 32;
+  }
+
+  25% {
+    opacity: 1;
+    stroke-dashoffset: -102;
+  }
+
+  25.01%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -102;
+  }
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+
+  35% {
+    transform: translateX(4px) rotate(-10deg);
+  }
+
+  70% {
+    transform: translateX(1px) rotate(6deg);
+  }
+}
+
+@keyframes tick {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes swing {
+  0%,
+  80%,
+  100% {
+    transform: rotate(0);
+  }
+
+  84% {
+    transform: rotate(16deg);
+  }
+
+  88% {
+    transform: rotate(-12deg);
+  }
+
+  92% {
+    transform: rotate(7deg);
+  }
+
+  96% {
+    transform: rotate(-3deg);
+  }
+}
+
+/* The sun's rays repeat every 45 degrees, so this loops without a jump. */
+@keyframes spin {
+  to {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+@keyframes march {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* Every animation waits at its first frame until its item scrolls into view. */
+  .motion {
+    --play: paused;
+  }
+
+  .motion .in-view,
+  .motion .hero-photo {
+    --play: running;
+  }
+
+  .motion *,
+  .motion *::before,
+  .motion *::after {
+    animation-play-state: var(--play) !important;
+  }
+
+  .motion .hero-photo {
+    animation: photo-in 900ms var(--ease-out) 100ms backwards;
+  }
+
+  /* Hero stats: each bar grows to its value, and in a before-and-after pair the second bar
+     follows the first. The dots fill in from the left. */
+  .motion .stat .viz-bar {
+    animation: grow 900ms var(--ease-out) calc(var(--n, 0) * 120ms + 250ms) backwards;
+  }
+
+  .motion .stat .viz-bar + .viz-bar {
+    animation-delay: calc(var(--n, 0) * 120ms + 650ms);
+  }
+
+  .motion .stat .viz-dots {
+    animation: wipe 1200ms linear calc(var(--n, 0) * 120ms + 250ms) backwards;
+  }
+
+  /* Work-card drawings. Each shape says what it does with a class and when with --at (and how
+     long with --dur) in partials/art/*.svg, so a drawing builds up in the order its data flows. */
+  .motion .card-art :is(.fade, .rise, .pop, .grow, .draw, .wipe, .turn, .ring) {
+    --rise: 6px;
+    animation-duration: var(--dur, 450ms);
+    animation-timing-function: var(--ease-out);
+    animation-delay: calc(var(--n, 0) * 200ms + var(--at, 0ms));
+    animation-fill-mode: backwards;
+  }
+
+  .motion .card-art .fade {
+    animation-name: fade-in;
+  }
+
+  .motion .card-art .rise {
+    animation-name: rise;
+  }
+
+  .motion .card-art .pop {
+    animation-name: pop;
+    animation-timing-function: var(--ease-pop);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .motion .card-art .grow {
+    animation-name: stretch;
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
+  .motion .card-art .draw {
+    animation-name: draw;
+    animation-timing-function: var(--ease-in-out);
+  }
+
+  .motion .card-art .wipe {
+    animation-name: wipe;
+    animation-timing-function: linear;
+  }
+
+  .motion .card-art .turn {
+    animation-name: turn;
+  }
+
+  .motion .card-art .ring {
+    animation-name: ring;
+    animation-timing-function: ease-in-out;
+  }
+
+  /* Diagrams: the steps start in turn. Each icon pops in with a ring, then its line grows to the
+     next step. On narrow screens the steps come into view one by one as the page scrolls. */
+  .motion .steps > li {
+    --step: calc(var(--n, 0) * 240ms);
+  }
+
+  .motion .step-icon {
+    animation:
+      pop 500ms var(--ease-pop) var(--step) backwards,
+      ping 900ms var(--ease-out) calc(var(--step) + 200ms) backwards;
+  }
+
+  .motion .step-name {
+    animation: rise 500ms var(--ease-out) calc(var(--step) + 100ms) backwards;
+  }
+
+  .motion .step-desc {
+    animation: rise 500ms var(--ease-out) calc(var(--step) + 160ms) backwards;
+  }
+
+  .motion .steps > li:not(:last-child)::after {
+    transform-origin: top;
+    animation: connect-y 500ms var(--ease-in-out) calc(var(--step) + 200ms) backwards;
+  }
+
+  .motion .step-optional::before {
+    animation: fade-in 500ms ease calc(var(--step) + 250ms) backwards;
+  }
+
+  .motion .sidecars li {
+    animation: rise 450ms var(--ease-out) calc(var(--n, 0) * 240ms + var(--late, 0ms) + 100ms) backwards;
+  }
+
+  .motion .sidecars li:nth-child(2) {
+    --late: 80ms;
+  }
+
+  .motion .sidecars li:nth-child(3) {
+    --late: 160ms;
+  }
+
+  /* Worked example: one step after another down the rail. The query types itself, the entities
+     pop out, the right part lights up, and the wrong one is struck out. */
+  .motion .trace-steps > li {
+    --step: calc(var(--n, 0) * 420ms);
+  }
+
+  .motion .trace-steps > li::before {
+    animation: pop 450ms var(--ease-pop) var(--step) backwards;
+  }
+
+  .motion .trace-steps > li:not(:last-child)::after {
+    transform-origin: top;
+    animation: connect-y 600ms var(--ease-in-out) calc(var(--step) + 250ms) backwards;
+  }
+
+  .motion .trace-label {
+    animation: rise 450ms var(--ease-out) calc(var(--step) + 60ms) backwards;
+  }
+
+  .motion .trace-query,
+  .motion .trace-steps > li > code,
+  .motion .trace-results li {
+    animation: rise 500ms var(--ease-out) calc(var(--step) + var(--late, 0ms) + 140ms) backwards;
+  }
+
+  .motion .trace-query [lang] {
+    animation: wipe 900ms steps(18, end) calc(var(--step) + 300ms) backwards;
+  }
+
+  .motion .trace-chips li {
+    animation: pop 420ms var(--ease-pop) calc(var(--step) + var(--late, 0ms) + 140ms) backwards;
+  }
+
+  .motion .trace-chips li:nth-child(2) {
+    --late: 70ms;
+  }
+
+  .motion .trace-chips li:nth-child(3) {
+    --late: 140ms;
+  }
+
+  .motion .trace-chips li:nth-child(4) {
+    --late: 210ms;
+  }
+
+  .motion .trace-chips li:nth-child(5) {
+    --late: 280ms;
+  }
+
+  .motion .trace-note {
+    animation: fade-in 500ms ease calc(var(--step) + 560ms) backwards;
+  }
+
+  .motion .trace-miss {
+    --late: 180ms;
+  }
+
+  .motion .trace-mark {
+    animation: pop 450ms var(--ease-pop) calc(var(--step) + var(--late, 0ms) + 320ms) backwards;
+  }
+
+  .motion .trace-hit code {
+    animation: flash 1400ms var(--ease-out) calc(var(--step) + 420ms) backwards;
+  }
+
+  .motion .trace-miss code {
+    animation: strike 500ms ease calc(var(--step) + 760ms) backwards;
+  }
+
+  /* Charts: in a before-and-after chart the second bar grows after the first. In the stacked
+     chart each source of gains grows in turn, with its legend entry, and the totals come last. */
+  .motion .chart .bar {
+    animation: grow 700ms var(--ease-out) calc(var(--group-at, 0ms) + var(--bar-at, 0ms) + 150ms) backwards;
+  }
+
+  .motion .chart .bar-value {
+    animation: rise 450ms var(--ease-out) calc(var(--group-at, 0ms) + var(--bar-at, 0ms) + 750ms) backwards;
+  }
+
+  .motion .chart-legend li {
+    animation: rise 450ms var(--ease-out) calc(var(--bar-at, 0ms) + 150ms) backwards;
+  }
+
+  .motion .chart .bar-row + .bar-row {
+    --bar-at: 600ms;
+  }
+
+  .motion .chart-pair > :nth-child(2) {
+    --group-at: 350ms;
+  }
+
+  .motion .chart .seg-1,
+  .motion .chart-legend li:nth-child(1) {
+    --bar-at: 0ms;
+  }
+
+  .motion .chart .seg-2,
+  .motion .chart-legend li:nth-child(2) {
+    --bar-at: 650ms;
+  }
+
+  .motion .chart .seg-3,
+  .motion .chart-legend li:nth-child(3),
+  .motion .chart:has(.seg-3) .bar-value {
+    --bar-at: 1300ms;
+  }
+
+  .motion .shots > li {
+    --rise: 14px;
+    animation: rise 600ms var(--ease-out) calc(var(--n, 0) * 110ms + 60ms) backwards;
+  }
+}
+
+/* Wide screens: the diagram runs across, so its lines grow sideways. */
+@media screen and (prefers-reduced-motion: no-preference) and (min-width: 1080px) {
+  .motion .steps > li:not(:last-child)::after {
+    transform-origin: left;
+    animation-name: connect-x;
+  }
+}
+
+/* Hover loops for the work-card drawings: data flows through each drawing while its card is
+   hovered or focused, and stops when it is not. */
+@media screen and (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .motion .card-link:is(:hover, :focus-within) .art-pulse {
+    animation: travel 2.4s linear var(--pulse-at, 0s) infinite;
+  }
+
+  .motion .card-link:is(:hover, :focus-within) .art-ripple {
+    animation: ripple 1.8s var(--ease-out) infinite;
+  }
+
+  .motion .card-link:is(:hover, :focus-within) .hover-scan {
+    animation: scan 1.8s var(--ease-in-out) infinite;
+  }
+
+  .motion .card-link:is(:hover, :focus-within) .hover-tick {
+    animation: tick 2.4s steps(8, end) infinite;
+  }
+
+  .motion .card-link:is(:hover, :focus-within) .hover-swing {
+    animation: swing 2.4s linear infinite;
+  }
+
+  .motion .card-link:is(:hover, :focus-within) .hover-spin {
+    animation: spin 3s linear infinite;
+  }
+
+  .motion .card-link:is(:hover, :focus-within) .hover-march {
+    animation: march 0.8s linear infinite;
+  }
+
+  .motion .shot {
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.2s var(--ease-out);
+  }
+
+  .motion .shot:hover {
+    transform: translateY(-3px);
+  }
+}

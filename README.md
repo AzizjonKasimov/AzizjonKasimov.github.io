@@ -19,6 +19,7 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 | `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`) and the work-card drawings (`art/`), inlined into pages at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
 | `src/styles.css` | All styles, including the dark theme and print styles |
+| `src/motion.css` | The animations of the photo, charts, drawings, and diagrams (imported by `styles.css`) |
 | `public/` | Files copied as-is: favicon, social preview image, touch icon, the homepage photo (`images/`), certificate scans (`certificates/`), case-study screenshots (`screenshots/`), `robots.txt` |
 | `tools/` | The translation, language-redirect, and layout checks, the web image script, and the sources and render script for the social preview image and touch icon |
 | `vite.config.mjs` | The build: one entry per page and language, the partial-include plugin, and the generated `sitemap.xml` |
@@ -68,6 +69,27 @@ shows the same drawing.
   shows seven screenshots of the Recs Innovation systems, with the plant's name, its location, and
   its sales figures covered.
 
+### Motion
+
+The photo, the hero charts, the work-card drawings, the diagrams, the worked example, the
+case-study charts, and the screenshots animate once, when they first scroll into view. The
+animations are in `src/motion.css`, and a small script at the end of `partials/head.html` marks each
+item as it comes into view.
+
+- An animation only brings a thing into the place it has without motion, so the page looks the same
+  once it has played. Nothing moves without JavaScript, for visitors who ask for reduced motion in
+  their system settings, or in print.
+- Items that come into view together play in turn. A work-card drawing builds up in the order its
+  data flows: each shape has a class that says what it does (`draw`, `pop`, `rise`, `grow`, `fade`,
+  `wipe`, `turn`, `ring`) and `style="--at: 300ms"` for when. A line that draws itself needs
+  `pathLength="1"`.
+- While a work card is hovered or focused, its drawing plays a loop: a dash travels along its lines
+  (`art-pulse` paths with `pathLength="100"`, started in turn by `--pulse-at`), and parts marked
+  `hover-*` move. The loop stops when the pointer leaves.
+- Anything new that animates must sit inside one of the items the script watches (listed at the top
+  of `src/motion.css`). Otherwise its animation waits forever, what it shows stays hidden, and the
+  layout check fails.
+
 ### Layout check
 
 `tools/check-layout.mjs` (read-only, run by `npm run build`) opens every built page in every language
@@ -78,6 +100,11 @@ every width breakpoint in `src/styles.css`. It fails when:
 - the page scrolls sideways, or anything reaches past the left or right edge of the screen;
 - text sticks out of its box, such as a long word poking out of a card or a button;
 - the header does not fit on one row.
+
+It measures these with reduced motion, so every chart and drawing is in its final place. Then it
+scrolls through every page with motion on, at 375px and 1280px, and fails when the page scrolls
+sideways while things move in, or when an animation still waits at the end, because its item never
+counted as scrolled into view.
 
 It measures text in Arial and Courier New, or on Linux their twins Liberation Sans and Liberation
 Mono. The twins have identical letter widths, so a PC and GitHub's build server get the same result.

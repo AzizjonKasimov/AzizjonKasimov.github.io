@@ -10,6 +10,11 @@
 //   unless a box around it clips or scrolls it;
 // - no text sticks out of its box, such as a long word poking out of a card or a button;
 // - the header stays on one row: the menu does not wrap to a second line.
+// These are checked with reduced motion, so every chart and drawing is in its final place. Then
+// every page is scrolled from top to bottom with motion on, at a phone and a desktop width:
+// - the page never scrolls sideways while things move in;
+// - every animation has played or is playing by the end, so nothing is left hidden because it
+//   never counted as scrolled into view (see src/motion.css).
 //
 // Text is measured in Arial (Windows) or Liberation Sans (Linux) and Courier New or Liberation
 // Mono, because each pair has identical letter widths, so this PC and the GitHub build get the
@@ -147,6 +152,39 @@ function findProblems() {
   return problems
 }
 
+// Runs in the page with motion on: scrolls down half a screen at a time, then returns a
+// description of each problem found.
+async function scrollThrough() {
+  const frames = (count) =>
+    new Promise((done) => {
+      const next = () => (count-- ? requestAnimationFrame(next) : done())
+      next()
+    })
+  if (!document.documentElement.classList.contains('motion')) return ['the motion script did not start']
+  const problems = []
+  const screen = document.documentElement.clientWidth
+  const bottom = () => document.documentElement.scrollHeight - innerHeight
+  for (let y = 0; ; y = Math.min(y + innerHeight / 2, bottom())) {
+    scrollTo({ top: y, behavior: 'instant' })
+    // Time for the script to see what came into view, and for its animations to start.
+    await frames(3)
+    const pageWidth = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth)
+    if (pageWidth > screen && !problems.length) {
+      problems.push(`the page scrolls sideways while things move in, ${Math.round(scrollY)}px down: it is ${pageWidth}px wide`)
+    }
+    if (y >= bottom()) break
+  }
+  // A paused animation is still waiting for its item to come into view, so what it shows stays hidden.
+  const waiting = document.getAnimations().filter((animation) => animation.playState === 'paused')
+  for (const animation of waiting.slice(0, 5)) {
+    const { target, pseudoElement } = animation.effect
+    const name = target.tagName.toLowerCase() + [...target.classList].map((c) => `.${c}`).join('') + (pseudoElement ?? '')
+    problems.push(`${name} never plays its "${animation.animationName}" animation: it never counted as scrolled into view`)
+  }
+  if (waiting.length > 5) problems.push(`and ${waiting.length - 5} more animations never play`)
+  return problems
+}
+
 // Chrome is installed on GitHub's build servers, and Edge on every Windows PC.
 async function launchBrowser() {
   for (const channel of ['chrome', 'msedge']) {
@@ -161,7 +199,11 @@ async function launchBrowser() {
 }
 
 const browser = await launchBrowser()
-const context = await browser.newContext({ isMobile: true, hasTouch: true, deviceScaleFactor: 2, locale: 'en-US' })
+const device = { isMobile: true, hasTouch: true, deviceScaleFactor: 2, locale: 'en-US' }
+// The layout is measured with reduced motion, so nothing is still moving into place.
+const context = await browser.newContext({ ...device, reducedMotion: 'reduce' })
+const moving = await browser.newContext({ ...device, reducedMotion: 'no-preference' })
+const motionWidths = [375, 1280]
 const probe = await context.newPage()
 if (!(await probe.evaluate(testFontsInstalled))) {
   console.error(
@@ -173,15 +215,17 @@ if (!(await probe.evaluate(testFontsInstalled))) {
 await probe.close()
 const server = await preview({ root, logLevel: 'silent', preview: { port: 4180, open: false } })
 const origin = new URL(server.resolvedUrls.local[0]).origin
-// Stay offline: no Google Analytics hits or other outside requests from the check.
-await context.route((url) => url.origin !== origin, (route) => route.abort())
-await context.addInitScript((css) => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const style = document.createElement('style')
-    style.textContent = css
-    document.head.append(style)
-  })
-}, testFonts)
+for (const browserContext of [context, moving]) {
+  // Stay offline: no Google Analytics hits or other outside requests from the check.
+  await browserContext.route((url) => url.origin !== origin, (route) => route.abort())
+  await browserContext.addInitScript((css) => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const style = document.createElement('style')
+      style.textContent = css
+      document.head.append(style)
+    })
+  }, testFonts)
+}
 
 let failures = 0
 let layouts = 0
@@ -213,11 +257,30 @@ async function checkPage(file) {
   for (const line of found) console.log(line)
 }
 
+async function checkMotion(file) {
+  const found = []
+  for (const width of motionWidths) {
+    const page = await moving.newPage()
+    await page.setViewportSize({ width, height: 800 })
+    await page.goto(`${origin}${urlPath(file)}`)
+    const problems = await page.evaluate(scrollThrough)
+    await page.close()
+    if (problems.length) found.push(`  ${width}px: ${problems.join('\n         ')}`)
+  }
+  failures += found.length
+  console.log(`${found.length ? 'FAIL' : 'ok  '}  ${urlPath(file)} with motion at ${motionWidths.join(' and ')}px`)
+  for (const line of found) console.log(line)
+}
+
 try {
   // A few pages at a time keeps the check fast without overloading the PC.
   const queue = [...files]
   await Promise.all(Array.from({ length: 4 }, async () => {
-    while (queue.length) await checkPage(queue.shift())
+    while (queue.length) {
+      const file = queue.shift()
+      await checkPage(file)
+      await checkMotion(file)
+    }
   }))
 } finally {
   await browser.close()
@@ -226,7 +289,7 @@ try {
 
 console.log(
   failures
-    ? `\n${failures} page width(s) have layout problems. Fix the CSS or the text; do not skip the check.`
-    : `\nAll ${files.length} pages fit on screens from ${minWidth}px up (${layouts} layouts checked).`,
+    ? `\n${failures} page width(s) have layout or motion problems. Fix the CSS or the text; do not skip the check.`
+    : `\nAll ${files.length} pages fit on screens from ${minWidth}px up (${layouts} layouts checked), and their animations play without pushing the page sideways.`,
 )
 process.exit(failures ? 1 : 0)
