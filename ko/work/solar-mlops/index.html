@@ -68,22 +68,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">발전소 데이터</span>
                   <span class="step-desc">태양광 발전소의 다변량 시계열 데이터.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
                   <span class="step-name">학습</span>
                   <span class="step-desc">PyTorch 모델을 학습하고, 실험은 MLflow로 추적합니다. 이상 탐지 모델은 매일 밤 재학습합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">모델</span>
                   <span class="step-desc">태양광 발전량 예측 모델과 그래프 기반(GNN) 이상 탐지 모델.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
                   <span class="step-name">추론 API</span>
                   <span class="step-desc">FastAPI 서비스가 예측 결과와 이상 탐지 결과를 제공합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/zap.svg --></span>
                   <span class="step-name">VPP 플랫폼</span>
                   <span class="step-desc">서비스는 상용 가상발전소(VPP) 플랫폼에 연동됩니다.</span>
                 </li>
@@ -104,6 +109,45 @@
               </li>
               <li>
                 팀 리더로서 예측 오차를 9%에서 7%로 줄였고(22% 감소), 이를 통해 KPX 전력 중개 수익이 가능해졌습니다.
+              </li>
+            </ul>
+            <figure class="chart" aria-labelledby="chart-forecast">
+              <figcaption id="chart-forecast" class="chart-title">예측 오차(낮을수록 좋음)</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">이전</span>
+                  <span class="bar-track"><span class="bar" style="--v: 90"></span></span>
+                  <span class="bar-value">9%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">이후</span>
+                  <span class="bar-track"><span class="bar bar-accent" style="--v: 70"></span></span>
+                  <span class="bar-value">7%</span>
+                </div>
+              </div>
+            </figure>
+            <p class="shots-note">
+              프로덕션 시스템의 스크린샷이며, 제
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn 프로필</a>에도 있습니다. 발전소 이름은 가렸습니다.
+            </p>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-bars.jpg">
+                  <img src="/screenshots/recs-forecast-bars-thumb.jpg" alt="" width="480" height="378" loading="lazy" decoding="async" />
+                  <span class="shot-caption">시간별 발전량과 예측값(막대그래프)</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-week.jpg">
+                  <img src="/screenshots/recs-forecast-week-thumb.jpg" alt="" width="480" height="404" loading="lazy" decoding="async" />
+                  <span class="shot-caption">다른 한 주의 예측값과 실제 발전량</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-page.jpg">
+                  <img src="/screenshots/recs-forecast-page-thumb.jpg" alt="" width="480" height="462" loading="lazy" decoding="async" />
+                  <span class="shot-caption">시간별 오차 표가 있는 예측 화면</span>
+                </a>
               </li>
             </ul>
 
@@ -135,6 +179,47 @@
               모델을 precision 70%, recall 50%까지 튜닝하고, MLflow로 실험을 추적했으며, 이상 탐지 시스템을 VPP 플랫폼에
               연결하는 FastAPI 엔드포인트를 만들었습니다.
             </p>
+            <figure class="chart" aria-labelledby="chart-anomaly">
+              <figcaption id="chart-anomaly" class="chart-title">개선 요인별 향상 폭(%)</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Precision</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 12.5">+5</span>
+                    <span class="bar seg-3" style="--v: 75">+30</span>
+                  </span>
+                  <span class="bar-value">+35%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Recall</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 17.5">+7</span>
+                    <span class="bar seg-2" style="--v: 25">+10</span>
+                    <span class="bar seg-3" style="--v: 50">+20</span>
+                  </span>
+                  <span class="bar-value">+37%</span>
+                </div>
+              </div>
+              <ul class="chart-legend">
+                <li><span class="key seg-1"></span>오차 계산 개선</li>
+                <li><span class="key seg-2"></span>시간대별 임계값</li>
+                <li><span class="key seg-3"></span>더 깨끗한 학습 데이터</li>
+              </ul>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-detected.jpg">
+                  <img src="/screenshots/recs-anomaly-detected-thumb.jpg" alt="" width="480" height="505" loading="lazy" decoding="async" />
+                  <span class="shot-caption">이상 감지 화면: 이상이 있는 피처를 표시하고, 지점을 빨간색 또는 노란색으로 구분합니다</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-none.jpg">
+                  <img src="/screenshots/recs-anomaly-none-thumb.jpg" alt="" width="480" height="430" loading="lazy" decoding="async" />
+                  <span class="shot-caption">이상이 없는 상태의 모니터링 화면</span>
+                </a>
+              </li>
+            </ul>
 
             <h2>MLOps와 배포</h2>
             <ul>
@@ -147,6 +232,41 @@
                 구축했습니다. 수동 운영이 80% 줄어 연간 약 48,000달러를 절감했습니다.
               </li>
             </ul>
+            <figure class="chart" aria-labelledby="chart-ops">
+              <figcaption id="chart-ops" class="chart-title">MLOps 작업 전후 비교</figcaption>
+              <div class="chart-pair">
+                <div>
+                  <p class="chart-sub">배포 시간</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">이전</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value">3시간</span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">이후</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 8.3"></span></span>
+                      <span class="bar-value">15분</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="chart-sub">수동 운영 업무</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">이전</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value"></span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">이후</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 20"></span></span>
+                      <span class="bar-value">−80%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
 
             <h2>팀 리딩</h2>
             <p>
@@ -160,11 +280,6 @@
               <li><span class="num">3시간 → 15분</span><span class="lbl">배포 시간</span></li>
               <li><span class="num">−80%</span><span class="lbl">수동 운영 업무(연 약 48,000달러)</span></li>
             </ul>
-            <p>
-              두 시스템의 스크린샷은 제
-              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn 프로필</a>의 해당 경력 항목에 첨부되어
-              있습니다.
-            </p>
 
             <p class="callout">
               이 글은 단순화한 내용입니다. 회사 코드, 내부 데이터, 비공개 URL은 포함하지 않았습니다.

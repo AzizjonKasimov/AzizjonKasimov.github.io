@@ -65,26 +65,32 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/languages.svg --></span>
                   <span class="step-name">语言检测</span>
                   <span class="step-desc">先运行一个小型语言检测器，只在需要时才调用 LLM。</span>
                 </li>
-                <li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
                   <span class="step-name">LLM 规范化</span>
                   <span class="step-desc">非英语查询会被翻译并清洗（GPT-4o-mini）。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/tag.svg --></span>
                   <span class="step-name">实体抽取</span>
                   <span class="step-desc">spaCy NER 识别品牌、车型、年份、燃料、变速箱、零件名称、位置和代次。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/filter.svg --></span>
                   <span class="step-name">带过滤的向量搜索</span>
                   <span class="step-desc">识别出的实体成为 Weaviate 语义搜索之上的精确过滤条件。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/rerank.svg --></span>
                   <span class="step-name">LLM 重排序</span>
                   <span class="step-desc">LLM 后置过滤器剔除明显错误的结果，并对其余结果重新排序。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
                   <span class="step-name">结果</span>
                   <span class="step-desc">为买家提供商品搜索，为供应商提供目录匹配。</span>
                 </li>
@@ -94,7 +100,53 @@
                 <li><strong>准确率测试套件</strong>在固定测试集上运行同一条流水线</li>
                 <li><strong>S3 报告</strong>每次测试运行都会被保存，重新部署后也不会丢失</li>
               </ul>
-              <figcaption id="flow-caption">生产环境搜索流水线的简化示意图。</figcaption>
+              <figcaption id="flow-caption">
+                生产环境搜索流水线的简化示意图。虚线步骤只对非英语查询执行。
+              </figcaption>
+            </figure>
+
+            <h3>示例：一条查询的处理过程</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">用韩语输入的查询</span>
+                  <span class="trace-query">
+                    <span class="trace-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                    <span lang="ko">현대 쏘나타 2019 왼쪽 헤드라이트</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="trace-label">LLM 规范化之后</span>
+                  <code>Hyundai Sonata 2019 left headlight</code>
+                </li>
+                <li>
+                  <span class="trace-label">抽取出的实体，用作精确过滤条件</span>
+                  <ul class="trace-chips">
+                    <li><code>brand: Hyundai</code></li>
+                    <li><code>model: Sonata</code></li>
+                    <li><code>year: 2019</code></li>
+                    <li><code>side: left</code></li>
+                    <li><code>part: headlight</code></li>
+                  </ul>
+                  <span class="trace-note">别名列表把“headlight”转换为目录名称 Head Lamp Assembly。</span>
+                </li>
+                <li>
+                  <span class="trace-label">向量搜索和 LLM 重排序之后的结果</span>
+                  <ul class="trace-results">
+                    <li class="trace-hit">
+                      <span class="trace-mark" aria-hidden="true"><!-- include: partials/icons/check.svg --></span>
+                      <code>Head Lamp Assembly · Left</code>
+                      <span class="trace-why">排在第一</span>
+                    </li>
+                    <li class="trace-miss">
+                      <span class="trace-mark" aria-hidden="true"><!-- include: partials/icons/x.svg --></span>
+                      <code>Fog Lamp · Left</code>
+                      <span class="trace-why">被 LLM 剔除</span>
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">这是用一条虚构查询做的示意，输出已简化。</figcaption>
             </figure>
 
             <h2>我构建了什么</h2>

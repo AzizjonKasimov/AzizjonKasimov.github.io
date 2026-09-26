@@ -69,26 +69,32 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/languages.svg --></span>
                   <span class="step-name">언어 확인</span>
                   <span class="step-desc">작은 언어 감지기가 먼저 실행되어, 필요할 때만 LLM을 호출합니다.</span>
                 </li>
-                <li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
                   <span class="step-name">LLM 정규화</span>
-                  <span class="step-desc">영어가 아닌 질의를 번역하고 정리합니다(GPT-4o-mini).</span>
+                  <span class="step-desc">영어가 아닌 질의를 번역하고 정리합니다&#8203;(GPT-4o-mini).</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/tag.svg --></span>
                   <span class="step-name">개체 추출</span>
                   <span class="step-desc">spaCy NER이 브랜드, 모델, 연식, 연료, 변속기, 부품명, 위치, 세대를 찾아냅니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/filter.svg --></span>
                   <span class="step-name">필터 적용 벡터 검색</span>
                   <span class="step-desc">추출한 개체를 Weaviate 의미 검색 위에 정확한 필터로 적용합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/rerank.svg --></span>
                   <span class="step-name">LLM 재정렬</span>
                   <span class="step-desc">LLM 후처리 필터가 명백히 틀린 결과를 제거하고 나머지의 순서를 다시 정합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
                   <span class="step-name">결과</span>
                   <span class="step-desc">구매자에게는 상품 검색, 공급업체에게는 카탈로그 매칭 결과를 제공합니다.</span>
                 </li>
@@ -98,7 +104,53 @@
                 <li><strong>정확도 테스트 스위트</strong>고정된 테스트 세트로 같은 파이프라인을 실행</li>
                 <li><strong>S3 리포트</strong>모든 테스트 실행 결과를 저장하며 재배포 후에도 유지</li>
               </ul>
-              <figcaption id="flow-caption">프로덕션 검색 파이프라인을 단순화한 구조입니다.</figcaption>
+              <figcaption id="flow-caption">
+                프로덕션 검색 파이프라인을 단순화한 구조입니다. 점선으로 표시한 단계는 영어가 아닌 질의에만 실행됩니다.
+              </figcaption>
+            </figure>
+
+            <h3>예시: 검색어 하나가 처리되는 과정</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">한국어로 입력한 검색어</span>
+                  <span class="trace-query">
+                    <span class="trace-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                    <span lang="ko">현대 쏘나타 2019 왼쪽 헤드라이트</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="trace-label">LLM 정규화 후</span>
+                  <code>Hyundai Sonata 2019 left headlight</code>
+                </li>
+                <li>
+                  <span class="trace-label">추출한 개체(정확한 필터로 사용)</span>
+                  <ul class="trace-chips">
+                    <li><code>brand: Hyundai</code></li>
+                    <li><code>model: Sonata</code></li>
+                    <li><code>year: 2019</code></li>
+                    <li><code>side: left</code></li>
+                    <li><code>part: headlight</code></li>
+                  </ul>
+                  <span class="trace-note">별칭 목록이 “headlight”를 카탈로그 이름인 Head Lamp Assembly로 바꿉니다.</span>
+                </li>
+                <li>
+                  <span class="trace-label">벡터 검색과 LLM 재정렬 후 결과</span>
+                  <ul class="trace-results">
+                    <li class="trace-hit">
+                      <span class="trace-mark" aria-hidden="true"><!-- include: partials/icons/check.svg --></span>
+                      <code>Head Lamp Assembly · Left</code>
+                      <span class="trace-why">가장 먼저 표시</span>
+                    </li>
+                    <li class="trace-miss">
+                      <span class="trace-mark" aria-hidden="true"><!-- include: partials/icons/x.svg --></span>
+                      <code>Fog Lamp · Left</code>
+                      <span class="trace-why">LLM이 제외</span>
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">가상의 검색어로 만든 예시이며, 출력은 단순화했습니다.</figcaption>
             </figure>
 
             <h2>구축한 내용</h2>

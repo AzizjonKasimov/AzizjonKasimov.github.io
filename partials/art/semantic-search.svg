@@ -1,0 +1,23 @@
+<svg viewBox="0 0 320 100">
+  <rect class="art-panel" x="12" y="14" width="136" height="26" rx="13" />
+  <circle class="art-accent-line" cx="27" cy="27" r="5" />
+  <path class="art-accent-line" d="m31 31 4 4" />
+  <rect class="art-ink" x="42" y="24" width="52" height="6" rx="3" />
+  <rect class="art-ink" x="99" y="24" width="36" height="6" rx="3" />
+  <rect class="art-chip" x="12" y="50" width="42" height="14" rx="7" />
+  <rect class="art-chip" x="59" y="50" width="32" height="14" rx="7" />
+  <rect class="art-chip" x="96" y="50" width="52" height="14" rx="7" />
+  <rect class="art-chip" x="12" y="69" width="36" height="14" rx="7" />
+  <rect class="art-chip" x="53" y="69" width="58" height="14" rx="7" />
+  <path class="art-flow" d="M158 50h24" />
+  <path class="art-flow" d="m177 45 5 5-5 5" />
+  <rect class="art-panel" x="192" y="10" width="116" height="80" rx="10" />
+  <rect class="art-chip" x="200" y="18" width="100" height="20" rx="6" />
+  <circle class="art-accent" cx="210" cy="28" r="5.5" />
+  <path class="art-check" d="m207.4 28.1 1.8 1.8 3.4-3.5" />
+  <rect class="art-ink-strong" x="221" y="25" width="60" height="6" rx="3" />
+  <circle class="art-ink" cx="210" cy="51" r="3.5" />
+  <rect class="art-ink" x="221" y="48" width="68" height="6" rx="3" />
+  <circle class="art-ink" cx="210" cy="71" r="3.5" />
+  <rect class="art-ink" x="221" y="68" width="46" height="6" rx="3" />
+</svg>

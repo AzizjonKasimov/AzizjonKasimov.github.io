@@ -69,22 +69,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/clock.svg --></span>
                   <span class="step-name">Расписание</span>
                   <span class="step-desc">EventBridge запускает каждый цикл сбора. Небольшая Lambda-функция сбрасывает цели на день.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Очередь</span>
                   <span class="step-desc">SQS хранит задания. Она заменила прежнюю схему «база данных как очередь». Сообщения с ошибками уходят в dead-letter queue.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="step-name">Воркеры</span>
                   <span class="step-desc">Lambda-функции, упакованные в Docker-образы, параллельно загружают и разбирают страницы.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">Хранилище</span>
                   <span class="step-desc">Объявления попадают в RDS PostgreSQL, а RDS Proxy обеспечивает пул соединений. Запись инкрементальная и атомарная.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
                   <span class="step-name">Алерты</span>
                   <span class="step-desc">Метрики и алерты CloudWatch с уведомлениями через SNS.</span>
                 </li>

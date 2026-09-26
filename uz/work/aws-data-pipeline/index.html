@@ -69,22 +69,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/clock.svg --></span>
                   <span class="step-name">Jadval</span>
                   <span class="step-desc">EventBridge har bir yigʻish siklini ishga tushiradi. Kichik Lambda funksiyasi kunlik maqsadlarni qayta oʻrnatadi.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Navbat</span>
                   <span class="step-desc">Vazifalar SQS navbatida saqlanadi. U avvalgi “maʼlumotlar bazasi navbat sifatida” yechimini almashtirdi. Xatolik bergan xabarlar dead-letter queue navbatiga oʻtadi.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="step-name">Ishchi funksiyalar</span>
                   <span class="step-desc">Docker obrazlari sifatida qadoqlangan Lambda funksiyalari sahifalarni parallel yuklab oladi va tahlil qiladi.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">Saqlash</span>
                   <span class="step-desc">Eʼlonlar RDS PostgreSQL bazasiga yoziladi, ulanishlar puli uchun RDS Proxy ishlatiladi. Yozuv bosqichma-bosqich va atomar.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
                   <span class="step-name">Ogohlantirishlar</span>
                   <span class="step-desc">CloudWatch metrikalari va ogohlantirishlari, bildirishnomalar SNS orqali yuboriladi.</span>
                 </li>

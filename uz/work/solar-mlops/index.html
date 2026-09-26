@@ -70,22 +70,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Stansiya maʼlumotlari</span>
                   <span class="step-desc">Quyosh elektr stansiyalaridan olingan koʻp oʻlchovli vaqt qatorlari.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
                   <span class="step-name">Oʻqitish</span>
                   <span class="step-desc">PyTorch modellari, tajribalar MLflow orqali kuzatiladi. Anomaliyalarni aniqlash modeli har kecha qayta oʻqitiladi.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Modellar</span>
                   <span class="step-desc">Quyosh generatsiyasi bashorati va grafga asoslangan (GNN) anomaliya detektori.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
                   <span class="step-name">Inferens API</span>
                   <span class="step-desc">FastAPI xizmatlari bashoratlar va anomaliya natijalarini taqdim etadi.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/zap.svg --></span>
                   <span class="step-name">VPP platformasi</span>
                   <span class="step-desc">Xizmatlar tijoriy virtual elektr stansiyasi platformasiga ulanadi.</span>
                 </li>
@@ -107,6 +112,45 @@
               <li>
                 Jamoa rahbari sifatida bashorat xatoligini 9 foizdan 7 foizga tushirdim (22 foizga kam). Bu KPX birjasida
                 elektr energiyasi vositachiligidan daromad olish imkonini berdi.
+              </li>
+            </ul>
+            <figure class="chart" aria-labelledby="chart-forecast">
+              <figcaption id="chart-forecast" class="chart-title">Bashorat xatoligi: qanchalik past boʻlsa, shuncha yaxshi</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Oldin</span>
+                  <span class="bar-track"><span class="bar" style="--v: 90"></span></span>
+                  <span class="bar-value">9%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Keyin</span>
+                  <span class="bar-track"><span class="bar bar-accent" style="--v: 70"></span></span>
+                  <span class="bar-value">7%</span>
+                </div>
+              </div>
+            </figure>
+            <p class="shots-note">
+              Ishlab turgan tizimning skrinshotlari, ular
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn profilimda</a> ham bor. Stansiya nomi yopilgan.
+            </p>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-bars.jpg">
+                  <img src="/screenshots/recs-forecast-bars-thumb.jpg" alt="" width="480" height="378" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Soatlik ishlab chiqarish va bashorat, ustunlar koʻrinishida</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-week.jpg">
+                  <img src="/screenshots/recs-forecast-week-thumb.jpg" alt="" width="480" height="404" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Boshqa bir hafta uchun bashorat va haqiqiy ishlab chiqarish</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-page.jpg">
+                  <img src="/screenshots/recs-forecast-page-thumb.jpg" alt="" width="480" height="462" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Har bir soat uchun xatolik jadvali bor bashorat sahifasi</span>
+                </a>
               </li>
             </ul>
 
@@ -140,6 +184,47 @@
               orqali kuzatganman va anomaliyalarni aniqlash tizimini VPP platformasiga ulaydigan FastAPI endpointlarini
               yaratganman.
             </p>
+            <figure class="chart" aria-labelledby="chart-anomaly">
+              <figcaption id="chart-anomaly" class="chart-title">Yaxshilanish qayerdan keldi, foizda</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Precision</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 12.5">+5</span>
+                    <span class="bar seg-3" style="--v: 75">+30</span>
+                  </span>
+                  <span class="bar-value">+35%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Recall</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 17.5">+7</span>
+                    <span class="bar seg-2" style="--v: 25">+10</span>
+                    <span class="bar seg-3" style="--v: 50">+20</span>
+                  </span>
+                  <span class="bar-value">+37%</span>
+                </div>
+              </div>
+              <ul class="chart-legend">
+                <li><span class="key seg-1"></span>Xatolikni yaxshiroq hisoblash</li>
+                <li><span class="key seg-2"></span>Soatlik chegaralar</li>
+                <li><span class="key seg-3"></span>Tozaroq oʻqitish maʼlumotlari</li>
+              </ul>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-detected.jpg">
+                  <img src="/screenshots/recs-anomaly-detected-thumb.jpg" alt="" width="480" height="505" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Anomaliyalar topildi: tizim tegishli belgilarni koʻrsatadi va nuqtalarni qizil yoki sariq rangda belgilaydi</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-none.jpg">
+                  <img src="/screenshots/recs-anomaly-none-thumb.jpg" alt="" width="480" height="430" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Monitoring: anomaliya topilmadi</span>
+                </a>
+              </li>
+            </ul>
 
             <h2>MLOps va joylashtirish</h2>
             <ul>
@@ -153,6 +238,41 @@
                 $48&nbsp;ming tejadi.
               </li>
             </ul>
+            <figure class="chart" aria-labelledby="chart-ops">
+              <figcaption id="chart-ops" class="chart-title">MLOps ishidan oldin va keyin</figcaption>
+              <div class="chart-pair">
+                <div>
+                  <p class="chart-sub">Joylashtirish vaqti</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">Oldin</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value">3&nbsp;soat</span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">Keyin</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 8.3"></span></span>
+                      <span class="bar-value">15&nbsp;daqiqa</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="chart-sub">Qoʻlda bajariladigan operatsion ishlar</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">Oldin</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value"></span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">Keyin</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 20"></span></span>
+                      <span class="bar-value">−80%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
 
             <h2>Jamoaga rahbarlik</h2>
             <p>
@@ -167,10 +287,6 @@
               <li><span class="num">3&nbsp;soat → 15&nbsp;daqiqa</span><span class="lbl">joylashtirish vaqti</span></li>
               <li><span class="num">−80%</span><span class="lbl">qoʻlda bajariladigan operatsion ishlar (yiliga ~$48&nbsp;ming)</span></li>
             </ul>
-            <p>
-              Ikkala tizimning skrinshotlari
-              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn profilimda</a> shu lavozimga biriktirilgan.
-            </p>
 
             <p class="callout">
               Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq.

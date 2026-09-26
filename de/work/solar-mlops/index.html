@@ -70,22 +70,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Anlagendaten</span>
                   <span class="step-desc">Multivariate Zeitreihendaten von Solarkraftwerken.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
                   <span class="step-name">Training</span>
                   <span class="step-desc">PyTorch-Modelle, Experimente in MLflow nachverfolgt. Der Anomaliedetektor wird jede Nacht neu trainiert.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Modelle</span>
                   <span class="step-desc">Eine Prognose der Solarstromerzeugung und ein graphbasierter Anomaliedetektor (GNN).</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
                   <span class="step-name">Inferenz-APIs</span>
                   <span class="step-desc">FastAPI-Dienste stellen die Prognosen und die Ergebnisse der Anomalieerkennung bereit.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/zap.svg --></span>
                   <span class="step-name">VPP-Plattform</span>
                   <span class="step-desc">Die Dienste sind an eine kommerzielle Plattform für virtuelle Kraftwerke angebunden.</span>
                 </li>
@@ -107,6 +112,45 @@
               <li>
                 Als Team Lead habe ich den Prognosefehler von 9&nbsp;% auf 7&nbsp;% gesenkt (22&nbsp;% weniger) und damit
                 Einnahmen aus der Stromvermittlung an der KPX ermöglicht.
+              </li>
+            </ul>
+            <figure class="chart" aria-labelledby="chart-forecast">
+              <figcaption id="chart-forecast" class="chart-title">Prognosefehler, niedriger ist besser</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Vorher</span>
+                  <span class="bar-track"><span class="bar" style="--v: 90"></span></span>
+                  <span class="bar-value">9&nbsp;%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Nachher</span>
+                  <span class="bar-track"><span class="bar bar-accent" style="--v: 70"></span></span>
+                  <span class="bar-value">7&nbsp;%</span>
+                </div>
+              </div>
+            </figure>
+            <p class="shots-note">
+              Screenshots des Produktivsystems, auch in meinem
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn-Profil</a>. Der Name der Anlage ist abgedeckt.
+            </p>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-bars.jpg">
+                  <img src="/screenshots/recs-forecast-bars-thumb.jpg" alt="" width="480" height="378" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Stündliche Erzeugung und Prognose als Balken</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-week.jpg">
+                  <img src="/screenshots/recs-forecast-week-thumb.jpg" alt="" width="480" height="404" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Prognose und tatsächliche Erzeugung in einer weiteren Woche</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-page.jpg">
+                  <img src="/screenshots/recs-forecast-page-thumb.jpg" alt="" width="480" height="462" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Die Prognoseseite mit einer Fehlertabelle für jede Stunde</span>
+                </a>
               </li>
             </ul>
 
@@ -140,6 +184,47 @@
               MLflow nachverfolgt und die FastAPI-Endpunkte gebaut, die das Anomalieerkennungssystem mit der VPP-Plattform
               verbinden.
             </p>
+            <figure class="chart" aria-labelledby="chart-anomaly">
+              <figcaption id="chart-anomaly" class="chart-title">Woher die Verbesserungen kamen, in Prozent</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Precision</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 12.5">+5</span>
+                    <span class="bar seg-3" style="--v: 75">+30</span>
+                  </span>
+                  <span class="bar-value">+35&nbsp;%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Recall</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 17.5">+7</span>
+                    <span class="bar seg-2" style="--v: 25">+10</span>
+                    <span class="bar seg-3" style="--v: 50">+20</span>
+                  </span>
+                  <span class="bar-value">+37&nbsp;%</span>
+                </div>
+              </div>
+              <ul class="chart-legend">
+                <li><span class="key seg-1"></span>Bessere Fehlerberechnung</li>
+                <li><span class="key seg-2"></span>Stündliche Schwellenwerte</li>
+                <li><span class="key seg-3"></span>Sauberere Trainingsdaten</li>
+              </ul>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-detected.jpg">
+                  <img src="/screenshots/recs-anomaly-detected-thumb.jpg" alt="" width="480" height="505" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Gefundene Anomalien: Die betroffenen Merkmale werden aufgelistet, die Punkte rot oder gelb markiert</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-none.jpg">
+                  <img src="/screenshots/recs-anomaly-none-thumb.jpg" alt="" width="480" height="430" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Überwachung ohne gefundene Anomalien</span>
+                </a>
+              </li>
+            </ul>
 
             <h2>MLOps und Deployment</h2>
             <ul>
@@ -152,6 +237,41 @@
                 Grafana aufgebaut. Der manuelle Betriebsaufwand sank um 80&nbsp;%, was rund 48.000&nbsp;$ pro Jahr einsparte.
               </li>
             </ul>
+            <figure class="chart" aria-labelledby="chart-ops">
+              <figcaption id="chart-ops" class="chart-title">Vor und nach der MLOps-Arbeit</figcaption>
+              <div class="chart-pair">
+                <div>
+                  <p class="chart-sub">Deployment-Zeit</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">Vorher</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value">3&nbsp;h</span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">Nachher</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 8.3"></span></span>
+                      <span class="bar-value">15&nbsp;min</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="chart-sub">Manueller Betriebsaufwand</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">Vorher</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value"></span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">Nachher</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 20"></span></span>
+                      <span class="bar-value">−80&nbsp;%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
 
             <h2>Teamleitung</h2>
             <p>
@@ -166,10 +286,6 @@
               <li><span class="num">3&nbsp;h → 15&nbsp;min</span><span class="lbl">Deployment-Zeit</span></li>
               <li><span class="num">−80&nbsp;%</span><span class="lbl">manueller Betriebsaufwand (~48.000&nbsp;$/Jahr)</span></li>
             </ul>
-            <p>
-              Screenshots beider Systeme sind dieser Stelle in meinem
-              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn-Profil</a> angehängt.
-            </p>
 
             <p class="callout">
               Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine

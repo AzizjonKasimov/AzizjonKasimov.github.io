@@ -5,9 +5,10 @@
 //
 // A translation must have:
 // - the right <html lang>, canonical URL, and og:url, and a translated title and description;
-// - the same body markup as English (elements, classes, ids, links, and image sources), with links
-//   to pages under its language folder, e.g. /ko/work/semantic-search/, and links to files, such
-//   as /certificates/woosong-diploma.jpg, exactly as in English;
+// - the same body markup as English (elements, classes, ids, links, image sources, and inline
+//   styles, which set the length of chart bars), with links to pages under its language folder,
+//   e.g. /ko/work/semantic-search/, and links to files, such as /certificates/woosong-diploma.jpg,
+//   exactly as in English;
 // - identical technology tags, code, and inline SVG icons;
 // - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), "2 Mio.+" (de),
 //   "2 млн+" (ru), "2 mln+" (uz), and "200 万+" (zh) all count as 2,000,000. English numbers
@@ -134,7 +135,7 @@ function markupOf(html, code, report) {
       else report(`line ${line}: internal link ${href} is not under /${code}/`)
     }
     const parts = [tag]
-    for (const [name, value] of [['class', attr('class')], ['id', attr('id')], ['href', href], ['src', attr('src')], ['rel', attr('rel')], ['aria-labelledby', attr('aria-labelledby')]]) {
+    for (const [name, value] of [['class', attr('class')], ['id', attr('id')], ['href', href], ['src', attr('src')], ['rel', attr('rel')], ['aria-labelledby', attr('aria-labelledby')], ['style', attr('style')]]) {
       if (value !== undefined) parts.push(`${name}="${value}"`)
     }
     tokens.push({ text: `<${parts.join(' ')}>`, line })

@@ -70,22 +70,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Plant data</span>
                   <span class="step-desc">Multivariate time-series data from solar power plants.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
                   <span class="step-name">Training</span>
                   <span class="step-desc">PyTorch models, with experiments tracked in MLflow. The anomaly detector retrains nightly.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Models</span>
                   <span class="step-desc">A solar generation forecast and a graph-based (GNN) anomaly detector.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
                   <span class="step-name">Inference APIs</span>
                   <span class="step-desc">FastAPI services expose the forecasts and anomaly results.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/zap.svg --></span>
                   <span class="step-name">VPP platform</span>
                   <span class="step-desc">The services plug into a commercial Virtual Power Plant platform.</span>
                 </li>
@@ -107,6 +112,45 @@
               <li>
                 As team lead, I cut the forecast error from 9% to 7% (22% lower), which enabled revenue from KPX power
                 brokerage.
+              </li>
+            </ul>
+            <figure class="chart" aria-labelledby="chart-forecast">
+              <figcaption id="chart-forecast" class="chart-title">Forecast error, lower is better</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Before</span>
+                  <span class="bar-track"><span class="bar" style="--v: 90"></span></span>
+                  <span class="bar-value">9%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">After</span>
+                  <span class="bar-track"><span class="bar bar-accent" style="--v: 70"></span></span>
+                  <span class="bar-value">7%</span>
+                </div>
+              </div>
+            </figure>
+            <p class="shots-note">
+              Screenshots of the production system, also on my
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn profile</a>. The plant's name is covered.
+            </p>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-bars.jpg">
+                  <img src="/screenshots/recs-forecast-bars-thumb.jpg" alt="" width="480" height="378" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Hourly output and forecast, as bars</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-week.jpg">
+                  <img src="/screenshots/recs-forecast-week-thumb.jpg" alt="" width="480" height="404" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Forecast and actual output for another week</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-page.jpg">
+                  <img src="/screenshots/recs-forecast-page-thumb.jpg" alt="" width="480" height="462" loading="lazy" decoding="async" />
+                  <span class="shot-caption">The forecast page, with an error table for each hour</span>
+                </a>
               </li>
             </ul>
 
@@ -139,6 +183,47 @@
               tuned the GNN model to 70% precision and 50% recall, tracked the experiments in MLflow, and built the FastAPI
               endpoints that connect the anomaly detection system to the VPP platform.
             </p>
+            <figure class="chart" aria-labelledby="chart-anomaly">
+              <figcaption id="chart-anomaly" class="chart-title">Where the gains came from, in percent</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Precision</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 12.5">+5</span>
+                    <span class="bar seg-3" style="--v: 75">+30</span>
+                  </span>
+                  <span class="bar-value">+35%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Recall</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 17.5">+7</span>
+                    <span class="bar seg-2" style="--v: 25">+10</span>
+                    <span class="bar seg-3" style="--v: 50">+20</span>
+                  </span>
+                  <span class="bar-value">+37%</span>
+                </div>
+              </div>
+              <ul class="chart-legend">
+                <li><span class="key seg-1"></span>Better error calculation</li>
+                <li><span class="key seg-2"></span>Hourly thresholds</li>
+                <li><span class="key seg-3"></span>Cleaner training data</li>
+              </ul>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-detected.jpg">
+                  <img src="/screenshots/recs-anomaly-detected-thumb.jpg" alt="" width="480" height="505" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Anomalies found: the affected features are listed, and points are marked red or yellow</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-none.jpg">
+                  <img src="/screenshots/recs-anomaly-none-thumb.jpg" alt="" width="480" height="430" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Monitoring with no anomalies found</span>
+                </a>
+              </li>
+            </ul>
 
             <h2>MLOps and deployment</h2>
             <ul>
@@ -151,6 +236,41 @@
                 Grafana. Manual operations fell by 80%, saving about $48K a year.
               </li>
             </ul>
+            <figure class="chart" aria-labelledby="chart-ops">
+              <figcaption id="chart-ops" class="chart-title">Before and after the MLOps work</figcaption>
+              <div class="chart-pair">
+                <div>
+                  <p class="chart-sub">Deployment time</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">Before</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value">3 h</span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">After</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 8.3"></span></span>
+                      <span class="bar-value">15 min</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="chart-sub">Manual operations work</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">Before</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value"></span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">After</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 20"></span></span>
+                      <span class="bar-value">−80%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
 
             <h2>Leading the team</h2>
             <p>
@@ -165,10 +285,6 @@
               <li><span class="num">3 h → 15 min</span><span class="lbl">deployment time</span></li>
               <li><span class="num">−80%</span><span class="lbl">manual operations work (~$48K/year)</span></li>
             </ul>
-            <p>
-              Screenshots of both systems are attached to this role on my
-              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn profile</a>.
-            </p>
 
             <p class="callout">
               This write-up is simplified. It contains no employer code, internal data, or private URLs.

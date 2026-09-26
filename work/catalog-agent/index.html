@@ -66,26 +66,32 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sliders.svg --></span>
                   <span class="step-name">Request</span>
                   <span class="step-desc">Brand, model, year, and region, chosen from drop-down lists.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/split.svg --></span>
                   <span class="step-name">Resolve variants</span>
                   <span class="step-desc">Find every matching vehicle variant and expand it into the catalog scope to fetch.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/download.svg --></span>
                   <span class="step-name">Fetch</span>
                   <span class="step-desc">Call the third-party catalog API, with caching and retries.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shuffle.svg --></span>
                   <span class="step-name">Normalize and map</span>
                   <span class="step-desc">Clean the records and map them to the right catalog tables.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">Write</span>
                   <span class="step-desc">Save to PostgreSQL in batches, with checkpoints so a job can resume or be cancelled safely.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/file-check.svg --></span>
                   <span class="step-name">Report</span>
                   <span class="step-desc">Show how each batch was normalized and mapped, so the data team can check it.</span>
                 </li>

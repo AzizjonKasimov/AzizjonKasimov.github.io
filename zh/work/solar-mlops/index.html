@@ -67,22 +67,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">电站数据</span>
                   <span class="step-desc">来自光伏电站的多变量时间序列数据。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
                   <span class="step-name">训练</span>
                   <span class="step-desc">PyTorch 模型，实验记录在 MLflow 中。异常检测器每晚重新训练。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">模型</span>
                   <span class="step-desc">光伏发电预测模型和基于图（GNN）的异常检测器。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
                   <span class="step-name">推理 API</span>
                   <span class="step-desc">FastAPI 服务提供预测和异常检测结果。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/zap.svg --></span>
                   <span class="step-name">VPP 平台</span>
                   <span class="step-desc">这些服务接入一个商业化的虚拟电厂平台。</span>
                 </li>
@@ -102,6 +107,45 @@
               </li>
               <li>
                 作为团队负责人，我把预测误差从 9% 降到 7%（降低 22%），从而带来了 KPX 电力中介收入。
+              </li>
+            </ul>
+            <figure class="chart" aria-labelledby="chart-forecast">
+              <figcaption id="chart-forecast" class="chart-title">预测误差（越低越好）</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">之前</span>
+                  <span class="bar-track"><span class="bar" style="--v: 90"></span></span>
+                  <span class="bar-value">9%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">之后</span>
+                  <span class="bar-track"><span class="bar bar-accent" style="--v: 70"></span></span>
+                  <span class="bar-value">7%</span>
+                </div>
+              </div>
+            </figure>
+            <p class="shots-note">
+              生产系统的截图，我的
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn 个人资料</a>中也有。电站名称已遮盖。
+            </p>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-bars.jpg">
+                  <img src="/screenshots/recs-forecast-bars-thumb.jpg" alt="" width="480" height="378" loading="lazy" decoding="async" />
+                  <span class="shot-caption">每小时发电量与预测值（柱状图）</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-week.jpg">
+                  <img src="/screenshots/recs-forecast-week-thumb.jpg" alt="" width="480" height="404" loading="lazy" decoding="async" />
+                  <span class="shot-caption">另一周的预测值与实际发电量</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-page.jpg">
+                  <img src="/screenshots/recs-forecast-page-thumb.jpg" alt="" width="480" height="462" loading="lazy" decoding="async" />
+                  <span class="shot-caption">预测页面，附有每小时的误差表</span>
+                </a>
               </li>
             </ul>
 
@@ -127,6 +171,47 @@
             <p>
               <strong>总体而言，精确率提升了约 35%，召回率提升了约 37%。</strong>更早之前，作为实习生，我将 GNN 模型调优到 70% 的精确率和 50% 的召回率，用 MLflow 跟踪实验，并构建了将异常检测系统接入 VPP 平台的 FastAPI 接口。
             </p>
+            <figure class="chart" aria-labelledby="chart-anomaly">
+              <figcaption id="chart-anomaly" class="chart-title">提升来自哪里（单位：%）</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">精确率</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 12.5">+5</span>
+                    <span class="bar seg-3" style="--v: 75">+30</span>
+                  </span>
+                  <span class="bar-value">+35%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">召回率</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 17.5">+7</span>
+                    <span class="bar seg-2" style="--v: 25">+10</span>
+                    <span class="bar seg-3" style="--v: 50">+20</span>
+                  </span>
+                  <span class="bar-value">+37%</span>
+                </div>
+              </div>
+              <ul class="chart-legend">
+                <li><span class="key seg-1"></span>更好的误差计算</li>
+                <li><span class="key seg-2"></span>按小时设定阈值</li>
+                <li><span class="key seg-3"></span>更干净的训练数据</li>
+              </ul>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-detected.jpg">
+                  <img src="/screenshots/recs-anomaly-detected-thumb.jpg" alt="" width="480" height="505" loading="lazy" decoding="async" />
+                  <span class="shot-caption">发现异常：系统列出受影响的特征，并把异常点标为红色或黄色</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-none.jpg">
+                  <img src="/screenshots/recs-anomaly-none-thumb.jpg" alt="" width="480" height="430" loading="lazy" decoding="async" />
+                  <span class="shot-caption">监测中，未发现异常</span>
+                </a>
+              </li>
+            </ul>
 
             <h2>MLOps 与部署</h2>
             <ul>
@@ -137,6 +222,41 @@
                 我用 Docker Compose、GitHub Actions、PostgreSQL、Prometheus 和 Grafana 搭建了端到端的 MLOps 基础设施。人工操作减少了 80%，每年节省约 4.8 万美元。
               </li>
             </ul>
+            <figure class="chart" aria-labelledby="chart-ops">
+              <figcaption id="chart-ops" class="chart-title">MLOps 工作前后对比</figcaption>
+              <div class="chart-pair">
+                <div>
+                  <p class="chart-sub">部署时间</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">之前</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value">3 小时</span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">之后</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 8.3"></span></span>
+                      <span class="bar-value">15 分钟</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="chart-sub">人工运维工作</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">之前</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value"></span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">之后</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 20"></span></span>
+                      <span class="bar-value">−80%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
 
             <h2>带领团队</h2>
             <p>
@@ -150,10 +270,6 @@
               <li><span class="num">3 小时 → 15 分钟</span><span class="lbl">部署时间</span></li>
               <li><span class="num">−80%</span><span class="lbl">人工运维工作（每年约 4.8 万美元）</span></li>
             </ul>
-            <p>
-              两个系统的截图附在我的
-              <a href="https://www.linkedin.com/in/azizjon-kasimov">LinkedIn 个人资料</a>中这段经历的下方。
-            </p>
 
             <p class="callout">
               本文已做简化，不含任何雇主代码、内部数据或私有网址。

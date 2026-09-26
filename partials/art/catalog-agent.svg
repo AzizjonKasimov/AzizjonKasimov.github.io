@@ -1,0 +1,25 @@
+<svg viewBox="0 0 320 100">
+  <rect class="art-panel" x="12" y="17" width="64" height="66" rx="9" />
+  <rect class="art-field" x="20" y="26" width="48" height="12" rx="4" />
+  <path class="art-accent-line" d="m57 30.5 3 3 3-3" />
+  <rect class="art-field" x="20" y="44" width="48" height="12" rx="4" />
+  <path class="art-accent-line" d="m57 48.5 3 3 3-3" />
+  <rect class="art-field" x="20" y="62" width="48" height="12" rx="4" />
+  <path class="art-accent-line" d="m57 66.5 3 3 3-3" />
+  <path class="art-flow" d="M84 50h16" />
+  <path class="art-flow" d="m96 46 4 4-4 4" />
+  <path class="art-line" d="M116 50 144 28M116 50l28 22M144 28h32M144 72h32M176 28l20 22M176 72l20-22" />
+  <path class="art-dash" d="M170 20c0-13 12-13 12 0" />
+  <circle class="art-chip" cx="116" cy="50" r="8" />
+  <circle class="art-chip" cx="144" cy="28" r="8" />
+  <circle class="art-chip" cx="144" cy="72" r="8" />
+  <circle class="art-chip" cx="176" cy="28" r="8" />
+  <circle class="art-chip" cx="176" cy="72" r="8" />
+  <circle class="art-accent" cx="196" cy="50" r="8" />
+  <path class="art-flow" d="M208 50h14" />
+  <path class="art-flow" d="m218 46 4 4-4 4" />
+  <rect class="art-panel" x="230" y="22" width="48" height="56" rx="6" />
+  <path class="art-line" d="M230 36h48M230 50h48M230 64h48M250 22v56" />
+  <rect class="art-panel" x="286" y="30" width="24" height="32" rx="4" />
+  <path class="art-accent-line" d="m291.5 46 4 4 8-8" />
+</svg>

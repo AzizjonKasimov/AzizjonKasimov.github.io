@@ -1,0 +1,11 @@
+<svg viewBox="0 0 320 100">
+  <circle class="art-sun" cx="30" cy="27" r="9" />
+  <path class="art-sun-ray" d="M30 11v4M30 39v4M14 27h4M42 27h4M18.7 15.7l2.8 2.8M38.5 35.5l2.8 2.8M18.7 38.3l2.8-2.8M38.5 18.5l2.8-2.8" />
+  <path class="art-line" d="M60 86h248" />
+  <path class="art-actual" d="M64 86C92 86 100 24 122 24s30 62 58 62" />
+  <path class="art-actual" d="M186 86c24 0 32-54 52-54 8 0 12 22 18 22s8-14 14-14c12 0 18 46 36 46" />
+  <path class="art-forecast" d="M64 86C92 86 100 28 122 28s30 58 58 58" />
+  <path class="art-forecast" d="M186 86c24 0 34-56 56-56s32 56 64 56" />
+  <circle class="art-alert-ring" cx="256" cy="54" r="9" />
+  <circle class="art-alert" cx="256" cy="54" r="4" />
+</svg>

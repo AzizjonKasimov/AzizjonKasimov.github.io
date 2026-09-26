@@ -69,22 +69,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/clock.svg --></span>
                   <span class="step-name">Zeitplan</span>
                   <span class="step-desc">EventBridge startet jeden Crawl-Zyklus. Eine kleine Lambda-Funktion setzt die Tagesziele zurück.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Warteschlange</span>
                   <span class="step-desc">SQS hält die anstehende Arbeit. Es ersetzte einen früheren Ansatz mit der „Datenbank als Queue“. Fehlgeschlagene Nachrichten landen in einer Dead-Letter-Queue.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="step-name">Worker</span>
                   <span class="step-desc">Lambda-Funktionen, als Docker-Images verpackt, laden und parsen Seiten parallel.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">Speicherung</span>
                   <span class="step-desc">Inserate landen in RDS PostgreSQL, mit RDS Proxy für Connection Pooling. Schreibvorgänge sind inkrementell und atomar.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
                   <span class="step-name">Alarme</span>
                   <span class="step-desc">CloudWatch-Metriken und -Alarme, mit Benachrichtigungen über SNS.</span>
                 </li>

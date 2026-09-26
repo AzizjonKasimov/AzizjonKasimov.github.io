@@ -63,26 +63,32 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sliders.svg --></span>
                   <span class="step-name">请求</span>
                   <span class="step-desc">从下拉列表中选择品牌、车型、年份和地区。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/split.svg --></span>
                   <span class="step-name">解析变体</span>
                   <span class="step-desc">找到所有匹配的车型变体，并展开为需要获取的目录范围。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/download.svg --></span>
                   <span class="step-name">获取</span>
                   <span class="step-desc">调用第三方目录 API，带缓存和重试。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shuffle.svg --></span>
                   <span class="step-name">规范化与映射</span>
                   <span class="step-desc">清洗记录，并映射到正确的目录表。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">写入</span>
                   <span class="step-desc">分批保存到 PostgreSQL，并设有检查点，使任务可以安全地续跑或取消。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/file-check.svg --></span>
                   <span class="step-name">报告</span>
                   <span class="step-desc">展示每个批次是如何规范化和映射的，方便数据团队核查。</span>
                 </li>

@@ -71,26 +71,32 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/languages.svg --></span>
                   <span class="step-name">Sprachprüfung</span>
                   <span class="step-desc">Zuerst läuft eine kleine Spracherkennung, damit das LLM nur bei Bedarf aufgerufen wird.</span>
                 </li>
-                <li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
                   <span class="step-name">LLM-Normalisierung</span>
                   <span class="step-desc">Anfragen, die nicht auf Englisch sind, werden übersetzt und bereinigt (GPT-4o-mini).</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/tag.svg --></span>
                   <span class="step-name">Entitätsextraktion</span>
                   <span class="step-desc">spaCy-NER erkennt Marke, Modell, Baujahr, Kraftstoff, Getriebe, Teilename, Seite und Generation.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/filter.svg --></span>
                   <span class="step-name">Gefilterte Vektorsuche</span>
                   <span class="step-desc">Die Entitäten werden zu exakten Filtern über einer semantischen Suche in Weaviate.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/rerank.svg --></span>
                   <span class="step-name">LLM-Re-Ranking</span>
                   <span class="step-desc">Ein LLM-Nachfilter entfernt klar falsche Treffer und sortiert den Rest neu.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
                   <span class="step-name">Ergebnisse</span>
                   <span class="step-desc">Produktsuche für Käufer oder Katalogabgleich für Lieferanten.</span>
                 </li>
@@ -100,7 +106,53 @@
                 <li><strong>Testsuite für die Genauigkeit</strong>Führt dieselbe Pipeline auf einem festen Testdatensatz aus</li>
                 <li><strong>S3-Berichte</strong>Jeder Testlauf wird gespeichert und übersteht Redeployments</li>
               </ul>
-              <figcaption id="flow-caption">Vereinfachte Darstellung der Such-Pipeline im Produktivbetrieb.</figcaption>
+              <figcaption id="flow-caption">
+                Vereinfachte Darstellung der Such-Pipeline im Produktivbetrieb. Der gestrichelte Schritt läuft nur bei Anfragen, die nicht auf Englisch sind.
+              </figcaption>
+            </figure>
+
+            <h3>Beispiel: eine Anfrage, Schritt für Schritt</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Die Anfrage, auf Koreanisch eingegeben</span>
+                  <span class="trace-query">
+                    <span class="trace-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                    <span lang="ko">현대 쏘나타 2019 왼쪽 헤드라이트</span>
+                  </span>
+                </li>
+                <li>
+                  <span class="trace-label">Nach der LLM-Normalisierung</span>
+                  <code>Hyundai Sonata 2019 left headlight</code>
+                </li>
+                <li>
+                  <span class="trace-label">Entitäten, als exakte Filter genutzt</span>
+                  <ul class="trace-chips">
+                    <li><code>brand: Hyundai</code></li>
+                    <li><code>model: Sonata</code></li>
+                    <li><code>year: 2019</code></li>
+                    <li><code>side: left</code></li>
+                    <li><code>part: headlight</code></li>
+                  </ul>
+                  <span class="trace-note">Die Alias-Liste macht aus „headlight“ den Katalognamen Head Lamp Assembly.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Ergebnisse nach Vektorsuche und LLM-Re-Ranking</span>
+                  <ul class="trace-results">
+                    <li class="trace-hit">
+                      <span class="trace-mark" aria-hidden="true"><!-- include: partials/icons/check.svg --></span>
+                      <code>Head Lamp Assembly · Left</code>
+                      <span class="trace-why">an erster Stelle</span>
+                    </li>
+                    <li class="trace-miss">
+                      <span class="trace-mark" aria-hidden="true"><!-- include: partials/icons/x.svg --></span>
+                      <code>Fog Lamp · Left</code>
+                      <span class="trace-why">vom LLM aussortiert</span>
+                    </li>
+                  </ul>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">Eine Veranschaulichung mit einer ausgedachten Anfrage. Die Ausgabe ist vereinfacht.</figcaption>
             </figure>
 
             <h2>Was ich gebaut habe</h2>

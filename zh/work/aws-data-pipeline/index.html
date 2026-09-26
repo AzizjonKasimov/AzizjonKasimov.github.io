@@ -65,22 +65,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/clock.svg --></span>
                   <span class="step-name">调度</span>
                   <span class="step-desc">EventBridge 启动每一轮采集。一个小型 Lambda 函数重置当天的目标。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">队列</span>
                   <span class="step-desc">SQS 存放待处理的任务，取代了早期“把数据库当队列”的设计。失败的消息会进入死信队列。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="step-name">工作函数</span>
                   <span class="step-desc">打包成 Docker 镜像的 Lambda 函数并行抓取和解析页面。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">存储</span>
                   <span class="step-desc">商品信息写入 RDS PostgreSQL，并通过 RDS Proxy 实现连接池。写入是增量且原子的。</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
                   <span class="step-name">告警</span>
                   <span class="step-desc">CloudWatch 指标和告警，通过 SNS 发送通知。</span>
                 </li>

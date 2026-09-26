@@ -23,6 +23,12 @@
   --warn-soft: #fbf0d3;
   --info: #3451c8;
   --info-soft: #e7ecfd;
+  /* Pictures and charts: sunlight and actual solar output, anomalies, and text on colored bars. */
+  --sun: #e09a10;
+  --alert: #cf3f2a;
+  --alert-soft: #fbe7e3;
+  --on-info: #ffffff;
+  --on-sun: #231600;
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
@@ -57,6 +63,11 @@
     --warn-soft: rgb(220 177 62 / 0.13);
     --info: #8aa6ff;
     --info-soft: rgb(138 166 255 / 0.13);
+    --sun: #f2c14e;
+    --alert: #ff7a66;
+    --alert-soft: rgb(255 122 102 / 0.15);
+    --on-info: #0b1024;
+    --on-sun: #231600;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
     --shadow-pop: 0 2px 6px rgb(0 0 0 / 0.35), 0 12px 32px rgb(0 0 0 / 0.5);
   }
@@ -622,6 +633,50 @@ strong {
   margin-top: 28px;
 }
 
+/* The photo sits to the right of the intro on wide screens and above the name on phones. It comes
+   first in the markup so phones need no reordering. */
+.hero-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: clamp(32px, 5vw, 64px);
+}
+
+.hero-text {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.hero-photo {
+  grid-column: 2;
+  grid-row: 1;
+  width: clamp(200px, 24vw, 272px);
+  height: auto;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 6px var(--surface),
+    0 0 0 7px var(--border),
+    var(--shadow-pop);
+}
+
+@media (max-width: 720px) {
+  .hero-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-text,
+  .hero-photo {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .hero-photo {
+    width: 104px;
+    margin: 6px 0 24px 6px;
+  }
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -632,10 +687,11 @@ strong {
   box-shadow: var(--shadow);
 }
 
+/* The number comes first on screen, then its label (the <dt>), then a small chart pinned to the
+   bottom so the charts line up across the row. */
 .stat {
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
+  flex-direction: column;
   gap: 6px;
   padding: 22px 22px 24px;
 }
@@ -645,6 +701,7 @@ strong {
 }
 
 .stat dd {
+  order: -1;
   margin: 0;
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   font-weight: 750;
@@ -658,6 +715,41 @@ strong {
   color: var(--text-2);
   font-size: 0.875rem;
   line-height: 1.45;
+}
+
+.stat .stat-viz {
+  order: 1;
+  display: grid;
+  gap: 5px;
+  margin-top: auto;
+  padding-top: 12px;
+  line-height: 0;
+}
+
+/* Bars are sized by --v, a percentage of the box width: grey is before, accent is now. */
+.viz-bar {
+  display: block;
+  width: calc(var(--v) * 1%);
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-strong);
+}
+
+.viz-now {
+  background: var(--accent);
+}
+
+.viz-track {
+  display: block;
+  border-radius: 3px;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.viz-dots {
+  display: block;
+  height: 6px;
+  background: radial-gradient(circle, var(--accent) 2.4px, transparent 3px) 0 50% / 11px 6px repeat-x;
 }
 
 @media (max-width: 860px) {
@@ -783,6 +875,123 @@ strong {
 
 .card-link:hover .card-cta span {
   transform: translateX(3px);
+}
+
+/* A small drawing of each project across the top of its card. The SVGs are shared partials with no
+   text, so every language shows the same picture. */
+.card-art {
+  margin: -26px -26px 4px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--text-3) 26%, transparent) 1px, transparent 1.6px) 0 0 / 16px 16px,
+    var(--surface-2);
+}
+
+.card-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 136px;
+}
+
+.art-panel {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+}
+
+.art-field {
+  fill: var(--surface-2);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.art-line {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+}
+
+.art-flow,
+.art-dash {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.art-dash {
+  stroke-width: 1.25;
+  stroke-dasharray: 3 3;
+}
+
+.art-ink {
+  fill: var(--border-strong);
+}
+
+.art-ink-strong {
+  fill: var(--text-3);
+}
+
+.art-chip {
+  fill: var(--accent-soft);
+  stroke: color-mix(in srgb, var(--accent) 45%, transparent);
+  stroke-width: 1;
+}
+
+.art-accent {
+  fill: var(--accent);
+}
+
+.art-accent-line,
+.art-check {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.art-check {
+  stroke: var(--on-accent);
+  stroke-width: 1.6;
+}
+
+.art-sun {
+  fill: var(--sun);
+}
+
+.art-sun-ray,
+.art-actual {
+  fill: none;
+  stroke: var(--sun);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.art-actual {
+  stroke-width: 2.5;
+}
+
+.art-forecast {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+}
+
+.art-alert {
+  fill: var(--alert);
+}
+
+.art-alert-ring {
+  fill: var(--alert-soft);
+  stroke: var(--alert);
+  stroke-width: 1.25;
 }
 
 .card-plain {
@@ -1232,7 +1441,8 @@ strong {
   }
 }
 
-.prose {
+/* Text keeps a comfortable reading width; the architecture diagram may use the full width. */
+.prose > * {
   max-width: var(--reading);
 }
 
@@ -1277,7 +1487,8 @@ strong {
   padding-top: 8px;
 }
 
-/* Architecture flow, drawn as an accessible ordered list. */
+/* Architecture flow, drawn as an accessible ordered list: an icon per step, joined by arrows. It runs
+   down the page on phones and tablets and across the full width on wide screens. */
 .flow {
   max-width: var(--reading);
   margin-top: 24px !important;
@@ -1290,53 +1501,84 @@ strong {
 .steps {
   padding: 0 !important;
   list-style: none;
-  counter-reset: step;
 }
 
 .steps > li {
   position: relative;
   display: grid;
-  grid-template-columns: 34px 1fr;
+  grid-template-columns: 44px minmax(0, 1fr);
   column-gap: 16px;
   margin: 0 !important;
-  padding-bottom: 20px;
-  counter-increment: step;
+  padding-bottom: 28px;
 }
 
 .steps > li:last-child {
   padding-bottom: 0;
 }
 
-.steps > li::before {
-  content: counter(step);
+.step-icon {
   position: relative;
-  z-index: 1;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   grid-row: 1 / span 2;
   border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  border-radius: 50%;
+  border-radius: 12px;
   background: var(--accent-soft);
   color: var(--accent);
-  font: 700 0.8125rem/1 var(--font-mono);
 }
 
+.step-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* The line to the next step, and its arrowhead drawn on the next step's icon. */
 .steps > li:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 34px;
-  bottom: 0;
-  left: 16px;
+  top: 50px;
+  bottom: 6px;
+  left: 21px;
   width: 2px;
   background: var(--border-strong);
 }
 
+.steps > li + li .step-icon::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 15px;
+  border: 6px solid transparent;
+  border-top: 7px solid var(--border-strong);
+  border-bottom: 0;
+}
+
+/* A step that only runs sometimes: a dashed icon and a dashed path around it. */
+.step-optional .step-icon {
+  border-style: dashed;
+  background: var(--surface);
+}
+
+.step-optional::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  bottom: 13px;
+  left: -13px;
+  width: 9px;
+  border: 2px dashed var(--border-strong);
+  border-right: 0;
+  border-radius: 9px 0 0 9px;
+}
+
 .step-name {
-  padding-top: 5px;
+  align-self: end;
+  padding-top: 2px;
   color: var(--text);
   font-weight: 650;
+  line-height: 1.35;
 }
 
 .step-desc {
@@ -1345,11 +1587,79 @@ strong {
   font-size: 0.9375rem;
 }
 
+@media (min-width: 1080px) {
+  .prose > .flow {
+    max-width: none;
+    padding: 30px 28px 24px;
+  }
+
+  .steps {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    column-gap: 28px;
+  }
+
+  .steps > li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding-bottom: 0;
+  }
+
+  .steps > li:not(:last-child)::after {
+    top: 21px;
+    right: -20px;
+    bottom: auto;
+    left: 52px;
+    width: auto;
+    height: 2px;
+  }
+
+  .steps > li + li .step-icon::before {
+    top: 15px;
+    left: -9px;
+    border: 6px solid transparent;
+    border-left: 7px solid var(--border-strong);
+    border-right: 0;
+  }
+
+  .step-optional::before {
+    top: -16px;
+    right: -16px;
+    bottom: auto;
+    left: -16px;
+    width: auto;
+    height: 10px;
+    border: 2px dashed var(--border-strong);
+    border-bottom: 0;
+    border-radius: 9px 9px 0 0;
+  }
+
+  .step-name {
+    align-self: stretch;
+    padding-top: 10px;
+    font-size: 0.9375rem;
+  }
+
+  /* Columns are only about 135px wide here. A word that still does not fit sticks out, so the layout
+     check fails; give it a break point (&shy;) instead of letting the browser split it anywhere. */
+  .step-name,
+  .step-desc {
+    hyphens: auto;
+  }
+
+  .step-desc {
+    font-size: 0.875rem;
+  }
+}
+
 .sidecars {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 24px;
   padding: 18px 0 0 !important;
   border-top: 1px dashed var(--border-strong);
   list-style: none;
@@ -1370,10 +1680,357 @@ strong {
   color: var(--text);
 }
 
-.flow figcaption {
+.flow figcaption,
+.trace figcaption {
   margin-top: 16px;
   color: var(--text-3);
   font-size: 0.8125rem;
+}
+
+/* Worked example: one query traced through the pipeline, on a rail of dots. */
+.trace {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.trace-steps {
+  display: grid;
+  gap: 20px;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.trace-steps > li {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  margin: 0 !important;
+  padding-left: 26px;
+}
+
+.trace-steps > li::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+.trace-steps > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 21px;
+  bottom: -16px;
+  left: 5px;
+  width: 2px;
+  background: var(--border-strong);
+}
+
+.trace-label {
+  color: var(--text-3);
+  font: 600 0.75rem/1.5 var(--font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.trace-query {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 8px 18px 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 22px;
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.trace-icon {
+  display: grid;
+  flex: none;
+  color: var(--text-3);
+}
+
+.trace-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.trace code {
+  max-width: 100%;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: 0.875rem/1.5 var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.trace-chips,
+.trace-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.trace-results {
+  display: grid;
+}
+
+.trace-chips li,
+.trace-results li {
+  margin: 0 !important;
+}
+
+.trace-chips code {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: var(--accent-soft);
+}
+
+.trace-note,
+.trace-why {
+  color: var(--text-2);
+  font-size: 0.875rem;
+}
+
+.trace-results li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.trace-mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.trace-mark svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.6;
+}
+
+.trace-hit .trace-mark {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.trace-miss .trace-mark {
+  background: var(--alert-soft);
+  color: var(--alert);
+}
+
+.trace-miss code {
+  color: var(--text-3);
+  text-decoration: line-through;
+}
+
+/* Bar charts drawn with CSS. A bar's --v is its length as a percentage of the track. */
+.chart {
+  padding: 20px 22px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.chart-title {
+  margin-bottom: 14px;
+  color: var(--text);
+  font-size: 0.9375rem;
+  font-weight: 650;
+}
+
+/* The rows share one set of columns (subgrid), so every bar in a chart starts and ends at the same
+   place, and the value column fits the longest value in any language. */
+.bars {
+  display: grid;
+  grid-template-columns: fit-content(7.5rem) minmax(0, 1fr) max-content;
+  gap: 10px 12px;
+}
+
+.bar-row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+
+.bar-label {
+  color: var(--text-2);
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+.bar-track {
+  display: flex;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--v) * 1%);
+  overflow: hidden;
+  background: var(--border-strong);
+  font: 700 0.75rem/1 var(--font-mono);
+  white-space: nowrap;
+}
+
+.bar + .bar {
+  box-shadow: inset 2px 0 0 var(--surface);
+}
+
+.bar-accent,
+.seg-3 {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.seg-1 {
+  background: var(--info);
+  color: var(--on-info);
+}
+
+.seg-2 {
+  background: var(--sun);
+  color: var(--on-sun);
+}
+
+.bar-value {
+  color: var(--text);
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 16px;
+  padding: 0 !important;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  list-style: none;
+}
+
+.chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+}
+
+.key {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.chart-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+}
+
+.prose .chart-sub {
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* On narrow screens the segment numbers no longer fit inside the bars; the legend and the total
+   still say the same thing. */
+@media (max-width: 600px) {
+  .chart-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bar {
+    font-size: 0;
+  }
+}
+
+/* Screenshot gallery: each thumbnail opens the full-size image. */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 14px;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.shots li {
+  margin: 0 !important;
+}
+
+.shot {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 8px 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.shot:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.shot-caption {
+  margin: 10px 2px 0;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.shot:hover .shot-caption {
+  color: var(--accent);
+}
+
+.shots-note {
+  font-size: 0.9375rem;
 }
 
 .metric-grid {
@@ -1580,8 +2237,17 @@ strong {
   .card-cta,
   .case-footer,
   .case-cta,
-  .certs {
+  .certs,
+  .hero-photo,
+  .stat-viz,
+  .card-art,
+  .shots,
+  .shots-note {
     display: none !important;
+  }
+
+  .hero-intro {
+    display: block;
   }
 
   .section {
@@ -1592,6 +2258,8 @@ strong {
   .role-item,
   .cred-grid > div,
   .flow,
+  .trace,
+  .chart,
   .stat {
     break-inside: avoid;
   }

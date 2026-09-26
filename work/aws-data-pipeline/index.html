@@ -68,22 +68,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/clock.svg --></span>
                   <span class="step-name">Schedule</span>
                   <span class="step-desc">EventBridge starts each crawl cycle. A small Lambda resets the day's targets.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Queue</span>
                   <span class="step-desc">SQS holds the work. It replaced an earlier “database as a queue” design. Failed messages go to a dead-letter queue.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="step-name">Workers</span>
                   <span class="step-desc">Lambda functions, packaged as Docker images, fetch and parse pages in parallel.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">Storage</span>
                   <span class="step-desc">Listings land in RDS PostgreSQL, with RDS Proxy for connection pooling. Writes are incremental and atomic.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
                   <span class="step-name">Alerts</span>
                   <span class="step-desc">CloudWatch metrics and alarms, with notifications through SNS.</span>
                 </li>

@@ -12,15 +12,15 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Homepage: headline metrics, selected work, experience, skills, credentials, contact |
+| `index.html` | Homepage: photo, headline metrics with small charts, selected work, experience, skills, credentials, contact |
 | `work/<slug>/index.html` | Case-study pages (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) |
 | `ko/`, `de/`, `ru/`, `uz/`, `zh/` | The same pages in Korean, German, Russian, Uzbek, and Chinese; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
-| `partials/` | Shared `<head>` tags, header (with the language menu), and footer, inlined into every page at build time |
+| `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`) and the work-card drawings (`art/`), inlined into pages at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
 | `src/styles.css` | All styles, including the dark theme and print styles |
-| `public/` | Files copied as-is: favicon, social preview image, touch icon, certificate scans (`certificates/`), `robots.txt` |
-| `tools/` | The translation, language-redirect, and layout checks, the certificate image script, and the sources and render script for the social preview image and touch icon |
+| `public/` | Files copied as-is: favicon, social preview image, touch icon, the homepage photo (`images/`), certificate scans (`certificates/`), case-study screenshots (`screenshots/`), `robots.txt` |
+| `tools/` | The translation, language-redirect, and layout checks, the web image script, and the sources and render script for the social preview image and touch icon |
 | `vite.config.mjs` | The build: one entry per page and language, the partial-include plugin, and the generated `sitemap.xml` |
 
 ## Development
@@ -38,6 +38,32 @@ npm run preview   # serve docs/ at http://localhost:4173
 Pages include shared markup with `<!-- include: partials/<file>.html -->`. The partials use
 `{{name}}` placeholders, such as `{{ui.work}}` for a menu label or `{{year}}` for the current year,
 that the build fills in for each page's language. An unknown placeholder stops the build.
+
+## Pictures, diagrams, and charts
+
+Everything that carries text is HTML and CSS, so it is translated like the rest of the page and
+follows the light and dark themes. Pictures without text are shared SVG partials, so every language
+shows the same drawing.
+
+- **Photo:** `public/images/azizjon-kasimov.jpg` (600 px) and `-thumb.jpg` (300 px), made from the
+  saffron-background headshot with `tools/web-images.ps1 -Kind photo`. It sits beside the intro on
+  wide screens and above the name on phones, and is hidden in print.
+- **Work-card drawings:** `partials/art/<slug>.svg`, one per case study, included at the top of each
+  card with `<!-- include: partials/art/<slug>.svg -->`. They are decorative (`aria-hidden`) and
+  colored by the `.art-*` classes in `src/styles.css`.
+- **Architecture diagrams:** each case study's `<ol class="steps">` gets an icon per step from
+  `partials/icons/<name>.svg`. The steps run down the page below 1080px and across the full width
+  from 1080px; a step marked `step-optional` is drawn dashed. On wide screens a step is only about
+  135px wide, and a word that does not fit makes the layout check fail: give it a break point with
+  `&shy;`. German and Korean pages let the browser break any long word, so the check cannot catch
+  theirs; look at new German and Korean steps at 1080px, and put `&#8203;` before a bracket that
+  follows Korean text.
+- **Charts:** bars are `<span class="bar" style="--v: 70">`, where `--v` is the bar's length as a
+  percentage of its track. Use only numbers that the page text already states. The translation check
+  compares these `style` values, so a chart cannot show different numbers in another language.
+- **Screenshots:** `public/screenshots/`, shown in a `.shots` gallery of thumbnails that open the
+  full image. The solar case study shows five screenshots of the Recs Innovation systems (the same
+  ones as on LinkedIn), with the plant's name covered.
 
 ### Layout check
 
@@ -139,11 +165,12 @@ with headless Edge or Chrome:
 Re-run it after changing the headline or the metrics on the card. All languages share this English
 image.
 
-## Certificate scans
+## Certificate scans, screenshots, and the photo
 
 The homepage shows the two diplomas and the award certificates as a gallery of thumbnails, each
 linking to the full scan. The images are in `public/certificates/`, and every language uses the
-same files. The original PDFs are kept in the private portfolio repo. To add a certificate:
+same files. The original PDFs are kept in the private portfolio repo, and so are the original
+screenshots and their covered copies. To add a certificate:
 
 1. Check the scan for private details first, because the site is public, and cover them before
    making the images. The Korean diploma, for example, is shown from a copy with the date of birth
@@ -153,13 +180,17 @@ same files. The original PDFs are kept in the private portfolio repo. To add a c
    (400 px wide) and drops the scan's metadata:
 
    ```powershell
-   .\tools\certificate-images.ps1 -Source <scan.pdf|.jpg|.png> -Name <file-name>
+   .\tools\web-images.ps1 -Kind certificate -Source <scan.pdf|.jpg|.png> -Name <file-name>
    ```
 
 3. Add a card to the certificate gallery in `index.html` and in every translation, then run
    `npm run check`. The gallery has 6 columns on desktop, 3 on tablets, and 2 on phones (see
    `.cert-gallery` in `src/styles.css`), so the six scans fill even rows; change the column counts
    if the number of scans changes.
+
+The same script makes screenshots (`-Kind screenshot`: `public/screenshots/`, up to 1240 px wide and
+a 480 px thumbnail) and the photo (`-Kind photo`: `public/images/`, a centered square at 600 and
+300 px). Cover private details in a screenshot, such as a customer's name, before you run it.
 
 ## Deployment
 

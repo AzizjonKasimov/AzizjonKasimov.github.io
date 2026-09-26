@@ -67,26 +67,32 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sliders.svg --></span>
                   <span class="step-name">Запрос</span>
                   <span class="step-desc">Марка, модель, год и регион, выбранные из выпадающих списков.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/split.svg --></span>
                   <span class="step-name">Поиск вариантов</span>
                   <span class="step-desc">Поиск всех подходящих вариантов автомобиля и определение объёма данных каталога, которые нужно загрузить.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/download.svg --></span>
                   <span class="step-name">Загрузка</span>
                   <span class="step-desc">Вызов API стороннего каталога с кэшированием и повторными попытками.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shuffle.svg --></span>
                   <span class="step-name">Нормализация и сопоставление</span>
                   <span class="step-desc">Очистка записей и сопоставление их с нужными таблицами каталога.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">Запись</span>
                   <span class="step-desc">Сохранение в PostgreSQL пакетами, с контрольными точками, чтобы задачу можно было безопасно возобновить или отменить.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/file-check.svg --></span>
                   <span class="step-name">Отчёт</span>
                   <span class="step-desc">Показывает, как каждый пакет был нормализован и сопоставлен, чтобы дата-команда могла это проверить.</span>
                 </li>

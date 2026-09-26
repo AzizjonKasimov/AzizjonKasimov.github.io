@@ -68,22 +68,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/clock.svg --></span>
                   <span class="step-name">스케줄</span>
                   <span class="step-desc">EventBridge가 각 수집 주기를 시작합니다. 작은 Lambda가 그날의 수집 대상을 초기화합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">큐</span>
                   <span class="step-desc">SQS가 작업을 보관합니다. 이전의 “데이터베이스를 큐로 쓰는” 설계를 대체했습니다. 실패한 메시지는 데드레터 큐로 이동합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="step-name">워커</span>
                   <span class="step-desc">Docker 이미지로 패키징한 Lambda 함수가 페이지를 병렬로 가져와 파싱합니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
                   <span class="step-name">저장</span>
                   <span class="step-desc">매물은 RDS PostgreSQL에 저장되며, 커넥션 풀링에는 RDS Proxy를 사용합니다. 쓰기는 점진적이고 원자적입니다.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
                   <span class="step-name">알림</span>
                   <span class="step-desc">CloudWatch 지표와 알람, 그리고 SNS를 통한 알림.</span>
                 </li>

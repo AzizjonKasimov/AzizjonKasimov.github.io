@@ -70,22 +70,27 @@
             <figure class="flow" aria-labelledby="flow-caption">
               <ol class="steps">
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Данные электростанций</span>
                   <span class="step-desc">Многомерные временные ряды с солнечных электростанций.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
                   <span class="step-name">Обучение</span>
                   <span class="step-desc">Модели на PyTorch, эксперименты отслеживаются в MLflow. Детектор аномалий переобучается каждую ночь.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Модели</span>
                   <span class="step-desc">Прогноз солнечной генерации и графовый (GNN) детектор аномалий.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
                   <span class="step-name">API для инференса</span>
                   <span class="step-desc">Сервисы на FastAPI отдают прогнозы и результаты обнаружения аномалий.</span>
                 </li>
                 <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/zap.svg --></span>
                   <span class="step-name">Платформа VPP</span>
                   <span class="step-desc">Сервисы подключаются к коммерческой платформе виртуальной электростанции.</span>
                 </li>
@@ -107,6 +112,45 @@
               <li>
                 Уже как тимлид я снизил ошибку прогноза с 9% до 7% (на 22%), что открыло доход от посредничества в торговле
                 электроэнергией на KPX.
+              </li>
+            </ul>
+            <figure class="chart" aria-labelledby="chart-forecast">
+              <figcaption id="chart-forecast" class="chart-title">Ошибка прогноза: чем ниже, тем лучше</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">До</span>
+                  <span class="bar-track"><span class="bar" style="--v: 90"></span></span>
+                  <span class="bar-value">9%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">После</span>
+                  <span class="bar-track"><span class="bar bar-accent" style="--v: 70"></span></span>
+                  <span class="bar-value">7%</span>
+                </div>
+              </div>
+            </figure>
+            <p class="shots-note">
+              Скриншоты продакшен-системы, они есть и в моём
+              <a href="https://www.linkedin.com/in/azizjon-kasimov">профиле LinkedIn</a>. Название электростанции скрыто.
+            </p>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-bars.jpg">
+                  <img src="/screenshots/recs-forecast-bars-thumb.jpg" alt="" width="480" height="378" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Почасовая выработка и прогноз в виде столбцов</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-week.jpg">
+                  <img src="/screenshots/recs-forecast-week-thumb.jpg" alt="" width="480" height="404" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Прогноз и фактическая выработка за другую неделю</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-forecast-page.jpg">
+                  <img src="/screenshots/recs-forecast-page-thumb.jpg" alt="" width="480" height="462" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Страница прогноза с таблицей ошибок по часам</span>
+                </a>
               </li>
             </ul>
 
@@ -139,6 +183,47 @@
               настроил GNN-модель до precision 70% и recall 50%, отслеживал эксперименты в MLflow и сделал эндпоинты на FastAPI,
               которые подключают систему обнаружения аномалий к платформе VPP.
             </p>
+            <figure class="chart" aria-labelledby="chart-anomaly">
+              <figcaption id="chart-anomaly" class="chart-title">Откуда взялся рост, в процентах</figcaption>
+              <div class="bars">
+                <div class="bar-row">
+                  <span class="bar-label">Precision</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 12.5">+5</span>
+                    <span class="bar seg-3" style="--v: 75">+30</span>
+                  </span>
+                  <span class="bar-value">+35%</span>
+                </div>
+                <div class="bar-row">
+                  <span class="bar-label">Recall</span>
+                  <span class="bar-track">
+                    <span class="bar seg-1" style="--v: 17.5">+7</span>
+                    <span class="bar seg-2" style="--v: 25">+10</span>
+                    <span class="bar seg-3" style="--v: 50">+20</span>
+                  </span>
+                  <span class="bar-value">+37%</span>
+                </div>
+              </div>
+              <ul class="chart-legend">
+                <li><span class="key seg-1"></span>Более точный расчёт ошибки</li>
+                <li><span class="key seg-2"></span>Почасовые пороги</li>
+                <li><span class="key seg-3"></span>Более чистые обучающие данные</li>
+              </ul>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-detected.jpg">
+                  <img src="/screenshots/recs-anomaly-detected-thumb.jpg" alt="" width="480" height="505" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Найдены аномалии: система перечисляет затронутые признаки и отмечает точки красным или жёлтым</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/recs-anomaly-none.jpg">
+                  <img src="/screenshots/recs-anomaly-none-thumb.jpg" alt="" width="480" height="430" loading="lazy" decoding="async" />
+                  <span class="shot-caption">Мониторинг: аномалий не найдено</span>
+                </a>
+              </li>
+            </ul>
 
             <h2>MLOps и деплой</h2>
             <ul>
@@ -151,6 +236,41 @@
                 Объём ручных операций сократился на 80%, что экономит около $48&nbsp;тыс. в год.
               </li>
             </ul>
+            <figure class="chart" aria-labelledby="chart-ops">
+              <figcaption id="chart-ops" class="chart-title">До и после внедрения MLOps</figcaption>
+              <div class="chart-pair">
+                <div>
+                  <p class="chart-sub">Время деплоя</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">До</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value">3&nbsp;ч</span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">После</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 8.3"></span></span>
+                      <span class="bar-value">15&nbsp;мин</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p class="chart-sub">Ручная операционная работа</p>
+                  <div class="bars">
+                    <div class="bar-row">
+                      <span class="bar-label">До</span>
+                      <span class="bar-track"><span class="bar" style="--v: 100"></span></span>
+                      <span class="bar-value"></span>
+                    </div>
+                    <div class="bar-row">
+                      <span class="bar-label">После</span>
+                      <span class="bar-track"><span class="bar bar-accent" style="--v: 20"></span></span>
+                      <span class="bar-value">−80%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </figure>
 
             <h2>Руководство командой</h2>
             <p>
@@ -165,10 +285,6 @@
               <li><span class="num">3&nbsp;ч → 15&nbsp;мин</span><span class="lbl">время деплоя</span></li>
               <li><span class="num">−80%</span><span class="lbl">ручной операционной работы (~$48&nbsp;тыс. в год)</span></li>
             </ul>
-            <p>
-              Скриншоты обеих систем прикреплены к этой должности в моём
-              <a href="https://www.linkedin.com/in/azizjon-kasimov">профиле LinkedIn</a>.
-            </p>
 
             <p class="callout">
               Это описание упрощено. В нём нет кода работодателя, внутренних данных и закрытых URL.
