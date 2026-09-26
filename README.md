@@ -62,8 +62,11 @@ shows the same drawing.
   percentage of its track. Use only numbers that the page text already states. The translation check
   compares these `style` values, so a chart cannot show different numbers in another language.
 - **Screenshots:** `public/screenshots/`, shown in a `.shots` gallery of thumbnails that open the
-  full image. The solar case study shows five screenshots of the Recs Innovation systems (the same
-  ones as on LinkedIn), with the plant's name covered.
+  full image. Each `<img>` lists the thumbnail, medium, and full image in `srcset`, and its `sizes`
+  follows the gallery's columns, so phones get the 960 px image instead of a blurry thumbnail. A
+  screenshot alone in its gallery takes the full width and is shown whole. The solar case study
+  shows seven screenshots of the Recs Innovation systems, with the plant's name, its location, and
+  its sales figures covered.
 
 ### Layout check
 
@@ -188,9 +191,10 @@ screenshots and their covered copies. To add a certificate:
    `.cert-gallery` in `src/styles.css`), so the six scans fill even rows; change the column counts
    if the number of scans changes.
 
-The same script makes screenshots (`-Kind screenshot`: `public/screenshots/`, up to 1240 px wide and
-a 480 px thumbnail) and the photo (`-Kind photo`: `public/images/`, a centered square at 600 and
-300 px). Cover private details in a screenshot, such as a customer's name, before you run it.
+The same script makes screenshots (`-Kind screenshot`: `public/screenshots/`, the full image up to
+1600 px wide so small text stays readable, a 960 px `-medium` image for phones, and a 480 px
+thumbnail) and the photo (`-Kind photo`: `public/images/`, a centered square at 600 and 300 px).
+Cover private details in a screenshot, such as a customer's name, before you run it.
 
 ## Deployment
 

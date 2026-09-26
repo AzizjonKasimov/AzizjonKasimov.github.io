@@ -1,5 +1,5 @@
 # Makes the web images for the site from a certificate scan, a screenshot, or a photo: a full-size
-# JPEG and a smaller one for thumbnails and phones. Both are re-encoded, so the source's metadata is
+# JPEG and smaller ones for thumbnails and phones. All are re-encoded, so the source's metadata is
 # dropped. Writes only to the kind's folder under public/. Safe to re-run.
 #
 #   .\tools\web-images.ps1 -Kind certificate -Source <scan.pdf|.jpg|.png> -Name <file-name>
@@ -7,7 +7,8 @@
 #   .\tools\web-images.ps1 -Kind photo -Source <image> -Name <file-name>
 #
 #   certificate  public/certificates/  <name>.jpg (1240 px wide) and <name>-thumb.jpg (400 px)
-#   screenshot   public/screenshots/   <name>.jpg (up to 1240 px wide) and <name>-thumb.jpg (480 px)
+#   screenshot   public/screenshots/   <name>.jpg (up to 1600 px wide, so small text stays sharp),
+#                                      <name>-medium.jpg (960 px, for phones) and <name>-thumb.jpg (480 px)
 #   photo        public/images/        <name>.jpg (600 x 600) and <name>-thumb.jpg (300 x 300),
 #                                      cut square from the middle of the photo
 #
@@ -26,7 +27,7 @@ Add-Type -AssemblyName System.Drawing
 
 $settings = @{
   certificate = @{ Folder = 'certificates'; Square = $false; Jobs = @(@{ Suffix = ''; Width = 1240; Quality = 82 }, @{ Suffix = '-thumb'; Width = 400; Quality = 80 }) }
-  screenshot = @{ Folder = 'screenshots'; Square = $false; Jobs = @(@{ Suffix = ''; Width = 1240; Quality = 84 }, @{ Suffix = '-thumb'; Width = 480; Quality = 80 }) }
+  screenshot = @{ Folder = 'screenshots'; Square = $false; Jobs = @(@{ Suffix = ''; Width = 1600; Quality = 90 }, @{ Suffix = '-medium'; Width = 960; Quality = 84 }, @{ Suffix = '-thumb'; Width = 480; Quality = 80 }) }
   photo = @{ Folder = 'images'; Square = $true; Jobs = @(@{ Suffix = ''; Width = 600; Quality = 84 }, @{ Suffix = '-thumb'; Width = 300; Quality = 82 }) }
 }[$Kind]
 

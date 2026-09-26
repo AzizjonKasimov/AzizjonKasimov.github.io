@@ -2018,6 +2018,11 @@ strong {
   border-radius: 6px;
 }
 
+/* A screenshot on its own takes the full width, so show all of it instead of a 4:3 crop. */
+.shots li:only-child .shot img {
+  aspect-ratio: auto;
+}
+
 .shot-caption {
   margin: 10px 2px 0;
   color: var(--text-2);
