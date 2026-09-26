@@ -170,10 +170,11 @@ image.
 
 ## Certificate scans, screenshots, and the photo
 
-The homepage shows the two diplomas and the award certificates as a gallery of thumbnails, each
-linking to the full scan. The images are in `public/certificates/`, and every language uses the
-same files. The original PDFs are kept in the private portfolio repo, and so are the original
-screenshots and their covered copies. To add a certificate:
+The homepage shows each certificate scan as a small thumbnail next to the entry it proves: the two
+diplomas next to the degree, and each award certificate next to its award. Each thumbnail links to
+the full scan. The images are in `public/certificates/`, and every language uses the same files.
+The original PDFs are kept in the private portfolio repo, and so are the original screenshots and
+their covered copies. To add a certificate:
 
 1. Check the scan for private details first, because the site is public, and cover them before
    making the images. The Korean diploma, for example, is shown from a copy with the date of birth
@@ -186,10 +187,11 @@ screenshots and their covered copies. To add a certificate:
    .\tools\web-images.ps1 -Kind certificate -Source <scan.pdf|.jpg|.png> -Name <file-name>
    ```
 
-3. Add a card to the certificate gallery in `index.html` and in every translation, then run
-   `npm run check`. The gallery has 6 columns on desktop, 3 on tablets, and 2 on phones (see
-   `.cert-gallery` in `src/styles.css`), so the six scans fill even rows; change the column counts
-   if the number of scans changes.
+3. Add the thumbnail to its entry in `index.html` and in every translation, then run
+   `npm run check`. An entry with scans is an `<li class="has-scans">`: its text goes in the first
+   `<div>`, and the thumbnail links go in `<div class="scans">` (see `.has-scans` in
+   `src/styles.css`). Two scans sit side by side and stack on phones. Give each image an `alt` that
+   names the document, in the page's language.
 
 The same script makes screenshots (`-Kind screenshot`: `public/screenshots/`, the full image up to
 1600 px wide so small text stays readable, a 960 px `-medium` image for phones, and a 480 px

@@ -1162,10 +1162,17 @@ strong {
    Credentials
    ========================================================================== */
 
+/* Two columns: Awards, the longest list, fills the right one, next to Education and
+   Certifications. */
 .cred-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
+}
+
+.cred-grid > .cred-awards {
+  grid-column: 2;
+  grid-row: span 2;
 }
 
 .cred-grid > div {
@@ -1206,88 +1213,67 @@ strong {
   color: var(--text-3);
 }
 
-@media (max-width: 900px) {
-  .cred-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Certificate scans: each thumbnail links to the full-size image. Six scans fill one row on
-   desktop, two rows of three on tablets, and three rows of two on phones. */
-.certs .subhead {
-  margin-bottom: 6px;
-}
-
-.certs-note {
-  margin-bottom: 18px;
-  color: var(--text-2);
-  font-size: 0.9375rem;
-}
-
-.cert-gallery {
-  display: grid;
-  /* minmax(0, 1fr) keeps the columns equal when a caption holds a long word. */
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 16px;
-  padding: 0;
-  list-style: none;
-}
-
-.cert {
+/* An entry with scans of its diploma or certificates: the text on the left, the scans on the
+   right. Each scan links to the full-size image. */
+.cred-list .has-scans {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 10px 10px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.has-scans > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.scans {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+
+.scans a {
+  display: block;
+  width: 56px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
   background: var(--surface);
-  color: var(--text);
-  text-decoration: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.cert:hover {
-  border-color: var(--border-strong);
   box-shadow: var(--shadow);
-  color: var(--text);
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
-.cert img {
+.scans a:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.scans img {
   display: block;
   width: 100%;
   height: auto;
-  margin-bottom: 12px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
-.cert-name {
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.35;
-}
+@media (max-width: 900px) {
+  /* minmax(0, 1fr): a long German compound next to a scan wraps instead of widening the page. */
+  .cred-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.cert:hover .cert-name {
-  color: var(--accent);
-}
-
-.cert-when {
-  margin-top: 2px;
-  color: var(--text-3);
-  font-size: 0.8125rem;
-  line-height: 1.4;
-}
-
-@media (max-width: 1000px) {
-  .cert-gallery {
-    grid-template-columns: repeat(3, 1fr);
+  .cred-grid > .cred-awards {
+    grid-column: auto;
+    grid-row: auto;
   }
 }
 
-@media (max-width: 560px) {
-  .cert-gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+/* Phones: two scans stack, so the text keeps enough width. */
+@media (max-width: 480px) {
+  .scans {
+    flex-direction: column;
+  }
+
+  .scans a {
+    width: 48px;
   }
 }
 
@@ -2242,7 +2228,7 @@ strong {
   .card-cta,
   .case-footer,
   .case-cta,
-  .certs,
+  .scans,
   .hero-photo,
   .stat-viz,
   .card-art,
