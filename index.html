@@ -68,8 +68,8 @@
               I build AI systems that run in production: LLM and vector search, data pipelines on AWS, and MLOps.
             </p>
             <p class="sub">
-              2+ years of building and running AI/ML systems. Most recently I was the only AI/ML engineer at a used
-              auto-parts e-commerce company. Before that, I led an AI team in renewable energy.
+              I have spent 2+ years building and running AI/ML systems. Most recently I was the only AI/ML engineer at
+              an online store for used auto parts. Before that, I led the AI team at a renewable-energy company.
             </p>
             <p class="availability">
               Based in Daejeon, South Korea. Open to AI/ML engineering roles in Seoul (on-site or hybrid), remote roles, and
@@ -98,7 +98,7 @@
 
         <dl class="stats">
           <div class="stat">
-            <dt>Search accuracy on a required 3,000-part test. R&amp;D project approved.</dt>
+            <dt>Search accuracy on the 3,000-part test of a government R&amp;D program. The project was approved.</dt>
             <dd>95%+</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-track"><span class="viz-bar viz-now" style="--v: 95"></span></span></dd>
           </div>
@@ -108,12 +108,12 @@
             <dd class="stat-viz" aria-hidden="true"><span class="viz-dots"></span></dd>
           </div>
           <div class="stat">
-            <dt>Solar forecast error, which enabled power-brokerage revenue</dt>
+            <dt>Solar forecast error. The lower error let the company sell solar power on the Korea Power Exchange.</dt>
             <dd>9% → 7%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 78"></span></dd>
           </div>
           <div class="stat">
-            <dt>Less manual ops work after MLOps automation (~$48K/year)</dt>
+            <dt>Manual operations work after I automated deployment and monitoring. About $48K saved a year.</dt>
             <dd>−80%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 20"></span></dd>
           </div>
@@ -125,8 +125,8 @@
           <p class="eyebrow">Selected work</p>
           <h2 id="work-title">Production AI, from problem to monitored system</h2>
           <p>
-            Four projects that show how I work. Each case study covers the problem, what I built, how I measured it,
-            and the result. Details are simplified, and there is no employer code or private data.
+            Four projects that show how I work. Each case study tells the problem, what I built, how I measured it, and
+            what it changed. The pages leave out employer code and private data.
           </p>
         </div>
 
@@ -139,10 +139,13 @@
             </div>
             <h3><a href="/work/semantic-search/">AI semantic search for auto parts</a></h3>
             <p>
-              Natural-language search that finds the exact part for a specific car, in more than one language. Vector
-              search, entity recognition, and LLM query cleanup, plus an automated accuracy test suite.
+              Buyers type a plain description in their own language, and the search finds the exact part for their exact
+              car. I combined vector search, entity recognition, and an LLM that cleans up the query, and built an
+              automated accuracy test suite.
             </p>
-            <p class="result">95%+ accuracy on the required 3,000-part test. The R&amp;D project was approved.</p>
+            <p class="result">
+              It scored 95%+ on the 3,000-part test of a government R&amp;D program, and the project was approved.
+            </p>
             <ul class="tags" aria-label="Technologies">
               <li>Python</li>
               <li>Django REST</li>
@@ -161,10 +164,14 @@
             </div>
             <h3><a href="/work/aws-data-pipeline/">Serverless data pipeline on AWS</a></h3>
             <p>
-              An event-driven pipeline that collects used-parts market data for pricing research. Lambda workers, an SQS
-              queue with a dead-letter queue, scheduled runs, PostgreSQL, and CloudWatch alarms.
+              Pricing research needed a daily feed of used-parts listings from the market. I built an event-driven
+              pipeline: on a schedule, Lambda workers take jobs from an SQS queue and save the listings to PostgreSQL,
+              and CloudWatch raises an alarm when something fails.
             </p>
-            <p class="result">About 5M listings per day in testing. Ran daily in production with monitoring and alerts.</p>
+            <p class="result">
+              It reached its target of 5M listings a day in testing, on the smallest database instance. In production,
+              the source's rate limits held it to about 5,000 a day.
+            </p>
             <ul class="tags" aria-label="Technologies">
               <li>AWS Lambda</li>
               <li>SQS</li>
@@ -183,11 +190,13 @@
             </div>
             <h3><a href="/work/solar-mlops/">Solar forecasting and anomaly detection, in production</a></h3>
             <p>
-              I led the team that took solar power forecasting and anomaly detection for solar power plants into
-              production, connected to a Virtual Power Plant platform.
+              I led the team that put two models into production: one forecasts how much power a solar plant will make,
+              and one flags unusual readings in the plant's data. Both fed a Virtual Power Plant, a platform that runs
+              many plants together as one.
             </p>
             <p class="result">
-              Forecast error from 9% to 7%. Anomaly precision up ~35%, recall up ~37%. Deploys from 3 hours to 15 minutes.
+              Forecast error fell from 9% to 7%, enough to sell power on the Korea Power Exchange. The detector's
+              precision rose 35 points and its recall 37. A deploy took 15 minutes instead of 3 hours.
             </p>
             <ul class="tags" aria-label="Technologies">
               <li>PyTorch</li>
@@ -208,10 +217,11 @@
             </div>
             <h3><a href="/work/catalog-agent/">LangGraph agent for catalog data</a></h3>
             <p>
-              An agent workflow that turns a simple request (brand, model, year, region) into clean, catalog-ready parts
-              data, with scheduling, resumable jobs, and a report the data team can check.
+              The data team loaded third-party catalog data by hand. I built an agent workflow that takes a brand,
+              model, year, and region, fetches the matching parts data, cleans it, and writes it into the catalog. Jobs
+              run on a schedule, resume after a failure, and end with a report the team can check.
             </p>
-            <p class="result">Working prototype built for the data team. Not in production when I left.</p>
+            <p class="result">A working prototype with a demo UI for the data team. It was not in production when I left.</p>
             <ul class="tags" aria-label="Technologies">
               <li>LangGraph</li>
               <li>OpenAI API</li>
@@ -227,22 +237,22 @@
           <li>
             <h4>Used-parts price prediction</h4>
             <p>
-              R&amp;D on a pricing model that combines depreciation, demand, and live market signals. Tested with MAE and
-              MAPE: about 70–80% accuracy on a small real-world test set.
+              I researched a model that prices a used part from depreciation, demand, and live market signals. On a
+              small set of real prices it was about 70–80% accurate, measured with MAE and MAPE.
             </p>
           </li>
           <li>
             <h4>Bilingual product summaries</h4>
             <p>
-              An LLM pipeline that wrote English and Korean summaries for all ~40K products, with rules from domain
-              experts. Proof of concept.
+              I built an LLM pipeline that wrote an English and a Korean summary for each of the company's ~40K
+              products, following rules from the parts experts. It stayed a proof of concept.
             </p>
           </li>
           <li>
             <h4>Data migration at scale</h4>
             <p>
-              Migrated ~40K company records and loaded 2M+ third-party catalog records, with deduplication and safe,
-              atomic writes.
+              I moved ~40K company records to a new database and loaded 2M+ third-party catalog records. Duplicates were
+              removed, and each batch was written atomically, so a failure could not leave half-written data.
             </p>
           </li>
         </ul>
@@ -253,8 +263,8 @@
           <p class="eyebrow">How I build</p>
           <h2 id="build-title">AI-native engineering, with guardrails</h2>
           <p>
-            Since April 2026, I build most software by directing coding agents: Claude Code and Codex. The agents write
-            fast. The rules, project notes, and checks around them keep the work reliable.
+            Since April 2026 I write most software by directing coding agents, Claude Code and Codex. The agents are
+            fast. The rules, project notes, and checks I put around them keep the work reliable.
           </p>
         </div>
 
@@ -263,13 +273,13 @@
             <div class="card-meta"><span class="mono">Private repo · 2026</span></div>
             <h3>Shared rules for coding agents</h3>
             <p>
-              One central set of rules and project notes, used in 19 projects (9 company, 10 personal). Claude Code and
-              Codex load the same standards and keep context between sessions. If the rules can't be loaded, the agent
-              must stop and ask.
+              I keep one central set of rules and project notes, and 19 projects load it: 9 at work and 10 personal.
+              Claude Code and Codex read the same standards and pick up the context of earlier sessions. An agent that
+              cannot load the rules must stop and ask.
             </p>
             <p>
-              Agents keep changes small, update the docs, never read secrets or change production databases, and must
-              pass a real end-to-end check before a task counts as done.
+              The rules make agents keep changes small, update the docs, and never read secrets or touch production
+              databases. A task counts as done only after a real end-to-end check passes.
             </p>
           </article>
 
@@ -277,12 +287,12 @@
             <div class="card-meta"><span class="mono">Private repo · TypeScript · 2026</span></div>
             <h3>Private AI gateway</h3>
             <p>
-              A small service, backed by Claude, that gives my apps one AI endpoint. It returns output that matches a
-              JSON Schema and accepts OpenAI-style requests, so existing clients work unchanged.
+              A small service, backed by Claude, that gives all my apps one AI endpoint. It accepts OpenAI-style
+              requests, so existing clients work unchanged, and it returns output that matches a JSON Schema.
             </p>
             <p>
-              It also runs agent turns where the model plans and the calling app runs its own tools, so app data never
-              lives on the gateway.
+              It can also run an agent loop: the model decides which tool to call, but the calling app runs the tool
+              itself, so app data never reaches the gateway.
             </p>
           </article>
 
@@ -290,9 +300,9 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>Five Android apps, built entirely with AI agents</h3>
             <p>
-              Expenses (my daily finance app), Network App, OneShot Reminder, Notes, and Life Simulator. AI output is
-              checked against a fixed schema, and the user confirms it before anything is saved. Each app updates itself
-              from signed GitHub Releases.
+              Expenses, the finance app I use every day, plus Network App, OneShot Reminder, Notes, and Life Simulator.
+              Each app checks AI output against a fixed schema and asks the user to confirm before it saves anything.
+              The apps update themselves from signed GitHub Releases.
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses demo video</a></li>
@@ -306,8 +316,8 @@
         </div>
 
         <p class="note">
-          Earlier ML work: diabetic-retinopathy image classification for freelance clients and
-          reinforcement-learning experiments for solar forecasting. More on
+          Earlier ML work includes image classifiers that grade diabetic retinopathy, built for freelance clients, and
+          reinforcement-learning experiments for solar forecasting. More is on
           <a href="https://github.com/AzizjonKasimov?tab=repositories">GitHub</a>.
         </p>
       </section>
@@ -329,24 +339,26 @@
               <p class="org"><strong>G-Man Auto Parts</strong> · used auto-parts e-commerce</p>
               <ul class="bullets">
                 <li>
-                  The only AI/ML engineer. Designed and ran the AI search, data pipelines, and AWS setup, and took over AWS
-                  from a senior engineer who left. Also built backend (Django) and frontend (React) features.
+                  I was the only AI/ML engineer. I designed and ran the AI search and the data pipelines, and I took
+                  over the AWS infrastructure when the senior engineer left. I also built backend features in Django and
+                  frontend features in React.
                 </li>
                 <li>
-                  Built an AI search for 2M+ auto parts (Weaviate, spaCy, OpenAI). It reached 95%+ accuracy on a required
-                  3,000-part test, and the R&amp;D project was approved.
+                  Built an AI search over 2M+ auto parts with Weaviate, spaCy, and the OpenAI API. It scored 95%+ on the
+                  3,000-part test of a government R&amp;D program, which approved the project.
                 </li>
                 <li>
-                  Built a serverless AWS data pipeline (Lambda, SQS, EventBridge, PostgreSQL) that collected ~5M listings
-                  per day in testing, with automatic retries and failure alerts.
+                  Built a serverless data pipeline on AWS with Lambda, SQS, EventBridge, and PostgreSQL. It reached its
+                  target of 5M listings a day in testing, before rate limits at the source held it to about 5,000 a day.
+                  It retried failures on its own and raised alerts when something broke.
                 </li>
                 <li>
-                  Made services safer after senior code review (timeouts, URL allow-lists, safe database writes) and split
-                  a 6,000-line Django file into smaller modules.
+                  Hardened the services after a senior code review, with query timeouts, URL allow-lists, and safe
+                  database writes, and split a 6,000-line Django file into small modules.
                 </li>
                 <li>
-                  Worked with technical PMs, explained results and trade-offs to the CEO, COO, and data-labeling team, and
-                  informally mentored a junior teammate.
+                  Worked with technical PMs, explained results and trade-offs to the CEO, the COO, and the data-labeling
+                  team, and mentored a junior teammate informally.
                 </li>
               </ul>
             </div>
@@ -362,9 +374,9 @@
               <p class="org"><strong>Upwork</strong> · medical image analysis</p>
               <ul class="bullets">
                 <li>
-                  Built models that classify diabetic-retinopathy severity from retinal images (PyTorch, ResNet50). Reached
-                  about 70% accuracy in the first project and about 80% in the second, using preprocessing, data
-                  augmentation, and transfer learning.
+                  Built models in PyTorch, based on ResNet50, that grade the severity of diabetic retinopathy from
+                  retinal images. The first project reached about 70% accuracy and the second about 80%, through
+                  preprocessing, data augmentation, and transfer learning.
                 </li>
               </ul>
             </div>
@@ -381,16 +393,17 @@
               <p class="progression">Promoted twice: Data Science Intern → AI Developer → AI Team Lead</p>
               <ul class="bullets">
                 <li>
-                  Led ML, backend, and frontend teams to launch solar power forecasting and anomaly detection for solar power
-                  plants, connected to a Virtual Power Plant platform through FastAPI.
+                  Led the ML, backend, and frontend teams that put two models into production: a forecast of each solar
+                  plant's output and a detector for unusual readings in plant data. FastAPI services connected both to a
+                  Virtual Power Plant platform.
                 </li>
                 <li>
-                  Automated deployment and monitoring (Docker, GitHub Actions, Prometheus, Grafana). Deployment time fell
-                  from 3 hours to 15 minutes, and manual work fell 80% (~$48K saved per year).
+                  Automated deployment and monitoring with Docker, GitHub Actions, Prometheus, and Grafana. A deploy
+                  took 15 minutes instead of 3 hours, and manual operations work fell 80%, about $48K a year.
                 </li>
                 <li>
-                  Cut forecast error from 9% to 7%, which enabled revenue from power brokerage on the Korea Power Exchange.
-                  Improved anomaly-detection precision by ~35% and recall by ~37%.
+                  Cut the forecast error from 9% to 7%, which let the company sell the plants' power on the Korea Power
+                  Exchange. Raised the detector's precision by about 35 percentage points and its recall by about 37.
                 </li>
               </ul>
             </div>
@@ -478,8 +491,8 @@
               <li>
                 <span class="what">Daejeon Global Tech Coffee</span>
                 <span class="who">
-                  Started an English-friendly meetup in Daejeon for people in tech, AI, and data. Later sessions added a
-                  screen for code and AI-agent demos.
+                  I started an English-friendly meetup in Daejeon for people in tech, AI, and data. Later sessions added
+                  a screen for code and AI-agent demos.
                 </span>
                 <span class="when">Since January 2026</span>
               </li>

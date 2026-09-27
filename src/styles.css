@@ -41,7 +41,7 @@
   --shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 4px 16px rgb(16 24 40 / 0.05);
   --shadow-pop: 0 2px 6px rgb(16 24 40 / 0.06), 0 12px 32px rgb(16 24 40 / 0.14);
   --container: 1080px;
-  --reading: 720px;
+  --reading: 600px; /* about 75 characters of body text per line */
   --gutter: clamp(16px, 4vw, 32px);
   --section-gap: clamp(64px, 9vw, 112px);
 }
@@ -599,14 +599,14 @@ strong {
 }
 
 .hero .lead {
-  max-width: 44rem;
+  max-width: 38rem;
   margin-top: 22px;
   font-size: clamp(1.125rem, 2vw, 1.3rem);
   line-height: 1.55;
 }
 
 .hero .sub {
-  max-width: 44rem;
+  max-width: 38rem;
   margin-top: 14px;
   color: var(--text-2);
 }
@@ -615,7 +615,7 @@ strong {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  max-width: 44rem;
+  max-width: 38rem;
   margin-top: 22px;
   color: var(--text-2);
   font-size: 0.9375rem;
@@ -1084,6 +1084,10 @@ strong {
   display: block;
   color: var(--text-2);
   font-size: 0.875rem;
+}
+
+.role-body {
+  max-width: var(--reading);
 }
 
 .role-body h3 {

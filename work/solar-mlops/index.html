@@ -5,14 +5,14 @@
     <title>Solar forecasting and anomaly detection in production — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Case study: leading the team that took solar power forecasting and solar power-plant anomaly detection into production. Forecast error 9% to 7%, anomaly precision up ~35%, deploys from 3 hours to 15 minutes."
+      content="Case study: I led the team that put a solar output forecast and a fault detector for solar plants into production. Forecast error 9% to 7%, detector precision up 35 points, deploys from 3 hours to 15 minutes."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/work/solar-mlops/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Solar forecasting and anomaly detection in production — case study" />
     <meta
       property="og:description"
-      content="Forecast error 9% to 7%, anomaly precision up ~35% and recall up ~37%, deploys from 3 hours to 15 minutes, 80% less manual ops work."
+      content="Forecast error 9% to 7%, detector precision up 35 points and recall up 37, deploys from 3 hours to 15 minutes, 80% less manual operations work."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/work/solar-mlops/" />
   </head>
@@ -29,9 +29,10 @@
           </div>
           <h1>Solar forecasting and anomaly detection, in production</h1>
           <p class="lead">
-            At Recs Innovation I was promoted twice, from intern to AI Team Lead. I led the team that took solar power
-            forecasting and anomaly detection for solar power plants into production, with the inference services
-            connected to a Virtual Power Plant (VPP) platform.
+            I joined Recs Innovation as an intern and was leading its AI team four months later. The team put two models
+            into production: one forecasts how much power a solar plant will make, and one flags unusual readings in the
+            plant's data. Both fed a commercial Virtual Power Plant (VPP), a platform that runs many plants together as
+            one.
           </p>
           <dl class="glance">
             <div>
@@ -40,7 +41,7 @@
             </div>
             <div>
               <dt>Result</dt>
-              <dd>Forecast error from 9% to 7%. Anomaly precision up ~35%, recall up ~37%. Deploys from 3 hours to 15 minutes.</dd>
+              <dd>Forecast error fell from 9% to 7%. Detector precision rose 35 points and recall 37. A deploy took 15 minutes instead of 3 hours.</dd>
             </div>
             <div>
               <dt>Stack</dt>
@@ -48,7 +49,7 @@
             </div>
             <div>
               <dt>Business impact</dt>
-              <dd>Revenue from power brokerage on the Korea Power Exchange (KPX). 80% less manual ops work (~$48K/year).</dd>
+              <dd>The forecast let the company earn revenue from power brokerage on the Korea Power Exchange (KPX). Manual operations work fell 80%, about $48K a year.</dd>
             </div>
           </dl>
         </header>
@@ -56,13 +57,15 @@
         <div class="case-body container">
           <div class="prose">
             <h2>The problem</h2>
-            <p>The company needed two models working in production, not just in experiments:</p>
+            <p>
+              The company was entering power brokerage, which means selling the output of small solar plants on the
+              Korea Power Exchange (KPX). To take part, a company must forecast the plants' output accurately enough.
+            </p>
+            <p>The company also needed to notice problems at a plant early, from the readings the plant sends.</p>
+            <p>So two models had to work in production, not just in experiments:</p>
             <ul>
-              <li>
-                a <strong>solar generation forecast</strong> accurate enough for power brokerage on the Korea Power
-                Exchange (KPX), and
-              </li>
-              <li><strong>anomaly detection</strong> that watches data from solar power plants.</li>
+              <li>a <strong>forecast</strong> of each plant's output, accurate enough for KPX, and</li>
+              <li>a <strong>detector</strong> that flags unusual readings in a plant's data.</li>
             </ul>
             <p>Both had to run reliably and plug into a commercial VPP platform.</p>
 
@@ -72,7 +75,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Plant data</span>
-                  <span class="step-desc">Multivariate time-series data from solar power plants.</span>
+                  <span class="step-desc">Time-series readings from solar power plants, many measurements per plant.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
@@ -82,7 +85,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Models</span>
-                  <span class="step-desc">A solar generation forecast and a graph-based (GNN) anomaly detector.</span>
+                  <span class="step-desc">A forecast of each plant's output and a graph-based (GNN) anomaly detector.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
@@ -100,7 +103,7 @@
                 <li><strong>Infrastructure</strong>Docker Compose services with PostgreSQL</li>
                 <li><strong>Monitoring</strong>Prometheus metrics and Grafana dashboards</li>
               </ul>
-              <figcaption id="flow-caption">Simplified view of the production setup.</figcaption>
+              <figcaption id="flow-caption">The production setup.</figcaption>
             </figure>
             <p class="shots-note">
               Screenshots of the production system. The plant's name, location, and sales figures are covered.
@@ -126,12 +129,12 @@
             <h2>Forecasting</h2>
             <ul>
               <li>
-                As AI Developer, I built a PyTorch solar generation forecast with under 10% average error. That qualified
-                the company for KPX business.
+                As AI Developer, I built the first forecast model in PyTorch. Its average error was under 10%, which
+                qualified the company for KPX business.
               </li>
               <li>
-                As team lead, I cut the forecast error from 9% to 7% (22% lower), which enabled revenue from KPX power
-                brokerage.
+                As team lead, I cut the error from 9% to 7% by analyzing the data and tuning the model. That made
+                revenue from power brokerage possible.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-forecast">
@@ -199,35 +202,41 @@
 
             <h2>Anomaly detection for solar power plants</h2>
             <p>
-              I worked on multivariate time-series anomaly detection with a graph-based model (GNNAD). The gains came step
-              by step:
+              The detector is a graph neural network (GNNAD). It learns how a plant's readings normally move together
+              and flags readings that break the pattern.
+            </p>
+            <p>
+              As an intern, I tuned its first version, tracked the experiments in MLflow, and built the FastAPI
+              endpoints that connect it to the VPP platform. As team lead, I raised its accuracy step by step and
+              measured each step:
             </p>
             <ul>
               <li>
-                <strong>Clearer view of errors.</strong> I refactored the open-source codebase heavily and added plots that
-                compare predictions with actual data for every feature.
+                <strong>A clearer view of errors.</strong> I refactored the open-source code heavily and added plots
+                that compare the prediction with the actual reading for every feature, so we could see where the model
+                went wrong.
               </li>
-              <li><strong>Better error calculation:</strong> precision +5%, recall +7%.</li>
+              <li><strong>A better error calculation</strong> raised precision by 5 points and recall by 7.</li>
               <li>
-                <strong>Hourly thresholds:</strong> 24 thresholds instead of one global threshold, to follow how the error
-                changes during the day. Recall +10%.
-              </li>
-              <li>
-                <strong>Cleaner training data:</strong> removing anomalous points from the training set gave precision +30%
-                and recall +20%.
+                <strong>Hourly thresholds.</strong> One threshold for the whole day missed anomalies at some hours,
+                because the error changes during the day. Using 24 thresholds, one per hour, raised recall by 10 points.
               </li>
               <li>
-                <strong>Honest validation:</strong> cross-validation that matches production, with 16-point inference
-                windows, hourly thresholds, and nightly retraining.
+                <strong>Cleaner training data.</strong> Removing anomalous points from the training set raised precision
+                by 30 points and recall by 20.
+              </li>
+              <li>
+                <strong>Honest validation.</strong> The cross-validation runs the way production does, with 16-point
+                inference windows, hourly thresholds, and nightly retraining, so a good test score means a good
+                production score.
               </li>
             </ul>
             <p>
-              <strong>Overall, precision rose by about 35% and recall by about 37%.</strong> Earlier, as an intern, I had
-              tuned the GNN model to 70% precision and 50% recall, tracked the experiments in MLflow, and built the FastAPI
-              endpoints that connect the anomaly detection system to the VPP platform.
+              <strong>In total, precision rose by about 35 percentage points and recall by about 37.</strong> In plain
+              terms, the detector raised far fewer false alarms and missed far fewer real problems.
             </p>
             <figure class="chart" aria-labelledby="chart-anomaly">
-              <figcaption id="chart-anomaly" class="chart-title">Where the gains came from, in percent</figcaption>
+              <figcaption id="chart-anomaly" class="chart-title">Where the gains came from, in percentage points</figcaption>
               <div class="bars">
                 <div class="bar-row">
                   <span class="bar-label">Precision</span>
@@ -235,7 +244,7 @@
                     <span class="bar seg-1" style="--v: 12.5">+5</span>
                     <span class="bar seg-3" style="--v: 75">+30</span>
                   </span>
-                  <span class="bar-value">+35%</span>
+                  <span class="bar-value">+35 pts</span>
                 </div>
                 <div class="bar-row">
                   <span class="bar-label">Recall</span>
@@ -244,7 +253,7 @@
                     <span class="bar seg-2" style="--v: 25">+10</span>
                     <span class="bar seg-3" style="--v: 50">+20</span>
                   </span>
-                  <span class="bar-value">+37%</span>
+                  <span class="bar-value">+37 pts</span>
                 </div>
               </div>
               <ul class="chart-legend">
@@ -304,12 +313,13 @@
             <h2>MLOps and deployment</h2>
             <ul>
               <li>
-                I containerized the anomaly detection system and automated deployments with GitHub Actions. Deployment
-                time fell from 3 hours to 15 minutes.
+                As AI Developer, I put the detector in containers and automated its deployment with GitHub Actions. A
+                deploy took 15 minutes instead of 3 hours.
               </li>
               <li>
-                I built end-to-end MLOps infrastructure with Docker Compose, GitHub Actions, PostgreSQL, Prometheus, and
-                Grafana. Manual operations fell by 80%, saving about $48K a year.
+                As team lead, I built the rest of the MLOps setup: Docker Compose services with PostgreSQL, deployments
+                from GitHub Actions, and Prometheus metrics on Grafana dashboards. Manual operations work fell by 80%,
+                which saved about $48K a year.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-ops">
@@ -350,20 +360,20 @@
 
             <h2>Leading the team</h2>
             <p>
-              As AI Team Lead, I managed the ML, backend, and frontend teams and made sure the models plugged cleanly into
-              the VPP platform.
+              As AI Team Lead, I managed the ML, backend, and frontend teams. My job was to make sure the models did not
+              stay experiments: they had to run every day and plug cleanly into the VPP platform.
             </p>
 
             <h2>Results</h2>
             <ul class="metric-grid">
-              <li><span class="num">9% → 7%</span><span class="lbl">forecast error, enabling KPX power-brokerage revenue</span></li>
-              <li><span class="num">+35% / +37%</span><span class="lbl">anomaly-detection precision / recall</span></li>
+              <li><span class="num">9% → 7%</span><span class="lbl">forecast error, which made KPX brokerage revenue possible</span></li>
+              <li><span class="num">+35 / +37 pts</span><span class="lbl">detector precision / recall</span></li>
               <li><span class="num">3 h → 15 min</span><span class="lbl">deployment time</span></li>
-              <li><span class="num">−80%</span><span class="lbl">manual operations work (~$48K/year)</span></li>
+              <li><span class="num">−80%</span><span class="lbl">manual operations work, about $48K a year</span></li>
             </ul>
 
             <p class="callout">
-              This write-up is simplified. It contains no employer code, internal data, or private URLs.
+              This page leaves out employer code, internal data, and private URLs.
             </p>
           </div>
 

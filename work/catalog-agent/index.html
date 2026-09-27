@@ -29,18 +29,18 @@
           </div>
           <h1>LangGraph agent for catalog data</h1>
           <p class="lead">
-            Loading third-party catalog data was slow, manual work for the data team. I built an agent workflow that
-            turns a short request into clean, catalog-ready parts data, with scheduling, resumable jobs, and a report
-            anyone can check.
+            The data team loaded third-party catalog data by hand, and it was slow. I built an agent workflow that takes
+            a short request, fetches the matching parts data, cleans it, and writes it into the catalog. Jobs run on a
+            schedule, resume after a failure, and end with a report anyone can check.
           </p>
           <dl class="glance">
             <div>
               <dt>My role</dt>
-              <dd>Sole developer: research, architecture, the agent, scheduling, and the demo UI.</dd>
+              <dd>I built it alone: the research, the architecture, the agent, the scheduling, and the demo UI.</dd>
             </div>
             <div>
               <dt>Status</dt>
-              <dd>Working prototype with a demo UI for the data team. Not in production when I left in July 2026.</dd>
+              <dd>A working prototype with a demo UI for the data team. It was not in production when I left in July 2026.</dd>
             </div>
             <div>
               <dt>Stack</dt>
@@ -101,7 +101,7 @@
                 <li><strong>Cache</strong>Catalog data cached down to the group level</li>
                 <li><strong>Controls</strong>Scope limits, job status, and visible API usage</li>
               </ul>
-              <figcaption id="flow-caption">Simplified view of the agent workflow.</figcaption>
+              <figcaption id="flow-caption">The agent workflow.</figcaption>
             </figure>
 
             <h2>What I built</h2>
@@ -116,28 +116,27 @@
                 workflow is structured, easy to inspect, and able to resume after a failure.
               </li>
               <li>
-                <strong>Built for very large jobs.</strong> Chunked, resumable saves handle vehicle models with 100K+
-                variations.
+                <strong>Built for very large jobs.</strong> Saves are chunked and resumable, so a vehicle model with
+                100K+ variations does not start over after a failure.
               </li>
               <li>
-                <strong>Scheduling.</strong> APScheduler with a small UI for scheduled and manual runs, including a fix for
-                duplicate job registration.
+                <strong>Scheduling.</strong> APScheduler runs jobs on a schedule or on demand, from a small UI.
               </li>
               <li>
                 <strong>Output people can audit.</strong> Automatic reports show how each batch was normalized and mapped,
                 so non-engineers can review the result.
               </li>
               <li>
-                <strong>Documentation.</strong> Reference docs for the catalog schema: which tables the agent reads, and
-                which it writes.
+                <strong>Documentation.</strong> I wrote reference docs for the catalog schema that say which tables the
+                agent reads and which it writes.
               </li>
             </ul>
 
             <h2>Engineering judgment</h2>
             <p>
-              Before building, I compared build and buy. I looked at existing AI data-collection tools and workflow
-              engines (Airflow, Prefect, Celery) and chose a lightweight approach that fit the project's stage, with a
-              path to scale later.
+              Before building, I compared building with buying. I looked at existing AI data-collection tools and at
+              workflow engines such as Airflow, Prefect, and Celery, and chose a lightweight approach that fit the
+              project's stage and could grow later.
             </p>
             <p>
               I also kept job scope and billable API use visible, instead of hiding them behind autonomous behavior. The
@@ -146,12 +145,12 @@
 
             <h2>Status</h2>
             <p>
-              A working prototype with scheduling and a demo UI for the data team. It was being merged into a single
-              internal admin tool. It was not in production when I left in July 2026.
+              The prototype works, with scheduling and a demo UI for the data team, and it was being merged into a
+              single internal admin tool. It was not in production when I left in July 2026.
             </p>
 
             <p class="callout">
-              This write-up is simplified. It contains no employer code, internal data, or private URLs.
+              This page leaves out employer code, internal data, and private URLs.
             </p>
           </div>
 

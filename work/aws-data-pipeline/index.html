@@ -5,14 +5,14 @@
     <title>Serverless data pipeline on AWS — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Case study: an event-driven AWS pipeline (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch) that collected used-parts market data, reaching about 5M listings per day in testing."
+      content="Case study: an event-driven AWS pipeline (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch) that collected used-parts listings for pricing research. It reached its target of 5M listings a day in testing."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/work/aws-data-pipeline/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Serverless data pipeline on AWS — case study" />
     <meta
       property="og:description"
-      content="Lambda workers, SQS with a dead-letter queue, EventBridge schedules, PostgreSQL, and CloudWatch alarms. About 5M listings per day in testing."
+      content="Lambda workers, SQS with a dead-letter queue, EventBridge schedules, PostgreSQL, and CloudWatch alarms. It reached its target of 5M listings a day in testing."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/work/aws-data-pipeline/" />
   </head>
@@ -29,17 +29,18 @@
           </div>
           <h1>Serverless data pipeline on AWS</h1>
           <p class="lead">
-            Pricing research needed a steady feed of used-parts market data. I designed, built, and ran an event-driven
-            pipeline on AWS that reached about 5 million listings a day in testing.
+            Pricing research needed a steady feed of used-parts listings from the market. I designed, built, and ran an
+            event-driven pipeline on AWS. In testing it reached the target of 5 million listings a day, on the smallest
+            database instance.
           </p>
           <dl class="glance">
             <div>
               <dt>My role</dt>
-              <dd>Sole designer, builder, and operator, as part of taking over AWS from a senior engineer who left.</dd>
+              <dd>I designed, built, and ran it alone, after taking over the AWS infrastructure from a senior engineer who left.</dd>
             </div>
             <div>
               <dt>Result</dt>
-              <dd>~5M listings per day in testing. Ran daily in production with monitoring and alerts.</dd>
+              <dd>5M listings a day in testing. In daily production, the source's rate limits held it to about 5,000.</dd>
             </div>
             <div>
               <dt>Stack</dt>
@@ -75,7 +76,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Queue</span>
-                  <span class="step-desc">SQS holds the work. It replaced an earlier “database as a queue” design. Failed messages go to a dead-letter queue.</span>
+                  <span class="step-desc">SQS holds the work, replacing an earlier design that used the database as a queue. Failed messages go to a dead-letter queue.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
@@ -98,7 +99,7 @@
                 <li><strong>Monitoring Lambda</strong>Read-only job that reports database health to CloudWatch</li>
                 <li><strong>Health checks</strong>AWS CLI scripts that run on any OS</li>
               </ul>
-              <figcaption id="flow-caption">Simplified view. Service names are generic AWS building blocks.</figcaption>
+              <figcaption id="flow-caption">The pipeline, built from standard AWS services.</figcaption>
             </figure>
 
             <h2>Built to slow down, not fall over</h2>
@@ -121,42 +122,50 @@
             <h2>Observability and operations</h2>
             <ul>
               <li>
-                <strong>Alarms</strong> for the things that matter: orchestrator down, worker failures, concurrency
-                throttling, queue backlog and message age, blocked-page rate, database write failures, and listings per day.
+                <strong>Alarms for what matters.</strong> CloudWatch alerts me when the orchestrator stops, workers
+                fail, Lambda throttles them, the queue backs up or its messages grow old, pages get blocked, database
+                writes fail, or the daily count of listings drops.
               </li>
               <li>
-                <strong>Health checks</strong> with AWS CLI scripts, plus a small read-only Lambda that posts database
-                health to CloudWatch.
+                <strong>Health checks.</strong> AWS CLI scripts check the pipeline from any machine, and a small
+                read-only Lambda posts database health to CloudWatch.
               </li>
               <li>
-                <strong>Written procedures</strong> for throttling or stopping Lambdas and purging queues, so a runaway
-                job can't run up costs.
+                <strong>Written procedures.</strong> They say how to throttle or stop the Lambdas and purge the queues,
+                so a runaway job cannot run up costs.
               </li>
             </ul>
 
             <h2>Hardening after senior review</h2>
-            <p>
-              PostgreSQL statement timeouts, a URL allow-list, response-size limits, failing fast on suspicious empty
-              pages, atomic write paths, and structured failure capture. I also removed an expensive
-              <code>COUNT(*)</code> from the hot path, added index maintenance tools, and set retention policies for ECR
-              images and CloudWatch logs to control cost.
-            </p>
+            <p>A senior engineer reviewed the pipeline, and I hardened it from that review:</p>
+            <ul>
+              <li>Every database query has a timeout, and every write is atomic.</li>
+              <li>Workers fetch only URLs on an allow-list and reject responses that are too large.</li>
+              <li>
+                A page that comes back suspiciously empty fails fast, and each failure is recorded with its context.
+              </li>
+              <li>
+                I removed an expensive <code>COUNT(*)</code> from the hot path and added tools for index maintenance.
+              </li>
+              <li>Retention policies for ECR images and CloudWatch logs keep storage costs down.</li>
+            </ul>
 
             <h2>Results</h2>
             <ul class="metric-grid">
-              <li><span class="num">~5M/day</span><span class="lbl">listings, reaching the target in testing</span></li>
-              <li><span class="num">Daily</span><span class="lbl">collection, storage, and alerting in production</span></li>
+              <li><span class="num">5M/day</span><span class="lbl">the target, reached in testing on the smallest RDS instance</span></li>
+              <li><span class="num">~5,000/day</span><span class="lbl">the rate the source's limits allowed in production</span></li>
+              <li><span class="num">Daily</span><span class="lbl">collection, storage, and alerts in production</span></li>
               <li><span class="num">7 brands</span><span class="lbl">covered for the company's pricing research</span></li>
             </ul>
             <p>
-              <strong>What I learned:</strong> when the source tightened its rate limits, sustainable throughput fell to
-              about 5,000 listings a day, which became the normal operating rate. At this scale, the real limit is often
-              the data source, not the infrastructure, so back-off has to be part of the design from day one.
+              <strong>What I learned:</strong> the pipeline could handle 5 million listings a day, but the source could
+              not. When it tightened its rate limits, the sustainable rate fell to about 5,000 listings a day, and that
+              became normal operation. At this scale the data source, not the infrastructure, sets the limit, so backing
+              off has to be part of the design from day one.
             </p>
 
             <p class="callout">
-              This write-up is simplified. It contains no employer code, internal data, or private URLs, and the data
-              source is not named.
+              This page leaves out employer code, internal data, and private URLs, and it does not name the data source.
             </p>
           </div>
 
