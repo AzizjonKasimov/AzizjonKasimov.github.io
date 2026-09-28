@@ -1249,6 +1249,12 @@ strong {
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
+/* A landscape certificate: a portrait thumbnail turned on its side, so its height matches the
+   portrait thumbnails' width. */
+.scans a.landscape {
+  width: 79px;
+}
+
 .scans a:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
@@ -1281,6 +1287,10 @@ strong {
 
   .scans a {
     width: 48px;
+  }
+
+  .scans a.landscape {
+    width: 68px;
   }
 }
 

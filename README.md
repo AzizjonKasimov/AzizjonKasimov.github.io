@@ -207,18 +207,24 @@ their covered copies. To add a certificate:
    making the images. The Korean diploma, for example, is shown from a copy with the date of birth
    covered (`education/certificates/woosong-diploma-ko-birthdate-covered.jpg` in the portfolio
    repo).
-2. Make the images. The script writes `<name>.jpg` (1240 px wide, to read) and `<name>-thumb.jpg`
+2. If you only have a phone photo of the certificate, first make it look like a scan: cut it to the
+   sheet, straighten it, and even out the light, so the paper is white. The Business Plan
+   Competition certificate was made this way, and the portfolio repo keeps the cleaned copy
+   (`awards/certificates/silicon-valley-business-plan-finalist.jpg`), not the photo, because a
+   phone photo's metadata holds the place where it was taken.
+3. Make the images. The script writes `<name>.jpg` (1240 px wide, to read) and `<name>-thumb.jpg`
    (400 px wide) and drops the scan's metadata:
 
    ```powershell
    .\tools\web-images.ps1 -Kind certificate -Source <scan.pdf|.jpg|.png> -Name <file-name>
    ```
 
-3. Add the thumbnail to its entry in `index.html` and in every translation, then run
+4. Add the thumbnail to its entry in `index.html` and in every translation, then run
    `npm run check`. An entry with scans is an `<li class="has-scans">`: its text goes in the first
    `<div>`, and the thumbnail links go in `<div class="scans">` (see `.has-scans` in
-   `src/styles.css`). Two scans sit side by side and stack on phones. Give each image an `alt` that
-   names the document, in the page's language.
+   `src/styles.css`). Two scans sit side by side and stack on phones. A landscape certificate's link
+   gets `class="landscape"`, which makes it wider, so it is as tall as the portrait thumbnails are
+   wide. Give each image an `alt` that names the document, in the page's language.
 
 The same script makes screenshots (`-Kind screenshot`: `public/screenshots/`, the full image up to
 1600 px wide so small text stays readable, a 960 px `-medium` image for phones, and a 480 px
