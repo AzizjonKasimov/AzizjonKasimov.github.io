@@ -5,14 +5,14 @@
     <title>AWS 서버리스 데이터 파이프라인 — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="프로젝트 사례: 중고 부품 시장 데이터를 수집한 이벤트 기반 AWS 파이프라인(Lambda, SQS, EventBridge, PostgreSQL, CloudWatch). 테스트에서 하루 약 500만 건의 매물을 수집했습니다."
+      content="프로젝트 사례: 가격 분석을 위해 중고 부품 매물을 수집한 이벤트 기반 AWS 파이프라인(Lambda, SQS, EventBridge, PostgreSQL, CloudWatch). 테스트에서 하루 500만 건이라는 목표를 달성했습니다."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/ko/work/aws-data-pipeline/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="AWS 서버리스 데이터 파이프라인 — 프로젝트 사례" />
     <meta
       property="og:description"
-      content="Lambda 워커, 데드레터 큐를 갖춘 SQS, EventBridge 스케줄, PostgreSQL, CloudWatch 알람. 테스트에서 하루 약 500만 건."
+      content="Lambda 워커, 데드레터 큐를 갖춘 SQS, EventBridge 스케줄, PostgreSQL, CloudWatch 알람. 테스트에서 하루 500만 건이라는 목표를 달성했습니다."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/ko/work/aws-data-pipeline/" />
   </head>
@@ -29,17 +29,17 @@
           </div>
           <h1>AWS 서버리스 데이터 파이프라인</h1>
           <p class="lead">
-            가격 분석에는 중고 부품 시장 데이터가 꾸준히 필요했습니다. 저는 AWS에서 이벤트 기반 파이프라인을 설계하고
-            구축해 운영했으며, 테스트에서 하루 약 500만 건의 매물을 수집했습니다.
+            가격 분석에는 시장의 중고 부품 매물이 꾸준히 들어오는 피드가 필요했습니다. 저는 AWS에서 이벤트 기반 파이프라인을 설계하고, 구축하고, 운영했습니다. 테스트에서는 가장 작은 데이터베이스
+            인스턴스로 하루 500만 건이라는 목표에 도달했습니다.
           </p>
           <dl class="glance">
             <div>
               <dt>역할</dt>
-              <dd>퇴사한 시니어 엔지니어에게서 AWS를 인수받으며, 설계와 구축, 운영을 혼자 맡았습니다.</dd>
+              <dd>퇴사한 시니어 엔지니어에게서 AWS 인프라를 인수받은 뒤, 설계와 구축, 운영을 혼자 맡았습니다.</dd>
             </div>
             <div>
               <dt>결과</dt>
-              <dd>테스트에서 하루 약 500만 건. 프로덕션에서 모니터링과 알림을 갖추고 매일 운영했습니다.</dd>
+              <dd>테스트에서 하루 500만 건의 매물을 수집했습니다. 매일 실행된 프로덕션에서는 데이터 소스의 속도 제한 때문에 하루 약 5,000건에 머물렀습니다.</dd>
             </div>
             <div>
               <dt>기술 스택</dt>
@@ -75,7 +75,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">큐</span>
-                  <span class="step-desc">SQS가 작업을 보관합니다. 이전의 “데이터베이스를 큐로 쓰는” 설계를 대체했습니다. 실패한 메시지는 데드레터 큐로 이동합니다.</span>
+                  <span class="step-desc">SQS가 작업을 보관하며, 데이터베이스를 큐로 쓰던 이전 설계를 대체했습니다. 실패한 메시지는 데드레터 큐로 이동합니다.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
@@ -98,7 +98,7 @@
                 <li><strong>모니터링 Lambda</strong>데이터베이스 상태를 CloudWatch에 보고하는 읽기 전용 작업</li>
                 <li><strong>상태 점검</strong>어떤 OS에서도 실행되는 AWS CLI 스크립트</li>
               </ul>
-              <figcaption id="flow-caption">단순화한 구조입니다. 서비스 이름은 일반적인 AWS 구성 요소입니다.</figcaption>
+              <figcaption id="flow-caption">표준 AWS 서비스로 구성한 파이프라인입니다.</figcaption>
             </figure>
 
             <h2>무너지지 않고 속도를 늦추는 설계</h2>
@@ -121,42 +121,43 @@
             <h2>관측성과 운영</h2>
             <ul>
               <li>
-                중요한 항목에 대한 <strong>알람</strong>: 오케스트레이터 중단, 워커 실패, 동시성 스로틀링, 큐 적체와
-                메시지 대기 시간, 차단된 페이지 비율, 데이터베이스 쓰기 실패, 일일 매물 수.
+                <strong>중요한 것에 대한 알람.</strong> 오케스트레이터가 멈추거나, 워커가 실패하거나, Lambda가 워커 실행을 제한(스로틀링)하거나, 큐가 밀리거나 메시지가 오래
+                대기하거나, 페이지가 차단되거나, 데이터베이스 쓰기가 실패하거나, 일일 매물 수가 떨어지면 CloudWatch가 저에게 알립니다.
               </li>
               <li>
-                AWS CLI 스크립트를 이용한 <strong>상태 점검</strong>, 그리고 데이터베이스 상태를 CloudWatch에 보내는 작은
-                읽기 전용 Lambda.
+                <strong>상태 점검.</strong> AWS CLI 스크립트로 어떤 컴퓨터에서든 파이프라인 상태를 점검하고, 작은 읽기 전용 Lambda가 데이터베이스 상태를 CloudWatch에
+                보냅니다.
               </li>
               <li>
-                Lambda를 제한하거나 중지하고 큐를 비우는 <strong>문서화된 절차</strong>. 폭주하는 작업이 비용을 키우지
-                못하게 합니다.
+                <strong>문서화된 절차.</strong> Lambda를 제한하거나 중지하고 큐를 비우는 방법을 적어 두어, 폭주하는 작업이 비용을 키우지 못하게 합니다.
               </li>
             </ul>
 
             <h2>시니어 리뷰 후 안정성 강화</h2>
-            <p>
-              PostgreSQL 구문 타임아웃, URL 허용 목록, 응답 크기 제한, 의심스러운 빈 페이지에서의 빠른 실패 처리, 원자적
-              쓰기 경로, 구조화된 실패 기록을 적용했습니다. 또한 자주 실행되는 경로에서 비용이 큰
-              <code>COUNT(*)</code>를 제거하고, 인덱스 유지 관리 도구를 추가했으며, 비용 관리를 위해 ECR 이미지와
-              CloudWatch 로그의 보존 정책을 설정했습니다.
-            </p>
+            <p>시니어 엔지니어가 파이프라인을 리뷰했고, 저는 그 리뷰를 바탕으로 파이프라인을 강화했습니다.</p>
+            <ul>
+              <li>모든 데이터베이스 쿼리에 타임아웃이 있고, 모든 쓰기는 원자적입니다.</li>
+              <li>워커는 허용 목록에 있는 URL만 가져오고, 너무 큰 응답은 거부합니다.</li>
+              <li>의심스럽게 비어 있는 페이지는 바로 실패로 처리하고, 각 실패는 맥락과 함께 기록합니다.</li>
+              <li>자주 실행되는 경로에서 비용이 큰 <code>COUNT(*)</code>를 제거하고, 인덱스 유지 관리 도구를 추가했습니다.</li>
+              <li>ECR 이미지와 CloudWatch 로그의 보존 정책으로 저장 비용을 낮게 유지합니다.</li>
+            </ul>
 
             <h2>결과</h2>
             <ul class="metric-grid">
-              <li><span class="num">약 500만/일</span><span class="lbl">매물 수, 테스트에서 목표 달성</span></li>
+              <li><span class="num">500만/일</span><span class="lbl">목표치. 가장 작은 RDS 인스턴스로 테스트에서 달성</span></li>
+              <li><span class="num">약 5,000/일</span><span class="lbl">프로덕션에서 데이터 소스의 제한이 허용한 속도</span></li>
               <li><span class="num">매일</span><span class="lbl">프로덕션에서의 수집, 저장, 알림</span></li>
               <li><span class="num">7개 브랜드</span><span class="lbl">회사의 가격 분석을 위한 수집 범위</span></li>
             </ul>
             <p>
-              <strong>배운 점:</strong> 소스가 속도 제한을 강화하자 지속 가능한 처리량은 하루 약 5,000건으로 떨어졌고,
-              이것이 평소 운영 수준이 되었습니다. 이 규모에서는 인프라보다 데이터 소스가 실제 한계인 경우가 많으므로,
-              백오프는 처음부터 설계에 포함해야 합니다.
+              <strong>배운 점:</strong> 파이프라인은 하루 500만 건의 매물을 처리할 수 있었지만, 데이터 소스는 그렇지 못했습니다. 소스가 속도 제한을 강화하자 지속 가능한 속도는 하루
+              약 5,000건으로 떨어졌고, 이것이 평소 운영 수준이 되었습니다. 이 규모에서는 인프라가 아니라 데이터 소스가 한계를 정하므로, 소스가 제동을 걸면 스스로 속도를 줄이는 백오프를 처음부터
+              설계에 넣어야 합니다.
             </p>
 
             <p class="callout">
-              이 글은 단순화한 내용입니다. 회사 코드, 내부 데이터, 비공개 URL은 포함하지 않았으며, 데이터 소스의 이름도
-              밝히지 않았습니다.
+              이 페이지에는 회사 코드, 내부 데이터, 비공개 URL을 싣지 않았고, 데이터 소스의 이름도 밝히지 않았습니다.
             </p>
           </div>
 

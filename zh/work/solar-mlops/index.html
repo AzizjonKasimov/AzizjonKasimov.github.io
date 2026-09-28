@@ -5,14 +5,14 @@
     <title>投入生产的光伏发电预测与异常检测 — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="项目案例：带领团队将光伏发电预测和光伏电站异常检测投入生产。预测误差从 9% 降至 7%，异常检测精确率提升约 35%，部署时间从 3 小时缩短至 15 分钟。"
+      content="项目案例：我带领团队把光伏发电量预测和光伏电站故障检测器投入生产。预测误差从 9% 降至 7%，检测器精确率提高 35 个百分点，部署时间从 3 小时缩短至 15 分钟。"
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/solar-mlops/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="投入生产的光伏发电预测与异常检测 — 项目案例" />
     <meta
       property="og:description"
-      content="预测误差从 9% 降至 7%，异常检测精确率提升约 35%、召回率提升约 37%，部署时间从 3 小时缩短至 15 分钟，人工运维工作减少 80%。"
+      content="预测误差从 9% 降至 7%，检测器精确率提高 35 个百分点、召回率提高 37 个百分点，部署时间从 3 小时缩短至 15 分钟，人工运维工作减少 80%。"
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/solar-mlops/" />
   </head>
@@ -29,7 +29,8 @@
           </div>
           <h1>投入生产的光伏发电预测与异常检测</h1>
           <p class="lead">
-            在 Recs Innovation，我两次获得晋升，从实习生成为 AI Team Lead。我带领团队将光伏发电预测和光伏电站异常检测投入生产，推理服务接入了虚拟电厂（VPP）平台。
+            我以实习生身份加入 Recs Innovation，四个月后开始带领公司的 AI
+            团队。团队把两个模型投入生产：一个预测光伏电站会发多少电，另一个标记电站数据中的异常读数。两者都接入了一个商业化的虚拟电厂（VPP），即一个把许多电站当作一个整体来运行的平台。
           </p>
           <dl class="glance">
             <div>
@@ -38,7 +39,7 @@
             </div>
             <div>
               <dt>成果</dt>
-              <dd>预测误差从 9% 降至 7%。异常检测精确率提升约 35%，召回率提升约 37%。部署时间从 3 小时缩短至 15 分钟。</dd>
+              <dd>预测误差从 9% 降至 7%。异常检测器的精确率提高了 35 个百分点，召回率提高了 37 个百分点。一次部署从 3 小时缩短至 15 分钟。</dd>
             </div>
             <div>
               <dt>技术栈</dt>
@@ -46,7 +47,7 @@
             </div>
             <div>
               <dt>业务影响</dt>
-              <dd>在 Korea Power Exchange（KPX）获得电力中介收入。人工运维工作减少 80%（每年约 4.8 万美元）。</dd>
+              <dd>预测模型让公司得以通过在 Korea Power Exchange（韩国电力交易所，KPX）的电力中介业务获得收入。人工运维工作减少了 80%，每年约 4.8 万美元。</dd>
             </div>
           </dl>
         </header>
@@ -54,12 +55,14 @@
         <div class="case-body container">
           <div class="prose">
             <h2>问题</h2>
-            <p>公司需要两个在生产环境中运行的模型，而不只是停留在实验阶段：</p>
+            <p>
+              公司当时正在进入电力中介业务，也就是把小型光伏电站的发电量拿到 Korea Power Exchange（KPX）上出售。要参与这项业务，公司必须足够准确地预测电站的发电量。
+            </p>
+            <p>公司还需要根据电站发来的读数，尽早发现电站的问题。</p>
+            <p>因此，两个模型必须在生产环境中运行，而不只是停留在实验阶段：</p>
             <ul>
-              <li>
-                一个足够准确、可用于 Korea Power Exchange（KPX）电力中介交易的<strong>光伏发电预测</strong>；以及
-              </li>
-              <li>一个监测光伏电站数据的<strong>异常检测</strong>系统。</li>
+              <li>一个预测每座电站发电量的<strong>预测模型</strong>，准确度要满足 KPX 的要求；以及</li>
+              <li>一个标记电站数据中异常读数的<strong>检测器</strong>。</li>
             </ul>
             <p>两者都必须稳定运行，并接入一个商业化的 VPP 平台。</p>
 
@@ -69,7 +72,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">电站数据</span>
-                  <span class="step-desc">来自光伏电站的多变量时间序列数据。</span>
+                  <span class="step-desc">来自光伏电站的时间序列读数，每座电站有多项测量值。</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
@@ -79,7 +82,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">模型</span>
-                  <span class="step-desc">光伏发电预测模型和基于图（GNN）的异常检测器。</span>
+                  <span class="step-desc">每座电站的发电量预测模型和基于图（GNN）的异常检测器。</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
@@ -97,7 +100,7 @@
                 <li><strong>基础设施</strong>Docker Compose 服务与 PostgreSQL</li>
                 <li><strong>监控</strong>Prometheus 指标和 Grafana 仪表盘</li>
               </ul>
-              <figcaption id="flow-caption">生产环境部署的简化示意图。</figcaption>
+              <figcaption id="flow-caption">生产环境的部署结构。</figcaption>
             </figure>
             <p class="shots-note">
               生产系统的截图。电站名称、位置和销售数据已遮盖。
@@ -108,7 +111,7 @@
                   <img
                     src="/screenshots/recs-dashboard-thumb.jpg"
                     srcset="/screenshots/recs-dashboard-thumb.jpg 480w, /screenshots/recs-dashboard-medium.jpg 960w, /screenshots/recs-dashboard.jpg 1504w"
-                    sizes="(min-width: 784px) 702px, calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="405"
@@ -123,10 +126,10 @@
             <h2>发电预测</h2>
             <ul>
               <li>
-                作为 AI Developer，我用 PyTorch 构建了光伏发电预测模型，平均误差低于 10%，使公司具备了参与 KPX 业务的资格。
+                作为 AI Developer，我用 PyTorch 构建了第一个预测模型。它的平均误差低于 10%，这使公司具备了参与 KPX 业务的资格。
               </li>
               <li>
-                作为团队负责人，我把预测误差从 9% 降到 7%（降低 22%），从而带来了 KPX 电力中介收入。
+                作为团队负责人，我通过分析数据和调优模型，把误差从 9% 降至 7%。这让电力中介收入成为可能。
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-forecast">
@@ -150,7 +153,7 @@
                   <img
                     src="/screenshots/recs-forecast-bars-thumb.jpg"
                     srcset="/screenshots/recs-forecast-bars-thumb.jpg 480w, /screenshots/recs-forecast-bars-medium.jpg 960w, /screenshots/recs-forecast-bars.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="378"
@@ -165,7 +168,7 @@
                   <img
                     src="/screenshots/recs-forecast-week-thumb.jpg"
                     srcset="/screenshots/recs-forecast-week-thumb.jpg 480w, /screenshots/recs-forecast-week-medium.jpg 960w, /screenshots/recs-forecast-week.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="404"
@@ -180,7 +183,7 @@
                   <img
                     src="/screenshots/recs-forecast-page-thumb.jpg"
                     srcset="/screenshots/recs-forecast-page-thumb.jpg 480w, /screenshots/recs-forecast-page-medium.jpg 960w, /screenshots/recs-forecast-page.jpg 1242w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="462"
@@ -194,28 +197,31 @@
 
             <h2>光伏电站异常检测</h2>
             <p>
-              我使用基于图的模型（GNNAD）进行多变量时间序列异常检测。效果是一步步提升的：
+              这个异常检测器是一个图神经网络（GNNAD）。它学习电站各项读数在正常情况下如何一起变化，并标记出打破这种模式的读数。
+            </p>
+            <p>
+              作为实习生，我调优了它的第一个版本，用 MLflow 跟踪实验，并构建了把它接入 VPP 平台的 FastAPI 接口。作为团队负责人，我一步步提高了它的准确率，并衡量了每一步的效果：
             </p>
             <ul>
               <li>
-                <strong>更清楚地看到误差。</strong>我大幅重构了开源代码库，并添加了逐个特征对比预测值与实际数据的图表。
+                <strong>更清楚地看到误差。</strong>我大幅重构了开源代码，并添加了逐个特征对比预测值与实际读数的图表，这样我们就能看到模型错在哪里。
               </li>
-              <li><strong>更好的误差计算：</strong>精确率 +5%，召回率 +7%。</li>
+              <li><strong>更好的误差计算</strong>使精确率提高了 5 个百分点，召回率提高了 7 个百分点。</li>
               <li>
-                <strong>按小时设定阈值：</strong>用 24 个阈值代替一个全局阈值，以跟随误差在一天中的变化。召回率 +10%。
-              </li>
-              <li>
-                <strong>更干净的训练数据：</strong>从训练集中剔除异常点后，精确率 +30%，召回率 +20%。
+                <strong>按小时设定阈值。</strong>全天只用一个阈值时，某些时段的异常会被漏掉，因为误差在一天之内会变化。改用 24 个阈值、每小时一个后，召回率提高了 10 个百分点。
               </li>
               <li>
-                <strong>贴近生产的验证：</strong>与生产环境一致的交叉验证，采用 16 点推理窗口、按小时设定的阈值和每晚重新训练。
+                <strong>更干净的训练数据。</strong>从训练集中剔除异常点后，精确率提高了 30 个百分点，召回率提高了 20 个百分点。
+              </li>
+              <li>
+                <strong>贴近生产的验证。</strong>交叉验证按照生产环境的方式运行，采用 16 个数据点的推理窗口、按小时设定的阈值和每晚重新训练，因此测试成绩好就意味着生产环境中的成绩也好。
               </li>
             </ul>
             <p>
-              <strong>总体而言，精确率提升了约 35%，召回率提升了约 37%。</strong>更早之前，作为实习生，我将 GNN 模型调优到 70% 的精确率和 50% 的召回率，用 MLflow 跟踪实验，并构建了将异常检测系统接入 VPP 平台的 FastAPI 接口。
+              <strong>总计，精确率提高了约 35 个百分点，召回率提高了约 37 个百分点。</strong>用通俗的话说，检测器的误报少了很多，漏掉的真实问题也少了很多。
             </p>
             <figure class="chart" aria-labelledby="chart-anomaly">
-              <figcaption id="chart-anomaly" class="chart-title">提升来自哪里（单位：%）</figcaption>
+              <figcaption id="chart-anomaly" class="chart-title">提升来自哪里（单位：百分点）</figcaption>
               <div class="bars">
                 <div class="bar-row">
                   <span class="bar-label">精确率</span>
@@ -223,7 +229,7 @@
                     <span class="bar seg-1" style="--v: 12.5">+5</span>
                     <span class="bar seg-3" style="--v: 75">+30</span>
                   </span>
-                  <span class="bar-value">+35%</span>
+                  <span class="bar-value">+35 百分点</span>
                 </div>
                 <div class="bar-row">
                   <span class="bar-label">召回率</span>
@@ -232,7 +238,7 @@
                     <span class="bar seg-2" style="--v: 25">+10</span>
                     <span class="bar seg-3" style="--v: 50">+20</span>
                   </span>
-                  <span class="bar-value">+37%</span>
+                  <span class="bar-value">+37 百分点</span>
                 </div>
               </div>
               <ul class="chart-legend">
@@ -247,7 +253,7 @@
                   <img
                     src="/screenshots/recs-anomaly-detected-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-detected-thumb.jpg 480w, /screenshots/recs-anomaly-detected-medium.jpg 960w, /screenshots/recs-anomaly-detected.jpg 1243w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="504"
@@ -262,7 +268,7 @@
                   <img
                     src="/screenshots/recs-anomaly-voltage-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-voltage-thumb.jpg 480w, /screenshots/recs-anomaly-voltage-medium.jpg 960w, /screenshots/recs-anomaly-voltage.jpg 1248w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="500"
@@ -277,7 +283,7 @@
                   <img
                     src="/screenshots/recs-anomaly-none-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-none-thumb.jpg 480w, /screenshots/recs-anomaly-none-medium.jpg 960w, /screenshots/recs-anomaly-none.jpg 1447w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="431"
@@ -292,10 +298,11 @@
             <h2>MLOps 与部署</h2>
             <ul>
               <li>
-                我将异常检测系统容器化，并用 GitHub Actions 实现了自动部署。部署时间从 3 小时缩短至 15 分钟。
+                作为 AI Developer，我把异常检测器容器化，并用 GitHub Actions 实现了自动部署。一次部署从 3 小时缩短至 15 分钟。
               </li>
               <li>
-                我用 Docker Compose、GitHub Actions、PostgreSQL、Prometheus 和 Grafana 搭建了端到端的 MLOps 基础设施。人工操作减少了 80%，每年节省约 4.8 万美元。
+                作为团队负责人，我搭建了 MLOps 的其余部分：带 PostgreSQL 的 Docker Compose 服务、通过 GitHub Actions 部署，以及在 Grafana 仪表盘上展示的
+                Prometheus 指标。人工运维工作减少了 80%，每年节省约 4.8 万美元。
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-ops">
@@ -336,19 +343,19 @@
 
             <h2>带领团队</h2>
             <p>
-              作为 AI Team Lead，我管理机器学习、后端和前端团队，并确保模型顺利接入 VPP 平台。
+              作为 AI Team Lead，我管理机器学习、后端和前端团队。我的职责是确保模型不会停留在实验阶段：它们必须每天运行，并顺利接入 VPP 平台。
             </p>
 
             <h2>结果</h2>
             <ul class="metric-grid">
-              <li><span class="num">9% → 7%</span><span class="lbl">预测误差，带来 KPX 电力中介收入</span></li>
-              <li><span class="num">+35% / +37%</span><span class="lbl">异常检测精确率 / 召回率</span></li>
+              <li><span class="num">9% → 7%</span><span class="lbl">预测误差，让 KPX 电力中介收入成为可能</span></li>
+              <li><span class="num">+35 / +37 百分点</span><span class="lbl">异常检测器精确率 / 召回率</span></li>
               <li><span class="num">3 小时 → 15 分钟</span><span class="lbl">部署时间</span></li>
-              <li><span class="num">−80%</span><span class="lbl">人工运维工作（每年约 4.8 万美元）</span></li>
+              <li><span class="num">−80%</span><span class="lbl">人工运维工作，每年约 4.8 万美元</span></li>
             </ul>
 
             <p class="callout">
-              本文已做简化，不含任何雇主代码、内部数据或私有网址。
+              本页面略去了雇主代码、内部数据和私有网址。
             </p>
           </div>
 

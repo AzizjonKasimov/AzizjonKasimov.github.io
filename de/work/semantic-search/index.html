@@ -5,14 +5,14 @@
     <title>Semantische KI-Suche für Autoteile – Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Fallstudie: Suche in natürlicher Sprache, die das genau passende Autoteil für ein bestimmtes Auto findet. Vektorsuche, NER, LLM-Bereinigung der Anfragen und eine Testsuite für die Genauigkeit. Mindestens 95 % im vorgegebenen Test mit 3.000 Teilen."
+      content="Fallstudie: Suche in natürlicher Sprache, die das genau passende Autoteil für ein bestimmtes Auto findet. Vektorsuche, NER, LLM-Bereinigung der Anfragen und eine Testsuite für die Genauigkeit. Mindestens 95 % im 3.000-Teile-Test eines staatlichen F&amp;E-Programms."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/semantic-search/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Semantische KI-Suche für Autoteile – Fallstudie" />
     <meta
       property="og:description"
-      content="Vektorsuche, Entitätserkennung und LLM-Bereinigung der Anfragen, mit einer automatisierten Testsuite für die Genauigkeit. Mindestens 95 % im vorgegebenen Test mit 3.000 Teilen."
+      content="Vektorsuche, Entitätserkennung und LLM-Bereinigung der Anfragen, mit einer automatisierten Testsuite für die Genauigkeit. Mindestens 95 % im 3.000-Teile-Test eines staatlichen F&amp;E-Programms."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/semantic-search/" />
   </head>
@@ -29,18 +29,19 @@
           </div>
           <h1>Semantische KI-Suche für Autoteile</h1>
           <p class="lead">
-            Käufer und Lieferanten mussten das genau passende Teil für ein bestimmtes Auto mit einfachen Worten finden können,
-            und das in mehreren Sprachen. Ich habe die Suche von Anfang bis Ende gebaut, dazu eine Testsuite, die belegte, dass
-            sie die Vorgabe von 95&nbsp;% Genauigkeit erfüllte.
+            Käufer und Lieferanten mussten das genau passende Teil für genau ihr Auto finden können, indem sie einfache
+            Worte in ihrer eigenen Sprache eintippen. Ich habe die Suche von Anfang bis Ende gebaut, dazu eine
+            Testsuite. Sie belegte, dass die Suche die 95&nbsp;% Genauigkeit erreichte, die ein staatliches
+            F&amp;E-Programm verlangte.
           </p>
           <dl class="glance">
             <div>
               <dt>Meine Rolle</dt>
-              <dd>Allein zuständig für KI/ML: Design, Embeddings, Entitätserkennung, LLM-Schritte, Evaluation und Produktivbetrieb lagen bei mir.</dd>
+              <dd>Ich war allein für KI/ML zuständig. Design, Embeddings, Entitätserkennung, LLM-Schritte, Evaluation und Produktivbetrieb lagen bei mir.</dd>
             </div>
             <div>
               <dt>Ergebnis</dt>
-              <dd>Mindestens 95&nbsp;% Genauigkeit im vorgegebenen Test mit 3.000 Teilen. Das F&amp;E-Projekt wurde genehmigt.</dd>
+              <dd>Mindestens 95&nbsp;% Genauigkeit im 3.000-Teile-Test eines staatlichen F&amp;E-Programms. Das Projekt wurde genehmigt.</dd>
             </div>
             <div>
               <dt>Stack</dt>
@@ -48,7 +49,7 @@
             </div>
             <div>
               <dt>Größenordnung</dt>
-              <dd>Ein Katalog mit über 2&nbsp;Mio. Teiledatensätzen und über 300.000 durchsuchbaren Angeboten (Kia, Hyundai, SsangYong, Chevrolet)</dd>
+              <dd>Ein Katalog mit über 2&nbsp;Mio. Teiledatensätzen und über 300.000 Angeboten, die zum Verkauf stehen und durchsuchbar sind, für Autos von Kia, Hyundai, SsangYong und Chevrolet</dd>
             </div>
           </dl>
         </header>
@@ -62,9 +63,10 @@
               Modell, Baujahr, Kraftstoff, Getriebe, Generation und Seite (links oder rechts, vorne oder hinten).
             </p>
             <p>
-              Starre Stichwortfilter kamen damit nicht zurecht. Das Unternehmen brauchte eine Suche in natürlicher Sprache,
-              die mit hoher Präzision das richtige Teil liefert. Außerdem musste sie einen formalen Genauigkeitstest für ein
-              F&amp;E-Projekt bestehen.
+              Starre Stichwortfilter kamen damit nicht zurecht. Das Unternehmen brauchte eine Suche, die Alltagssprache
+              versteht und fast immer das richtige Teil liefert. Die Suche war außerdem Teil eines Projekts, das bei
+              einem staatlichen F&amp;E-Programm eingereicht wurde. Um genehmigt zu werden, musste sie in einem festen
+              Test mit 3.000 Teilen 95&nbsp;% Genauigkeit erreichen.
             </p>
 
             <h2>So läuft eine Suchanfrage ab</h2>
@@ -107,7 +109,8 @@
                 <li><strong>S3-Berichte</strong>Jeder Testlauf wird gespeichert und übersteht Redeployments</li>
               </ul>
               <figcaption id="flow-caption">
-                Vereinfachte Darstellung der Such-Pipeline im Produktivbetrieb. Der gestrichelte Schritt läuft nur bei Anfragen, die nicht auf Englisch sind.
+                Die Such-Pipeline im Produktivbetrieb. Der gestrichelte Schritt läuft nur bei Anfragen, die nicht auf
+                Englisch sind.
               </figcaption>
             </figure>
 
@@ -152,39 +155,42 @@
                   </ul>
                 </li>
               </ol>
-              <figcaption id="trace-caption">Eine Veranschaulichung mit einer ausgedachten Anfrage. Die Ausgabe ist vereinfacht.</figcaption>
+              <figcaption id="trace-caption">Eine ausgedachte Anfrage, die die Schritte veranschaulicht.</figcaption>
             </figure>
 
             <h2>Was ich gebaut habe</h2>
             <ul>
               <li>
-                <strong>Kern der Vektorsuche.</strong> Ich habe den Teilekatalog in Weaviate eingebettet und den Suchdienst mit
-                Django REST Framework gebaut. Den Text, der eingebettet wird (Feldbezeichnungen, Einbauseite, Baujahr und
-                kuratierte Synonyme), habe ich so gestaltet, dass der Recall steigt.
+                <strong>Kern der Vektorsuche.</strong> Ich habe den Teilekatalog in Weaviate eingebettet und den
+                Suchdienst mit Django REST Framework gebaut. Ich habe festgelegt, welcher Text zu jedem Teil eingebettet
+                wird, etwa Feldbezeichnungen, die Einbauseite, das Baujahr und kuratierte Synonyme, damit mehr von den
+                richtigen Teilen gefunden werden.
               </li>
               <li>
-                <strong>Entitäten als harte Filter.</strong> spaCy zieht strukturierte Fakten aus einer Freitext-Anfrage und
-                macht daraus exakte Filter. Die Vektorsuche kümmert sich um die Formulierung, die Filter sorgen dafür, dass Auto
-                und Seite stimmen.
+                <strong>Entitäten als harte Filter.</strong> spaCy zieht strukturierte Fakten aus einer Freitext-Anfrage
+                und macht daraus exakte Filter. Die Vektorsuche kümmert sich um die Formulierung, und die Filter sorgen
+                dafür, dass Auto und Seite stimmen.
               </li>
               <li>
-                <strong>Zwei Suchmodi.</strong> Produktsuche für Käufer. Automatischer Abgleich für Lieferanten: Ein
-                hochgeladenes Teil wird Katalogdatensätzen zugeordnet, und jede eindeutige Teilenummer wird zu einem eigenen Treffer.
+                <strong>Zwei Suchmodi.</strong> Käufer bekommen eine Produktsuche. Lieferanten bekommen einen
+                automatischen Abgleich: Wenn sie ein Teil hochladen, ordnet die Suche es Katalogdatensätzen zu, und jede
+                eindeutige Teilenummer wird zu einem eigenen Treffer.
               </li>
               <li>
-                <strong>Mehrsprachige Anfragen.</strong> Anfragen, die nicht auf Englisch sind, laufen durch einen LLM-Schritt.
-                Der Wechsel von GPT-3.5-Turbo zu GPT-4o-mini brachte bessere Qualität bei geringeren Kosten, und die
-                Sprachprüfung hält LLM-Aufrufe auf einem Minimum.
+                <strong>Mehrsprachige Anfragen.</strong> Ein LLM übersetzt und bereinigt Anfragen, die nicht auf
+                Englisch sind. Der Wechsel von GPT-3.5-Turbo zu GPT-4o-mini brachte bessere Qualität bei geringeren
+                Kosten, und die Sprachprüfung hält die Zahl der LLM-Aufrufe niedrig.
               </li>
               <li>
-                <strong>Relevanz-Tuning.</strong> Ein LLM-Re-Ranker entfernt klar falsche Treffer. Ein Alias-System für
-                Teilenamen (zum Beispiel „headlight“ → „Head Lamp Assembly“) erhöhte die Genauigkeit bei alltäglichen
-                Formulierungen.
+                <strong>Relevanz-Tuning.</strong> Ein LLM-Re-Ranker entfernt klar falsche Treffer. Eine Alias-Liste
+                bildet Alltagswörter auf Katalognamen ab, sodass „headlight“ Head Lamp Assembly findet. Das erhöhte die
+                Genauigkeit bei alltäglichen Formulierungen.
               </li>
               <li>
-                <strong>Anbindung ans Frontend.</strong> Ich habe den Shop und die Admin-Tools (React/TypeScript) an die
-                Such-APIs angebunden: Filter fließen in die Anfrage ein, Treffer füllen Formulare automatisch aus, und
-                Ergebnisse werden nach Relevanz sortiert, mit einer Konfidenzschwelle.
+                <strong>Anbindung ans Frontend.</strong> Ich habe den Shop und die Admin-Tools in React und TypeScript
+                an die Such-APIs angebunden. Die Filter der Seite fließen in die Anfrage ein, ein Treffer füllt das
+                Formular des Lieferanten aus, und Ergebnisse werden nach Relevanz sortiert und unterhalb einer
+                Konfidenzschwelle abgeschnitten.
               </li>
             </ul>
 
@@ -195,16 +201,16 @@
             </p>
             <ul>
               <li><strong>Metriken:</strong> accuracy@1 und accuracy@3, Precision, Recall, F1, eine Konfusionsmatrix und Kreuzvalidierung.</li>
-              <li><strong>Wiederholbare Läufe:</strong> automatisch oder manuell. Jeder Lauf hält fest, wer ihn gestartet hat und ob die LLM-Vorverarbeitung aktiv war.</li>
+              <li><strong>Wiederholbare Läufe:</strong> automatisch oder manuell. Jeder Lauf hält fest, wer ihn gestartet hat und ob der LLM-Schritt aktiv war.</li>
               <li><strong>Von Grund auf sicher:</strong> Testdaten liegen in eigenen Collections, mit Schutzmechanismen, damit ein Test nie Produktionsdaten berühren kann.</li>
-              <li><strong>Fehleranalyse:</strong> Ich habe Fälle ohne Treffer auf veraltete Testobjekte, Abweichungen zwischen SKU und Katalog, kollidierende Entitätsmuster und die Behandlung von Karosseriefarben zurückgeführt und jeden davon behoben.</li>
+              <li><strong>Fehleranalyse:</strong> Wenn eine Anfrage nichts lieferte, habe ich die Ursache aufgespürt, etwa einen veralteten Testdatensatz, ein Angebot, das nicht zu seinem Katalogeintrag passte, zwei Entitätsmuster, die kollidierten, oder eine Karosseriefarbe in der Anfrage, und jede davon behoben.</li>
             </ul>
 
             <h2>Ergebnisse</h2>
             <ul class="metric-grid">
-              <li><span class="num">95&nbsp;%+</span><span class="lbl">Genauigkeit auf dem vorgegebenen Evaluationsdatensatz mit 3.000 Teilen</span></li>
-              <li><span class="num">Genehmigt</span><span class="lbl">F&amp;E-Projekt, nach Erreichen der Genauigkeitsvorgabe</span></li>
-              <li><span class="num">300.000+</span><span class="lbl">durchsuchbare Angebote, auf einem Katalog mit über 2&nbsp;Mio. Teiledatensätzen</span></li>
+              <li><span class="num">95&nbsp;%+</span><span class="lbl">Genauigkeit im 3.000-Teile-Test des staatlichen Programms</span></li>
+              <li><span class="num">Genehmigt</span><span class="lbl">das F&amp;E-Projekt, nachdem es den Test bestanden hatte</span></li>
+              <li><span class="num">300.000+</span><span class="lbl">Angebote, die zum Verkauf stehen und durchsuchbar sind, aus einem Katalog mit über 2&nbsp;Mio. Teiledatensätzen</span></li>
             </ul>
             <p>
               Die Suche ging für Käufer und Lieferanten in Produktion. Außerdem habe ich die automatisierten
@@ -212,8 +218,7 @@
             </p>
 
             <p class="callout">
-              Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine
-              privaten URLs.
+              Diese Seite enthält keinen Code des Arbeitgebers, keine internen Daten und keine privaten URLs.
             </p>
           </div>
 

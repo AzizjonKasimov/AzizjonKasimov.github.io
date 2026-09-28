@@ -5,14 +5,14 @@
     <title>프로덕션 환경의 태양광 발전량 예측과 이상 탐지 — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="프로젝트 사례: 태양광 발전량 예측과 태양광 발전소 이상 탐지를 프로덕션에 적용한 팀을 이끈 경험. 예측 오차 9%에서 7%로, 이상 탐지 precision 약 35% 향상, 배포 시간 3시간에서 15분으로."
+      content="프로젝트 사례: 태양광 발전량 예측 모델과 태양광 발전소 이상 탐지 모델을 프로덕션에 올린 팀을 이끌었습니다. 예측 오차 9%에서 7%로, 이상 탐지 모델 precision 35%p 향상, 배포 시간 3시간에서 15분으로."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/ko/work/solar-mlops/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="프로덕션 환경의 태양광 발전량 예측과 이상 탐지 — 프로젝트 사례" />
     <meta
       property="og:description"
-      content="예측 오차 9%에서 7%로, 이상 탐지 precision 약 35%·recall 약 37% 향상, 배포 시간 3시간에서 15분으로, 수동 운영 업무 80% 감소."
+      content="예측 오차 9%에서 7%로, 이상 탐지 모델 precision 35%p·recall 37%p 향상, 배포 시간 3시간에서 15분으로, 수동 운영 업무 80% 감소."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/ko/work/solar-mlops/" />
   </head>
@@ -29,8 +29,8 @@
           </div>
           <h1>프로덕션 환경의 태양광 발전량 예측과 이상 탐지</h1>
           <p class="lead">
-            Recs Innovation에서 인턴으로 시작해 두 차례 승진하여 AI Team Lead가 되었습니다. 태양광 발전량 예측과 태양광
-            발전소 이상 탐지를 프로덕션에 적용한 팀을 이끌었고, 추론 서비스는 가상발전소(VPP) 플랫폼에 연동되었습니다.
+            Recs Innovation에 인턴으로 입사했고, 4개월 뒤에는 AI 팀을 이끌고 있었습니다. 팀은 두 가지 모델을 프로덕션에 올렸습니다. 하나는 태양광 발전소가 전력을 얼마나 생산할지
+            예측하고, 다른 하나는 발전소 데이터에서 평소와 다른 측정값을 찾아냅니다. 두 모델 모두 상용 가상발전소(VPP)에 연동되었습니다. VPP는 여러 발전소를 하나처럼 묶어 운영하는 플랫폼입니다.
           </p>
           <dl class="glance">
             <div>
@@ -39,7 +39,7 @@
             </div>
             <div>
               <dt>결과</dt>
-              <dd>예측 오차 9%에서 7%로 감소. 이상 탐지 precision 약 35%, recall 약 37% 향상. 배포 시간 3시간에서 15분으로 단축.</dd>
+              <dd>예측 오차는 9%에서 7%로 떨어졌습니다. 이상 탐지 모델의 precision은 35퍼센트포인트(%p), recall은 37%p 올랐습니다. 배포는 3시간 대신 15분이 걸렸습니다.</dd>
             </div>
             <div>
               <dt>기술 스택</dt>
@@ -47,7 +47,7 @@
             </div>
             <div>
               <dt>비즈니스 효과</dt>
-              <dd>한국전력거래소(KPX) 전력 중개 수익. 수동 운영 업무 80% 감소(연 약 48,000달러).</dd>
+              <dd>예측 모델 덕분에 회사는 한국전력거래소(KPX)의 전력 중개로 수익을 얻을 수 있었습니다. 수동 운영 업무는 80% 줄어 연간 약 48,000달러를 절감했습니다.</dd>
             </div>
           </dl>
         </header>
@@ -55,12 +55,15 @@
         <div class="case-body container">
           <div class="prose">
             <h2>문제</h2>
-            <p>회사에는 실험 단계를 넘어 프로덕션에서 작동하는 모델 두 가지가 필요했습니다.</p>
+            <p>
+              회사는 전력 중개 사업에 뛰어들고 있었습니다. 전력 중개란 소규모 태양광 발전소의 전력을 한국전력거래소(KPX)에서 파는 일입니다. 여기에 참여하려면 발전소의 발전량을 충분히 정확하게
+              예측해야 합니다.
+            </p>
+            <p>회사는 또한 발전소가 보내는 측정값으로 발전소의 문제를 일찍 알아차려야 했습니다.</p>
+            <p>그래서 두 가지 모델이 실험이 아니라 프로덕션에서 작동해야 했습니다.</p>
             <ul>
-              <li>
-                한국전력거래소(KPX)의 전력 중개에 쓸 수 있을 만큼 정확한 <strong>태양광 발전량 예측</strong>
-              </li>
-              <li>태양광 발전소 데이터를 감시하는 <strong>이상 탐지</strong></li>
+              <li>KPX에 참여할 만큼 정확한, 각 발전소의 발전량 <strong>예측 모델</strong></li>
+              <li>발전소 데이터에서 평소와 다른 측정값을 찾아내는 <strong>이상 탐지 모델</strong></li>
             </ul>
             <p>두 모델 모두 안정적으로 실행되고 상용 VPP 플랫폼에 연동되어야 했습니다.</p>
 
@@ -70,7 +73,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">발전소 데이터</span>
-                  <span class="step-desc">태양광 발전소의 다변량 시계열 데이터.</span>
+                  <span class="step-desc">태양광 발전소의 시계열 측정값. 발전소마다 여러 항목을 측정합니다.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
@@ -80,7 +83,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">모델</span>
-                  <span class="step-desc">태양광 발전량 예측 모델과 그래프 기반(GNN) 이상 탐지 모델.</span>
+                  <span class="step-desc">각 발전소의 발전량 예측 모델과 그래프 기반(GNN) 이상 탐지 모델.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
@@ -98,7 +101,7 @@
                 <li><strong>인프라</strong>PostgreSQL을 포함한 Docker Compose 서비스</li>
                 <li><strong>모니터링</strong>Prometheus 지표와 Grafana 대시보드</li>
               </ul>
-              <figcaption id="flow-caption">프로덕션 구성을 단순화한 구조입니다.</figcaption>
+              <figcaption id="flow-caption">프로덕션 구성입니다.</figcaption>
             </figure>
             <p class="shots-note">
               프로덕션 시스템의 스크린샷입니다. 발전소 이름과 위치, 매출 수치는 가렸습니다.
@@ -109,7 +112,7 @@
                   <img
                     src="/screenshots/recs-dashboard-thumb.jpg"
                     srcset="/screenshots/recs-dashboard-thumb.jpg 480w, /screenshots/recs-dashboard-medium.jpg 960w, /screenshots/recs-dashboard.jpg 1504w"
-                    sizes="(min-width: 784px) 702px, calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="405"
@@ -124,11 +127,10 @@
             <h2>발전량 예측</h2>
             <ul>
               <li>
-                AI Developer로서 평균 오차 10% 미만의 PyTorch 태양광 발전량 예측 모델을 만들었습니다. 이 결과로 회사는
-                KPX 사업 참여 자격을 얻었습니다.
+                AI Developer로서 첫 예측 모델을 PyTorch로 만들었습니다. 평균 오차가 10% 미만이었고, 이 결과로 회사는 KPX 사업 참여 자격을 얻었습니다.
               </li>
               <li>
-                팀 리더로서 예측 오차를 9%에서 7%로 줄였고(22% 감소), 이를 통해 KPX 전력 중개 수익이 가능해졌습니다.
+                팀 리더로서 데이터를 분석하고 모델을 튜닝해 오차를 9%에서 7%로 줄였습니다. 그 덕분에 전력 중개 수익이 가능해졌습니다.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-forecast">
@@ -152,7 +154,7 @@
                   <img
                     src="/screenshots/recs-forecast-bars-thumb.jpg"
                     srcset="/screenshots/recs-forecast-bars-thumb.jpg 480w, /screenshots/recs-forecast-bars-medium.jpg 960w, /screenshots/recs-forecast-bars.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="378"
@@ -167,7 +169,7 @@
                   <img
                     src="/screenshots/recs-forecast-week-thumb.jpg"
                     srcset="/screenshots/recs-forecast-week-thumb.jpg 480w, /screenshots/recs-forecast-week-medium.jpg 960w, /screenshots/recs-forecast-week.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="404"
@@ -182,7 +184,7 @@
                   <img
                     src="/screenshots/recs-forecast-page-thumb.jpg"
                     srcset="/screenshots/recs-forecast-page-thumb.jpg 480w, /screenshots/recs-forecast-page-medium.jpg 960w, /screenshots/recs-forecast-page.jpg 1242w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="462"
@@ -196,34 +198,36 @@
 
             <h2>태양광 발전소 이상 탐지</h2>
             <p>
-              그래프 기반 모델(GNNAD)을 사용한 다변량 시계열 이상 탐지를 맡았습니다. 성능은 단계적으로 향상되었습니다.
+              이상 탐지 모델은 그래프 신경망(GNNAD)입니다. 발전소의 측정값들이 평소에 어떻게 함께 움직이는지 학습하고, 그 패턴에서 벗어난 측정값을 찾아냅니다.
+            </p>
+            <p>
+              인턴 때 이 모델의 첫 버전을 튜닝하고, MLflow로 실험을 추적했으며, 모델을 VPP 플랫폼에 연결하는 FastAPI 엔드포인트를 만들었습니다. 팀 리더가 된 뒤에는 정확도를 단계별로
+              높이고, 각 단계의 효과를 측정했습니다.
             </p>
             <ul>
               <li>
-                <strong>오류를 더 명확하게.</strong> 오픈소스 코드베이스를 대폭 리팩터링하고, 모든 피처에 대해 예측값과
-                실제 데이터를 비교하는 그래프를 추가했습니다.
+                <strong>오류를 더 명확하게 보기.</strong> 오픈소스 코드를 대폭 리팩터링하고, 모든 피처에 대해 예측값과 실제 측정값을 비교하는 그래프를 추가해, 모델이 어디에서 틀리는지
+                볼 수 있게 했습니다.
               </li>
-              <li><strong>오차 계산 개선:</strong> precision +5%, recall +7%.</li>
+              <li><strong>오차 계산 개선</strong>으로 precision이 5%p, recall이 7%p 올랐습니다.</li>
               <li>
-                <strong>시간대별 임계값:</strong> 하루 동안의 오차 변화를 반영하기 위해 하나의 전역 임계값 대신 24개의
-                임계값을 사용했습니다. Recall +10%.
-              </li>
-              <li>
-                <strong>더 깨끗한 학습 데이터:</strong> 학습 데이터에서 이상값을 제거해 precision +30%, recall +20%를
-                얻었습니다.
+                <strong>시간대별 임계값.</strong> 하루 종일 임계값 하나만 쓰면 어떤 시간대의 이상은 놓쳤습니다. 오차가 하루 동안 달라지기 때문입니다. 한 시간에 하나씩 24개의 임계값을
+                쓰자 recall이 10%p 올랐습니다.
               </li>
               <li>
-                <strong>현실적인 검증:</strong> 16포인트 추론 윈도우, 시간대별 임계값, 매일 밤 재학습 등 프로덕션과 같은
-                조건의 교차 검증.
+                <strong>더 깨끗한 학습 데이터.</strong> 학습 데이터에서 이상값을 제거하자 precision이 30%p, recall이 20%p 올랐습니다.
+              </li>
+              <li>
+                <strong>현실적인 검증.</strong> 교차 검증을 16포인트 추론 윈도우, 시간대별 임계값, 매일 밤 재학습까지 프로덕션과 같은 방식으로 실행하므로, 테스트 점수가 좋으면
+                프로덕션 점수도 좋습니다.
               </li>
             </ul>
             <p>
-              <strong>전체적으로 precision은 약 35%, recall은 약 37% 향상되었습니다.</strong> 그전에 인턴으로서 GNN
-              모델을 precision 70%, recall 50%까지 튜닝하고, MLflow로 실험을 추적했으며, 이상 탐지 시스템을 VPP 플랫폼에
-              연결하는 FastAPI 엔드포인트를 만들었습니다.
+              <strong>전체적으로 precision은 약 35퍼센트포인트, recall은 약 37퍼센트포인트 올랐습니다.</strong> 쉽게 말해, 이상 탐지 모델이 잘못된 경보를 훨씬 덜 울리고,
+              실제 문제를 훨씬 덜 놓치게 되었습니다.
             </p>
             <figure class="chart" aria-labelledby="chart-anomaly">
-              <figcaption id="chart-anomaly" class="chart-title">개선 요인별 향상 폭(%)</figcaption>
+              <figcaption id="chart-anomaly" class="chart-title">개선 요인별 향상 폭(%p)</figcaption>
               <div class="bars">
                 <div class="bar-row">
                   <span class="bar-label">Precision</span>
@@ -231,7 +235,7 @@
                     <span class="bar seg-1" style="--v: 12.5">+5</span>
                     <span class="bar seg-3" style="--v: 75">+30</span>
                   </span>
-                  <span class="bar-value">+35%</span>
+                  <span class="bar-value">+35%p</span>
                 </div>
                 <div class="bar-row">
                   <span class="bar-label">Recall</span>
@@ -240,7 +244,7 @@
                     <span class="bar seg-2" style="--v: 25">+10</span>
                     <span class="bar seg-3" style="--v: 50">+20</span>
                   </span>
-                  <span class="bar-value">+37%</span>
+                  <span class="bar-value">+37%p</span>
                 </div>
               </div>
               <ul class="chart-legend">
@@ -255,7 +259,7 @@
                   <img
                     src="/screenshots/recs-anomaly-detected-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-detected-thumb.jpg 480w, /screenshots/recs-anomaly-detected-medium.jpg 960w, /screenshots/recs-anomaly-detected.jpg 1243w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="504"
@@ -270,7 +274,7 @@
                   <img
                     src="/screenshots/recs-anomaly-voltage-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-voltage-thumb.jpg 480w, /screenshots/recs-anomaly-voltage-medium.jpg 960w, /screenshots/recs-anomaly-voltage.jpg 1248w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="500"
@@ -285,7 +289,7 @@
                   <img
                     src="/screenshots/recs-anomaly-none-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-none-thumb.jpg 480w, /screenshots/recs-anomaly-none-medium.jpg 960w, /screenshots/recs-anomaly-none.jpg 1447w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="431"
@@ -300,12 +304,11 @@
             <h2>MLOps와 배포</h2>
             <ul>
               <li>
-                이상 탐지 시스템을 컨테이너화하고 GitHub Actions로 배포를 자동화했습니다. 배포 시간이 3시간에서 15분으로
-                줄었습니다.
+                AI Developer로서 이상 탐지 모델을 컨테이너에 담고 GitHub Actions로 배포를 자동화했습니다. 배포는 3시간 대신 15분이 걸리게 되었습니다.
               </li>
               <li>
-                Docker Compose, GitHub Actions, PostgreSQL, Prometheus, Grafana로 엔드투엔드 MLOps 인프라를
-                구축했습니다. 수동 운영이 80% 줄어 연간 약 48,000달러를 절감했습니다.
+                팀 리더로서 나머지 MLOps 구성을 만들었습니다. PostgreSQL을 포함한 Docker Compose 서비스, GitHub Actions를 통한 배포, Grafana 대시보드에
+                표시되는 Prometheus 지표입니다. 수동 운영 업무는 80% 줄었고, 연간 약 48,000달러를 절감했습니다.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-ops">
@@ -346,19 +349,20 @@
 
             <h2>팀 리딩</h2>
             <p>
-              AI Team Lead로서 ML, 백엔드, 프론트엔드 팀을 관리하고, 모델이 VPP 플랫폼에 문제없이 연동되도록 했습니다.
+              AI Team Lead로서 ML, 백엔드, 프론트엔드 팀을 관리했습니다. 제 일은 모델이 실험에 머물지 않게 하는 것이었습니다. 모델은 매일 돌아가야 했고, VPP 플랫폼에 문제없이
+              연동되어야 했습니다.
             </p>
 
             <h2>결과</h2>
             <ul class="metric-grid">
-              <li><span class="num">9% → 7%</span><span class="lbl">예측 오차, KPX 전력 중개 수익의 기반</span></li>
-              <li><span class="num">+35% / +37%</span><span class="lbl">이상 탐지 precision / recall</span></li>
+              <li><span class="num">9% → 7%</span><span class="lbl">예측 오차. KPX 전력 중개 수익을 가능하게 했습니다</span></li>
+              <li><span class="num">+35 / +37%p</span><span class="lbl">이상 탐지 모델 precision / recall</span></li>
               <li><span class="num">3시간 → 15분</span><span class="lbl">배포 시간</span></li>
-              <li><span class="num">−80%</span><span class="lbl">수동 운영 업무(연 약 48,000달러)</span></li>
+              <li><span class="num">−80%</span><span class="lbl">수동 운영 업무, 연간 약 48,000달러</span></li>
             </ul>
 
             <p class="callout">
-              이 글은 단순화한 내용입니다. 회사 코드, 내부 데이터, 비공개 URL은 포함하지 않았습니다.
+              이 페이지에는 회사 코드, 내부 데이터, 비공개 URL을 싣지 않았습니다.
             </p>
           </div>
 

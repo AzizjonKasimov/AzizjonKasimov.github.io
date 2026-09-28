@@ -40,9 +40,9 @@
               konveyerlari va MLOps.
             </p>
             <p class="sub">
-              AI/ML tizimlarini yaratish va qoʻllab-quvvatlashda 2 yildan ortiq tajribaga egaman. Soʻnggi ish joyimda ishlatilgan
-              avtoehtiyot qismlarni onlayn sotadigan kompaniyadagi yagona AI/ML muhandisi edim. Undan oldin qayta tiklanuvchi
-              energetika sohasida AI jamoasiga rahbarlik qilganman.
+              2 yildan ortiq vaqtdan beri AI/ML tizimlarini yarataman va yuritaman. Soʻnggi ish joyimda, ishlatilgan
+              avtoehtiyot qismlar sotadigan onlayn doʻkonda, yagona AI/ML muhandisi edim. Undan oldin qayta tiklanuvchi
+              energetika kompaniyasida AI jamoasiga rahbarlik qilganman.
             </p>
             <p class="availability">
               Daejeonda (Janubiy Koreya) yashayman. Seulda AI/ML muhandisi lavozimlarini (ofisda yoki gibrid), masofaviy ishni
@@ -71,7 +71,7 @@
 
         <dl class="stats">
           <div class="stat">
-            <dt>3000 ta qismdan iborat majburiy testda qidiruv aniqligi. R&amp;D loyihasi tasdiqlandi.</dt>
+            <dt>Davlat R&amp;D dasturining 3000 ta qismdan iborat testida qidiruv aniqligi. Loyiha tasdiqlandi.</dt>
             <dd>95%+</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-track"><span class="viz-bar viz-now" style="--v: 95"></span></span></dd>
           </div>
@@ -81,12 +81,12 @@
             <dd class="stat-viz" aria-hidden="true"><span class="viz-dots"></span></dd>
           </div>
           <div class="stat">
-            <dt>Quyosh energiyasi bashoratidagi xatolik. Uning kamayishi elektr energiyasi vositachiligidan daromad keltirdi</dt>
+            <dt>Quyosh energiyasi bashoratidagi xatolik. U kamaygach, kompaniya quyosh energiyasini Korea Power Exchange birjasida sota oldi.</dt>
             <dd>9% → 7%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 78"></span></dd>
           </div>
           <div class="stat">
-            <dt>MLOps avtomatlashgach qoʻlda bajariladigan ishlar kamaydi (yiliga ~$48&nbsp;ming)</dt>
+            <dt>Joylashtirish va monitoringni avtomatik qilganimdan keyin qoʻlda bajariladigan operatsion ishlar. Yiliga taxminan $48&nbsp;ming tejaldi.</dt>
             <dd>−80%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 20"></span></dd>
           </div>
@@ -98,9 +98,9 @@
           <p class="eyebrow">Tanlangan loyihalar</p>
           <h2 id="work-title">Ishga tushirilgan AI: muammodan monitoring qilinadigan tizimgacha</h2>
           <p>
-            Qanday ishlashimni koʻrsatadigan toʻrtta loyiha. Har bir tavsifda muammo, nima yaratganim, natijani qanday
-            oʻlchaganim va erishilgan natija haqida yozilgan. Tafsilotlar soddalashtirilgan, ish beruvchilarning kodi va
-            maxfiy maʼlumotlari berilmagan.
+            Qanday ishlashimni koʻrsatadigan toʻrtta loyiha. Har bir loyiha tavsifi muammoni, nima yaratganimni,
+            natijani qanday oʻlchaganimni va u nimani oʻzgartirganini aytib beradi. Sahifalarda ish beruvchilarning kodi
+            va maxfiy maʼlumotlari yoʻq.
           </p>
         </div>
 
@@ -113,11 +113,13 @@
             </div>
             <h3><a href="/uz/work/semantic-search/">Avtoehtiyot qismlar uchun AI semantik qidiruv</a></h3>
             <p>
-              Muayyan avtomobil uchun aynan kerakli qismni oddiy soʻzlar bilan, bir nechta tilda topadigan qidiruv. Vektor
-              qidiruv, nomlangan obyektlarni aniqlash va soʻrovlarni LLM yordamida tozalash, shuningdek aniqlikni avtomatik
-              tekshiradigan testlar toʻplami.
+              Xaridor kerakli qismni oʻz tilida oddiy soʻzlar bilan yozadi, qidiruv esa aynan uning avtomobiliga mos
+              qismni topadi. Vektor qidiruv, nomlangan obyektlarni aniqlash va soʻrovni tozalaydigan LLM modelini
+              birlashtirdim hamda aniqlikni avtomatik tekshiradigan testlar toʻplamini yaratdim.
             </p>
-            <p class="result">3000 ta qismdan iborat majburiy testda 95%+ aniqlik. R&amp;D loyihasi tasdiqlandi.</p>
+            <p class="result">
+              U davlat R&amp;D dasturining 3000 ta qismdan iborat testida 95%+ natija koʻrsatdi va loyiha tasdiqlandi.
+            </p>
             <ul class="tags" aria-label="Texnologiyalar">
               <li>Python</li>
               <li>Django REST</li>
@@ -136,11 +138,15 @@
             </div>
             <h3><a href="/uz/work/aws-data-pipeline/">AWS asosidagi serversiz maʼlumotlar konveyeri</a></h3>
             <p>
-              Narxlarni tadqiq qilish uchun ishlatilgan ehtiyot qismlar bozoridan maʼlumot yigʻadigan, hodisalarga
-              asoslangan konveyer. Lambda ishchi funksiyalari, dead-letter queue bilan SQS navbati, jadval boʻyicha ishga
-              tushirish, PostgreSQL va CloudWatch ogohlantirishlari.
+              Narxlarni tadqiq qilish uchun bozordagi ishlatilgan ehtiyot qismlar eʼlonlari har kuni kerak edi.
+              Hodisalarga asoslangan konveyer qurdim: jadval boʻyicha Lambda ishchi funksiyalari SQS navbatidan
+              vazifalarni oladi va eʼlonlarni PostgreSQL bazasiga yozadi, biror narsa ishlamay qolsa esa CloudWatch
+              ogohlantirish beradi.
             </p>
-            <p class="result">Testlarda kuniga taxminan 5&nbsp;mln eʼlon. Har kuni monitoring va ogohlantirishlar bilan real ishlagan.</p>
+            <p class="result">
+              U testlarda, eng kichik maʼlumotlar bazasi instansiyasida, kuniga 5&nbsp;mln eʼlon degan maqsadga yetdi.
+              Real ishda esa manbadagi soʻrovlar cheklovi tufayli u kuniga taxminan 5000 eʼlon bilan chegaralandi.
+            </p>
             <ul class="tags" aria-label="Texnologiyalar">
               <li>AWS Lambda</li>
               <li>SQS</li>
@@ -159,12 +165,15 @@
             </div>
             <h3><a href="/uz/work/solar-mlops/">Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish</a></h3>
             <p>
-              Quyosh energiyasini bashorat qilish va quyosh elektr stansiyalarida anomaliyalarni aniqlash tizimlarini ishga
-              tushirgan jamoaga rahbarlik qildim. Tizimlar virtual elektr stansiyasi (VPP) platformasiga ulangan.
+              Ikkita modelni ishga tushirgan jamoaga rahbarlik qildim: biri quyosh elektr stansiyasi qancha energiya
+              ishlab chiqarishini bashorat qiladi, ikkinchisi stansiya maʼlumotlaridagi gʻayrioddiy koʻrsatkichlarni
+              aniqlaydi. Ikkalasi ham natijalarini virtual elektr stansiyasiga (VPP) uzatib turdi. VPP — koʻplab
+              stansiyalarni bitta stansiya kabi boshqaradigan platforma.
             </p>
             <p class="result">
-              Bashorat xatoligi 9 foizdan 7 foizga tushdi. Anomaliyalarni aniqlashda precision ~35 foizga, recall ~37 foizga
-              oshdi. Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi.
+              Bashorat xatoligi 9 foizdan 7 foizga tushdi, bu energiyani Korea Power Exchange birjasida sotish uchun
+              yetarli edi. Anomaliya detektorining precision koʻrsatkichi 35 foiz punktiga, recall koʻrsatkichi esa 37
+              foiz punktiga oshdi. Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi.
             </p>
             <ul class="tags" aria-label="Texnologiyalar">
               <li>PyTorch</li>
@@ -185,11 +194,12 @@
             </div>
             <h3><a href="/uz/work/catalog-agent/">Katalog maʼlumotlari uchun LangGraph agenti</a></h3>
             <p>
-              Oddiy soʻrovni (marka, model, yil, hudud) katalogga tayyor, toza ehtiyot qismlar maʼlumotiga aylantiradigan
-              agent jarayoni. Unda jadval boʻyicha ishga tushirish, toʻxtagan joyidan davom ettirsa boʻladigan vazifalar va
-              maʼlumotlar jamoasi tekshira oladigan hisobot bor.
+              Maʼlumotlar jamoasi uchinchi tomon katalog maʼlumotlarini qoʻlda yuklardi. Marka, model, yil va hududni
+              oladigan, mos ehtiyot qismlar maʼlumotini yuklab olib, tozalab, katalogga yozadigan agent jarayonini
+              yaratdim. Vazifalar jadval boʻyicha ishlaydi, nosozlikdan keyin davom etadi va jamoa tekshira oladigan
+              hisobot bilan tugaydi.
             </p>
-            <p class="result">Maʼlumotlar jamoasi uchun yaratilgan ishlaydigan prototip. Men ishdan ketganimda hali ishga tushirilmagan edi.</p>
+            <p class="result">Maʼlumotlar jamoasi uchun demo interfeysli ishlaydigan prototip. Men ishdan ketganimda u hali ishga tushirilmagan edi.</p>
             <ul class="tags" aria-label="Texnologiyalar">
               <li>LangGraph</li>
               <li>OpenAI API</li>
@@ -205,22 +215,25 @@
           <li>
             <h4>Ishlatilgan ehtiyot qismlar narxini bashorat qilish</h4>
             <p>
-              Eskirish, talab va jonli bozor signallarini birlashtiradigan narxlash modeli boʻyicha R&amp;D. MAE va MAPE
-              bilan tekshirildi: kichik real test toʻplamida taxminan 70–80% aniqlik.
+              Ishlatilgan qism narxini eskirish, talab va jonli bozor signallari asosida hisoblaydigan modelni tadqiq
+              qildim. Kichik real narxlar toʻplamida uning aniqligi taxminan 70–80% boʻldi; buni MAE va MAPE bilan
+              oʻlchadim.
             </p>
           </li>
           <li>
             <h4>Ikki tilli mahsulot tavsiflari</h4>
             <p>
-              Soha mutaxassislari qoidalari asosida barcha ~40&nbsp;ming mahsulot uchun ingliz va koreys tillarida qisqacha
-              tavsif yozgan LLM konveyeri. Konsepsiya isboti (proof of concept).
+              Kompaniyaning ~40&nbsp;ming mahsulotining har biri uchun inglizcha va koreyscha qisqacha tavsif yozadigan
+              LLM konveyerini yaratdim; u ehtiyot qismlar boʻyicha mutaxassislarning qoidalariga amal qildi. Bu ish
+              konsepsiya isboti (proof of concept) darajasida qoldi.
             </p>
           </li>
           <li>
             <h4>Katta hajmdagi maʼlumotlar migratsiyasi</h4>
             <p>
-              ~40&nbsp;ming kompaniya yozuvini koʻchirdim va uchinchi tomon katalogidan 2&nbsp;milliondan ortiq yozuvni
-              yukladim: takrorlarni olib tashlash hamda xavfsiz, atomar yozish bilan.
+              ~40&nbsp;ming kompaniya yozuvini yangi maʼlumotlar bazasiga koʻchirdim va uchinchi tomon katalogidan
+              2&nbsp;milliondan ortiq yozuvni yukladim. Takrorlar olib tashlandi, har bir paket esa atomar yozildi,
+              shuning uchun nosozlik chala yozilgan maʼlumot qoldira olmasdi.
             </p>
           </li>
         </ul>
@@ -231,8 +244,9 @@
           <p class="eyebrow">Ish uslubim</p>
           <h2 id="build-title">AI-native dasturlash, himoya choralari bilan</h2>
           <p>
-            2026-yil apreldan beri dasturlarning koʻp qismini kod yozuvchi agentlarni boshqarib yarataman: Claude Code va
-            Codex. Agentlar tez yozadi. Ularni oʻrab turgan qoidalar, loyiha qaydlari va tekshiruvlar esa ishni ishonchli qiladi.
+            2026-yil apreldan beri dasturlarning koʻp qismini Claude Code va Codex kod yozuvchi agentlarini boshqarib
+            yozaman. Agentlar tez ishlaydi. Men ularning atrofiga qoʻygan qoidalar, loyiha qaydlari va tekshiruvlar esa
+            ishni ishonchli qiladi.
           </p>
         </div>
 
@@ -241,14 +255,14 @@
             <div class="card-meta"><span class="mono">Yopiq repozitoriy · 2026</span></div>
             <h3>Kod yozuvchi agentlar uchun umumiy qoidalar</h3>
             <p>
-              Yagona markaziy qoidalar va loyiha qaydlari toʻplami 19 ta loyihada ishlatiladi (9 tasi ish, 10 tasi shaxsiy
-              loyiha). Claude Code va Codex bir xil standartlarni yuklaydi va sessiyalar orasida kontekstni saqlaydi.
-              Qoidalarni yuklab boʻlmasa, agent toʻxtashi va soʻrashi shart.
+              Qoidalar va loyiha qaydlarining yagona markaziy toʻplamini yuritaman, uni 19 ta loyiha yuklaydi: 9 tasi
+              ishda, 10 tasi shaxsiy. Claude Code va Codex bir xil standartlarni oʻqiydi va avvalgi sessiyalar
+              kontekstini davom ettiradi. Qoidalarni yuklay olmagan agent toʻxtashi va soʻrashi shart.
             </p>
             <p>
-              Agentlar oʻzgarishlarni kichik qiladi, hujjatlarni yangilaydi, hech qachon maxfiy kalitlarni oʻqimaydi va ishchi
-              (production) maʼlumotlar bazalarini oʻzgartirmaydi. Vazifa bajarilgan deb hisoblanishi uchun real end-to-end
-              tekshiruvdan oʻtishi shart.
+              Qoidalar agentlarni oʻzgarishlarni kichik qilishga, hujjatlarni yangilashga hamda maxfiy kalitlarni hech
+              qachon oʻqimaslikka va ishchi (production) maʼlumotlar bazalariga tegmaslikka majbur qiladi. Vazifa faqat
+              real end-to-end tekshiruv oʻtgandan keyingina bajarilgan hisoblanadi.
             </p>
           </article>
 
@@ -256,13 +270,14 @@
             <div class="card-meta"><span class="mono">Yopiq repozitoriy · TypeScript · 2026</span></div>
             <h3>Shaxsiy AI shlyuzi</h3>
             <p>
-              Claude asosida ishlaydigan kichik xizmat: u ilovalarimga yagona AI kirish nuqtasini beradi. U JSON Schema
-              formatiga mos javob qaytaradi va OpenAI uslubidagi soʻrovlarni qabul qiladi, shuning uchun mavjud mijoz
-              dasturlar oʻzgarishsiz ishlayveradi.
+              Claude asosida ishlaydigan kichik xizmat: u barcha ilovalarimga yagona AI kirish nuqtasini beradi. U
+              OpenAI uslubidagi soʻrovlarni qabul qiladi, shuning uchun mavjud mijoz dasturlar oʻzgarishsiz
+              ishlayveradi. Javobni esa JSON Schema formatiga mos qilib qaytaradi.
             </p>
             <p>
-              Shuningdek, u agent qadamlarini bajaradi: model reja tuzadi, chaqiruvchi ilova esa oʻz vositalarini oʻzi ishga
-              tushiradi. Shu sababli ilova maʼlumotlari hech qachon shlyuzda saqlanmaydi.
+              Shuningdek, u agent siklini ham yurita oladi: model qaysi vositani chaqirishni hal qiladi, vositani esa
+              chaqiruvchi ilovaning oʻzi ishga tushiradi, shuning uchun ilova maʼlumotlari shlyuzga hech qachon yetib
+              bormaydi.
             </p>
           </article>
 
@@ -270,9 +285,9 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>Butunlay AI agentlari bilan yaratilgan beshta Android ilova</h3>
             <p>
-              Expenses (har kuni ishlatadigan moliya ilovam), Network App, OneShot Reminder, Notes va Life Simulator. AI
-              natijasi belgilangan sxema boʻyicha tekshiriladi va biror narsa saqlanishidan oldin foydalanuvchi uni
-              tasdiqlaydi. Har bir ilova imzolangan GitHub Releases orqali oʻzini oʻzi yangilaydi.
+              Expenses — har kuni ishlatadigan moliya ilovam, shuningdek Network App, OneShot Reminder, Notes va Life
+              Simulator. Har bir ilova AI natijasini belgilangan sxema boʻyicha tekshiradi va biror narsani saqlashdan
+              oldin foydalanuvchidan tasdiq soʻraydi. Ilovalar imzolangan GitHub Releases orqali oʻzini oʻzi yangilaydi.
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses demo videosi</a></li>
@@ -286,8 +301,9 @@
         </div>
 
         <p class="note">
-          Avvalgi ML ishlari: frilans mijozlar uchun diabetik retinopatiya tasvirlarini tasniflash va
-          quyosh energiyasini bashorat qilish uchun reinforcement learning tajribalari. Qolganlari
+          Avvalgi ML ishlarim orasida frilans mijozlar uchun yaratilgan, diabetik retinopatiya darajasini aniqlaydigan
+          tasvir tasniflagichlari va quyosh energiyasini bashorat qilish uchun reinforcement learning tajribalari bor.
+          Qolganlari
           <a href="https://github.com/AzizjonKasimov?tab=repositories">GitHub</a> sahifamda.
         </p>
       </section>
@@ -309,22 +325,25 @@
               <p class="org"><strong>G-Man Auto Parts</strong> · ishlatilgan avtoehtiyot qismlar internet-savdosi</p>
               <ul class="bullets">
                 <li>
-                  Kompaniyadagi yagona AI/ML muhandisi. AI qidiruv, maʼlumotlar konveyerlari va AWS infratuzilmasini
-                  loyihalab, qoʻllab-quvvatladim. Ishdan ketgan katta muhandisdan AWS boʻyicha masʼuliyatni oʻz zimmamga
-                  oldim. Backend (Django) va frontend (React) funksiyalarini ham yaratdim.
+                  Kompaniyadagi yagona AI/ML muhandisi edim. AI qidiruv va maʼlumotlar konveyerlarini loyihaladim va
+                  yuritdim, katta muhandis ishdan ketgach esa AWS infratuzilmasini oʻz zimmamga oldim. Shuningdek,
+                  Django yordamida backend, React yordamida frontend funksiyalarini yaratdim.
                 </li>
                 <li>
-                  2&nbsp;milliondan ortiq avtoehtiyot qism uchun AI qidiruv yaratdim (Weaviate, spaCy, OpenAI). U 3000 ta
-                  qismdan iborat majburiy testda 95%+ aniqlikka erishdi va R&amp;D loyihasi tasdiqlandi.
+                  Weaviate, spaCy va OpenAI API yordamida 2&nbsp;milliondan ortiq avtoehtiyot qism boʻyicha AI qidiruv
+                  yaratdim. U davlat R&amp;D dasturining 3000 ta qismdan iborat testida 95%+ natija koʻrsatdi va dastur
+                  loyihani tasdiqladi.
                 </li>
                 <li>
-                  Testlarda kuniga ~5&nbsp;mln eʼlon yigʻgan serversiz AWS maʼlumotlar konveyerini (Lambda, SQS, EventBridge,
-                  PostgreSQL) qurdim. Unda avtomatik qayta urinishlar va nosozliklar haqida ogohlantirishlar bor edi.
+                  Lambda, SQS, EventBridge va PostgreSQL yordamida AWS platformasida serversiz maʼlumotlar konveyerini
+                  qurdim. U testlarda kuniga 5&nbsp;mln eʼlon degan maqsadga yetdi; keyin manbadagi soʻrovlar cheklovi
+                  uni kuniga taxminan 5000 eʼlon bilan chegaraladi. Konveyer nosozliklarda oʻzi qayta urinar va biror
+                  narsa buzilganda ogohlantirish yuborar edi.
                 </li>
                 <li>
-                  Katta hamkasblarning kod tekshiruvidan soʻng xizmatlarni xavfsizroq qildim (taymautlar, ruxsat etilgan URL
-                  roʻyxatlari, maʼlumotlar bazasiga xavfsiz yozish) va 6000 qatorli Django faylini kichikroq modullarga
-                  ajratdim.
+                  Katta muhandisning kod tekshiruvidan soʻng xizmatlarni mustahkamladim: soʻrovlar uchun taymautlar,
+                  ruxsat etilgan URL roʻyxatlari va maʼlumotlar bazasiga xavfsiz yozish qoʻshdim, 6000 qatorli Django
+                  faylini esa kichik modullarga ajratdim.
                 </li>
                 <li>
                   Texnik PM mutaxassislari bilan ishladim. Natijalar hamda turli yechimlarning afzallik va kamchiliklarini CEO,
@@ -344,9 +363,10 @@
               <p class="org"><strong>Upwork</strong> · tibbiy tasvirlar tahlili</p>
               <ul class="bullets">
                 <li>
-                  Toʻr parda tasvirlaridan diabetik retinopatiya darajasini aniqlaydigan modellar yaratdim (PyTorch,
-                  ResNet50). Dastlabki ishlov berish, maʼlumotlarni kengaytirish (data augmentation) va transfer learning
-                  yordamida birinchi loyihada taxminan 70%, ikkinchisida taxminan 80% aniqlikka erishdim.
+                  PyTorch yordamida, ResNet50 asosida toʻr parda tasvirlaridan diabetik retinopatiya darajasini
+                  aniqlaydigan modellar yaratdim. Birinchi loyihada taxminan 70%, ikkinchisida taxminan 80% aniqlikka
+                  erishdim; bunga dastlabki ishlov berish, maʼlumotlarni kengaytirish (data augmentation) va transfer
+                  learning yordam berdi.
                 </li>
               </ul>
             </div>
@@ -363,19 +383,20 @@
               <p class="progression">Ikki marta lavozimim oshirildi: Data Science Intern → AI Developer → AI Team Lead</p>
               <ul class="bullets">
                 <li>
-                  ML, backend va frontend jamoalariga rahbarlik qilib, quyosh energiyasini bashorat qilish va quyosh elektr
-                  stansiyalarida anomaliyalarni aniqlash tizimlarini ishga tushirdim. Tizimlar FastAPI orqali virtual elektr
-                  stansiyasi (VPP) platformasiga ulangan.
+                  Ikkita modelni ishga tushirgan ML, backend va frontend jamoalariga rahbarlik qildim: biri — har bir
+                  quyosh stansiyasi ishlab chiqarishining bashorati, ikkinchisi — stansiya maʼlumotlaridagi gʻayrioddiy
+                  koʻrsatkichlarni aniqlaydigan detektor. FastAPI xizmatlari ikkalasini ham virtual elektr stansiyasi
+                  (VPP) platformasiga uladi.
                 </li>
                 <li>
-                  Joylashtirish (deploy) va monitoringni avtomatlashtirdim (Docker, GitHub Actions, Prometheus, Grafana).
-                  Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi, qoʻl mehnati esa 80 foizga kamaydi (yiliga
-                  ~$48&nbsp;ming tejaldi).
+                  Docker, GitHub Actions, Prometheus va Grafana yordamida joylashtirish (deploy) va monitoringni
+                  avtomatlashtirdim. Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi, qoʻlda bajariladigan operatsion
+                  ishlar esa 80 foizga kamaydi, bu yiliga taxminan $48&nbsp;ming degani.
                 </li>
                 <li>
-                  Bashorat xatoligini 9 foizdan 7 foizga tushirdim. Bu Korea Power Exchange birjasida elektr energiyasi
-                  vositachiligidan daromad olish imkonini berdi. Anomaliyalarni aniqlashda precision koʻrsatkichini ~35 foizga,
-                  recall koʻrsatkichini ~37 foizga oshirdim.
+                  Bashorat xatoligini 9 foizdan 7 foizga tushirdim; bu kompaniyaga stansiyalar energiyasini Korea Power
+                  Exchange birjasida sotish imkonini berdi. Detektorning precision koʻrsatkichini taxminan 35 foiz
+                  punktiga, recall koʻrsatkichini esa taxminan 37 foiz punktiga oshirdim.
                 </li>
               </ul>
             </div>

@@ -39,7 +39,7 @@
               我构建在生产环境中运行的 AI 系统：LLM 与向量搜索、AWS 数据管道和 MLOps。
             </p>
             <p class="sub">
-              拥有 2 年以上构建和运维 AI/ML 系统的经验。我最近任职于一家二手汽车零部件电商公司，是公司唯一的 AI/ML 工程师。在此之前，我在可再生能源领域带领过一支 AI 团队。
+              我有 2 年以上构建和运维 AI/ML 系统的经验。最近，我是一家二手汽车零部件网店唯一的 AI/ML 工程师。在此之前，我在一家可再生能源公司带领 AI 团队。
             </p>
             <p class="availability">
               现居韩国大田。正在寻找首尔的 AI/ML 工程师职位（现场或混合办公），也考虑远程职位以及迁往欧洲或英国。
@@ -67,7 +67,7 @@
 
         <dl class="stats">
           <div class="stat">
-            <dt>在规定的 3000 个零件测试中的搜索准确率。研发项目已获批准。</dt>
+            <dt>在一个政府研发计划的 3000 个零件测试中的搜索准确率。研发项目已获批准。</dt>
             <dd>95%+</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-track"><span class="viz-bar viz-now" style="--v: 95"></span></span></dd>
           </div>
@@ -77,12 +77,12 @@
             <dd class="stat-viz" aria-hidden="true"><span class="viz-dots"></span></dd>
           </div>
           <div class="stat">
-            <dt>光伏发电预测误差，降低后带来了电力中介交易收入</dt>
+            <dt>光伏发电预测误差。误差降低后，公司得以在 Korea Power Exchange（韩国电力交易所）出售光伏电力。</dt>
             <dd>9% → 7%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 78"></span></dd>
           </div>
           <div class="stat">
-            <dt>MLOps 自动化后减少的人工运维工作（每年约 4.8 万美元）</dt>
+            <dt>我把部署和监控自动化之后的人工运维工作量。每年节省约 4.8 万美元。</dt>
             <dd>−80%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 20"></span></dd>
           </div>
@@ -94,7 +94,7 @@
           <p class="eyebrow">精选项目</p>
           <h2 id="work-title">生产级 AI：从问题到可监控的系统</h2>
           <p>
-            以下四个项目展示了我的工作方式。每个案例都会介绍问题、我构建了什么、如何衡量效果以及最终结果。细节已做简化，不含任何雇主代码或私有数据。
+            以下四个项目展示了我的工作方式。每个案例都会讲述问题是什么、我构建了什么、如何衡量效果，以及它改变了什么。这些页面不含雇主代码和私有数据。
           </p>
         </div>
 
@@ -107,9 +107,9 @@
             </div>
             <h3><a href="/zh/work/semantic-search/">汽车零部件 AI 语义搜索</a></h3>
             <p>
-              用自然语言为特定车型找到准确的零件，并支持多种语言。结合向量搜索、实体识别和 LLM 查询清洗，并配有自动化的准确率测试套件。
+              买家用自己的语言输入一句普通的描述，搜索就能为他们的具体车型找到准确的零件。我把向量搜索、实体识别和一个清洗查询的 LLM 结合起来，并构建了自动化的准确率测试套件。
             </p>
-            <p class="result">在规定的 3000 个零件测试中准确率达到 95%+。研发项目已获批准。</p>
+            <p class="result">它在一个政府研发计划的 3000 个零件测试中取得了 95%+ 的准确率，研发项目获得了批准。</p>
             <ul class="tags" aria-label="技术栈">
               <li>Python</li>
               <li>Django REST</li>
@@ -128,9 +128,10 @@
             </div>
             <h3><a href="/zh/work/aws-data-pipeline/">基于 AWS 的无服务器数据管道</a></h3>
             <p>
-              一个事件驱动的数据管道，为定价研究采集二手零件市场数据。包括 Lambda 工作函数、带死信队列的 SQS 队列、定时运行、PostgreSQL 和 CloudWatch 告警。
+              定价研究需要每天从市场获取二手零件的商品信息。我构建了一个事件驱动的数据管道：定时触发后，Lambda 工作函数从 SQS 队列领取任务，并把商品信息保存到 PostgreSQL；出现故障时，CloudWatch
+              会发出告警。
             </p>
-            <p class="result">测试中每天约 500 万条商品信息。在生产环境中每日运行，配有监控和告警。</p>
+            <p class="result">测试中，它在最小规格的数据库实例上达到了每天 500 万条商品信息的目标。在生产环境中，数据源的访问频率限制使它每天只能采集约 5000 条。</p>
             <ul class="tags" aria-label="技术栈">
               <li>AWS Lambda</li>
               <li>SQS</li>
@@ -149,10 +150,10 @@
             </div>
             <h3><a href="/zh/work/solar-mlops/">投入生产的光伏发电预测与异常检测</a></h3>
             <p>
-              我带领团队将光伏发电预测和光伏电站异常检测投入生产，并接入虚拟电厂平台。
+              我带领团队把两个模型投入生产：一个预测光伏电站的发电量，另一个标记电站数据中的异常读数。两者都接入了一个虚拟电厂，即把许多电站当作一个整体来运行的平台。
             </p>
             <p class="result">
-              预测误差从 9% 降至 7%。异常检测精确率提升约 35%，召回率提升约 37%。部署时间从 3 小时缩短至 15 分钟。
+              预测误差从 9% 降至 7%，足以在 Korea Power Exchange 上出售电力。异常检测器的精确率提高了 35 个百分点，召回率提高了 37 个百分点。一次部署从 3 小时缩短至 15 分钟。
             </p>
             <ul class="tags" aria-label="技术栈">
               <li>PyTorch</li>
@@ -173,9 +174,9 @@
             </div>
             <h3><a href="/zh/work/catalog-agent/">用于目录数据的 LangGraph 智能体</a></h3>
             <p>
-              一个智能体工作流，把简单的请求（品牌、车型、年份、地区）转换成干净、可直接入库的零件目录数据，并提供定时调度、可断点续跑的任务，以及数据团队可以核查的报告。
+              数据团队过去靠手工导入第三方目录数据。我构建了一个智能体工作流：输入品牌、车型、年份和地区，它就会获取匹配的零件数据，清洗后写入目录。任务定时运行，失败后可以续跑，结束时生成一份团队可以核查的报告。
             </p>
-            <p class="result">为数据团队打造的可运行原型。我离职时尚未投入生产。</p>
+            <p class="result">为数据团队打造的可运行原型，带有演示界面。我离职时，它尚未投入生产。</p>
             <ul class="tags" aria-label="技术栈">
               <li>LangGraph</li>
               <li>OpenAI API</li>
@@ -191,19 +192,19 @@
           <li>
             <h4>二手零件价格预测</h4>
             <p>
-              定价模型的研发，综合考虑折旧、需求和实时市场信号。使用 MAE 和 MAPE 评估：在一个小型真实测试集上准确率约 70–80%。
+              我研究了一个根据折旧、需求和实时市场信号为二手零件定价的模型。在一小组真实价格上，它的准确率约为 70–80%，用 MAE 和 MAPE 衡量。
             </p>
           </li>
           <li>
             <h4>双语商品摘要</h4>
             <p>
-              一条 LLM 流水线，依据领域专家制定的规则，为全部约 4 万件商品撰写英文和韩文摘要。概念验证。
+              我构建了一条 LLM 流水线，按照零件专家制定的规则，为公司约 4 万件商品中的每一件撰写一份英文摘要和一份韩文摘要。它停留在概念验证阶段。
             </p>
           </li>
           <li>
             <h4>大规模数据迁移</h4>
             <p>
-              迁移了约 4 万条公司记录，并导入超过 200 万条第三方目录记录，包含去重和安全的原子写入。
+              我把约 4 万条公司记录迁移到新数据库，并导入了超过 200 万条第三方目录记录。重复数据被剔除，每个批次都以原子方式写入，因此故障不会留下写了一半的数据。
             </p>
           </li>
         </ul>
@@ -214,7 +215,7 @@
           <p class="eyebrow">工作方式</p>
           <h2 id="build-title">AI 原生开发，辅以护栏</h2>
           <p>
-            自 2026 年 4 月起，我的大部分软件都是通过指挥编程智能体（Claude Code 和 Codex）来构建的。智能体写得很快，而围绕它们的规则、项目笔记和检查保证了工作的可靠性。
+            自 2026 年 4 月起，我的大部分软件都是通过指挥编程智能体 Claude Code 和 Codex 来编写的。智能体速度很快。我为它们设定的规则、项目笔记和检查保证了工作的可靠性。
           </p>
         </div>
 
@@ -223,10 +224,11 @@
             <div class="card-meta"><span class="mono">私有仓库 · 2026</span></div>
             <h3>编程智能体的共享规则</h3>
             <p>
-              一套集中管理的规则和项目笔记，用于 19 个项目（9 个公司项目，10 个个人项目）。Claude Code 和 Codex 加载相同的标准，并在会话之间保留上下文。如果无法加载规则，智能体必须停下来询问。
+              我维护着一套集中管理的规则和项目笔记，有 19 个项目在加载它：9 个公司项目和 10 个个人项目。Claude Code 和 Codex
+              读取同一套标准，并接续之前会话的上下文。无法加载规则的智能体必须停下来询问。
             </p>
             <p>
-              智能体保持小范围改动、更新文档，从不读取密钥，也从不修改生产数据库；任务必须通过真实的端到端检查才算完成。
+              这些规则要求智能体保持小范围改动、更新文档，并且绝不读取密钥或触碰生产数据库。只有通过一次真实的端到端检查，任务才算完成。
             </p>
           </article>
 
@@ -234,10 +236,10 @@
             <div class="card-meta"><span class="mono">私有仓库 · TypeScript · 2026</span></div>
             <h3>私有 AI 网关</h3>
             <p>
-              一个由 Claude 驱动的小型服务，为我的应用提供统一的 AI 接口。它返回符合 JSON Schema 的输出，并接受 OpenAI 风格的请求，因此现有客户端无需修改即可使用。
+              一个由 Claude 驱动的小型服务，为我的所有应用提供同一个 AI 接口。它接受 OpenAI 风格的请求，因此现有客户端无需修改即可使用；它返回的输出符合 JSON Schema。
             </p>
             <p>
-              它还能执行智能体回合：模型负责规划，调用方应用运行自己的工具，因此应用数据从不存放在网关上。
+              它还能运行智能体循环：模型决定调用哪个工具，但工具由调用方应用自己运行，因此应用数据从不经过网关。
             </p>
           </article>
 
@@ -245,7 +247,8 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>五款完全由 AI 智能体构建的 Android 应用</h3>
             <p>
-              Expenses（我每天使用的记账应用）、Network App、OneShot Reminder、Notes 和 Life Simulator。AI 的输出会按照固定的模式进行校验，并在保存任何内容之前由用户确认。每个应用都通过已签名的 GitHub Releases 自动更新。
+              Expenses（我每天使用的记账应用），以及 Network App、OneShot Reminder、Notes 和 Life Simulator。每个应用都会按固定的模式校验 AI
+              的输出，并在保存任何内容之前请用户确认。这些应用通过已签名的 GitHub Releases 自动更新。
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses 演示视频</a></li>
@@ -259,7 +262,7 @@
         </div>
 
         <p class="note">
-          早期的机器学习工作：为自由职业客户做的糖尿病视网膜病变图像分类，以及用于光伏预测的强化学习实验。更多内容见 <a href="https://github.com/AzizjonKasimov?tab=repositories">GitHub</a>。
+          早期的机器学习工作包括为自由职业客户构建的糖尿病视网膜病变分级图像分类器，以及用于光伏发电预测的强化学习实验。更多内容见 <a href="https://github.com/AzizjonKasimov?tab=repositories">GitHub</a>。
         </p>
       </section>
 
@@ -280,16 +283,17 @@
               <p class="org"><strong>G-Man Auto Parts</strong> · 二手汽车零部件电商</p>
               <ul class="bullets">
                 <li>
-                  公司唯一的 AI/ML 工程师。设计并运维 AI 搜索、数据管道和 AWS 架构，并在一位资深工程师离职后接手了 AWS。还开发了后端（Django）和前端（React）功能。
+                  我是公司唯一的 AI/ML 工程师。我设计并运维 AI 搜索和数据管道，并在资深工程师离职后接手了 AWS 基础设施。我还用 Django 开发后端功能，用 React 开发前端功能。
                 </li>
                 <li>
-                  为超过 200 万个汽车零件构建了 AI 搜索（Weaviate、spaCy、OpenAI）。在规定的 3000 个零件测试中准确率达到 95%+，研发项目获得批准。
+                  用 Weaviate、spaCy 和 OpenAI API 为超过 200 万个汽车零件构建了 AI 搜索。它在一个政府研发计划的 3000 个零件测试中取得了 95%+
+                  的准确率，该计划批准了这个研发项目。
                 </li>
                 <li>
-                  构建了无服务器 AWS 数据管道（Lambda、SQS、EventBridge、PostgreSQL），测试中每天采集约 500 万条商品信息，具备自动重试和故障告警。
+                  用 Lambda、SQS、EventBridge 和 PostgreSQL 在 AWS 上构建了无服务器数据管道。它在测试中达到了每天 500 万条商品信息的目标，之后数据源的访问频率限制使它每天只能采集约 5000 条。它会自动重试失败的任务，并在出现故障时发出告警。
                 </li>
                 <li>
-                  根据资深同事的代码评审加固了服务（超时、URL 白名单、安全的数据库写入），并将一个 6000 行的 Django 文件拆分为更小的模块。
+                  在一次资深工程师的代码评审之后加固了服务，加入了查询超时、URL 白名单和安全的数据库写入，并把一个 6000 行的 Django 文件拆分成小模块。
                 </li>
                 <li>
                   与技术型 PM 合作，向 CEO、COO 和数据标注团队解释结果与权衡，还以非正式的方式指导了一位初级同事。
@@ -308,7 +312,7 @@
               <p class="org"><strong>Upwork</strong> · 医学图像分析</p>
               <ul class="bullets">
                 <li>
-                  构建了根据视网膜图像判断糖尿病视网膜病变严重程度的模型（PyTorch、ResNet50）。通过预处理、数据增强和迁移学习，第一个项目的准确率约为 70%，第二个项目约为 80%。
+                  用 PyTorch 基于 ResNet50 构建了根据视网膜图像判断糖尿病视网膜病变严重程度的模型。通过预处理、数据增强和迁移学习，第一个项目的准确率达到约 70%，第二个项目约 80%。
                 </li>
               </ul>
             </div>
@@ -325,13 +329,13 @@
               <p class="progression">两次晋升：Data Science Intern → AI Developer → AI Team Lead</p>
               <ul class="bullets">
                 <li>
-                  带领机器学习、后端和前端团队，上线了光伏发电预测和光伏电站异常检测，并通过 FastAPI 接入虚拟电厂平台。
+                  带领机器学习、后端和前端团队把两个模型投入生产：一个预测每座光伏电站发电量的模型，以及一个检测电站数据中异常读数的检测器。FastAPI 服务把两者接入了虚拟电厂平台。
                 </li>
                 <li>
-                  实现了部署和监控自动化（Docker、GitHub Actions、Prometheus、Grafana）。部署时间从 3 小时缩短至 15 分钟，人工工作量减少 80%（每年节省约 4.8 万美元）。
+                  用 Docker、GitHub Actions、Prometheus 和 Grafana 实现了部署和监控自动化。一次部署从 3 小时缩短至 15 分钟，人工运维工作减少了 80%，每年约 4.8 万美元。
                 </li>
                 <li>
-                  将预测误差从 9% 降至 7%，由此在 Korea Power Exchange（韩国电力交易所）获得电力中介收入。异常检测的精确率提升约 35%，召回率提升约 37%。
+                  把预测误差从 9% 降至 7%，使公司得以在 Korea Power Exchange 上出售电站的电力。把异常检测器的精确率提高了约 35 个百分点，召回率提高了约 37 个百分点。
                 </li>
               </ul>
             </div>
@@ -415,7 +419,7 @@
               <li>
                 <span class="what">Daejeon Global Tech Coffee</span>
                 <span class="who">
-                  在大田发起了一个面向科技、AI 和数据从业者的英语友好型聚会。后来的活动增加了一块屏幕，用于演示代码和 AI 智能体。
+                  我在大田发起了一个面向科技、AI 和数据从业者的英语友好型聚会。后来的活动增加了一块屏幕，用于演示代码和 AI 智能体。
                 </span>
                 <span class="when">2026 年 1 月起</span>
               </li>

@@ -5,14 +5,14 @@
     <title>AWS asosidagi serversiz maʼlumotlar konveyeri — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Loyiha tavsifi: ishlatilgan ehtiyot qismlar bozori maʼlumotlarini yigʻgan, hodisalarga asoslangan AWS konveyeri (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch). Testlarda kuniga taxminan 5 mln eʼlon."
+      content="Loyiha tavsifi: narxlarni tadqiq qilish uchun ishlatilgan ehtiyot qismlar eʼlonlarini yigʻgan, hodisalarga asoslangan AWS konveyeri (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch). U testlarda kuniga 5 mln eʼlon degan maqsadga yetdi."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/aws-data-pipeline/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="AWS asosidagi serversiz maʼlumotlar konveyeri — loyiha tavsifi" />
     <meta
       property="og:description"
-      content="Lambda ishchi funksiyalari, dead-letter queue bilan SQS, EventBridge jadvallari, PostgreSQL va CloudWatch ogohlantirishlari. Testlarda kuniga taxminan 5 mln eʼlon."
+      content="Lambda ishchi funksiyalari, dead-letter queue bilan SQS, EventBridge jadvallari, PostgreSQL va CloudWatch ogohlantirishlari. U testlarda kuniga 5 mln eʼlon degan maqsadga yetdi."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/aws-data-pipeline/" />
   </head>
@@ -29,18 +29,18 @@
           </div>
           <h1>AWS asosidagi serversiz maʼlumotlar konveyeri</h1>
           <p class="lead">
-            Narxlarni tadqiq qilish uchun ishlatilgan ehtiyot qismlar bozoridan doimiy maʼlumot oqimi kerak edi. AWS
-            platformasida hodisalarga asoslangan konveyerni loyihaladim, qurdim va qoʻllab-quvvatladim. U testlarda kuniga
-            taxminan 5&nbsp;million eʼlonga yetdi.
+            Narxlarni tadqiq qilish uchun bozordagi ishlatilgan ehtiyot qismlar eʼlonlarining doimiy oqimi kerak edi.
+            AWS platformasida hodisalarga asoslangan konveyerni loyihaladim, qurdim va yuritdim. Testlarda u eng kichik
+            maʼlumotlar bazasi instansiyasida kuniga 5&nbsp;million eʼlon degan maqsadga yetdi.
           </p>
           <dl class="glance">
             <div>
               <dt>Mening rolim</dt>
-              <dd>Konveyerni yolgʻiz oʻzim loyihaladim, qurdim va yuritdim. Bu ishdan ketgan katta muhandisdan AWS boʻyicha masʼuliyatni qabul qilib olishning bir qismi edi.</dd>
+              <dd>Ishdan ketgan katta muhandisdan AWS infratuzilmasini qabul qilib olganimdan keyin konveyerni yolgʻiz oʻzim loyihaladim, qurdim va yuritdim.</dd>
             </div>
             <div>
               <dt>Natija</dt>
-              <dd>Testlarda kuniga ~5&nbsp;mln eʼlon. Har kuni monitoring va ogohlantirishlar bilan real ishlagan.</dd>
+              <dd>Testlarda kuniga 5&nbsp;mln eʼlon. Kundalik real ishda esa manbadagi soʻrovlar cheklovi uni taxminan 5000 eʼlon darajasida ushlab turdi.</dd>
             </div>
             <div>
               <dt>Texnologiyalar</dt>
@@ -76,7 +76,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Navbat</span>
-                  <span class="step-desc">Vazifalar SQS navbatida saqlanadi. U avvalgi “maʼlumotlar bazasi navbat sifatida” yechimini almashtirdi. Xatolik bergan xabarlar dead-letter queue navbatiga oʻtadi.</span>
+                  <span class="step-desc">Vazifalar SQS navbatida saqlanadi; u maʼlumotlar bazasini navbat sifatida ishlatgan avvalgi yechimni almashtirdi. Xatolik bergan xabarlar dead-letter queue navbatiga oʻtadi.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
@@ -99,7 +99,7 @@
                 <li><strong>Monitoring Lambda funksiyasi</strong>Maʼlumotlar bazasi holatini CloudWatch xizmatiga yuboradigan, faqat oʻqiydigan vazifa</li>
                 <li><strong>Holat tekshiruvlari</strong>Istalgan operatsion tizimda ishlaydigan AWS CLI skriptlari</li>
               </ul>
-              <figcaption id="flow-caption">Soddalashtirilgan sxema. Xizmat nomlari — standart AWS qurilish bloklari.</figcaption>
+              <figcaption id="flow-caption">Standart AWS xizmatlaridan qurilgan konveyer.</figcaption>
             </figure>
 
             <h2>Qulab tushmasdan, sekinlashadigan qilib qurilgan</h2>
@@ -123,45 +123,59 @@
             <h2>Monitoring va ekspluatatsiya</h2>
             <ul>
               <li>
-                <strong>Ogohlantirishlar</strong> muhim holatlar uchun: orkestrator ishdan chiqishi, ishchi funksiyalar
-                nosozligi, parallellik cheklanishi (throttling), navbatda toʻplangan xabarlar va ularning yoshi, bloklangan
-                sahifalar ulushi, maʼlumotlar bazasiga yozishdagi xatolar va kunlik eʼlonlar soni.
+                <strong>Muhim holatlar uchun ogohlantirishlar.</strong> Orkestrator toʻxtasa, ishchi funksiyalar ishdan
+                chiqsa, Lambda ularni cheklasa (throttling), navbat toʻlib ketsa yoki undagi xabarlar eskirsa, sahifalar
+                bloklansa, maʼlumotlar bazasiga yozish xato bersa yoki kunlik eʼlonlar soni tushib ketsa, CloudWatch
+                menga xabar beradi.
               </li>
               <li>
-                <strong>Holat tekshiruvlari</strong> AWS CLI skriptlari bilan, shuningdek maʼlumotlar bazasi holatini CloudWatch
-                xizmatiga yuboradigan, faqat oʻqiydigan kichik Lambda funksiyasi.
+                <strong>Holat tekshiruvlari.</strong> AWS CLI skriptlari konveyerni istalgan kompyuterdan tekshiradi,
+                faqat oʻqiydigan kichik Lambda funksiyasi esa maʼlumotlar bazasi holatini CloudWatch xizmatiga yuboradi.
               </li>
               <li>
-                <strong>Yozma yoʻriqnomalar</strong> Lambda funksiyalarini cheklash yoki toʻxtatish va navbatlarni tozalash
-                uchun, shunda nazoratdan chiqqan vazifa xarajatlarni oshirib yubora olmaydi.
+                <strong>Yozma yoʻriqnomalar.</strong> Ularda Lambda funksiyalarini qanday cheklash yoki toʻxtatish va
+                navbatlarni qanday tozalash yozilgan, shunda nazoratdan chiqqan vazifa xarajatlarni oshirib yubora
+                olmaydi.
               </li>
             </ul>
 
-            <h2>Katta hamkasblar tekshiruvidan keyingi mustahkamlash</h2>
-            <p>
-              PostgreSQL soʻrovlari uchun taymautlar, ruxsat etilgan URL roʻyxati, javob hajmi cheklovlari, shubhali boʻsh
-              sahifalarda darhol toʻxtash, atomar yozish yoʻllari va nosozliklarni tuzilgan holda qayd etish. Shuningdek, qimmat
-              <code>COUNT(*)</code> soʻrovini eng koʻp ishlaydigan qismdan olib tashladim, indekslarga xizmat koʻrsatish
-              vositalarini qoʻshdim va xarajatlarni nazorat qilish uchun ECR obrazlari hamda CloudWatch loglarini saqlash
-              muddatlarini belgiladim.
-            </p>
+            <h2>Katta muhandis tekshiruvidan keyingi mustahkamlash</h2>
+            <p>Katta muhandis konveyerni koʻrib chiqdi va men uni shu tekshiruv asosida mustahkamladim:</p>
+            <ul>
+              <li>Har bir maʼlumotlar bazasi soʻrovining taymauti bor, har bir yozish esa atomar bajariladi.</li>
+              <li>
+                Ishchi funksiyalar faqat ruxsat etilgan roʻyxatdagi URL manzillarni yuklaydi va juda katta javoblarni
+                rad etadi.
+              </li>
+              <li>
+                Shubhali darajada boʻsh qaytgan sahifa darhol xato deb topiladi va har bir nosozlik oʻz konteksti bilan
+                qayd etiladi.
+              </li>
+              <li>
+                Qimmat <code>COUNT(*)</code> soʻrovini eng koʻp ishlaydigan qismdan olib tashladim va indekslarga xizmat
+                koʻrsatish vositalarini qoʻshdim.
+              </li>
+              <li>ECR obrazlari va CloudWatch loglarining saqlash muddatlari xotira xarajatini past ushlab turadi.</li>
+            </ul>
 
             <h2>Natijalar</h2>
             <ul class="metric-grid">
-              <li><span class="num">~5&nbsp;mln/kun</span><span class="lbl">eʼlon, testlarda maqsadga erishildi</span></li>
-              <li><span class="num">Har kuni</span><span class="lbl">real ishda yigʻish, saqlash va ogohlantirish</span></li>
+              <li><span class="num">5&nbsp;mln/kun</span><span class="lbl">testlarda, eng kichik RDS instansiyasida erishilgan maqsad</span></li>
+              <li><span class="num">~5000/kun</span><span class="lbl">real ishda manbadagi soʻrovlar cheklovi yoʻl qoʻygan tezlik</span></li>
+              <li><span class="num">Har kuni</span><span class="lbl">real ishda yigʻish, saqlash va ogohlantirishlar</span></li>
               <li><span class="num">7 ta marka</span><span class="lbl">kompaniyaning narx tadqiqoti uchun qamrab olindi</span></li>
             </ul>
             <p>
-              <strong>Nimani oʻrgandim:</strong> manba soʻrovlar tezligi cheklovlarini kuchaytirganda barqaror oʻtkazuvchanlik
-              kuniga taxminan 5000 eʼlongacha tushdi va bu odatiy ish rejimiga aylandi. Bunday koʻlamda haqiqiy cheklov
-              koʻpincha infratuzilma emas, balki maʼlumot manbai boʻladi, shuning uchun sekinlashish (back-off) mexanizmi
-              birinchi kundan loyihaga kiritilishi kerak.
+              <strong>Nimani oʻrgandim:</strong> konveyer kuniga 5&nbsp;million eʼlonni uddalay olardi, manba esa
+              uddalay olmasdi. Manba soʻrovlar tezligi cheklovlarini kuchaytirganda barqaror tezlik kuniga taxminan 5000
+              eʼlongacha tushdi va bu odatiy ish rejimiga aylandi. Bunday koʻlamda chegarani infratuzilma emas, maʼlumot
+              manbai belgilaydi, shuning uchun sekinlashish (back-off) birinchi kundan loyihaning bir qismi boʻlishi
+              kerak.
             </p>
 
             <p class="callout">
-              Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq, maʼlumot
-              manbai esa nomlanmagan.
+              Bu sahifada ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar keltirilmagan, maʼlumot manbai
+              esa nomlanmagan.
             </p>
           </div>
 

@@ -29,18 +29,19 @@
           </div>
           <h1>LangGraph-Agent für Katalogdaten</h1>
           <p class="lead">
-            Katalogdaten von Drittanbietern zu laden, war für das Datenteam langsame Handarbeit. Ich habe einen
-            Agenten-Workflow gebaut, der aus einer kurzen Anfrage saubere, katalogfertige Teiledaten macht, mit Zeitplanung,
-            fortsetzbaren Jobs und einem Bericht, den alle prüfen können.
+            Das Datenteam lud Katalogdaten von Drittanbietern von Hand, und das war langsam. Ich habe einen
+            Agenten-Workflow gebaut, der eine kurze Anfrage entgegennimmt, die passenden Teiledaten abruft, bereinigt
+            und in den Katalog schreibt. Jobs starten nach Zeitplan, lassen sich nach einem Fehler fortsetzen und enden
+            mit einem Bericht, den alle prüfen können.
           </p>
           <dl class="glance">
             <div>
               <dt>Meine Rolle</dt>
-              <dd>Alleinige Entwicklung: Recherche, Architektur, der Agent, die Zeitplanung und die Demo-Oberfläche.</dd>
+              <dd>Ich habe ihn allein gebaut: die Recherche, die Architektur, den Agenten, die Zeitplanung und die Demo-Oberfläche.</dd>
             </div>
             <div>
               <dt>Status</dt>
-              <dd>Funktionsfähiger Prototyp mit Demo-Oberfläche für das Datenteam. Bei meinem Ausscheiden im Juli 2026 nicht in Produktion.</dd>
+              <dd>Ein funktionsfähiger Prototyp mit Demo-Oberfläche für das Datenteam. Bei meinem Ausscheiden im Juli 2026 war er nicht in Produktion.</dd>
             </div>
             <div>
               <dt>Stack</dt>
@@ -102,7 +103,7 @@
                 <li><strong>Cache</strong>Katalogdaten bis auf Gruppenebene zwischengespeichert</li>
                 <li><strong>Kontrolle</strong>Umfangsgrenzen, Jobstatus und sichtbare API-Nutzung</li>
               </ul>
-              <figcaption id="flow-caption">Vereinfachte Darstellung des Agenten-Workflows.</figcaption>
+              <figcaption id="flow-caption">Der Agenten-Workflow.</figcaption>
             </figure>
 
             <h2>Was ich gebaut habe</h2>
@@ -118,28 +119,28 @@
                 trotzdem: Der Workflow ist strukturiert, leicht nachzuvollziehen und kann nach einem Fehler fortgesetzt werden.
               </li>
               <li>
-                <strong>Für sehr große Jobs gebaut.</strong> Stückweises, fortsetzbares Speichern bewältigt Fahrzeugmodelle
-                mit über 100.000 Varianten.
+                <strong>Für sehr große Jobs gebaut.</strong> Das Speichern erfolgt stückweise und lässt sich fortsetzen,
+                sodass ein Fahrzeugmodell mit über 100.000 Varianten nach einem Fehler nicht von vorn beginnt.
               </li>
               <li>
-                <strong>Zeitplanung.</strong> APScheduler mit einer kleinen Oberfläche für geplante und manuelle Läufe,
-                einschließlich eines Fixes für doppelt registrierte Jobs.
+                <strong>Zeitplanung.</strong> APScheduler führt Jobs nach Zeitplan oder auf Abruf aus, gesteuert über
+                eine kleine Oberfläche.
               </li>
               <li>
                 <strong>Nachprüfbare Ergebnisse.</strong> Automatische Berichte zeigen, wie jeder Batch normalisiert und
                 zugeordnet wurde, sodass auch Personen ohne technischen Hintergrund das Ergebnis prüfen können.
               </li>
               <li>
-                <strong>Dokumentation.</strong> Referenzdokumentation zum Katalogschema: welche Tabellen der Agent liest und
-                welche er schreibt.
+                <strong>Dokumentation.</strong> Ich habe eine Referenzdokumentation zum Katalogschema geschrieben, die
+                sagt, welche Tabellen der Agent liest und welche er schreibt.
               </li>
             </ul>
 
             <h2>Technische Abwägungen</h2>
             <p>
-              Vor dem Bau habe ich Eigenentwicklung und Zukauf verglichen. Ich habe bestehende KI-Tools zur Datenerfassung und
-              Workflow-Engines (Airflow, Prefect, Celery) geprüft und einen schlanken Ansatz gewählt, der zur Projektphase
-              passte und sich später skalieren lässt.
+              Vor dem Bau habe ich Eigenentwicklung und Zukauf verglichen. Ich habe bestehende KI-Tools zur
+              Datenerfassung und Workflow-Engines wie Airflow, Prefect und Celery geprüft und einen schlanken Ansatz
+              gewählt, der zur Projektphase passte und später wachsen konnte.
             </p>
             <p>
               Außerdem habe ich den Jobumfang und die kostenpflichtige API-Nutzung sichtbar gehalten, statt sie hinter
@@ -149,13 +150,13 @@
 
             <h2>Status</h2>
             <p>
-              Ein funktionsfähiger Prototyp mit Zeitplanung und einer Demo-Oberfläche für das Datenteam. Er wurde gerade in ein
-              einheitliches internes Admin-Tool integriert. Bei meinem Ausscheiden im Juli 2026 war er nicht in Produktion.
+              Der Prototyp funktioniert, mit Zeitplanung und einer Demo-Oberfläche für das Datenteam, und er wurde
+              gerade in ein einheitliches internes Admin-Tool integriert. Bei meinem Ausscheiden im Juli 2026 war er
+              nicht in Produktion.
             </p>
 
             <p class="callout">
-              Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine
-              privaten URLs.
+              Diese Seite enthält keinen Code des Arbeitgebers, keine internen Daten und keine privaten URLs.
             </p>
           </div>
 

@@ -5,14 +5,14 @@
     <title>Прогноз солнечной генерации и обнаружение аномалий в продакшене — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Кейс: руководство командой, которая вывела в продакшен прогнозирование выработки солнечной энергии и обнаружение аномалий на солнечных электростанциях. Ошибка прогноза снижена с 9% до 7%, precision обнаружения аномалий выше на ~35%, деплой за 15 минут вместо 3 часов."
+      content="Кейс: я руководил командой, которая вывела в продакшен прогноз выработки солнечных электростанций и детектор неполадок на них. Ошибка прогноза снижена с 9% до 7%, precision детектора выше на 35 пунктов, деплой за 15 минут вместо 3 часов."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/ru/work/solar-mlops/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Прогноз солнечной генерации и обнаружение аномалий в продакшене — кейс" />
     <meta
       property="og:description"
-      content="Ошибка прогноза снижена с 9% до 7%, precision обнаружения аномалий выше на ~35%, recall — на ~37%, деплой за 15 минут вместо 3 часов, ручной операционной работы на 80% меньше."
+      content="Ошибка прогноза снижена с 9% до 7%, precision детектора выше на 35 пунктов, recall — на 37, деплой за 15 минут вместо 3 часов, ручной операционной работы на 80% меньше."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/ru/work/solar-mlops/" />
   </head>
@@ -29,9 +29,10 @@
           </div>
           <h1>Прогноз солнечной генерации и обнаружение аномалий в продакшене</h1>
           <p class="lead">
-            В Recs Innovation меня дважды повышали: от стажёра до AI Team Lead. Я руководил командой, которая вывела в
-            продакшен прогнозирование выработки и обнаружение аномалий для солнечных электростанций, а сервисы инференса были
-            подключены к платформе виртуальной электростанции (VPP).
+            Я пришёл в Recs Innovation стажёром, а через четыре месяца уже руководил ИИ-командой. Команда вывела в
+            продакшен две модели: одна прогнозирует, сколько энергии выработает солнечная электростанция, а другая
+            отмечает необычные показания в данных станции. Результаты обеих поступали в коммерческую виртуальную
+            электростанцию (VPP) — платформу, которая управляет многими станциями как одной.
           </p>
           <dl class="glance">
             <div>
@@ -40,7 +41,7 @@
             </div>
             <div>
               <dt>Результат</dt>
-              <dd>Ошибка прогноза — с 9% до 7%. Precision обнаружения аномалий выше на ~35%, recall — на ~37%. Деплой за 15 минут вместо 3 часов.</dd>
+              <dd>Ошибка прогноза снизилась с 9% до 7%. Precision детектора вырос на 35 процентных пунктов, recall — на 37. Деплой стал занимать 15 минут вместо 3 часов.</dd>
             </div>
             <div>
               <dt>Стек</dt>
@@ -48,7 +49,7 @@
             </div>
             <div>
               <dt>Эффект для бизнеса</dt>
-              <dd>Доход от посредничества в торговле электроэнергией на бирже Korea Power Exchange (KPX). Ручной операционной работы на 80% меньше (~$48&nbsp;тыс. в год).</dd>
+              <dd>Прогноз позволил компании зарабатывать на посредничестве в торговле электроэнергией на бирже Korea Power Exchange (KPX). Ручной операционной работы стало на 80% меньше — это около $48&nbsp;тыс. в год.</dd>
             </div>
           </dl>
         </header>
@@ -56,13 +57,18 @@
         <div class="case-body container">
           <div class="prose">
             <h2>Задача</h2>
-            <p>Компании были нужны две модели, которые работают в продакшене, а не только в экспериментах:</p>
+            <p>
+              Компания выходила на рынок посредничества в торговле электроэнергией, то есть собиралась продавать
+              выработку небольших солнечных электростанций на бирже Korea Power Exchange (KPX). Чтобы участвовать в
+              торгах, компания должна достаточно точно прогнозировать выработку станций.
+            </p>
+            <p>
+              Кроме того, компании нужно было рано замечать неполадки на станции по показаниям, которые она присылает.
+            </p>
+            <p>Поэтому две модели должны были работать в продакшене, а не только в экспериментах:</p>
             <ul>
-              <li>
-                <strong>прогноз солнечной генерации</strong>, достаточно точный для посредничества в торговле электроэнергией
-                на бирже Korea Power Exchange (KPX), и
-              </li>
-              <li><strong>обнаружение аномалий</strong>, которое отслеживает данные солнечных электростанций.</li>
+              <li><strong>прогноз</strong> выработки каждой станции, достаточно точный для KPX, и</li>
+              <li><strong>детектор</strong>, который отмечает необычные показания в данных станции.</li>
             </ul>
             <p>Обе должны были надёжно работать и подключаться к коммерческой платформе VPP.</p>
 
@@ -72,7 +78,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Данные электростанций</span>
-                  <span class="step-desc">Многомерные временные ряды с солнечных электростанций.</span>
+                  <span class="step-desc">Временные ряды показаний с солнечных электростанций — по многу измерений на каждую станцию.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
@@ -82,7 +88,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Модели</span>
-                  <span class="step-desc">Прогноз солнечной генерации и графовый (GNN) детектор аномалий.</span>
+                  <span class="step-desc">Прогноз выработки каждой станции и графовый (GNN) детектор аномалий.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
@@ -100,7 +106,7 @@
                 <li><strong>Инфраструктура</strong>Сервисы в Docker Compose с PostgreSQL</li>
                 <li><strong>Мониторинг</strong>Метрики Prometheus и дашборды Grafana</li>
               </ul>
-              <figcaption id="flow-caption">Упрощённая схема продакшен-среды.</figcaption>
+              <figcaption id="flow-caption">Так система устроена в продакшене.</figcaption>
             </figure>
             <p class="shots-note">
               Скриншоты продакшен-системы. Название и местоположение электростанции, а также данные о продажах скрыты.
@@ -111,7 +117,7 @@
                   <img
                     src="/screenshots/recs-dashboard-thumb.jpg"
                     srcset="/screenshots/recs-dashboard-thumb.jpg 480w, /screenshots/recs-dashboard-medium.jpg 960w, /screenshots/recs-dashboard.jpg 1504w"
-                    sizes="(min-width: 784px) 702px, calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="405"
@@ -126,12 +132,12 @@
             <h2>Прогнозирование</h2>
             <ul>
               <li>
-                На позиции AI Developer я создал на PyTorch прогноз солнечной генерации со средней ошибкой меньше 10%. Благодаря
-                этому компания получила допуск к работе на KPX.
+                На позиции AI Developer я создал на PyTorch первую модель прогноза. Её средняя ошибка была меньше 10%, и
+                это дало компании допуск к работе на KPX.
               </li>
               <li>
-                Уже как тимлид я снизил ошибку прогноза с 9% до 7% (на 22%), что открыло доход от посредничества в торговле
-                электроэнергией на KPX.
+                Уже как тимлид я снизил ошибку с 9% до 7%, проанализировав данные и донастроив модель. Это открыло
+                компании доход от посредничества в торговле электроэнергией.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-forecast">
@@ -155,7 +161,7 @@
                   <img
                     src="/screenshots/recs-forecast-bars-thumb.jpg"
                     srcset="/screenshots/recs-forecast-bars-thumb.jpg 480w, /screenshots/recs-forecast-bars-medium.jpg 960w, /screenshots/recs-forecast-bars.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="378"
@@ -170,7 +176,7 @@
                   <img
                     src="/screenshots/recs-forecast-week-thumb.jpg"
                     srcset="/screenshots/recs-forecast-week-thumb.jpg 480w, /screenshots/recs-forecast-week-medium.jpg 960w, /screenshots/recs-forecast-week.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="404"
@@ -185,7 +191,7 @@
                   <img
                     src="/screenshots/recs-forecast-page-thumb.jpg"
                     srcset="/screenshots/recs-forecast-page-thumb.jpg 480w, /screenshots/recs-forecast-page-medium.jpg 960w, /screenshots/recs-forecast-page.jpg 1242w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="462"
@@ -199,35 +205,43 @@
 
             <h2>Обнаружение аномалий на солнечных электростанциях</h2>
             <p>
-              Я работал над обнаружением аномалий в многомерных временных рядах с помощью графовой модели (GNNAD). Результат
-              улучшался шаг за шагом:
+              Детектор построен на графовой нейросети (GNNAD). Она учится тому, как показания станции обычно меняются
+              вместе, и отмечает показания, которые выбиваются из этой картины.
+            </p>
+            <p>
+              Ещё стажёром я настроил его первую версию, отслеживал эксперименты в MLflow и сделал эндпоинты на FastAPI,
+              которые подключают детектор к платформе VPP. Уже как тимлид я шаг за шагом повышал его точность и измерял
+              каждый шаг:
             </p>
             <ul>
               <li>
-                <strong>Наглядность ошибок.</strong> Я основательно переработал open-source-код и добавил графики, которые
-                сравнивают предсказания с фактическими данными по каждому признаку.
+                <strong>Наглядность ошибок.</strong> Я основательно переработал open-source-код и добавил графики,
+                которые сравнивают предсказание с фактическим показанием по каждому признаку, чтобы мы видели, где
+                модель ошибается.
               </li>
-              <li><strong>Более точный расчёт ошибки:</strong> precision +5%, recall +7%.</li>
+              <li><strong>Более точный расчёт ошибки</strong> поднял precision на 5 пунктов, а recall — на 7.</li>
               <li>
-                <strong>Почасовые пороги:</strong> 24 порога вместо одного глобального, чтобы учитывать, как ошибка меняется в
-                течение дня. Recall +10%.
-              </li>
-              <li>
-                <strong>Более чистые обучающие данные:</strong> удаление аномальных точек из обучающей выборки дало precision
-                +30% и recall +20%.
+                <strong>Почасовые пороги.</strong> Один порог на весь день пропускал аномалии в некоторые часы, потому
+                что ошибка меняется в течение дня. Переход на 24 порога, по одному на каждый час, поднял recall на 10
+                пунктов.
               </li>
               <li>
-                <strong>Честная валидация:</strong> кросс-валидация в тех же условиях, что и в продакшене: окна инференса по 16
-                точек, почасовые пороги и ночное переобучение.
+                <strong>Более чистые обучающие данные.</strong> Удаление аномальных точек из обучающей выборки подняло
+                precision на 30 пунктов, а recall — на 20.
+              </li>
+              <li>
+                <strong>Честная валидация.</strong> Кросс-валидация работает так же, как продакшен: окна инференса по 16
+                точек, почасовые пороги и ночное переобучение. Поэтому хороший результат на тесте означает хороший
+                результат в продакшене.
               </li>
             </ul>
             <p>
-              <strong>В итоге рост precision составил около 35%, а recall — около 37%.</strong> Ещё раньше, будучи стажёром, я
-              настроил GNN-модель до precision 70% и recall 50%, отслеживал эксперименты в MLflow и сделал эндпоинты на FastAPI,
-              которые подключают систему обнаружения аномалий к платформе VPP.
+              <strong>В итоге precision вырос примерно на 35 процентных пунктов, а recall — примерно на 37.</strong>
+              Проще говоря, детектор стал давать гораздо меньше ложных тревог и пропускать гораздо меньше реальных
+              проблем.
             </p>
             <figure class="chart" aria-labelledby="chart-anomaly">
-              <figcaption id="chart-anomaly" class="chart-title">Откуда взялся рост, в процентах</figcaption>
+              <figcaption id="chart-anomaly" class="chart-title">Откуда взялся рост, в процентных пунктах</figcaption>
               <div class="bars">
                 <div class="bar-row">
                   <span class="bar-label">Precision</span>
@@ -235,7 +249,7 @@
                     <span class="bar seg-1" style="--v: 12.5">+5</span>
                     <span class="bar seg-3" style="--v: 75">+30</span>
                   </span>
-                  <span class="bar-value">+35%</span>
+                  <span class="bar-value">+35&nbsp;п.&nbsp;п.</span>
                 </div>
                 <div class="bar-row">
                   <span class="bar-label">Recall</span>
@@ -244,7 +258,7 @@
                     <span class="bar seg-2" style="--v: 25">+10</span>
                     <span class="bar seg-3" style="--v: 50">+20</span>
                   </span>
-                  <span class="bar-value">+37%</span>
+                  <span class="bar-value">+37&nbsp;п.&nbsp;п.</span>
                 </div>
               </div>
               <ul class="chart-legend">
@@ -259,7 +273,7 @@
                   <img
                     src="/screenshots/recs-anomaly-detected-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-detected-thumb.jpg 480w, /screenshots/recs-anomaly-detected-medium.jpg 960w, /screenshots/recs-anomaly-detected.jpg 1243w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="504"
@@ -274,7 +288,7 @@
                   <img
                     src="/screenshots/recs-anomaly-voltage-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-voltage-thumb.jpg 480w, /screenshots/recs-anomaly-voltage-medium.jpg 960w, /screenshots/recs-anomaly-voltage.jpg 1248w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="500"
@@ -289,7 +303,7 @@
                   <img
                     src="/screenshots/recs-anomaly-none-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-none-thumb.jpg 480w, /screenshots/recs-anomaly-none-medium.jpg 960w, /screenshots/recs-anomaly-none.jpg 1447w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="431"
@@ -304,12 +318,13 @@
             <h2>MLOps и деплой</h2>
             <ul>
               <li>
-                Я упаковал систему обнаружения аномалий в контейнеры и автоматизировал деплой с помощью GitHub Actions. Время
-                деплоя сократилось с 3 часов до 15 минут.
+                На позиции AI Developer я упаковал детектор в контейнеры и автоматизировал его деплой с помощью GitHub
+                Actions. Деплой стал занимать 15 минут вместо 3 часов.
               </li>
               <li>
-                Я построил сквозную MLOps-инфраструктуру на Docker Compose, GitHub Actions, PostgreSQL, Prometheus и Grafana.
-                Объём ручных операций сократился на 80%, что экономит около $48&nbsp;тыс. в год.
+                Уже как тимлид я достроил остальную MLOps-инфраструктуру: сервисы в Docker Compose с PostgreSQL, деплой
+                из GitHub Actions и метрики Prometheus на дашбордах Grafana. Ручной операционной работы стало на 80%
+                меньше, что сэкономило около $48&nbsp;тыс. в год.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-ops">
@@ -350,20 +365,21 @@
 
             <h2>Руководство командой</h2>
             <p>
-              На позиции AI Team Lead я руководил ML-, бэкенд- и фронтенд-командами и следил за тем, чтобы модели без проблем
-              интегрировались в платформу VPP.
+              На позиции AI Team Lead я руководил ML-, бэкенд- и фронтенд-командами. Моя задача была в том, чтобы модели
+              не остались экспериментами: они должны были работать каждый день и без проблем подключаться к платформе
+              VPP.
             </p>
 
             <h2>Результаты</h2>
             <ul class="metric-grid">
               <li><span class="num">9% → 7%</span><span class="lbl">ошибка прогноза; это открыло доход от посредничества на KPX</span></li>
-              <li><span class="num">+35% / +37%</span><span class="lbl">precision / recall обнаружения аномалий</span></li>
+              <li><span class="num">+35 / +37&nbsp;п.&nbsp;п.</span><span class="lbl">precision / recall детектора аномалий</span></li>
               <li><span class="num">3&nbsp;ч → 15&nbsp;мин</span><span class="lbl">время деплоя</span></li>
-              <li><span class="num">−80%</span><span class="lbl">ручной операционной работы (~$48&nbsp;тыс. в год)</span></li>
+              <li><span class="num">−80%</span><span class="lbl">ручной операционной работы, около $48&nbsp;тыс. в год</span></li>
             </ul>
 
             <p class="callout">
-              Это описание упрощено. В нём нет кода работодателя, внутренних данных и закрытых URL.
+              На этой странице нет кода работодателя, внутренних данных и закрытых URL.
             </p>
           </div>
 

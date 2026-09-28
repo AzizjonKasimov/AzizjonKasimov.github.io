@@ -5,14 +5,14 @@
     <title>Serverlose Datenpipeline auf AWS – Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Fallstudie: eine ereignisgesteuerte AWS-Pipeline (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch), die Marktdaten zu Gebrauchtteilen sammelte und im Test rund 5 Mio. Inserate pro Tag erreichte."
+      content="Fallstudie: eine ereignisgesteuerte AWS-Pipeline (Lambda, SQS, EventBridge, PostgreSQL, CloudWatch), die Inserate zu Gebrauchtteilen für Preisanalysen sammelte. Im Test erreichte sie ihr Ziel von 5 Mio. Inseraten pro Tag."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/aws-data-pipeline/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Serverlose Datenpipeline auf AWS – Fallstudie" />
     <meta
       property="og:description"
-      content="Lambda-Worker, SQS mit Dead-Letter-Queue, EventBridge-Zeitpläne, PostgreSQL und CloudWatch-Alarme. Im Test rund 5 Mio. Inserate pro Tag."
+      content="Lambda-Worker, SQS mit Dead-Letter-Queue, EventBridge-Zeitpläne, PostgreSQL und CloudWatch-Alarme. Im Test erreichte die Pipeline ihr Ziel von 5 Mio. Inseraten pro Tag."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/aws-data-pipeline/" />
   </head>
@@ -29,18 +29,18 @@
           </div>
           <h1>Serverlose Datenpipeline auf AWS</h1>
           <p class="lead">
-            Für Preisanalysen brauchte das Unternehmen einen stetigen Strom an Marktdaten zu Gebrauchtteilen. Ich habe eine
-            ereignisgesteuerte Pipeline auf AWS konzipiert, gebaut und betrieben, die im Test rund 5 Millionen Inserate pro
-            Tag erreichte.
+            Für Preisanalysen brauchte das Unternehmen einen stetigen Strom an Inseraten zu Gebrauchtteilen vom Markt.
+            Ich habe eine ereignisgesteuerte Pipeline auf AWS konzipiert, gebaut und betrieben. Im Test erreichte sie
+            das Ziel von 5 Millionen Inseraten pro Tag, auf der kleinsten Datenbankinstanz.
           </p>
           <dl class="glance">
             <div>
               <dt>Meine Rolle</dt>
-              <dd>Konzeption, Aufbau und Betrieb allein bei mir, als Teil der Übernahme von AWS, nachdem ein erfahrenes Teammitglied gegangen war.</dd>
+              <dd>Ich habe sie allein konzipiert, gebaut und betrieben, nachdem ich die AWS-Infrastruktur von einem erfahrenen Teammitglied übernommen hatte, das das Unternehmen verließ.</dd>
             </div>
             <div>
               <dt>Ergebnis</dt>
-              <dd>Im Test rund 5&nbsp;Mio. Inserate pro Tag. Lief täglich in Produktion, mit Monitoring und Alarmen.</dd>
+              <dd>Im Test 5&nbsp;Mio. Inserate pro Tag. Im täglichen Produktivbetrieb ließ die Ratenbegrenzung der Quelle nur rund 5.000 zu.</dd>
             </div>
             <div>
               <dt>Stack</dt>
@@ -76,7 +76,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="step-name">Warteschlange</span>
-                  <span class="step-desc">SQS hält die anstehende Arbeit. Es ersetzte einen früheren Ansatz mit der „Datenbank als Queue“. Fehlgeschlagene Nachrichten landen in einer Dead-Letter-Queue.</span>
+                  <span class="step-desc">SQS hält die anstehende Arbeit und ersetzte einen früheren Ansatz, der die Datenbank als Queue nutzte. Fehlgeschlagene Nachrichten landen in einer Dead-Letter-Queue.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
@@ -99,7 +99,7 @@
                 <li><strong>Monitoring-Lambda</strong>Nur lesender Job, der den Zustand der Datenbank an CloudWatch meldet</li>
                 <li><strong>Health Checks</strong>AWS-CLI-Skripte, die auf jedem Betriebssystem laufen</li>
               </ul>
-              <figcaption id="flow-caption">Vereinfachte Darstellung. Die Dienstnamen sind allgemeine AWS-Bausteine.</figcaption>
+              <figcaption id="flow-caption">Die Pipeline, aufgebaut aus Standard-AWS-Diensten.</figcaption>
             </figure>
 
             <h2>Lieber drosseln als ausfallen</h2>
@@ -123,44 +123,55 @@
             <h2>Observability und Betrieb</h2>
             <ul>
               <li>
-                <strong>Alarme</strong> für das, was zählt: Orchestrator ausgefallen, Worker-Fehler, Drosselung der
-                Nebenläufigkeit, Rückstau und Nachrichtenalter in der Queue, Rate blockierter Seiten, fehlgeschlagene
-                Datenbank-Schreibvorgänge und Inserate pro Tag.
+                <strong>Alarme für das, was zählt.</strong> CloudWatch benachrichtigt mich, wenn der Orchestrator stehen
+                bleibt, Worker fehlschlagen, Lambda sie drosselt, die Queue sich staut oder ihre Nachrichten alt werden,
+                Seiten blockiert werden, Datenbank-Schreibvorgänge fehlschlagen oder die tägliche Zahl der Inserate
+                sinkt.
               </li>
               <li>
-                <strong>Health Checks</strong> mit AWS-CLI-Skripten, dazu eine kleine, nur lesende Lambda-Funktion, die den
-                Zustand der Datenbank an CloudWatch meldet.
+                <strong>Health Checks.</strong> AWS-CLI-Skripte prüfen die Pipeline von jedem Rechner aus, und eine
+                kleine, nur lesende Lambda-Funktion meldet den Zustand der Datenbank an CloudWatch.
               </li>
               <li>
-                <strong>Schriftliche Abläufe</strong> zum Drosseln oder Stoppen von Lambdas und zum Leeren von Queues, damit
-                ein außer Kontrolle geratener Job keine Kosten in die Höhe treiben kann.
+                <strong>Schriftliche Abläufe.</strong> Sie beschreiben, wie man die Lambdas drosselt oder stoppt und die
+                Queues leert, damit ein außer Kontrolle geratener Job keine Kosten in die Höhe treiben kann.
               </li>
             </ul>
 
             <h2>Härtung nach dem Senior-Review</h2>
-            <p>
-              Statement-Timeouts in PostgreSQL, eine URL-Allowlist, Größenlimits für Antworten, schnelles Abbrechen bei
-              verdächtig leeren Seiten, atomare Schreibpfade und strukturierte Fehlererfassung. Außerdem habe ich ein teures
-              <code>COUNT(*)</code> aus dem Hot Path entfernt, Werkzeuge für die Indexpflege ergänzt und
-              Aufbewahrungsrichtlinien für ECR-Images und CloudWatch-Logs festgelegt, um die Kosten zu kontrollieren.
-            </p>
+            <p>Ein erfahrenes Teammitglied hat die Pipeline geprüft, und ich habe sie nach diesem Review gehärtet:</p>
+            <ul>
+              <li>Jede Datenbankabfrage hat ein Zeitlimit, und jeder Schreibvorgang ist atomar.</li>
+              <li>Worker rufen nur URLs von einer Allowlist ab und weisen zu große Antworten zurück.</li>
+              <li>
+                Eine Seite, die verdächtig leer zurückkommt, schlägt sofort fehl, und jeder Fehler wird mit seinem
+                Kontext festgehalten.
+              </li>
+              <li>
+                Ich habe ein teures <code>COUNT(*)</code> aus dem Hot Path entfernt und Werkzeuge für die Indexpflege
+                ergänzt.
+              </li>
+              <li>Aufbewahrungsrichtlinien für ECR-Images und CloudWatch-Logs halten die Speicherkosten niedrig.</li>
+            </ul>
 
             <h2>Ergebnisse</h2>
             <ul class="metric-grid">
-              <li><span class="num">~5&nbsp;Mio./Tag</span><span class="lbl">Inserate, Zielwert im Test erreicht</span></li>
-              <li><span class="num">Täglich</span><span class="lbl">Erfassung, Speicherung und Alarmierung in Produktion</span></li>
+              <li><span class="num">5&nbsp;Mio./Tag</span><span class="lbl">das Ziel, im Test auf der kleinsten RDS-Instanz erreicht</span></li>
+              <li><span class="num">~5.000/Tag</span><span class="lbl">die Rate, die die Begrenzung der Quelle in Produktion zuließ</span></li>
+              <li><span class="num">Täglich</span><span class="lbl">Erfassung, Speicherung und Alarme in Produktion</span></li>
               <li><span class="num">7 Marken</span><span class="lbl">abgedeckt für die Preisanalysen des Unternehmens</span></li>
             </ul>
             <p>
-              <strong>Was ich gelernt habe:</strong> Als die Quelle ihre Ratenlimits verschärfte, sank der dauerhaft
-              mögliche Durchsatz auf rund 5.000 Inserate pro Tag, und das wurde zur normalen Betriebsrate. In dieser
-              Größenordnung ist die echte Grenze oft die Datenquelle, nicht die Infrastruktur. Back-off muss deshalb vom
-              ersten Tag an Teil des Designs sein.
+              <strong>Was ich gelernt habe:</strong> Die Pipeline konnte 5 Millionen Inserate pro Tag verarbeiten, die
+              Quelle aber nicht. Als die Quelle ihre Ratenbegrenzung verschärfte, sank die dauerhaft mögliche Rate auf
+              rund 5.000 Inserate pro Tag, und das wurde zum Normalbetrieb. In dieser Größenordnung setzt die
+              Datenquelle die Grenze, nicht die Infrastruktur. Das Zurückfahren muss deshalb vom ersten Tag an Teil des
+              Designs sein.
             </p>
 
             <p class="callout">
-              Diese Darstellung ist vereinfacht. Sie enthält keinen Code des Arbeitgebers, keine internen Daten und keine
-              privaten URLs, und die Datenquelle wird nicht genannt.
+              Diese Seite enthält keinen Code des Arbeitgebers, keine internen Daten und keine privaten URLs, und sie
+              nennt die Datenquelle nicht.
             </p>
           </div>
 

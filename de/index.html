@@ -39,8 +39,9 @@
               Ich entwickle KI-Systeme, die im Produktivbetrieb laufen: LLM- und Vektorsuche, Datenpipelines auf AWS und MLOps.
             </p>
             <p class="sub">
-              Mehr als 2 Jahre Erfahrung im Aufbau und Betrieb von KI/ML-Systemen. Zuletzt war ich bei einem Onlinehändler für
-              gebrauchte Autoteile allein für KI/ML zuständig. Davor habe ich ein KI-Team im Bereich erneuerbare Energien geleitet.
+              Seit mehr als 2 Jahren baue und betreibe ich KI/ML-Systeme. Zuletzt war ich bei einem Onlinehändler für
+              gebrauchte Autoteile allein für KI/ML zuständig. Davor habe ich das KI-Team eines Unternehmens für
+              erneuerbare Energien geleitet.
             </p>
             <p class="availability">
               Ich lebe in Daejeon, Südkorea. Offen für Stellen als AI/ML Engineer in Seoul (vor Ort oder hybrid), für
@@ -69,7 +70,7 @@
 
         <dl class="stats">
           <div class="stat">
-            <dt>Suchgenauigkeit im vorgegebenen Test mit 3.000 Teilen. F&amp;E-Projekt genehmigt.</dt>
+            <dt>Suchgenauigkeit im 3.000-Teile-Test eines staatlichen F&amp;E-Programms. Das Projekt wurde genehmigt.</dt>
             <dd>95&nbsp;%+</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-track"><span class="viz-bar viz-now" style="--v: 95"></span></span></dd>
           </div>
@@ -79,12 +80,12 @@
             <dd class="stat-viz" aria-hidden="true"><span class="viz-dots"></span></dd>
           </div>
           <div class="stat">
-            <dt>Geringerer Fehler der Solarprognose ermöglichte Einnahmen aus der Stromvermittlung</dt>
+            <dt>Fehler der Solarprognose. Mit dem geringeren Fehler konnte das Unternehmen Solarstrom an der Korea Power Exchange verkaufen.</dt>
             <dd>9&nbsp;% → 7&nbsp;%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 78"></span></dd>
           </div>
           <div class="stat">
-            <dt>Weniger manueller Betriebsaufwand nach MLOps-Automatisierung (~48.000&nbsp;$/Jahr)</dt>
+            <dt>Manueller Betriebsaufwand, nachdem ich Deployment und Monitoring automatisiert hatte. Das sparte rund 48.000&nbsp;$ im Jahr.</dt>
             <dd>−80&nbsp;%</dd>
             <dd class="stat-viz" aria-hidden="true"><span class="viz-bar" style="--v: 100"></span><span class="viz-bar viz-now" style="--v: 20"></span></dd>
           </div>
@@ -96,9 +97,9 @@
           <p class="eyebrow">Ausgewählte Projekte</p>
           <h2 id="work-title">KI in Produktion: vom Problem bis zum überwachten System</h2>
           <p>
-            Vier Projekte, die zeigen, wie ich arbeite. Jede Fallstudie beschreibt das Problem, was ich gebaut habe, wie ich
-            es gemessen habe und das Ergebnis. Die Details sind vereinfacht, und es gibt weder Code noch vertrauliche Daten
-            von Arbeitgebern.
+            Vier Projekte, die zeigen, wie ich arbeite. Jede Fallstudie beschreibt das Problem, was ich gebaut habe, wie
+            ich es gemessen habe und was sich dadurch geändert hat. Die Seiten enthalten weder Code noch vertrauliche
+            Daten von Arbeitgebern.
           </p>
         </div>
 
@@ -111,11 +112,14 @@
             </div>
             <h3><a href="/de/work/semantic-search/">Semantische KI-Suche für Autoteile</a></h3>
             <p>
-              Suche in natürlicher Sprache, die das genau passende Teil für ein bestimmtes Auto findet, in mehreren Sprachen.
-              Vektorsuche, Entitätserkennung und LLM-Bereinigung der Suchanfragen, dazu eine automatisierte Testsuite für die
-              Genauigkeit.
+              Käufer tippen eine einfache Beschreibung in ihrer eigenen Sprache ein, und die Suche findet das genau
+              passende Teil für genau ihr Auto. Dafür habe ich Vektorsuche, Entitätserkennung und ein LLM kombiniert,
+              das die Anfrage bereinigt, und eine automatisierte Testsuite für die Genauigkeit gebaut.
             </p>
-            <p class="result">Mindestens 95&nbsp;% Genauigkeit im vorgegebenen Test mit 3.000 Teilen. Das F&amp;E-Projekt wurde genehmigt.</p>
+            <p class="result">
+              Die Suche erreichte mindestens 95&nbsp;% im 3.000-Teile-Test eines staatlichen F&amp;E-Programms, und das
+              Projekt wurde genehmigt.
+            </p>
             <ul class="tags" aria-label="Technologien">
               <li>Python</li>
               <li>Django REST</li>
@@ -134,10 +138,14 @@
             </div>
             <h3><a href="/de/work/aws-data-pipeline/">Serverlose Datenpipeline auf AWS</a></h3>
             <p>
-              Eine ereignisgesteuerte Pipeline, die Marktdaten zu Gebrauchtteilen für Preisanalysen sammelt. Lambda-Worker,
-              eine SQS-Queue mit Dead-Letter-Queue, zeitgesteuerte Läufe, PostgreSQL und CloudWatch-Alarme.
+              Für Preisanalysen brauchte das Unternehmen jeden Tag neue Inserate zu Gebrauchtteilen vom Markt. Ich habe
+              eine ereignisgesteuerte Pipeline gebaut: Nach Zeitplan holen sich Lambda-Worker Aufträge aus einer
+              SQS-Queue und speichern die Inserate in PostgreSQL, und CloudWatch schlägt Alarm, wenn etwas fehlschlägt.
             </p>
-            <p class="result">Im Test rund 5&nbsp;Mio. Inserate pro Tag. Lief täglich in Produktion, mit Monitoring und Alarmen.</p>
+            <p class="result">
+              Im Test erreichte die Pipeline ihr Ziel von 5&nbsp;Mio. Inseraten pro Tag, auf der kleinsten
+              Datenbankinstanz. In Produktion ließ die Ratenbegrenzung der Quelle nur rund 5.000 pro Tag zu.
+            </p>
             <ul class="tags" aria-label="Technologien">
               <li>AWS Lambda</li>
               <li>SQS</li>
@@ -156,12 +164,15 @@
             </div>
             <h3><a href="/de/work/solar-mlops/">Solarprognose und Anomalieerkennung im Produktivbetrieb</a></h3>
             <p>
-              Ich habe das Team geleitet, das Solarstromprognosen und Anomalieerkennung für Solarkraftwerke in Produktion
-              gebracht hat, angebunden an eine Plattform für virtuelle Kraftwerke (VPP).
+              Ich habe das Team geleitet, das zwei Modelle in Produktion gebracht hat: Eines sagt vorher, wie viel Strom
+              ein Solarkraftwerk erzeugen wird, und eines meldet ungewöhnliche Messwerte in den Daten der Anlage. Beide
+              lieferten ihre Ergebnisse an ein virtuelles Kraftwerk, eine Plattform, die viele Anlagen gemeinsam wie
+              eine einzige betreibt.
             </p>
             <p class="result">
-              Prognosefehler von 9&nbsp;% auf 7&nbsp;%. Precision der Anomalieerkennung ~35&nbsp;% höher, Recall ~37&nbsp;% höher.
-              Deployments in 15 Minuten statt 3 Stunden.
+              Der Prognosefehler sank von 9&nbsp;% auf 7&nbsp;%, genug, um Strom an der Korea Power Exchange zu
+              verkaufen. Die Precision der Anomalieerkennung stieg um 35 Prozentpunkte, der Recall um 37. Ein Deployment
+              dauerte 15 Minuten statt 3 Stunden.
             </p>
             <ul class="tags" aria-label="Technologien">
               <li>PyTorch</li>
@@ -182,10 +193,12 @@
             </div>
             <h3><a href="/de/work/catalog-agent/">LangGraph-Agent für Katalogdaten</a></h3>
             <p>
-              Ein Agenten-Workflow, der aus einer einfachen Anfrage (Marke, Modell, Baujahr, Region) saubere, katalogfertige
-              Teiledaten macht, mit Zeitplanung, fortsetzbaren Jobs und einem Bericht, den das Datenteam prüfen kann.
+              Das Datenteam lud Katalogdaten von Drittanbietern von Hand. Ich habe einen Agenten-Workflow gebaut, der
+              Marke, Modell, Baujahr und Region entgegennimmt, die passenden Teiledaten abruft, bereinigt und in den
+              Katalog schreibt. Jobs starten nach Zeitplan, lassen sich nach einem Fehler fortsetzen und enden mit einem
+              Bericht, den das Team prüfen kann.
             </p>
-            <p class="result">Funktionsfähiger Prototyp für das Datenteam. Bei meinem Ausscheiden noch nicht in Produktion.</p>
+            <p class="result">Ein funktionsfähiger Prototyp mit Demo-Oberfläche für das Datenteam. Bei meinem Ausscheiden war er nicht in Produktion.</p>
             <ul class="tags" aria-label="Technologien">
               <li>LangGraph</li>
               <li>OpenAI API</li>
@@ -201,22 +214,25 @@
           <li>
             <h4>Preisprognose für Gebrauchtteile</h4>
             <p>
-              F&amp;E an einem Preismodell, das Wertverlust, Nachfrage und aktuelle Marktsignale kombiniert. Getestet mit MAE
-              und MAPE: rund 70–80&nbsp;% Genauigkeit auf einem kleinen Testdatensatz aus der Praxis.
+              Ich habe an einem Modell geforscht, das den Preis eines Gebrauchtteils aus Wertverlust, Nachfrage und
+              aktuellen Marktsignalen ableitet. Auf einem kleinen Satz echter Preise war es zu rund 70–80&nbsp;% genau,
+              gemessen mit MAE und MAPE.
             </p>
           </li>
           <li>
             <h4>Zweisprachige Produktzusammenfassungen</h4>
             <p>
-              Eine LLM-Pipeline, die für alle rund 40.000 Produkte Zusammenfassungen auf Englisch und Koreanisch schrieb, nach
-              Regeln von Fachleuten aus der Branche. Proof of Concept.
+              Ich habe eine LLM-Pipeline gebaut, die für jedes der rund 40.000 Produkte des Unternehmens eine englische
+              und eine koreanische Zusammenfassung schrieb, nach Regeln der Fachleute für Autoteile. Sie blieb ein Proof
+              of Concept.
             </p>
           </li>
           <li>
             <h4>Datenmigration im großen Stil</h4>
             <p>
-              Rund 40.000 firmeneigene Datensätze migriert und über 2&nbsp;Mio. Katalogdatensätze von Drittanbietern geladen,
-              mit Deduplizierung und sicheren, atomaren Schreibvorgängen.
+              Ich habe rund 40.000 firmeneigene Datensätze in eine neue Datenbank übertragen und über 2&nbsp;Mio.
+              Katalogdatensätze von Drittanbietern geladen. Duplikate wurden entfernt, und jeder Batch wurde atomar
+              geschrieben, sodass ein Fehler keine halb geschriebenen Daten hinterlassen konnte.
             </p>
           </li>
         </ul>
@@ -227,8 +243,9 @@
           <p class="eyebrow">Arbeitsweise</p>
           <h2 id="build-title">KI-natives Engineering mit Leitplanken</h2>
           <p>
-            Seit April 2026 entwickle ich die meiste Software, indem ich Coding-Agenten anleite: Claude Code und Codex. Die
-            Agenten schreiben schnell. Die Regeln, Projektnotizen und Prüfungen um sie herum halten die Arbeit verlässlich.
+            Seit April 2026 schreibe ich die meiste Software, indem ich Coding-Agenten anleite: Claude Code und Codex.
+            Die Agenten sind schnell. Die Regeln, Projektnotizen und Prüfungen, die ich um sie herum aufgebaut habe,
+            halten die Arbeit verlässlich.
           </p>
         </div>
 
@@ -237,13 +254,14 @@
             <div class="card-meta"><span class="mono">Privates Repo · 2026</span></div>
             <h3>Gemeinsame Regeln für Coding-Agenten</h3>
             <p>
-              Ein zentrales Regelwerk mit Projektnotizen, genutzt in 19 Projekten (9 beruflich, 10 privat). Claude Code und
-              Codex laden dieselben Standards und behalten den Kontext über Sitzungen hinweg. Lassen sich die Regeln nicht
-              laden, muss der Agent anhalten und nachfragen.
+              Ich pflege ein zentrales Regelwerk mit Projektnotizen, und 19 Projekte laden es: 9 berufliche und 10
+              private. Claude Code und Codex lesen dieselben Standards und knüpfen an den Kontext früherer Sitzungen an.
+              Ein Agent, der die Regeln nicht laden kann, muss anhalten und nachfragen.
             </p>
             <p>
-              Agenten halten Änderungen klein, pflegen die Dokumentation, lesen nie Secrets, ändern nie
-              Produktionsdatenbanken und müssen einen echten End-to-End-Test bestehen, bevor eine Aufgabe als erledigt gilt.
+              Die Regeln sorgen dafür, dass Agenten Änderungen klein halten, die Dokumentation pflegen und nie Secrets
+              lesen oder Produktionsdatenbanken anfassen. Eine Aufgabe gilt erst als erledigt, wenn ein echter
+              End-to-End-Test bestanden ist.
             </p>
           </article>
 
@@ -251,13 +269,13 @@
             <div class="card-meta"><span class="mono">Privates Repo · TypeScript · 2026</span></div>
             <h3>Privates KI-Gateway</h3>
             <p>
-              Ein kleiner Dienst auf Basis von Claude, der meinen Apps einen einzigen KI-Endpunkt bietet. Er liefert
-              Ausgaben, die einem JSON Schema entsprechen, und nimmt Anfragen im OpenAI-Format an, sodass bestehende Clients
-              unverändert funktionieren.
+              Ein kleiner Dienst auf Basis von Claude, der allen meinen Apps einen einzigen KI-Endpunkt bietet. Er nimmt
+              Anfragen im OpenAI-Format an, sodass bestehende Clients unverändert funktionieren, und liefert Ausgaben,
+              die einem JSON Schema entsprechen.
             </p>
             <p>
-              Außerdem steuert er Agentenabläufe, in denen das Modell plant und die aufrufende App ihre eigenen Tools
-              ausführt. So liegen App-Daten nie auf dem Gateway.
+              Er kann auch eine Agentenschleife ausführen: Das Modell entscheidet, welches Tool aufgerufen wird, aber
+              die aufrufende App führt das Tool selbst aus. So erreichen App-Daten nie das Gateway.
             </p>
           </article>
 
@@ -265,9 +283,9 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>Fünf Android-Apps, komplett mit KI-Agenten gebaut</h3>
             <p>
-              Expenses (meine tägliche Finanz-App), Network App, OneShot Reminder, Notes und Life Simulator. KI-Ausgaben
-              werden gegen ein festes Schema geprüft, und nichts wird gespeichert, bevor man es bestätigt. Jede App
-              aktualisiert sich selbst über signierte GitHub Releases.
+              Expenses, die Finanz-App, die ich jeden Tag nutze, dazu Network App, OneShot Reminder, Notes und Life
+              Simulator. Jede App prüft KI-Ausgaben gegen ein festes Schema und fragt nach einer Bestätigung, bevor sie
+              etwas speichert. Die Apps aktualisieren sich selbst über signierte GitHub Releases.
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses-Demovideo</a></li>
@@ -281,8 +299,8 @@
         </div>
 
         <p class="note">
-          Frühere ML-Arbeit: Bildklassifikation für diabetische Retinopathie in Freelance-Aufträgen und
-          Reinforcement-Learning-Experimente für Solarprognosen. Mehr auf
+          Zu meiner früheren ML-Arbeit gehören Bildklassifikatoren, die diabetische Retinopathie einstufen, gebaut in
+          Freelance-Aufträgen, und Reinforcement-Learning-Experimente für Solarprognosen. Mehr davon steht auf
           <a href="https://github.com/AzizjonKasimov?tab=repositories">GitHub</a>.
         </p>
       </section>
@@ -304,26 +322,29 @@
               <p class="org"><strong>G-Man Auto Parts</strong> · E-Commerce für gebrauchte Autoteile</p>
               <ul class="bullets">
                 <li>
-                  Allein zuständig für KI/ML: Konzeption und Betrieb der KI-Suche, der Datenpipelines und der AWS-Umgebung.
-                  Übernahm AWS, als ein erfahrenes Teammitglied das Unternehmen verließ. Entwickelte außerdem Funktionen für
-                  Backend (Django) und Frontend (React).
+                  Ich war allein für KI/ML zuständig. Ich habe die KI-Suche und die Datenpipelines konzipiert und
+                  betrieben und die AWS-Infrastruktur übernommen, als ein erfahrenes Teammitglied das Unternehmen
+                  verließ. Außerdem habe ich Backend-Funktionen in Django und Frontend-Funktionen in React gebaut.
                 </li>
                 <li>
-                  Entwickelte eine KI-Suche für über 2&nbsp;Mio. Autoteile (Weaviate, spaCy, OpenAI). Sie erreichte
-                  mindestens 95&nbsp;% Genauigkeit in einem vorgegebenen Test mit 3.000 Teilen, und das F&amp;E-Projekt wurde
-                  genehmigt.
+                  Entwickelte eine KI-Suche für über 2&nbsp;Mio. Autoteile mit Weaviate, spaCy und der OpenAI API. Die
+                  Suche erreichte im 3.000-Teile-Test eines staatlichen F&amp;E-Programms mindestens 95&nbsp;%, und das
+                  Programm genehmigte das Projekt.
                 </li>
                 <li>
-                  Baute eine serverlose AWS-Datenpipeline (Lambda, SQS, EventBridge, PostgreSQL), die im Test rund 5&nbsp;Mio.
-                  Inserate pro Tag sammelte, mit automatischen Wiederholungsversuchen und Fehleralarmen.
+                  Baute eine serverlose Datenpipeline auf AWS mit Lambda, SQS, EventBridge und PostgreSQL. Im Test
+                  erreichte sie ihr Ziel von 5&nbsp;Mio. Inseraten pro Tag, bevor die Ratenbegrenzung der Quelle sie auf
+                  rund 5.000 pro Tag drosselte. Fehlversuche wiederholte sie von selbst, und bei Störungen schlug sie
+                  Alarm.
                 </li>
                 <li>
-                  Machte Dienste nach einem Senior-Code-Review sicherer (Timeouts, URL-Allowlists, sichere
-                  Datenbank-Schreibvorgänge) und teilte eine Django-Datei mit 6.000 Zeilen in kleinere Module auf.
+                  Härtete die Dienste nach einem Code-Review durch ein erfahrenes Teammitglied, mit Zeitlimits für
+                  Abfragen, URL-Allowlists und sicheren Datenbank-Schreibvorgängen, und teilte eine Django-Datei mit
+                  6.000 Zeilen in kleine Module auf.
                 </li>
                 <li>
-                  Arbeitete mit technischen PMs zusammen, erklärte Ergebnisse und Trade-offs der Unternehmensleitung (CEO,
-                  COO) und dem Data-Labeling-Team und betreute informell ein Junior-Teammitglied.
+                  Arbeitete mit technischen PMs zusammen, erklärte dem CEO, dem COO und dem Data-Labeling-Team
+                  Ergebnisse und Trade-offs und betreute informell ein Junior-Teammitglied.
                 </li>
               </ul>
             </div>
@@ -339,9 +360,9 @@
               <p class="org"><strong>Upwork</strong> · medizinische Bildanalyse</p>
               <ul class="bullets">
                 <li>
-                  Entwickelte Modelle, die den Schweregrad diabetischer Retinopathie anhand von Netzhautbildern
-                  klassifizieren (PyTorch, ResNet50). Erreichte mit Vorverarbeitung, Data Augmentation und Transfer Learning
-                  rund 70&nbsp;% Genauigkeit im ersten Projekt und rund 80&nbsp;% im zweiten.
+                  Entwickelte Modelle in PyTorch auf Basis von ResNet50, die den Schweregrad diabetischer Retinopathie
+                  anhand von Netzhautbildern einstufen. Das erste Projekt erreichte rund 70&nbsp;% Genauigkeit und das
+                  zweite rund 80&nbsp;%, durch Vorverarbeitung, Data Augmentation und Transfer Learning.
                 </li>
               </ul>
             </div>
@@ -358,19 +379,19 @@
               <p class="progression">Zweimal befördert: Data Science Intern → AI Developer → AI Team Lead</p>
               <ul class="bullets">
                 <li>
-                  Leitete die ML-, Backend- und Frontend-Teams bei der Einführung von Solarstromprognosen und
-                  Anomalieerkennung für Solarkraftwerke, per FastAPI angebunden an eine Plattform für virtuelle Kraftwerke
-                  (VPP).
+                  Leitete die ML-, Backend- und Frontend-Teams, die zwei Modelle in Produktion brachten: eine Prognose
+                  der Erzeugung jedes Solarkraftwerks und eine Anomalieerkennung, die ungewöhnliche Messwerte in den
+                  Anlagendaten meldet. FastAPI-Dienste verbanden beide mit einer Plattform für virtuelle Kraftwerke.
                 </li>
                 <li>
-                  Automatisierte Deployment und Monitoring (Docker, GitHub Actions, Prometheus, Grafana). Die
-                  Deployment-Zeit sank von 3 Stunden auf 15 Minuten, der manuelle Aufwand um 80&nbsp;% (rund
-                  48.000&nbsp;$ Ersparnis pro Jahr).
+                  Automatisierte Deployment und Monitoring mit Docker, GitHub Actions, Prometheus und Grafana. Ein
+                  Deployment dauerte 15 Minuten statt 3 Stunden, und der manuelle Betriebsaufwand sank um 80&nbsp;%,
+                  rund 48.000&nbsp;$ pro Jahr.
                 </li>
                 <li>
-                  Senkte den Prognosefehler von 9&nbsp;% auf 7&nbsp;% und ermöglichte so Einnahmen aus der Stromvermittlung
-                  an der Korea Power Exchange. Verbesserte die Precision der Anomalieerkennung um ~35&nbsp;% und den Recall
-                  um ~37&nbsp;%.
+                  Senkte den Prognosefehler von 9&nbsp;% auf 7&nbsp;%, sodass das Unternehmen den Strom der Anlagen an
+                  der Korea Power Exchange verkaufen konnte. Verbesserte die Precision der Anomalieerkennung um rund 35
+                  Prozentpunkte und den Recall um rund 37.
                 </li>
               </ul>
             </div>
@@ -458,8 +479,8 @@
               <li>
                 <span class="what">Daejeon Global Tech Coffee</span>
                 <span class="who">
-                  Startete in Daejeon ein Meetup für Menschen aus Tech, KI und Daten, bei dem man sich auf Englisch
-                  austauschen kann. Spätere Treffen bekamen einen Bildschirm für Code- und KI-Agenten-Demos.
+                  Ich habe in Daejeon ein Meetup für Menschen aus Tech, KI und Daten gestartet, bei dem man sich auf
+                  Englisch austauschen kann. Spätere Treffen bekamen einen Bildschirm für Code- und KI-Agenten-Demos.
                 </span>
                 <span class="when">Seit Januar 2026</span>
               </li>

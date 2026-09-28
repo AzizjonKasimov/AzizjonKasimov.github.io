@@ -5,14 +5,14 @@
     <title>Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish — Azizjon Kasimov</title>
     <meta
       name="description"
-      content="Loyiha tavsifi: quyosh energiyasini bashorat qilish va quyosh elektr stansiyalarida anomaliyalarni aniqlash tizimlarini ishga tushirgan jamoaga rahbarlik. Bashorat xatoligi 9 foizdan 7 foizga tushdi, anomaliyalar boʻyicha precision ~35 foizga oshdi, joylashtirish 3 soatdan 15 daqiqaga qisqardi."
+      content="Loyiha tavsifi: quyosh energiyasi bashorati va quyosh stansiyalari uchun nosozlik detektorini ishga tushirgan jamoaga rahbarlik qildim. Bashorat xatoligi 9 foizdan 7 foizga tushdi, detektorning precision koʻrsatkichi 35 foiz punktiga oshdi, joylashtirish 3 soatdan 15 daqiqaga qisqardi."
     />
     <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/solar-mlops/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish — loyiha tavsifi" />
     <meta
       property="og:description"
-      content="Bashorat xatoligi 9 foizdan 7 foizga tushdi, anomaliyalar boʻyicha precision ~35 foizga va recall ~37 foizga oshdi, joylashtirish 3 soatdan 15 daqiqaga qisqardi, qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi."
+      content="Bashorat xatoligi 9 foizdan 7 foizga tushdi, detektorning precision koʻrsatkichi 35 foiz punktiga, recall koʻrsatkichi esa 37 foiz punktiga oshdi, joylashtirish 3 soatdan 15 daqiqaga qisqardi, qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi."
     />
     <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/solar-mlops/" />
   </head>
@@ -29,9 +29,11 @@
           </div>
           <h1>Quyosh energiyasi bashorati va anomaliyalarni aniqlash tizimlarini ishga tushirish</h1>
           <p class="lead">
-            Recs Innovation kompaniyasida lavozimim ikki marta oshirildi: amaliyotchidan AI Team Lead darajasigacha. Quyosh
-            energiyasini bashorat qilish va quyosh elektr stansiyalarida anomaliyalarni aniqlash tizimlarini ishga tushirgan
-            jamoaga rahbarlik qildim. Inferens xizmatlari virtual elektr stansiyasi (VPP) platformasiga ulangan edi.
+            Recs Innovation kompaniyasiga amaliyotchi boʻlib keldim va toʻrt oydan keyin uning AI jamoasiga rahbarlik
+            qilardim. Jamoa ikkita modelni ishga tushirdi: biri quyosh elektr stansiyasi qancha energiya ishlab
+            chiqarishini bashorat qiladi, ikkinchisi stansiya maʼlumotlaridagi gʻayrioddiy koʻrsatkichlarni aniqlaydi.
+            Ikkalasi ham natijalarini tijoriy virtual elektr stansiyasiga (VPP) uzatib turdi. VPP — koʻplab
+            stansiyalarni bitta stansiya kabi boshqaradigan platforma.
           </p>
           <dl class="glance">
             <div>
@@ -40,7 +42,7 @@
             </div>
             <div>
               <dt>Natija</dt>
-              <dd>Bashorat xatoligi 9 foizdan 7 foizga tushdi. Anomaliyalar boʻyicha precision ~35 foizga, recall ~37 foizga oshdi. Joylashtirish 3 soatdan 15 daqiqaga qisqardi.</dd>
+              <dd>Bashorat xatoligi 9 foizdan 7 foizga tushdi. Anomaliya detektorining precision koʻrsatkichi 35 foiz punktiga, recall koʻrsatkichi esa 37 foiz punktiga oshdi. Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi.</dd>
             </div>
             <div>
               <dt>Texnologiyalar</dt>
@@ -48,7 +50,7 @@
             </div>
             <div>
               <dt>Biznesga taʼsiri</dt>
-              <dd>Korea Power Exchange (KPX) birjasida elektr energiyasi vositachiligidan daromad. Qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi (yiliga ~$48&nbsp;ming).</dd>
+              <dd>Bashorat kompaniyaga Korea Power Exchange (KPX) birjasida elektr energiyasi vositachiligidan daromad olish imkonini berdi. Qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi, bu yiliga taxminan $48&nbsp;ming degani.</dd>
             </div>
           </dl>
         </header>
@@ -56,13 +58,19 @@
         <div class="case-body container">
           <div class="prose">
             <h2>Muammo</h2>
-            <p>Kompaniyaga faqat tajribalarda emas, real ishda ishlaydigan ikkita model kerak edi:</p>
+            <p>
+              Kompaniya elektr energiyasi vositachiligiga kirishayotgan edi. Vositachilik — kichik quyosh stansiyalari
+              ishlab chiqargan energiyani Korea Power Exchange (KPX) birjasida sotish degani. Bunda qatnashish uchun
+              kompaniya stansiyalar qancha energiya ishlab chiqarishini yetarlicha aniq bashorat qilishi kerak.
+            </p>
+            <p>
+              Kompaniyaga, shuningdek, stansiya yuboradigan koʻrsatkichlardan stansiyadagi muammolarni erta payqash ham
+              kerak edi.
+            </p>
+            <p>Shuning uchun ikkita model faqat tajribalarda emas, real ishda ishlashi kerak edi:</p>
             <ul>
-              <li>
-                Korea Power Exchange (KPX) birjasida elektr energiyasi vositachiligi uchun yetarlicha aniq
-                <strong>quyosh generatsiyasi bashorati</strong>;
-              </li>
-              <li>quyosh elektr stansiyalari maʼlumotlarini kuzatadigan <strong>anomaliyalarni aniqlash tizimi</strong>.</li>
+              <li>har bir stansiya ishlab chiqarishining KPX uchun yetarlicha aniq <strong>bashorati</strong> va</li>
+              <li>stansiya maʼlumotlaridagi gʻayrioddiy koʻrsatkichlarni aniqlaydigan <strong>detektor</strong>.</li>
             </ul>
             <p>Ikkalasi ham ishonchli ishlashi va tijoriy VPP platformasiga ulanishi kerak edi.</p>
 
@@ -72,7 +80,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sun.svg --></span>
                   <span class="step-name">Stansiya maʼlumotlari</span>
-                  <span class="step-desc">Quyosh elektr stansiyalaridan olingan koʻp oʻlchovli vaqt qatorlari.</span>
+                  <span class="step-desc">Quyosh elektr stansiyalaridan vaqt qatori koʻrinishida keladigan koʻrsatkichlar, har bir stansiyadan koʻplab oʻlchovlar.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
@@ -82,7 +90,7 @@
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/graph.svg --></span>
                   <span class="step-name">Modellar</span>
-                  <span class="step-desc">Quyosh generatsiyasi bashorati va grafga asoslangan (GNN) anomaliya detektori.</span>
+                  <span class="step-desc">Har bir stansiya ishlab chiqarishining bashorati va grafga asoslangan (GNN) anomaliya detektori.</span>
                 </li>
                 <li>
                   <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
@@ -100,7 +108,7 @@
                 <li><strong>Infratuzilma</strong>PostgreSQL bilan ishlaydigan Docker Compose xizmatlari</li>
                 <li><strong>Monitoring</strong>Prometheus metrikalari va Grafana panellari</li>
               </ul>
-              <figcaption id="flow-caption">Ishlab turgan tizimning soddalashtirilgan sxemasi.</figcaption>
+              <figcaption id="flow-caption">Ishlab turgan tizimning tuzilishi.</figcaption>
             </figure>
             <p class="shots-note">
               Ishlab turgan tizimning skrinshotlari. Stansiya nomi, joylashuvi va savdo koʻrsatkichlari yopilgan.
@@ -111,7 +119,7 @@
                   <img
                     src="/screenshots/recs-dashboard-thumb.jpg"
                     srcset="/screenshots/recs-dashboard-thumb.jpg 480w, /screenshots/recs-dashboard-medium.jpg 960w, /screenshots/recs-dashboard.jpg 1504w"
-                    sizes="(min-width: 784px) 702px, calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="405"
@@ -126,12 +134,12 @@
             <h2>Bashorat qilish</h2>
             <ul>
               <li>
-                AI Developer sifatida oʻrtacha xatoligi 10 foizdan past boʻlgan, PyTorch asosidagi quyosh generatsiyasi
-                bashoratini yaratdim. Shu tufayli kompaniya KPX bozorida ishlash talablariga javob berdi.
+                AI Developer sifatida birinchi bashorat modelini PyTorch yordamida yaratdim. Uning oʻrtacha xatoligi 10
+                foizdan past edi, shu tufayli kompaniya KPX bozorida ishlash talablariga javob berdi.
               </li>
               <li>
-                Jamoa rahbari sifatida bashorat xatoligini 9 foizdan 7 foizga tushirdim (22 foizga kam). Bu KPX birjasida
-                elektr energiyasi vositachiligidan daromad olish imkonini berdi.
+                Jamoa rahbari sifatida maʼlumotlarni tahlil qilib va modelni sozlab, xatolikni 9 foizdan 7 foizga
+                tushirdim. Bu elektr energiyasi vositachiligidan daromad olish imkonini berdi.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-forecast">
@@ -155,7 +163,7 @@
                   <img
                     src="/screenshots/recs-forecast-bars-thumb.jpg"
                     srcset="/screenshots/recs-forecast-bars-thumb.jpg 480w, /screenshots/recs-forecast-bars-medium.jpg 960w, /screenshots/recs-forecast-bars.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="378"
@@ -170,7 +178,7 @@
                   <img
                     src="/screenshots/recs-forecast-week-thumb.jpg"
                     srcset="/screenshots/recs-forecast-week-thumb.jpg 480w, /screenshots/recs-forecast-week-medium.jpg 960w, /screenshots/recs-forecast-week.jpg 1280w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="404"
@@ -185,7 +193,7 @@
                   <img
                     src="/screenshots/recs-forecast-page-thumb.jpg"
                     srcset="/screenshots/recs-forecast-page-thumb.jpg 480w, /screenshots/recs-forecast-page-medium.jpg 960w, /screenshots/recs-forecast-page.jpg 1242w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="462"
@@ -199,36 +207,46 @@
 
             <h2>Quyosh elektr stansiyalari uchun anomaliyalarni aniqlash</h2>
             <p>
-              Grafga asoslangan model (GNNAD) yordamida koʻp oʻlchovli vaqt qatorlarida anomaliyalarni aniqlash ustida ishladim.
-              Yaxshilanishlar bosqichma-bosqich keldi:
+              Detektor — graf neyron tarmogʻi (GNNAD). U stansiya koʻrsatkichlari odatda qanday birga oʻzgarishini
+              oʻrganadi va shu qolipdan chiqqan koʻrsatkichlarni aniqlaydi.
+            </p>
+            <p>
+              Amaliyotchi sifatida uning birinchi versiyasini sozladim, tajribalarni MLflow orqali kuzatdim va uni VPP
+              platformasiga ulaydigan FastAPI endpointlarini yaratdim. Jamoa rahbari sifatida esa uning aniqligini
+              bosqichma-bosqich oshirdim va har bir bosqichni oʻlchadim:
             </p>
             <ul>
               <li>
-                <strong>Xatolarni aniqroq koʻrish.</strong> Ochiq kodli kod bazasini jiddiy qayta ishladim va har bir belgi
-                (feature) boʻyicha bashoratlarni real maʼlumotlar bilan solishtiradigan grafiklar qoʻshdim.
-              </li>
-              <li><strong>Xatolikni yaxshiroq hisoblash:</strong> precision +5%, recall +7%.</li>
-              <li>
-                <strong>Soatlik chegaralar:</strong> kun davomida xatolik qanday oʻzgarishini kuzatish uchun bitta umumiy chegara
-                oʻrniga 24 ta chegara. Recall +10%.
+                <strong>Xatolarni aniqroq koʻrish.</strong> Ochiq kodli kodni jiddiy qayta ishladim va har bir belgi
+                (feature) boʻyicha bashoratni haqiqiy koʻrsatkich bilan solishtiradigan grafiklar qoʻshdim, shunda model
+                qayerda adashganini koʻra oldik.
               </li>
               <li>
-                <strong>Tozaroq oʻqitish maʼlumotlari:</strong> oʻqitish toʻplamidan anomal nuqtalarni olib tashlash natijasida
-                precision +30%, recall +20%.
+                <strong>Xatolikni yaxshiroq hisoblash</strong> precision koʻrsatkichini 5 foiz punktiga, recall
+                koʻrsatkichini esa 7 foiz punktiga oshirdi.
               </li>
               <li>
-                <strong>Halol validatsiya:</strong> real ishdagi sharoitga mos kross-validatsiya — 16 nuqtali inferens oynalari,
-                soatlik chegaralar va har kecha qayta oʻqitish.
+                <strong>Soatlik chegaralar.</strong> Butun kun uchun bitta chegara baʼzi soatlardagi anomaliyalarni
+                oʻtkazib yuborardi, chunki xatolik kun davomida oʻzgaradi. Har soat uchun bittadan, jami 24 ta chegara
+                ishlatish recall koʻrsatkichini 10 punktga oshirdi.
+              </li>
+              <li>
+                <strong>Tozaroq oʻqitish maʼlumotlari.</strong> Oʻqitish toʻplamidan anomal nuqtalarni olib tashlash
+                precision koʻrsatkichini 30 punktga, recall koʻrsatkichini esa 20 punktga oshirdi.
+              </li>
+              <li>
+                <strong>Halol validatsiya.</strong> Kross-validatsiya real ishdagidek oʻtkaziladi: 16 nuqtali inferens
+                oynalari, soatlik chegaralar va har kecha qayta oʻqitish bilan, shunda yaxshi test natijasi real ishda
+                ham yaxshi natija degani boʻladi.
               </li>
             </ul>
             <p>
-              <strong>Umuman olganda, precision taxminan 35 foizga, recall esa taxminan 37 foizga oshdi.</strong> Undan oldin,
-              amaliyotchi boʻlganimda, GNN modelini 70% precision va 50% recall darajasigacha sozlaganman, tajribalarni MLflow
-              orqali kuzatganman va anomaliyalarni aniqlash tizimini VPP platformasiga ulaydigan FastAPI endpointlarini
-              yaratganman.
+              <strong>Jami precision taxminan 35 foiz punktiga, recall esa taxminan 37 foiz punktiga oshdi.</strong>
+              Oddiy qilib aytganda, detektor soxta ogohlantirishlarni ancha kam berdi va haqiqiy muammolarni ancha kam
+              oʻtkazib yubordi.
             </p>
             <figure class="chart" aria-labelledby="chart-anomaly">
-              <figcaption id="chart-anomaly" class="chart-title">Yaxshilanish qayerdan keldi, foizda</figcaption>
+              <figcaption id="chart-anomaly" class="chart-title">Yaxshilanish qayerdan keldi, foiz punktida</figcaption>
               <div class="bars">
                 <div class="bar-row">
                   <span class="bar-label">Precision</span>
@@ -236,7 +254,7 @@
                     <span class="bar seg-1" style="--v: 12.5">+5</span>
                     <span class="bar seg-3" style="--v: 75">+30</span>
                   </span>
-                  <span class="bar-value">+35%</span>
+                  <span class="bar-value">+35&nbsp;punkt</span>
                 </div>
                 <div class="bar-row">
                   <span class="bar-label">Recall</span>
@@ -245,7 +263,7 @@
                     <span class="bar seg-2" style="--v: 25">+10</span>
                     <span class="bar seg-3" style="--v: 50">+20</span>
                   </span>
-                  <span class="bar-value">+37%</span>
+                  <span class="bar-value">+37&nbsp;punkt</span>
                 </div>
               </div>
               <ul class="chart-legend">
@@ -260,7 +278,7 @@
                   <img
                     src="/screenshots/recs-anomaly-detected-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-detected-thumb.jpg 480w, /screenshots/recs-anomaly-detected-medium.jpg 960w, /screenshots/recs-anomaly-detected.jpg 1243w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="504"
@@ -275,7 +293,7 @@
                   <img
                     src="/screenshots/recs-anomaly-voltage-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-voltage-thumb.jpg 480w, /screenshots/recs-anomaly-voltage-medium.jpg 960w, /screenshots/recs-anomaly-voltage.jpg 1248w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="500"
@@ -290,7 +308,7 @@
                   <img
                     src="/screenshots/recs-anomaly-none-thumb.jpg"
                     srcset="/screenshots/recs-anomaly-none-thumb.jpg 480w, /screenshots/recs-anomaly-none-medium.jpg 960w, /screenshots/recs-anomaly-none.jpg 1447w"
-                    sizes="(min-width: 690px) 215px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
+                    sizes="(min-width: 653px) 273px, (min-width: 450px) calc(46vw - 25px), calc(100vw - 50px)"
                     alt=""
                     width="480"
                     height="431"
@@ -305,13 +323,13 @@
             <h2>MLOps va joylashtirish</h2>
             <ul>
               <li>
-                Anomaliyalarni aniqlash tizimini konteynerlashtirdim va joylashtirishni GitHub Actions yordamida
+                AI Developer sifatida detektorni konteynerlarga joyladim va uni joylashtirishni GitHub Actions yordamida
                 avtomatlashtirdim. Joylashtirish vaqti 3 soatdan 15 daqiqaga qisqardi.
               </li>
               <li>
-                Docker Compose, GitHub Actions, PostgreSQL, Prometheus va Grafana yordamida toʻliq (end-to-end) MLOps
-                infratuzilmasini qurdim. Qoʻlda bajariladigan operatsiyalar 80 foizga kamaydi va bu yiliga taxminan
-                $48&nbsp;ming tejadi.
+                Jamoa rahbari sifatida MLOps tizimining qolgan qismini qurdim: PostgreSQL bilan ishlaydigan Docker
+                Compose xizmatlari, GitHub Actions orqali joylashtirish va Grafana panellaridagi Prometheus metrikalari.
+                Qoʻlda bajariladigan operatsion ishlar 80 foizga kamaydi, bu yiliga taxminan $48&nbsp;ming tejadi.
               </li>
             </ul>
             <figure class="chart" aria-labelledby="chart-ops">
@@ -352,20 +370,20 @@
 
             <h2>Jamoaga rahbarlik</h2>
             <p>
-              AI Team Lead sifatida ML, backend va frontend jamoalarini boshqardim va modellarning VPP platformasiga toʻgʻri
-              ulanishini taʼminladim.
+              AI Team Lead sifatida ML, backend va frontend jamoalarini boshqardim. Vazifam modellar tajriba boʻlib
+              qolib ketmasligini taʼminlash edi: ular har kuni ishlashi va VPP platformasiga toʻgʻri ulanishi kerak edi.
             </p>
 
             <h2>Natijalar</h2>
             <ul class="metric-grid">
-              <li><span class="num">9% → 7%</span><span class="lbl">bashorat xatoligi; KPX birjasida vositachilik daromadiga imkon berdi</span></li>
-              <li><span class="num">+35% / +37%</span><span class="lbl">anomaliyalarni aniqlash: precision / recall</span></li>
+              <li><span class="num">9% → 7%</span><span class="lbl">bashorat xatoligi, bu KPX birjasida vositachilikdan daromad olish imkonini berdi</span></li>
+              <li><span class="num">+35 / +37 punkt</span><span class="lbl">detektorning precision / recall koʻrsatkichlari</span></li>
               <li><span class="num">3&nbsp;soat → 15&nbsp;daqiqa</span><span class="lbl">joylashtirish vaqti</span></li>
-              <li><span class="num">−80%</span><span class="lbl">qoʻlda bajariladigan operatsion ishlar (yiliga ~$48&nbsp;ming)</span></li>
+              <li><span class="num">−80%</span><span class="lbl">qoʻlda bajariladigan operatsion ishlar, yiliga taxminan $48&nbsp;ming</span></li>
             </ul>
 
             <p class="callout">
-              Bu tavsif soddalashtirilgan. Unda ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar yoʻq.
+              Bu sahifada ish beruvchining kodi, ichki maʼlumotlar va yopiq URL manzillar keltirilmagan.
             </p>
           </div>
 
