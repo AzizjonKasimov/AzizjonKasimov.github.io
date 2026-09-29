@@ -291,8 +291,8 @@
               requests, so existing clients work unchanged, and it returns output that matches a JSON Schema.
             </p>
             <p>
-              It can also run an agent loop: the model decides which tool to call, but the calling app runs the tool
-              itself, so app data never reaches the gateway.
+              It can also run an agent loop: the model decides which tool to call, but the calling app runs the tool on
+              its own data and sends back only the result. The gateway never stores app data.
             </p>
           </article>
 
@@ -301,8 +301,9 @@
             <h3>Five Android apps, built entirely with AI agents</h3>
             <p>
               Expenses, the finance app I use every day, plus Network App, OneShot Reminder, Notes, and Life Simulator.
-              Each app checks AI output against a fixed schema and asks the user to confirm before it saves anything.
-              The apps update themselves from signed GitHub Releases.
+              Three of them use AI, and each checks the AI's answer before using it. Expenses and OneShot Reminder ask
+              the user before saving, and Network App saves right away but lets the user undo. The apps update
+              themselves from signed GitHub Releases.
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses demo video</a></li>

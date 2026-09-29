@@ -239,7 +239,7 @@
               一个由 Claude 驱动的小型服务，为我的所有应用提供同一个 AI 接口。它接受 OpenAI 风格的请求，因此现有客户端无需修改即可使用；它返回的输出符合 JSON Schema。
             </p>
             <p>
-              它还能运行智能体循环：模型决定调用哪个工具，但工具由调用方应用自己运行，因此应用数据从不经过网关。
+              它还能运行智能体循环：模型决定调用哪个工具，但工具由调用方应用在自己的数据上运行，只把结果发回。网关不会存储应用数据。
             </p>
           </article>
 
@@ -247,8 +247,9 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>五款完全由 AI 智能体构建的 Android 应用</h3>
             <p>
-              Expenses（我每天使用的记账应用），以及 Network App、OneShot Reminder、Notes 和 Life Simulator。每个应用都会按固定的模式校验 AI
-              的输出，并在保存任何内容之前请用户确认。这些应用通过已签名的 GitHub Releases 自动更新。
+              Expenses（我每天使用的记账应用），以及 Network App、OneShot Reminder、Notes 和 Life Simulator。其中三款使用 AI，每款都会先校验 AI
+              的回答再使用。Expenses 和 OneShot Reminder 会在保存前征求用户确认，Network App 则立即保存，但用户可以撤销。这些应用通过已签名的
+              GitHub Releases 自动更新。
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses 演示视频</a></li>

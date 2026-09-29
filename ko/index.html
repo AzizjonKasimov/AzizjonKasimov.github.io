@@ -254,7 +254,8 @@
               Schema에 맞는 출력을 반환합니다.
             </p>
             <p>
-              에이전트 루프도 실행할 수 있습니다. 모델이 어떤 도구를 호출할지 정하지만, 도구는 호출한 앱이 직접 실행하므로 앱 데이터는 게이트웨이에 전달되지 않습니다.
+              에이전트 루프도 실행할 수 있습니다. 모델이 어떤 도구를 호출할지 정하지만, 도구는 호출한 앱이 자기 데이터로 직접 실행하고 그 결과만
+              돌려보냅니다. 게이트웨이는 앱 데이터를 저장하지 않습니다.
             </p>
           </article>
 
@@ -262,8 +263,9 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>AI 에이전트만으로 만든 Android 앱 5개</h3>
             <p>
-              제가 매일 쓰는 가계부 앱 Expenses, 그리고 Network App, OneShot Reminder, Notes, Life Simulator입니다. 각 앱은 AI 출력을 고정된 스키마로
-              검증하고, 무엇이든 저장하기 전에 사용자에게 확인을 요청합니다. 앱들은 서명된 GitHub Releases에서 스스로 업데이트됩니다.
+              제가 매일 쓰는 가계부 앱 Expenses, 그리고 Network App, OneShot Reminder, Notes, Life Simulator입니다. 이 중 세 개가 AI를 사용하며,
+              각각 AI의 답을 쓰기 전에 검증합니다. Expenses와 OneShot Reminder는 저장하기 전에 사용자에게 확인을 받고, Network App은 바로
+              저장하지만 사용자가 되돌릴 수 있습니다. 앱들은 서명된 GitHub Releases에서 스스로 업데이트됩니다.
             </p>
             <ul class="card-links">
               <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses 데모 영상</a></li>
