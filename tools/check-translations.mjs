@@ -12,7 +12,9 @@
 // - identical technology tags, code, and inline SVG icons;
 // - the same numbers. Values are compared, not text, so "2M+" (en), "200만+" (ko), "2 Mio.+" (de),
 //   "2 млн+" (ru), "2 mln+" (uz), and "200 万+" (zh) all count as 2,000,000. English numbers
-//   written as words ("four", "twice") may appear as digits in a translation.
+//   written as words ("four", "twice") may appear as digits in a translation. Numbers inside
+//   <code> are left out here: code must already match English exactly, and it keeps English
+//   number formats, such as 12,800, that another language would read differently.
 // - none of the banned words below.
 
 import { existsSync, readFileSync } from 'node:fs'
@@ -183,7 +185,7 @@ function checkPage(locale, page, report) {
   // Technology tags, code, and inline icons stay exactly as in English.
   for (const [label, pattern] of [
     ['technology tags', /<ul class="tags"[^>]*>([\s\S]*?)<\/ul>/g],
-    ['code', /<code>([\s\S]*?)<\/code>/g],
+    ['code', /<code\b[^>]*>([\s\S]*?)<\/code>/g],
     ['icons (inline SVG)', /(<svg[\s\S]*?<\/svg>)/g],
   ]) {
     if (listsOf(html, pattern).join(' | ') !== listsOf(en, pattern).join(' | ')) report(`${label} must match English exactly`)
@@ -199,9 +201,10 @@ function checkPage(locale, page, report) {
     if (match) report(`found "${match[0]}": ${reason}`)
   }
 
-  // Numbers
-  const source = numbersIn(visibleText(en), 'en')
-  const target = numbersIn(text, locale.code)
+  // Numbers, outside code (compared exactly above)
+  const withoutCode = (page) => page.replace(/<code\b[^>]*>[\s\S]*?<\/code>/g, ' ')
+  const source = numbersIn(visibleText(withoutCode(en)), 'en')
+  const target = numbersIn(visibleText(withoutCode(html)), locale.code)
   const missing = [...source].filter((value) => value >= 0 && !target.has(value))
   const extra = [...target].filter((value) => !source.has(value) && !source.has(-value))
   if (missing.length) report(`numbers in English but not here: ${missing.join(', ')}`)
