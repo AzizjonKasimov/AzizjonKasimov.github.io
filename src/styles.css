@@ -2048,7 +2048,7 @@ strong {
 
 .shots-phone .shot img,
 .shots-phone li:only-child .shot img {
-  aspect-ratio: 9 / 20;
+  aspect-ratio: 1080 / 2290;
 }
 
 @media (max-width: 479px) {

@@ -69,7 +69,9 @@ shows the same drawing.
   shows seven screenshots of the Recs Innovation systems, with the plant's name, its location, and
   its sales figures covered. Phone screenshots go in a `.shots shots-phone` gallery, three to a row
   (two below 480px), each shown whole; take them from a test phone or emulator with made-up data
-  (the Expenses app's demo mode, or made-up people in Network App), never from real data.
+  (the Expenses app's demo mode, or made-up people in Network App), never from real data. Crop the
+  status bar off first (the top 110 px of a 1080×2400 screen), so every phone screenshot is
+  1080×2290, the shape the gallery expects.
 - **Videos:** a `.video-card` links to the video on YouTube instead of embedding it, so the page
   loads nothing from YouTube.
 
