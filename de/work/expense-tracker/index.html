@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>KI-Ausgabentracker mit Import von Kontoauszügen – Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Fallstudie: ein Ausgabentracker für Android, den ich jeden Tag nutze. Code liest jeden Betrag und jedes Datum aus der Excel-Datei meiner Bank, KI wählt die Kategorie, und ich prüfe jede Zeile, bevor sie gespeichert wird."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/expense-tracker/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="KI-Ausgabentracker mit Import von Kontoauszügen – Fallstudie" />
+    <meta
+      property="og:description"
+      content="Code liest die Zahlen, KI wählt die Kategorie, und ich prüfe jede Zeile. Eine eigene App, die ich täglich nutze, mit Demovideo."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/expense-tracker/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/de/#how-i-build">← Arbeitsweise</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Täglich im Einsatz</span>
+            <span class="mono">Eigenes Projekt · 2026</span>
+          </div>
+          <h1>KI-Ausgabentracker mit Import von Kontoauszügen</h1>
+          <p class="lead">
+            Alle paar Tage brauchte ich 30 bis 60 Minuten, um meine Ausgaben von Hand zu erfassen. Ich habe eine App
+            gebaut, die den Kontoauszug meiner Bank liest. KI wählt für jede Zahlung eine Kategorie, und die App bittet
+            mich, jede Zeile zu prüfen. Außerdem sagt die App meiner Freundin, was sie mir schuldet.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Meine Rolle</dt>
+              <dd>Ich habe die App entworfen und festgelegt, wie sie KI nutzt. Den Code haben die Coding-Agenten Claude Code und Codex geschrieben, nach meinen Regeln und mit meinen Prüfungen.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Ich nutze die App seit April 2026 jeden Tag. Der Code ist privat, deshalb zeigt ein Demovideo mit Beispieldaten, wie sie funktioniert.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Android, Claude über mein privates KI-Gateway, Telegram Bot API, GitHub für Backups und Updates</dd>
+            </div>
+            <div>
+              <dt>Größenordnung</dt>
+              <dd>Rund 1.000 Buchungen aus zwei Jahren, einschließlich der Historie, die ich aus älteren Apps übernommen habe</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Das Problem</h2>
+            <p>
+              Meine Bank, die Toss Bank, liefert mir Kontoauszüge als passwortgeschützte Excel-Dateien. Jede Zeile
+              enthält ein Datum, einen Betrag und den kurzen Namen des Geschäfts.
+            </p>
+            <p>
+              Ich wollte wissen, wohin mein Geld geht, und meine Freundin und ich teilen uns viele Kosten. Also habe ich
+              alle paar Tage die Zeilen in eine Budget-App kopiert, für jede eine Kategorie gewählt und ihren Anteil
+              ausgerechnet.
+            </p>
+
+            <h2>Wie die App gewachsen ist</h2>
+            <p>
+              Ich habe klein angefangen. Im April 2026 habe ich in zwei Tagen einen Telegram-Bot gebaut. Daraus wurde
+              eine Telegram Mini App, eine kleine Web-App innerhalb von Telegram. Diese Version bekam einen KI-Import. Im
+              Juni 2026 wurde daraus die Android-App, die ich heute nutze.
+            </p>
+
+            <h2>So läuft ein Import ab</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sheet.svg --></span>
+                  <span class="step-name">Kontoauszug öffnen</span>
+                  <span class="step-desc">Die App öffnet die Excel-Datei der Bank auf dem Handy, mit dem gespeicherten Passwort.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Zahlen auslesen</span>
+                  <span class="step-desc">Code liest aus jeder Zeile Datum, Betrag und den Namen des Geschäfts. Die KI legt nie einen Betrag fest.</span>
+                </li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/receipt.svg --></span>
+                  <span class="step-name">Belege zuordnen</span>
+                  <span class="step-desc">Bei Bestellungen im koreanischen Onlineshop Coupang findet die App die E-Mail zur Bestellung und ergänzt die Produktnamen.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">KI wählt eine Kategorie</span>
+                  <span class="step-desc">Claude wählt aus einer festen Liste von Kategorien. Meine eigenen Regeln für bekannte Geschäfte haben Vorrang.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Ich prüfe jede Zeile</span>
+                  <span class="step-desc">Ich markiere, wer bezahlt hat: I Pay Full, Half oder She Pays. Ich kann jedes Feld korrigieren oder eine Zeile überspringen.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/send.svg --></span>
+                  <span class="step-name">Speichern und benachrichtigen</span>
+                  <span class="step-desc">Die Zeilen werden auf dem Handy gespeichert, und meine Freundin bekommt eine Telegram-Nachricht mit ihrem Gesamtbetrag.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Wenn die KI scheitert</strong>Lokale Regeln kategorisieren die Zeilen, und eine Warnung nennt den Grund</li>
+                <li><strong>Backup</strong>Ein privates GitHub-Repository, das nach jeder Änderung aktualisiert wird</li>
+                <li><strong>Updates</strong>Signierte App-Updates über GitHub Releases</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Ein Kontoauszug, von der Datei bis zu den gespeicherten Ausgaben. Der gestrichelte Schritt läuft nur,
+                wenn die E-Mail-Suche eingeschaltet ist.
+              </figcaption>
+            </figure>
+
+            <h3>Beispiel: eine Zeile des Kontoauszugs, Schritt für Schritt</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Die Zeile in der Datei der Bank</span>
+                  <code lang="ko">2026-09-23 11:52 · 쿠팡(쿠페이)_KCP · −12,800 KRW</code>
+                </li>
+                <li>
+                  <span class="trace-label">Nach der Belegzuordnung</span>
+                  <code lang="ko">쿠팡(쿠페이)_KCP — A4 복사용지 500매</code>
+                  <span class="trace-note">Die E-Mail zur Bestellung nennt das Produkt: eine Packung A4-Kopierpapier.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Was der Code ausliest und was die KI ergänzt</span>
+                  <ul class="trace-chips">
+                    <li><code>date: 2026-09-23</code></li>
+                    <li><code>amount: −12,800 KRW</code></li>
+                    <li><code>type: expense</code></li>
+                    <li><code>category: Paperwork › Printing &amp; scanning</code></li>
+                  </ul>
+                  <span class="trace-note">Der Code füllt die ersten drei Felder aus. Die KI wählt nur die Kategorie.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Ich tippe auf Half, und die Telegram-Nachricht wird verschickt</span>
+                  <code lang="ko">2026-09-23 11:52 - 쿠팡(쿠페이)_KCP — A4 복사용지 500매 [Printing &amp; scanning] - 6,400 KRW (total: 12,800 KRW)</code>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">Eine ausgedachte Zeile aus den Beispieldaten der App, die die Schritte veranschaulicht.</figcaption>
+            </figure>
+
+            <h2>Designentscheidungen</h2>
+            <ul>
+              <li>
+                <strong>Code kümmert sich um die Zahlen.</strong> Einmal hielt die KI meinen Kontostand für eine
+                Einnahme. Jetzt liest Code jeden Betrag und jedes Datum, und das Vorzeichen des Betrags entscheidet, ob
+                eine Zeile eine Einnahme oder eine Ausgabe ist. Die KI wählt nur die Kategorie, deshalb kann sie keine
+                Summe verändern.
+              </li>
+              <li>
+                <strong>Bessere Eingaben schlagen einen besseren Prompt.</strong> Auf dem Kontoauszug sehen alle
+                Zahlungen an Coupang fast gleich aus, deshalb konnte kein Prompt sie gut einordnen. Erst als die App jede
+                Zahlung ihrer E-Mail zur Bestellung zuordnete, bekam die KI die echten Produktnamen. Ein Beleg zählt nur,
+                wenn seine Summe dem gezahlten Betrag entspricht und zwischen Zahlung und E-Mail höchstens zwei Stunden
+                liegen.
+              </li>
+              <li>
+                <strong>Meine Regeln gehen vor.</strong> Regeln, die ich für bekannte Geschäfte festlege, gewinnen immer
+                gegen die KI.
+              </li>
+              <li>
+                <strong>Fehler bleiben nie unbemerkt.</strong> Wenn der KI-Aufruf fehlschlägt oder die Kategorien der KI
+                nicht zur Liste passen, kategorisieren lokale Regeln die Zeilen, und eine Warnung nennt den Grund. Eine
+                Zeile, für die sich keine Kategorie findet, bleibt „Unknown“, bis ich sie selbst korrigiere.
+              </li>
+              <li>
+                <strong>Entscheidungen beruhen auf echten Daten.</strong> Früher zählten Erstattungen als Einnahmen. In
+                meinen eigenen Kontoauszügen passten 10 von 17 Erstattungen von Coupang zu genau einer früheren Zahlung.
+                Deshalb zieht die App diese Erstattungen jetzt automatisch vom Kauf ab. Den Rest ordne ich selbst zu.
+              </li>
+              <li>
+                <strong>Standardmäßig privat.</strong> Die Daten liegen auf dem Handy. Beim Import geht nur der Text des
+                Kontoauszugs an die KI, über mein eigenes Gateway. Backups landen in einem privaten GitHub-Repository und
+                enthalten nie Passwörter oder Tokens.
+              </li>
+            </ul>
+
+            <h2>Die App in Aktion</h2>
+            <a class="video-card" href="https://www.youtube.com/watch?v=8pA2G70gYdI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>Die 12-minütige Demo auf YouTube ansehen</strong>
+                <span>Das Video zeigt die App im Demomodus, nur mit Beispieldaten.</span>
+              </span>
+            </a>
+            <p class="shots-note">Screenshots aus dem Demomodus der App, der nur Beispieldaten zeigt.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/expenses-history.jpg">
+                  <img
+                    src="/screenshots/expenses-history-thumb.jpg"
+                    srcset="/screenshots/expenses-history-thumb.jpg 480w, /screenshots/expenses-history-medium.jpg 960w, /screenshots/expenses-history.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">History: Jede gespeicherte Zeile behält ihre Kategorie und die Angabe, wer bezahlt hat</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/expenses-charts.jpg">
+                  <img
+                    src="/screenshots/expenses-charts-thumb.jpg"
+                    srcset="/screenshots/expenses-charts-thumb.jpg 480w, /screenshots/expenses-charts-medium.jpg 960w, /screenshots/expenses-charts.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Charts: die Ausgaben eines Monats nach Kategorie</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Ergebnisse</h2>
+            <ul class="metric-grid">
+              <li><span class="num">40–100&nbsp;Std.</span><span class="lbl">pro Jahr gespart, nach meiner eigenen Schätzung</span></li>
+              <li><span class="num">~1.000</span><span class="lbl">erfasste Buchungen aus zwei Jahren</span></li>
+              <li><span class="num">Täglich</span><span class="lbl">im Einsatz seit April 2026</span></li>
+            </ul>
+            <p>Früher dauerte eine Aktualisierung von Hand 30 bis 60 Minuten. Heute dauert ein Import 5 bis 10 Minuten.</p>
+            <p>Der Blick auf meine Ausgaben nach Kategorie hat mir außerdem geholfen, Geld zu sparen.</p>
+
+            <p class="callout">
+              Der Code der App ist privat. Das Video und die Screenshots zeigen den Demomodus, der mit Beispieldaten
+              läuft.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Weitere Fallstudien">
+            <a href="/de/work/catalog-agent/">
+              <span class="dir">← Vorherige</span>
+              <span class="ttl">LangGraph-Agent für Katalogdaten</span>
+            </a>
+            <a class="next" href="/de/work/network-app/">
+              <span class="dir">Nächste →</span>
+              <span class="ttl">Ein KI-Agent für mein persönliches Netzwerk</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Kontakt">
+            <p><strong>Sie suchen Verstärkung für solche Aufgaben?</strong> Ich bin offen für Stellen als AI/ML Engineer.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">E-Mail schreiben</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Ein KI-Agent für mein persönliches Netzwerk – Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Fallstudie: eine Android-App, in der ein KI-Agent Notizen über Menschen speichert, die ich kenne, und Fragen zu ihnen beantwortet. Er arbeitet nur über Tools auf dem Handy, Gespeichertes lässt sich rückgängig machen, und Löschungen warten auf einen Fingertipp. Der Code ist öffentlich."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/network-app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Ein KI-Agent für mein persönliches Netzwerk – Fallstudie" />
+    <meta
+      property="og:description"
+      content="Claude plant die Schritte, das Handy führt jedes Tool mit seinen eigenen Daten aus, Gespeichertes lässt sich rückgängig machen, und falsche Antworten werden zur Korrektur gekennzeichnet."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/network-app/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/de/#how-i-build">← Arbeitsweise</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Im Einsatz</span>
+            <span class="mono">Eigenes Projekt · öffentlicher Code · 2026</span>
+          </div>
+          <h1>Ein KI-Agent für mein persönliches Netzwerk</h1>
+          <p class="lead">
+            Mein Netzwerk wurde zu groß, um mir zu merken, wer was braucht und wer helfen könnte. Ich habe eine
+            Android-App gebaut, in der ich ein Gespräch in einfachen Worten beschreibe. Ein KI-Agent speichert es bei
+            den richtigen Personen und beantwortet Fragen zu ihnen. Dabei kann er nur über Tools handeln, die auf
+            meinem Handy laufen.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Meine Rolle</dt>
+              <dd>Ich habe das Produkt, den Agenten, seine Tools und seine Sicherheitsregeln entworfen. Den Code haben die Coding-Agenten Claude Code und Codex geschrieben.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Ich habe im August 2026 mit der App begonnen und nutze sie für mein eigenes Netzwerk. Der Code ist öffentlich auf GitHub.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Android, Claude Agent SDK auf meinem privaten KI-Gateway, Tool Calling mit JSON Schema, verschlüsseltes Backup auf GitHub</dd>
+            </div>
+            <div>
+              <dt>Umfang</dt>
+              <dd>17 Tools, die Datensätze lesen, sie ändern oder mich um Bestätigung bitten</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Das Problem</h2>
+            <p>
+              In ganz normalen Gesprächen kommen nützliche Fakten zur Sprache: woran jemand arbeitet, was die Person
+              braucht und was sie anbieten könnte. Als ich mehr Menschen kennenlernte, verlor ich den Überblick über
+              diese Fakten.
+            </p>
+            <p>
+              Kontakt-Apps speichern Namen und Telefonnummern. Fragen wie „Wer könnte dabei helfen?“ oder „Worüber
+              haben wir beim letzten Mal gesprochen?“ können sie nicht beantworten.
+            </p>
+
+            <h2>Wie die App gewachsen ist</h2>
+            <p>
+              Die erste Version im August 2026 hatte Formulare für Personen, ihre Anliegen und ihre Fähigkeiten. KI
+              machte aus einer Notiz einen Vorschlag, und ich prüfte ihn, bevor etwas gespeichert wurde.
+            </p>
+            <p>
+              Ich habe KI-Modelle mit dem echten Schema der App getestet. Ein Modell brach bei strukturierten Antworten
+              immer wieder wegen Zeitüberschreitung ab, also bin ich zu einem anderen gewechselt. Im September 2026 habe
+              ich alle KI-Aufrufe auf Claude umgestellt, über mein privates Gateway.
+            </p>
+            <p>
+              Jede neue Art von Anfrage brauchte ihren eigenen Prompt, ihr Schema, ihren Parser und ihren Bildschirm.
+              Deshalb habe ich den Assistenten Mitte September neu gebaut, als Agenten, der Tools nutzt. Jetzt bearbeitet
+              ein einziger Chat Notizen, Fragen und Korrekturen.
+            </p>
+
+            <h2>So wird eine Nachricht verarbeitet</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Nachricht</span>
+                  <span class="step-desc">Ich tippe oder diktiere eine Notiz zu einem Gespräch oder stelle eine Frage.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">Claude plant</span>
+                  <span class="step-desc">Auf meinem Gateway entscheidet Claude, welches Tool als Nächstes aufgerufen wird. Claude beginnt ohne gespeicherte Datensätze.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shield-check.svg --></span>
+                  <span class="step-name">Gateway-Prüfung</span>
+                  <span class="step-desc">Das Gateway prüft jeden Tool-Aufruf gegen sein JSON Schema und schickt ihn dann an das Handy.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/smartphone.svg --></span>
+                  <span class="step-name">Tool läuft auf dem Handy</span>
+                  <span class="step-desc">Die App prüft den Aufruf noch einmal, führt ihn auf der Datenbank des Handys aus und schickt nur das Ergebnis zurück. Kontaktdaten verlassen nie das Handy.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/undo.svg --></span>
+                  <span class="step-name">Antwort mit Undo</span>
+                  <span class="step-desc">Die Antwort listet jede Änderung auf, und ein Fingertipp macht sie alle rückgängig. Löschungen und Zusammenführungen warten auf meinen Fingertipp.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Datenschutz</strong>Die Datenbank bleibt auf dem Handy, und Backups werden vorher verschlüsselt</li>
+                <li><strong>Spracheingabe</strong>Die Spracherkennung läuft auf dem Handy, wann immer das möglich ist</li>
+                <li><strong>Feedback</strong>Jede Antwort lässt sich mit einer festen Kategorie melden</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Ein Durchlauf des Agenten. Die Schritte 2 bis 4 wiederholen sich, bis Claude alles Nötige hat.
+              </figcaption>
+            </figure>
+            <p class="shots-note">Screenshots von einem Testhandy mit ausgedachten Personen.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-save.jpg">
+                  <img
+                    src="/screenshots/network-assistant-save-thumb.jpg"
+                    srcset="/screenshots/network-assistant-save-thumb.jpg 480w, /screenshots/network-assistant-save-medium.jpg 960w, /screenshots/network-assistant-save.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Eine Notiz über eine neue Person: Die Antwort listet jede gespeicherte Änderung auf, mit einem einzigen Undo</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-answer.jpg">
+                  <img
+                    src="/screenshots/network-assistant-answer-thumb.jpg"
+                    srcset="/screenshots/network-assistant-answer-thumb.jpg 480w, /screenshots/network-assistant-answer-medium.jpg 960w, /screenshots/network-assistant-answer.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Eine Frage ohne guten Treffer: Die Antwort sagt das und erklärt, warum</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-needs.jpg">
+                  <img
+                    src="/screenshots/network-needs-thumb.jpg"
+                    srcset="/screenshots/network-needs-thumb.jpg 480w, /screenshots/network-needs-medium.jpg 960w, /screenshots/network-needs.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Der Tab Needs: wonach Menschen im Netzwerk suchen</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Designentscheidungen</h2>
+            <ul>
+              <li>
+                <strong>Das Handy setzt die Regeln durch.</strong> Jeder Tool-Aufruf wird zweimal geprüft: vom Gateway
+                gegen sein Schema und danach von der App. Die App stellt sicher, dass die Datensätze existieren, der Text
+                nicht zu lang ist, nichts doppelt vorkommt und kein Datum in der Zukunft liegt. Ein abgelehnter Aufruf
+                speichert nichts, und das Modell bekommt eine Fehlermeldung, die es lesen kann, um den Fehler zu beheben.
+              </li>
+              <li>
+                <strong>Flexibel, aber umkehrbar.</strong> Anfangs wartete jede Änderung der KI auf meine Prüfung.
+                Stattdessen habe ich mich für Flexibilität entschieden: Neue Einträge und Änderungen werden jetzt sofort
+                gespeichert. Zu jeder Antwort bewahrt die App eine Kopie jeder Zeile vor und nach der Änderung auf, sodass
+                ein Fingertipp die ganze Antwort rückgängig macht. Undo lehnt ab, wenn ich die Zeile seitdem bearbeitet
+                habe.
+              </li>
+              <li>
+                <strong>Löschungen warten immer.</strong> Die App löscht eine Person, eine Notiz oder einen Datensatz
+                erst, wenn ich die zugehörige Karte antippe. Auch zwei Personen führt sie erst dann zusammen.
+              </li>
+              <li>
+                <strong>Gespeicherter Text gilt als Daten, nicht als Anweisung.</strong> Der Prompt weist das Modell an,
+                gespeicherte Notizen und frühere Nachrichten als Daten zu behandeln, nie als Anweisungen.
+              </li>
+              <li>
+                <strong>Antworten stützen sich auf gespeicherte Datensätze.</strong> Der Assistent muss sagen, wenn die
+                Belege veraltet oder dünn sind. Er darf nie nahelegen, dass jemand zu helfen bereit ist, nur weil eine
+                alte Notiz eine Fähigkeit erwähnt.
+              </li>
+              <li>
+                <strong>Von Grund auf privat.</strong> Die App hat keine Konten, keine Nutzungsanalyse und keinen
+                Kontaktimport. Backups werden auf dem Handy verschlüsselt, bevor sie in ein privates GitHub-Repository
+                gehen. Ein öffentliches Repository lehnt die App als Ziel für Backups ab.
+              </li>
+            </ul>
+
+            <h2>Fehler finden und beheben</h2>
+            <p>
+              Jede Antwort hat einen Button „Report a problem“ mit festen Kategorien, etwa für die falsche Person,
+              etwas Übersehenes oder einen falschen Datensatztyp. Ein Bericht enthält die Nachricht, die Antwort, die
+              gespeicherten Änderungen und jeden Tool-Aufruf der Reihe nach, aber keine Kontaktdaten.
+            </p>
+            <p>
+              Die Berichte werden im verschlüsselten Backup übertragen. Auf meinem Computer entschlüsselt ein Skript nur
+              die Berichte. Ich behebe den Fehler und prüfe die Korrektur auf einem Testhandy mit ausgedachten Personen.
+            </p>
+            <p>
+              Zum Beispiel zeigten Berichte, dass Studium und Ehrenamt als Jobs gespeichert wurden. Eine Testnotiz hatte
+              vier Jobs erzeugt. Nach der Korrektur erzeugte sie nur noch einen Job, und der Rest landete bei Ausbildung
+              und Hintergrundfakten.
+            </p>
+            <p>
+              Ich messe auch die Geschwindigkeit. Jetzt darf ein einziger Tool-Aufruf eine Notiz zusammen mit ihren
+              Fakten speichern. Dadurch sank die Dauer eines Updates zu zwei Personen von etwa 23 auf etwa 12 Sekunden.
+            </p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-report.jpg">
+                  <img
+                    src="/screenshots/network-report-thumb.jpg"
+                    srcset="/screenshots/network-report-thumb.jpg 480w, /screenshots/network-report-medium.jpg 960w, /screenshots/network-report.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Report a problem: Mit festen Kategorien lassen sich Fehler leicht zählen und gruppieren</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Status</h2>
+            <p>
+              Ich nutze die App für mein eigenes Netzwerk, und sie aktualisiert sich selbst über signierte GitHub
+              Releases. Der Code, die README und die Datenschutzhinweise sind öffentlich auf
+              <a href="https://github.com/AzizjonKasimov/network-app">GitHub</a>.
+            </p>
+
+            <p class="callout">
+              Die Screenshots stammen von einem Testhandy mit ausgedachten Personen. Auf dieser Seite erscheint kein
+              echter Kontakt.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Weitere Fallstudien">
+            <a href="/de/work/expense-tracker/">
+              <span class="dir">← Vorherige</span>
+              <span class="ttl">KI-Ausgabentracker mit Import von Kontoauszügen</span>
+            </a>
+            <a class="next" href="/de/work/semantic-search/">
+              <span class="dir">Nächste →</span>
+              <span class="ttl">Semantische KI-Suche für Autoteile</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Kontakt">
+            <p><strong>Sie suchen Verstärkung für solche Aufgaben?</strong> Ich bin offen für Stellen als AI/ML Engineer.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">E-Mail schreiben</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

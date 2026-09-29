@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>AI expense tracker with bank-statement import — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: an Android expense tracker I use every day. Code reads each amount and date from my bank's Excel file, AI picks the category, and I check every row before it is saved."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/expense-tracker/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="AI expense tracker with bank-statement import — case study" />
+    <meta
+      property="og:description"
+      content="Code reads the numbers, AI picks the category, and I check every row. A personal app in daily use, with a demo video."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/expense-tracker/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#how-i-build">← How I build</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">In daily use</span>
+            <span class="mono">Personal project · 2026</span>
+          </div>
+          <h1>AI expense tracker with bank-statement import</h1>
+          <p class="lead">
+            Every few days, I spent 30 to 60 minutes tracking my spending by hand. I built an app that reads my
+            bank's statement, lets AI pick a category for each payment, and asks me to check each row. It also
+            tells my girlfriend what she owes me.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>I designed the app and decided how it uses AI. Coding agents, Claude Code and Codex, wrote the code under my rules and checks.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>In daily use since April 2026. The code is private, so a demo video with sample data shows it working.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Android, Claude through my private AI gateway, Telegram Bot API, GitHub for backups and updates</dd>
+            </div>
+            <div>
+              <dt>Scale</dt>
+              <dd>About 1,000 transactions over two years, including the history I moved in from older apps</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>
+              My bank, Toss Bank, gives me statements as password-protected Excel files. Each row has a date, an
+              amount, and a short shop name.
+            </p>
+            <p>
+              I wanted to know where my money goes, and my girlfriend and I share many costs. So every few days I
+              copied the rows into a budget app, chose a category for each one, and worked out her share.
+            </p>
+
+            <h2>How it grew</h2>
+            <p>
+              I started small. In April 2026 I built a Telegram bot in two days. It became a Telegram Mini App, a
+              small web app inside Telegram, with an AI import. In June 2026 it became the Android app I use today.
+            </p>
+
+            <h2>How an import works</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sheet.svg --></span>
+                  <span class="step-name">Open the statement</span>
+                  <span class="step-desc">The app opens the bank's Excel file on the phone, with the saved password.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Read the numbers</span>
+                  <span class="step-desc">Code reads each row's date, amount, and shop name. The AI never sets an amount.</span>
+                </li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/receipt.svg --></span>
+                  <span class="step-name">Match receipts</span>
+                  <span class="step-desc">For orders from Coupang, a Korean online store, the app finds the order email and adds the product names.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">AI picks a category</span>
+                  <span class="step-desc">Claude chooses from a fixed list of categories. My own rules for known shops come first.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">I check each row</span>
+                  <span class="step-desc">I mark who paid: I Pay Full, Half, or She Pays. I can fix any field or skip a row.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/send.svg --></span>
+                  <span class="step-name">Save and notify</span>
+                  <span class="step-desc">The rows are saved on the phone, and my girlfriend gets a Telegram message with her total.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>If the AI fails</strong>Local rules label the rows, and an alert says why</li>
+                <li><strong>Backup</strong>A private GitHub repository, updated after each change</li>
+                <li><strong>Updates</strong>Signed app updates from GitHub Releases</li>
+              </ul>
+              <figcaption id="flow-caption">
+                One bank statement, from file to saved expenses. The dashed step runs only when the email lookup is on.
+              </figcaption>
+            </figure>
+
+            <h3>Example: one bank row, step by step</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">The row in the bank's file</span>
+                  <code lang="ko">2026-09-23 11:52 · 쿠팡(쿠페이)_KCP · −12,800 KRW</code>
+                </li>
+                <li>
+                  <span class="trace-label">After the receipt match</span>
+                  <code lang="ko">쿠팡(쿠페이)_KCP — A4 복사용지 500매</code>
+                  <span class="trace-note">The order email names the product: a pack of A4 copy paper.</span>
+                </li>
+                <li>
+                  <span class="trace-label">What code reads, and what the AI adds</span>
+                  <ul class="trace-chips">
+                    <li><code>date: 2026-09-23</code></li>
+                    <li><code>amount: −12,800 KRW</code></li>
+                    <li><code>type: expense</code></li>
+                    <li><code>category: Paperwork › Printing &amp; scanning</code></li>
+                  </ul>
+                  <span class="trace-note">Code fills in the first three. The AI chooses only the category.</span>
+                </li>
+                <li>
+                  <span class="trace-label">I tap Half, and the Telegram message goes out</span>
+                  <code lang="ko">2026-09-23 11:52 - 쿠팡(쿠페이)_KCP — A4 복사용지 500매 [Printing &amp; scanning] - 6,400 KRW (total: 12,800 KRW)</code>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">A made-up row from the app's sample data, shown to illustrate the steps.</figcaption>
+            </figure>
+
+            <h2>Design decisions</h2>
+            <ul>
+              <li>
+                <strong>Code handles the numbers.</strong> Once, the AI read my account balance as income. Now code
+                reads every amount and date, and the sign of the amount decides whether a row is income or an
+                expense. The AI only picks the category, so it cannot change a total.
+              </li>
+              <li>
+                <strong>Better input beats a better prompt.</strong> Coupang charges all look almost the same on the
+                statement, so no prompt could label them well. Matching each charge to its order email gave the AI the
+                real product names. A receipt counts only when its total equals the charge and the email arrived
+                within two hours of it.
+              </li>
+              <li>
+                <strong>My rules come first.</strong> Rules I set for shops I know always win over the AI.
+              </li>
+              <li>
+                <strong>Failures are never silent.</strong> If the AI call fails, or its labels do not fit the list,
+                local rules label the rows and an alert says why. A row that nothing can label stays "Unknown" for me
+                to fix.
+              </li>
+              <li>
+                <strong>Decisions come from real data.</strong> Refunds used to count as income. In my own
+                statements, 10 of 17 Coupang refunds matched exactly one earlier charge. So the app now takes those
+                off the purchase by itself and leaves the rest for me to match.
+              </li>
+              <li>
+                <strong>Private by default.</strong> The data lives on the phone. At import, only the statement text
+                goes to the AI, through my own gateway. Backups go to a private GitHub repository and never include
+                passwords or tokens.
+              </li>
+            </ul>
+
+            <h2>See it working</h2>
+            <a class="video-card" href="https://www.youtube.com/watch?v=8pA2G70gYdI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>Watch the 12-minute demo on YouTube</strong>
+                <span>The video shows the app in demo mode, with sample data only.</span>
+              </span>
+            </a>
+            <p class="shots-note">Screenshots from the app's demo mode, which shows only sample data.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/expenses-history.jpg">
+                  <img
+                    src="/screenshots/expenses-history-thumb.jpg"
+                    srcset="/screenshots/expenses-history-thumb.jpg 480w, /screenshots/expenses-history-medium.jpg 960w, /screenshots/expenses-history.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">History: each saved row keeps its category and who paid</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/expenses-charts.jpg">
+                  <img
+                    src="/screenshots/expenses-charts-thumb.jpg"
+                    srcset="/screenshots/expenses-charts-thumb.jpg 480w, /screenshots/expenses-charts-medium.jpg 960w, /screenshots/expenses-charts.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Charts: one month's spending by category</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Results</h2>
+            <ul class="metric-grid">
+              <li><span class="num">40–100 h</span><span class="lbl">saved a year, by my own estimate</span></li>
+              <li><span class="num">~1,000</span><span class="lbl">transactions tracked, across two years of history</span></li>
+              <li><span class="num">Daily</span><span class="lbl">in use since April 2026</span></li>
+            </ul>
+            <p>An update used to take 30 to 60 minutes. Now an import takes 5 to 10 minutes.</p>
+            <p>Seeing my spending by category has also helped me save money.</p>
+
+            <p class="callout">
+              The app's code is private. The video and the screenshots show demo mode, which runs on sample data.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/catalog-agent/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">LangGraph agent for catalog data</span>
+            </a>
+            <a class="next" href="/work/network-app/">
+              <span class="dir">Next →</span>
+              <span class="ttl">An AI agent for my personal network</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Bank koʻchirmasini import qiladigan AI xarajatlar ilovasi — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: har kuni ishlatadigan Android xarajatlar ilovam. Kod bankimning Excel faylidan har bir summa va sanani oʻqiydi, kategoriyani AI tanlaydi, har bir qatorni esa saqlashdan oldin men tekshiraman."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/expense-tracker/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Bank koʻchirmasini import qiladigan AI xarajatlar ilovasi — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Raqamlarni kod oʻqiydi, kategoriyani AI tanlaydi, har bir qatorni men tekshiraman. Bu har kuni ishlatiladigan shaxsiy ilova, uning demo videosi ham bor."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/expense-tracker/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#how-i-build">← Ish uslubim</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Kundalik foydalanishda</span>
+            <span class="mono">Shaxsiy loyiha · 2026</span>
+          </div>
+          <h1>Bank koʻchirmasini import qiladigan AI xarajatlar ilovasi</h1>
+          <p class="lead">
+            Bir necha kunda bir marta xarajatlarim hisobini qoʻlda yuritishga 30–60 daqiqa sarflardim. Shuning uchun
+            bankim koʻchirmasini oʻqiydigan ilova yaratdim. Unda har bir toʻlovning kategoriyasini AI tanlaydi. Keyin
+            ilova har bir qatorni tekshirishimni soʻraydi. Shuningdek, qiz doʻstim ilovadan menga qancha qarzi
+            borligini bilib oladi.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Ilovani loyihaladim va unda AI qanday ishlatilishini hal qildim. Kodni Claude Code va Codex kod yozuvchi agentlari mening qoidalarim va tekshiruvlarim asosida yozdi.</dd>
+            </div>
+            <div>
+              <dt>Holat</dt>
+              <dd>2026-yil apreldan beri har kuni ishlataman. Kod yopiq, shuning uchun ilova qanday ishlashini namunaviy maʼlumotlar bilan yozilgan demo video koʻrsatadi.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>Android, shaxsiy AI shlyuzim orqali Claude, Telegram Bot API, zaxira nusxalar va yangilanishlar uchun GitHub</dd>
+            </div>
+            <div>
+              <dt>Koʻlam</dt>
+              <dd>Ikki yil davomidagi taxminan 1000 ta tranzaksiya, jumladan oldingi ilovalardan koʻchirib oʻtkazgan tarixim</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>
+              Bankim — Toss Bank — koʻchirmalarni parol bilan himoyalangan Excel fayllarida beradi. Har bir qatorda
+              sana, summa va doʻkonning qisqa nomi bor.
+            </p>
+            <p>
+              Pulim qayerga ketayotganini bilmoqchi edim. Qiz doʻstim bilan koʻp xarajatlarni oʻrtada boʻlamiz. Shuning
+              uchun bir necha kunda bir marta qatorlarni byudjet ilovasiga koʻchirardim, har biriga kategoriya
+              tanlardim va qiz doʻstimning ulushini hisoblardim.
+            </p>
+
+            <h2>Qanday rivojlandi</h2>
+            <p>
+              Ishni kichikdan boshladim. 2026-yil aprelda ikki kunda Telegram bot yaratdim. Keyin u Telegram Mini App,
+              yaʼni Telegram ichidagi kichik veb-ilova boʻldi va unga AI yordamida import qoʻshildi. 2026-yil iyunda u
+              bugun men ishlatadigan Android ilovaga aylandi.
+            </p>
+
+            <h2>Import qanday ishlaydi</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sheet.svg --></span>
+                  <span class="step-name">Koʻchirmani ochish</span>
+                  <span class="step-desc">Ilova bankning Excel faylini saqlangan parol bilan telefonda ochadi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Raqamlarni oʻqish</span>
+                  <span class="step-desc">Har bir qatordagi sana, summa va doʻkon nomini kod oʻqiydi. AI hech qachon summani belgilamaydi.</span>
+                </li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/receipt.svg --></span>
+                  <span class="step-name">Cheklarni moslashtirish</span>
+                  <span class="step-desc">Koreyadagi Coupang onlayn doʻkonidan qilingan buyurtmalar uchun ilova buyurtma haqidagi e-pochta xatini topadi va mahsulot nomlarini qoʻshadi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">AI kategoriya tanlaydi</span>
+                  <span class="step-desc">Claude modeli belgilangan kategoriyalar roʻyxatidan tanlaydi. Tanish doʻkonlar uchun oʻzim yozgan qoidalar birinchi ishlaydi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Har bir qatorni tekshiraman</span>
+                  <span class="step-desc">Kim toʻlaganini belgilayman: I Pay Full, Half yoki She Pays. Istalgan maydonni tuzatishim yoki qatorni oʻtkazib yuborishim mumkin.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/send.svg --></span>
+                  <span class="step-name">Saqlash va xabar berish</span>
+                  <span class="step-desc">Qatorlar telefonda saqlanadi, qiz doʻstim esa jami summasi yozilgan Telegram xabarini oladi.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>AI ishlamay qolsa</strong>Qatorlarni ilovadagi qoidalar belgilaydi, ogohlantirish esa sababini aytadi</li>
+                <li><strong>Zaxira nusxa</strong>GitHub platformasidagi yopiq repozitoriy, har bir oʻzgarishdan keyin yangilanadi</li>
+                <li><strong>Yangilanishlar</strong>GitHub Releases orqali keladigan imzolangan ilova yangilanishlari</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Bitta bank koʻchirmasi fayldan saqlangan xarajatlarga aylanguncha shu yoʻlni bosib oʻtadi. Punktir bilan
+                belgilangan qadam faqat e-pochta qidiruvi yoqilganda ishlaydi.
+              </figcaption>
+            </figure>
+
+            <h3>Misol: koʻchirmadagi bitta qator qadamma-qadam</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Bank faylidagi qator</span>
+                  <code lang="ko">2026-09-23 11:52 · 쿠팡(쿠페이)_KCP · −12,800 KRW</code>
+                </li>
+                <li>
+                  <span class="trace-label">Chek bilan moslashtirilgandan keyin</span>
+                  <code lang="ko">쿠팡(쿠페이)_KCP — A4 복사용지 500매</code>
+                  <span class="trace-note">Buyurtma xatida mahsulot nomi yozilgan: bir pachka A4 ofis qogʻozi.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Kod nimani oʻqiydi va AI nimani qoʻshadi</span>
+                  <ul class="trace-chips">
+                    <li><code>date: 2026-09-23</code></li>
+                    <li><code>amount: −12,800 KRW</code></li>
+                    <li><code>type: expense</code></li>
+                    <li><code>category: Paperwork › Printing &amp; scanning</code></li>
+                  </ul>
+                  <span class="trace-note">Dastlabki uchtasini kod toʻldiradi. AI faqat kategoriyani tanlaydi.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Half tugmasini bosaman va Telegram xabari yuboriladi</span>
+                  <code lang="ko">2026-09-23 11:52 - 쿠팡(쿠페이)_KCP — A4 복사용지 500매 [Printing &amp; scanning] - 6,400 KRW (total: 12,800 KRW)</code>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">Qadamlarni koʻrsatish uchun ilovaning namunaviy maʼlumotlaridan toʻqima qator olindi.</figcaption>
+            </figure>
+
+            <h2>Loyihalash qarorlari</h2>
+            <ul>
+              <li>
+                <strong>Raqamlar bilan kod ishlaydi.</strong> Bir safar AI hisobimdagi qoldiqni daromad deb oʻqidi.
+                Endi har bir summa va sanani kod oʻqiydi. Qator daromadmi yoki xarajatmi, buni summaning ishorasi hal
+                qiladi. AI faqat kategoriyani tanlaydi, shuning uchun u jami summani oʻzgartira olmaydi.
+              </li>
+              <li>
+                <strong>Promptni emas, kirish maʼlumotlarini yaxshilash foydaliroq.</strong> Koʻchirmada Coupang
+                toʻlovlarining hammasi deyarli bir xil koʻrinadi, shuning uchun hech bir prompt ularni yaxshi belgilay
+                olmasdi. Har bir toʻlov oʻz buyurtma xatiga moslashtirilgach, AI mahsulotlarning haqiqiy nomlarini ola
+                boshladi. Chek faqat uning jami summasi toʻlovga teng boʻlsa hisobga olinadi. Bundan tashqari, xat bilan
+                toʻlov orasida ikki soatdan koʻp vaqt oʻtmagan boʻlishi kerak.
+              </li>
+              <li>
+                <strong>Avval mening qoidalarim ishlaydi.</strong> Tanish doʻkonlar uchun oʻzim belgilagan qoidalar har
+                doim AI tanlovidan ustun turadi.
+              </li>
+              <li>
+                <strong>Nosozliklar hech qachon jim oʻtmaydi.</strong> Agar AI chaqiruvi ishlamay qolsa yoki u bergan
+                kategoriyalar roʻyxatga mos kelmasa, qatorlarni ilovadagi qoidalar belgilaydi va ogohlantirish sababini
+                aytadi. Hech narsa belgilay olmaydigan qator men tuzatishim uchun “Unknown” kategoriyasida qoladi.
+              </li>
+              <li>
+                <strong>Qarorlar real maʼlumotlarga asoslanadi.</strong> Ilgari qaytarilgan pullar daromad deb
+                hisoblanardi. Oʻz koʻchirmalarimda Coupang doʻkonidan qaytarilgan 17 ta toʻlovdan 10 tasi aynan bitta
+                oldingi toʻlovga mos keldi. Shuning uchun endi ilova bunday qaytarishlarni xariddan oʻzi ayiradi,
+                qolganlarini esa men moslashtirishim uchun qoldiradi.
+              </li>
+              <li>
+                <strong>Standart holatda maxfiy.</strong> Maʼlumotlar telefonda saqlanadi. Import paytida AI modeliga
+                faqat koʻchirma matni yuboriladi va u oʻz shlyuzim orqali oʻtadi. Zaxira nusxalar GitHub platformasidagi
+                yopiq repozitoriyga tushadi va ularda hech qachon parol yoki token boʻlmaydi.
+              </li>
+            </ul>
+
+            <h2>Ilovani amalda koʻring</h2>
+            <a class="video-card" href="https://www.youtube.com/watch?v=8pA2G70gYdI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>YouTube platformasida 12 daqiqalik demo videoni tomosha qiling</strong>
+                <span>Videoda ilova demo rejimida, faqat namunaviy maʼlumotlar bilan koʻrsatilgan.</span>
+              </span>
+            </a>
+            <p class="shots-note">Skrinshotlar ilovaning demo rejimidan olingan. Bu rejim faqat namunaviy maʼlumotlarni koʻrsatadi.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/expenses-history.jpg">
+                  <img
+                    src="/screenshots/expenses-history-thumb.jpg"
+                    srcset="/screenshots/expenses-history-thumb.jpg 480w, /screenshots/expenses-history-medium.jpg 960w, /screenshots/expenses-history.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Tarix: har bir saqlangan qator oʻz kategoriyasini va kim toʻlaganini saqlab qoladi</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/expenses-charts.jpg">
+                  <img
+                    src="/screenshots/expenses-charts-thumb.jpg"
+                    srcset="/screenshots/expenses-charts-thumb.jpg 480w, /screenshots/expenses-charts-medium.jpg 960w, /screenshots/expenses-charts.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Grafiklar: bir oylik xarajatlar kategoriyalarga ajratilgan</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Natijalar</h2>
+            <ul class="metric-grid">
+              <li><span class="num">40–100&nbsp;soat</span><span class="lbl">yiliga tejaladi, oʻz hisobimcha</span></li>
+              <li><span class="num">~1000</span><span class="lbl">tranzaksiya hisobga olingan, ikki yillik tarix boʻyicha</span></li>
+              <li><span class="num">Har kuni</span><span class="lbl">2026-yil apreldan beri ishlatiladi</span></li>
+            </ul>
+            <p>Ilgari hisobni yangilash 30–60 daqiqa vaqt olardi. Endi import 5–10 daqiqa davom etadi.</p>
+            <p>Xarajatlarimni kategoriyalar boʻyicha koʻrish pul tejashimga ham yordam berdi.</p>
+
+            <p class="callout">
+              Ilova kodi yopiq. Video va skrinshotlar demo rejimini koʻrsatadi, bu rejim namunaviy maʼlumotlar bilan
+              ishlaydi.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/catalog-agent/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">Katalog maʼlumotlari uchun LangGraph agenti</span>
+            </a>
+            <a class="next" href="/uz/work/network-app/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">Tanishlarim tarmogʻi uchun AI agent</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

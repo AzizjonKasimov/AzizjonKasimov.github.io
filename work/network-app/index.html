@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>An AI agent for my personal network — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: an Android app where an AI agent saves notes about the people I know and answers questions about them. It works only through tools on the phone, saves can be undone, and deletes wait for a tap. The code is public."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/network-app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="An AI agent for my personal network — case study" />
+    <meta
+      property="og:description"
+      content="Claude plans the steps, the phone runs every tool on its own data, saves can be undone, and wrong answers are labeled for fixing."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/network-app/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#how-i-build">← How I build</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">In use</span>
+            <span class="mono">Personal project · public code · 2026</span>
+          </div>
+          <h1>An AI agent for my personal network</h1>
+          <p class="lead">
+            My network grew too large to remember who needs what and who could help. I built an Android app where
+            I describe a conversation in plain words. An AI agent saves it on the right people and answers
+            questions about them, and it can act only through tools that run on my phone.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>I designed the product, the agent, its tools, and its safety rules. Coding agents, Claude Code and Codex, wrote the code.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>I started it in August 2026 and use it for my own network. The code is public on GitHub.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Android, Claude Agent SDK on my private AI gateway, tool calling with JSON Schema, encrypted GitHub backup</dd>
+            </div>
+            <div>
+              <dt>Scope</dt>
+              <dd>17 tools that read records, change them, or ask me to confirm</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>
+              Useful facts come up in ordinary conversations: what someone is working on, what they need, and what
+              they could offer. As I met more people, I lost track of these facts.
+            </p>
+            <p>
+              Contact apps store names and phone numbers. They cannot answer questions such as "Who could help with
+              this?" or "What did we talk about last time?"
+            </p>
+
+            <h2>How it grew</h2>
+            <p>
+              The first version, in August 2026, had forms for people, their needs, and their skills. AI turned a
+              note into a proposal, and I reviewed it before anything was saved.
+            </p>
+            <p>
+              I tested AI models on the app's real schema. One model kept timing out on structured answers, so I
+              switched to another. In September 2026 I moved all AI calls to Claude, through my private gateway.
+            </p>
+            <p>
+              Each new kind of request needed its own prompt, schema, parser, and screen. So in mid-September I
+              rebuilt the assistant as an agent that uses tools. One chat thread now handles notes, questions, and
+              corrections.
+            </p>
+
+            <h2>How one message flows</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Message</span>
+                  <span class="step-desc">I type or dictate a note about a conversation, or ask a question.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">Claude plans</span>
+                  <span class="step-desc">On my gateway, Claude decides which tool to call next. It starts with no saved records.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shield-check.svg --></span>
+                  <span class="step-name">Gateway check</span>
+                  <span class="step-desc">The gateway checks each tool call against its JSON Schema, then sends it to the phone.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/smartphone.svg --></span>
+                  <span class="step-name">Phone runs the tool</span>
+                  <span class="step-desc">The app checks the call again, runs it on the phone's database, and sends back only the result. Contact details never leave the phone.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/undo.svg --></span>
+                  <span class="step-name">Reply with Undo</span>
+                  <span class="step-desc">The reply lists every change, and one tap undoes them all. Deletes and merges wait for my tap.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Privacy</strong>The database stays on the phone, and backups are encrypted first</li>
+                <li><strong>Voice</strong>Speech is recognized on the phone whenever it can be</li>
+                <li><strong>Feedback</strong>Any answer can be reported with a fixed label</li>
+              </ul>
+              <figcaption id="flow-caption">
+                One agent turn. Steps 2 to 4 repeat until Claude has what it needs.
+              </figcaption>
+            </figure>
+            <p class="shots-note">Screenshots from a test phone with made-up people.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-save.jpg">
+                  <img
+                    src="/screenshots/network-assistant-save-thumb.jpg"
+                    srcset="/screenshots/network-assistant-save-thumb.jpg 480w, /screenshots/network-assistant-save-medium.jpg 960w, /screenshots/network-assistant-save.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">A note about someone new: the reply lists each saved change, with one Undo</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-answer.jpg">
+                  <img
+                    src="/screenshots/network-assistant-answer-thumb.jpg"
+                    srcset="/screenshots/network-assistant-answer-thumb.jpg 480w, /screenshots/network-assistant-answer-medium.jpg 960w, /screenshots/network-assistant-answer.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">A question with no good match: the answer says so and explains why</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-needs.jpg">
+                  <img
+                    src="/screenshots/network-needs-thumb.jpg"
+                    srcset="/screenshots/network-needs-thumb.jpg 480w, /screenshots/network-needs-medium.jpg 960w, /screenshots/network-needs.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">The Needs tab: what people in the network are looking for</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Design decisions</h2>
+            <ul>
+              <li>
+                <strong>The phone enforces the rules.</strong> Each tool call is checked twice: by the gateway against
+                its schema, and then by the app. The app makes sure the records exist, the text is not too long,
+                nothing is duplicated, and no date is in the future. A refused call saves nothing, and the model gets
+                an error that it can read and fix.
+              </li>
+              <li>
+                <strong>Flexible, but reversible.</strong> At first, every AI change waited for my review. I chose
+                flexibility instead: now adds and edits save at once. Each reply keeps a copy of every row before and after, so
+                one tap undoes the whole reply. Undo refuses if I have edited the row since.
+              </li>
+              <li>
+                <strong>Deletes always wait.</strong> Deleting a person, a note, or a record, or merging two people,
+                runs only when I tap its card.
+              </li>
+              <li>
+                <strong>Saved text is data, not instructions.</strong> The prompt tells the model to treat saved notes
+                and earlier messages as data, never as instructions.
+              </li>
+              <li>
+                <strong>Answers rest on saved records.</strong> The assistant must say when the evidence is old or
+                thin. It must never suggest that someone is willing to help just because an old note mentions a skill.
+              </li>
+              <li>
+                <strong>Private by design.</strong> The app has no accounts, analytics, or contact import. Backups are
+                encrypted on the phone before they go to a private GitHub repository, and the app refuses to back up
+                to a public one.
+              </li>
+            </ul>
+
+            <h2>Finding and fixing mistakes</h2>
+            <p>
+              Every answer has a Report a problem button with fixed labels, such as wrong person, missed something,
+              or wrong record type. A report keeps the message, the answer, what was saved, and every tool call in
+              order, without contact details.
+            </p>
+            <p>
+              Reports travel inside the encrypted backup. On my computer, a script decrypts only the reports. I fix
+              the fault and check the fix on a test phone with made-up people.
+            </p>
+            <p>
+              For example, reports showed that study and volunteering were being saved as jobs. A test note had
+              produced four jobs. After the fix, it produced one job, and the rest went to education and background
+              facts.
+            </p>
+            <p>
+              I also measure speed. Letting one tool call save a note together with its facts cut a two-person update
+              from about 23 to about 12 seconds.
+            </p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-report.jpg">
+                  <img
+                    src="/screenshots/network-report-thumb.jpg"
+                    srcset="/screenshots/network-report-thumb.jpg 480w, /screenshots/network-report-medium.jpg 960w, /screenshots/network-report.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Report a problem: fixed labels make faults easy to count and group</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Status</h2>
+            <p>
+              I use the app for my own network, and it updates itself from signed GitHub Releases. The code, the
+              README, and the privacy notes are public on
+              <a href="https://github.com/AzizjonKasimov/network-app">GitHub</a>.
+            </p>
+
+            <p class="callout">
+              The screenshots come from a test phone with made-up people. No real contact appears on this page.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/expense-tracker/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">AI expense tracker with bank-statement import</span>
+            </a>
+            <a class="next" href="/work/semantic-search/">
+              <span class="dir">Next →</span>
+              <span class="ttl">AI semantic search for auto parts</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

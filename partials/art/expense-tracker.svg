@@ -1,0 +1,41 @@
+<svg viewBox="0 0 320 100">
+  <g class="rise">
+    <rect class="art-panel" x="12" y="18" width="64" height="64" rx="8" />
+    <path class="art-line" d="M12 32h64M12 46h64M12 60h64M36 32v50" />
+  </g>
+  <rect class="art-ink grow" x="17" y="37" width="14" height="4" rx="2" style="--at: 150ms; --dur: 250ms" />
+  <rect class="art-ink grow" x="17" y="51" width="14" height="4" rx="2" style="--at: 200ms; --dur: 250ms" />
+  <rect class="art-ink grow" x="17" y="65" width="14" height="4" rx="2" style="--at: 250ms; --dur: 250ms" />
+  <rect class="art-ink-strong grow" x="42" y="37" width="28" height="4" rx="2" style="--at: 180ms; --dur: 300ms" />
+  <rect class="art-ink-strong grow" x="50" y="51" width="20" height="4" rx="2" style="--at: 230ms; --dur: 300ms" />
+  <rect class="art-ink-strong grow" x="46" y="65" width="24" height="4" rx="2" style="--at: 280ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M84 50h16" pathLength="1" style="--at: 450ms; --dur: 220ms" />
+  <path class="art-flow pop" d="m96 46 4 4-4 4" style="--at: 610ms" />
+  <path class="art-pulse" d="M84 50h16" pathLength="100" />
+  <rect class="art-ink grow" x="110" y="25" width="34" height="6" rx="3" style="--at: 700ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="110" y="47" width="40" height="6" rx="3" style="--at: 760ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="110" y="69" width="28" height="6" rx="3" style="--at: 820ms; --dur: 280ms" />
+  <path class="art-accent pop" d="m202 7 1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" style="--at: 900ms" />
+  <rect class="art-chip pop" x="156" y="22" width="42" height="12" rx="6" style="--at: 1000ms" />
+  <rect class="art-chip pop" x="156" y="44" width="42" height="12" rx="6" style="--at: 1080ms" />
+  <rect class="art-chip pop" x="156" y="66" width="42" height="12" rx="6" style="--at: 1160ms" />
+  <circle class="art-accent pop" cx="163" cy="28" r="2.5" style="--at: 1060ms" />
+  <circle class="art-accent pop" cx="163" cy="50" r="2.5" style="--at: 1140ms" />
+  <circle class="art-accent pop" cx="163" cy="72" r="2.5" style="--at: 1220ms" />
+  <rect class="art-ink grow" x="169" y="26" width="22" height="4" rx="2" style="--at: 1060ms; --dur: 220ms" />
+  <rect class="art-ink grow" x="169" y="48" width="18" height="4" rx="2" style="--at: 1140ms; --dur: 220ms" />
+  <rect class="art-ink grow" x="169" y="70" width="24" height="4" rx="2" style="--at: 1220ms; --dur: 220ms" />
+  <path class="art-flow draw" d="M206 50h14" pathLength="1" style="--at: 1320ms; --dur: 220ms" />
+  <path class="art-flow pop" d="m216 46 4 4-4 4" style="--at: 1480ms" />
+  <path class="art-pulse" d="M206 50h14" pathLength="100" style="--pulse-at: 0.6s" />
+  <g class="rise" style="--at: 1500ms">
+    <path class="art-panel" d="M238 20h60a10 10 0 0 1 10 10v36a10 10 0 0 1-10 10h-50l-10 9v-9a10 10 0 0 1-10-10v-36a10 10 0 0 1 10-10z" />
+  </g>
+  <rect class="art-ink grow" x="238" y="31" width="44" height="5" rx="2.5" style="--at: 1640ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="238" y="43" width="56" height="5" rx="2.5" style="--at: 1700ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="238" y="55" width="34" height="5" rx="2.5" style="--at: 1760ms; --dur: 280ms" />
+  <rect class="art-accent grow" x="238" y="65" width="24" height="5" rx="2.5" style="--at: 1840ms; --dur: 280ms" />
+  <circle class="art-ripple" cx="302" cy="22" r="8" />
+  <circle class="art-accent pop" cx="302" cy="22" r="8" style="--at: 1960ms" />
+  <path class="art-check draw" d="m298.5 22.2 2.4 2.4 4.6-4.8" pathLength="1" style="--at: 2080ms; --dur: 280ms" />
+</svg>

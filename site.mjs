@@ -13,6 +13,8 @@ export const pages = [
   'work/aws-data-pipeline/index.html',
   'work/solar-mlops/index.html',
   'work/catalog-agent/index.html',
+  'work/expense-tracker/index.html',
+  'work/network-app/index.html',
 ]
 
 // Languages were added one at a time: Korean, German, Russian, Uzbek, then Chinese (Simplified).

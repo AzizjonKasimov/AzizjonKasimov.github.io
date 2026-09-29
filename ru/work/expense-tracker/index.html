@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>ИИ-трекер расходов с импортом банковских выписок — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Кейс: трекер расходов для Android, которым я пользуюсь каждый день. Код считывает каждую сумму и дату из Excel-файла моего банка, ИИ выбирает категорию, а я проверяю каждую строку перед сохранением."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ru/work/expense-tracker/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="ИИ-трекер расходов с импортом банковских выписок — кейс" />
+    <meta
+      property="og:description"
+      content="Код считывает числа, ИИ выбирает категорию, а я проверяю каждую строку. Это личное приложение, которым я пользуюсь каждый день, и у него есть демо-видео."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ru/work/expense-tracker/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ru/#how-i-build">← Как я работаю</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Используется ежедневно</span>
+            <span class="mono">Личный проект · 2026</span>
+          </div>
+          <h1>ИИ-трекер расходов с импортом банковских выписок</h1>
+          <p class="lead">
+            Раз в несколько дней я тратил от 30 до 60 минут, чтобы вручную записать свои расходы. Я создал
+            приложение, которое читает выписку моего банка, поручает ИИ выбрать категорию для каждого платежа и
+            просит меня проверить каждую строку. А ещё оно сообщает моей девушке, сколько она мне должна.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Моя роль</dt>
+              <dd>Я спроектировал приложение и решил, как в нём используется ИИ. Код написали кодинг-агенты — Claude Code и Codex — в рамках моих правил и проверок.</dd>
+            </div>
+            <div>
+              <dt>Статус</dt>
+              <dd>Я пользуюсь приложением каждый день с апреля 2026 года. Код закрыт, поэтому работу приложения показывает демо-видео на тестовых данных.</dd>
+            </div>
+            <div>
+              <dt>Стек</dt>
+              <dd>Android, Claude через мой приватный ИИ-шлюз, Telegram Bot API, GitHub для резервных копий и обновлений</dd>
+            </div>
+            <div>
+              <dt>Масштаб</dt>
+              <dd>Около 1000 транзакций за два года, включая историю, которую я перенёс из старых приложений</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Задача</h2>
+            <p>
+              Мой банк, Toss Bank, выдаёт выписки в виде Excel-файлов, защищённых паролем. В каждой строке есть дата,
+              сумма и короткое название магазина.
+            </p>
+            <p>
+              Я хотел знать, куда уходят мои деньги, а ещё у нас с моей девушкой много общих расходов. Поэтому раз в
+              несколько дней я копировал строки в приложение для учёта бюджета, выбирал для каждой строки
+              категорию и считал, какая часть расходов приходится на девушку.
+            </p>
+
+            <h2>Как развивалось приложение</h2>
+            <p>
+              Я начал с малого. В апреле 2026 года я за два дня сделал Telegram-бота. Затем бот стал
+              Telegram Mini App — небольшим веб-приложением внутри Telegram — и получил импорт с помощью ИИ.
+              В июне 2026 года из него выросло Android-приложение, которым я пользуюсь сегодня.
+            </p>
+
+            <h2>Как проходит импорт</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sheet.svg --></span>
+                  <span class="step-name">Открыть выписку</span>
+                  <span class="step-desc">Приложение открывает Excel-файл банка на телефоне с помощью сохранённого пароля.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Прочитать числа</span>
+                  <span class="step-desc">Код считывает из каждой строки дату, сумму и название магазина. ИИ никогда не задаёт сумму.</span>
+                </li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/receipt.svg --></span>
+                  <span class="step-name">Сопоставить чеки</span>
+                  <span class="step-desc">Для заказов из Coupang, корейского интернет-магазина, приложение находит письмо о заказе и добавляет названия товаров.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">ИИ выбирает категорию</span>
+                  <span class="step-desc">Claude выбирает из фиксированного списка категорий. Мои правила для знакомых магазинов срабатывают первыми.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Я проверяю каждую строку</span>
+                  <span class="step-desc">Я отмечаю, кто платил: I Pay Full, Half или She Pays. Я могу исправить любое поле или пропустить строку.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/send.svg --></span>
+                  <span class="step-name">Сохранить и уведомить</span>
+                  <span class="step-desc">Строки сохраняются на телефоне, а моя девушка получает в Telegram сообщение со своей итоговой суммой.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Если ИИ даёт сбой</strong>Категории проставляют локальные правила, а уведомление объясняет причину</li>
+                <li><strong>Резервная копия</strong>Закрытый репозиторий на GitHub, который обновляется после каждого изменения</li>
+                <li><strong>Обновления</strong>Подписанные обновления приложения из GitHub Releases</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Путь одной банковской выписки: от файла до сохранённых расходов. Пунктиром отмечен шаг, который
+                выполняется, только когда включён поиск писем.
+              </figcaption>
+            </figure>
+
+            <h3>Пример: одна строка выписки шаг за шагом</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Строка в файле банка</span>
+                  <code lang="ko">2026-09-23 11:52 · 쿠팡(쿠페이)_KCP · −12,800 KRW</code>
+                </li>
+                <li>
+                  <span class="trace-label">После сопоставления с чеком</span>
+                  <code lang="ko">쿠팡(쿠페이)_KCP — A4 복사용지 500매</code>
+                  <span class="trace-note">В письме о заказе указан товар: пачка офисной бумаги формата A4.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Что считывает код и что добавляет ИИ</span>
+                  <ul class="trace-chips">
+                    <li><code>date: 2026-09-23</code></li>
+                    <li><code>amount: −12,800 KRW</code></li>
+                    <li><code>type: expense</code></li>
+                    <li><code>category: Paperwork › Printing &amp; scanning</code></li>
+                  </ul>
+                  <span class="trace-note">Первые три поля заполняет код. ИИ выбирает только категорию.</span>
+                </li>
+                <li>
+                  <span class="trace-label">Я нажимаю Half, и сообщение уходит в Telegram</span>
+                  <code lang="ko">2026-09-23 11:52 - 쿠팡(쿠페이)_KCP — A4 복사용지 500매 [Printing &amp; scanning] - 6,400 KRW (total: 12,800 KRW)</code>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">Выдуманная строка из тестовых данных приложения: она показывает шаги на примере.</figcaption>
+            </figure>
+
+            <h2>Проектные решения</h2>
+            <ul>
+              <li>
+                <strong>С числами работает код.</strong> Однажды ИИ принял остаток на моём счёте за доход. Теперь каждую
+                сумму и дату считывает код, а знак суммы определяет, доход это или расход. ИИ только выбирает
+                категорию, поэтому он не может изменить итог.
+              </li>
+              <li>
+                <strong>Хорошие входные данные важнее хорошего промпта.</strong> В выписке все списания Coupang
+                выглядят почти одинаково, поэтому ни один промпт не помог бы правильно определить их категорию. Когда
+                приложение стало сопоставлять каждое списание с письмом о заказе, ИИ получил настоящие названия
+                товаров. Чек засчитывается, только если его сумма равна списанию, а письмо пришло в пределах двух
+                часов от него.
+              </li>
+              <li>
+                <strong>Мои правила идут первыми.</strong> Правила, которые я задал для знакомых магазинов, всегда
+                перекрывают выбор ИИ.
+              </li>
+              <li>
+                <strong>Сбои никогда не остаются незамеченными.</strong> Если вызов ИИ не удался или ИИ вернул
+                категории не из списка, строки размечают локальные правила, а уведомление объясняет причину. Строка,
+                которую не удалось разметить ничем, остаётся в категории «Unknown», чтобы я её исправил.
+              </li>
+              <li>
+                <strong>Решения опираются на реальные данные.</strong> Раньше возвраты считались доходом. В моих
+                собственных выписках 10 из 17 возвратов Coupang совпали ровно с одним более ранним списанием. Поэтому
+                теперь приложение само вычитает такие возвраты из покупки, а остальные оставляет мне для ручного
+                сопоставления.
+              </li>
+              <li>
+                <strong>Приватность по умолчанию.</strong> Данные хранятся на телефоне. При импорте в ИИ уходит только
+                текст выписки — через мой собственный шлюз. Резервные копии уходят в закрытый репозиторий на
+                GitHub и никогда не содержат паролей и токенов.
+              </li>
+            </ul>
+
+            <h2>Посмотрите приложение в работе</h2>
+            <a class="video-card" href="https://www.youtube.com/watch?v=8pA2G70gYdI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>Смотреть 12-минутное демо на YouTube</strong>
+                <span>В видео приложение работает в демо-режиме, только с тестовыми данными.</span>
+              </span>
+            </a>
+            <p class="shots-note">Скриншоты сделаны в демо-режиме приложения, где показаны только тестовые данные.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/expenses-history.jpg">
+                  <img
+                    src="/screenshots/expenses-history-thumb.jpg"
+                    srcset="/screenshots/expenses-history-thumb.jpg 480w, /screenshots/expenses-history-medium.jpg 960w, /screenshots/expenses-history.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">История: каждая сохранённая строка хранит категорию и то, кто платил</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/expenses-charts.jpg">
+                  <img
+                    src="/screenshots/expenses-charts-thumb.jpg"
+                    srcset="/screenshots/expenses-charts-thumb.jpg 480w, /screenshots/expenses-charts-medium.jpg 960w, /screenshots/expenses-charts.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Графики: расходы за один месяц по категориям</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Результаты</h2>
+            <ul class="metric-grid">
+              <li><span class="num">40–100&nbsp;ч</span><span class="lbl">экономии в год, по моей собственной оценке</span></li>
+              <li><span class="num">~1000</span><span class="lbl">учтённых транзакций за два года истории</span></li>
+              <li><span class="num">Ежедневно</span><span class="lbl">используется с апреля 2026 года</span></li>
+            </ul>
+            <p>Раньше обновление занимало от 30 до 60 минут. Теперь импорт занимает от 5 до 10 минут.</p>
+            <p>А ещё разбивка расходов по категориям помогла мне экономить деньги.</p>
+
+            <p class="callout">
+              Код приложения закрыт. Видео и скриншоты показывают демо-режим, который работает на тестовых данных.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Другие кейсы">
+            <a href="/ru/work/catalog-agent/">
+              <span class="dir">← Предыдущий</span>
+              <span class="ttl">LangGraph-агент для данных каталога</span>
+            </a>
+            <a class="next" href="/ru/work/network-app/">
+              <span class="dir">Следующий →</span>
+              <span class="ttl">ИИ-агент для моей сети контактов</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Контакты">
+            <p><strong>Ищете специалиста для похожих задач?</strong> Я открыт к предложениям на позицию AI/ML-инженера.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Написать мне</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -245,10 +245,59 @@
           <p>
             Seit April 2026 schreibe ich die meiste Software, indem ich Coding-Agenten anleite: Claude Code und Codex.
             Die Agenten sind schnell. Die Regeln, Projektnotizen und Prüfungen, die ich um sie herum aufgebaut habe,
-            halten die Arbeit verlässlich.
+            halten die Arbeit verlässlich. Zwei Apps, die ich selbst nutze, zeigen das Ergebnis.
           </p>
         </div>
 
+        <div class="card-grid">
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/expense-tracker.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-prod">Täglich im Einsatz</span>
+              <span class="mono">Eigenes Projekt · 2026</span>
+            </div>
+            <h3><a href="/de/work/expense-tracker/">KI-Ausgabentracker mit Import von Kontoauszügen</a></h3>
+            <p>
+              Die App liest den Excel-Kontoauszug meiner Bank auf meinem Handy. Code liest jeden Betrag und jedes Datum,
+              KI wählt jede Kategorie, und ich prüfe jede Zeile. Dann bekommt meine Freundin eine Telegram-Nachricht mit
+              dem Betrag, den sie mir schuldet.
+            </p>
+            <p class="result">Nach meiner Schätzung spart mir die App 40 bis 100 Stunden im Jahr.</p>
+            <ul class="tags" aria-label="Technologien">
+              <li>Claude</li>
+              <li>Android</li>
+              <li>Telegram Bot API</li>
+              <li>Claude Code</li>
+              <li>Codex</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Zur Fallstudie <span>→</span></span>
+          </article>
+
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/network-app.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-prod">Im Einsatz</span>
+              <span class="mono">Eigenes Projekt · öffentlicher Code · 2026</span>
+            </div>
+            <h3><a href="/de/work/network-app/">Ein KI-Agent für mein persönliches Netzwerk</a></h3>
+            <p>
+              Ich beschreibe ein Gespräch in einfachen Worten, und ein KI-Agent speichert es bei den richtigen Personen
+              und beantwortet Fragen zu ihnen. Er handelt nur über Tools, die auf meinem Handy laufen, und Löschungen
+              warten auf meinen Fingertipp.
+            </p>
+            <p class="result">Ein Fingertipp macht eine Antwort rückgängig, und jede falsche Antwort lässt sich zur Korrektur melden.</p>
+            <ul class="tags" aria-label="Technologien">
+              <li>Claude Agent SDK</li>
+              <li>Tool calling</li>
+              <li>JSON Schema</li>
+              <li>Android</li>
+              <li>Claude Code</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Zur Fallstudie <span>→</span></span>
+          </article>
+        </div>
+
+        <h3 class="subhead">Was hinter den Apps steckt</h3>
         <div class="card-grid card-grid-3">
           <article class="card card-plain">
             <div class="card-meta"><span class="mono">Privates Repo · 2026</span></div>
@@ -284,14 +333,11 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>Fünf Android-Apps, komplett mit KI-Agenten gebaut</h3>
             <p>
-              Expenses, die Finanz-App, die ich jeden Tag nutze, dazu Network App, OneShot Reminder, Notes und Life
-              Simulator. Drei davon nutzen KI, und jede prüft die KI-Antwort, bevor sie damit arbeitet. Expenses und
-              OneShot Reminder fragen vor dem Speichern nach; Network App speichert sofort, aber jede Änderung lässt sich
-              rückgängig machen. Die Apps aktualisieren sich selbst über signierte GitHub Releases.
+              Neben den beiden Apps oben haben die Agenten OneShot Reminder, Notes und Life Simulator gebaut. OneShot
+              Reminder nutzt ebenfalls KI und bittet mich vor dem Speichern, jede Aufgabe zu bestätigen. Die Apps
+              aktualisieren sich selbst über signierte GitHub Releases.
             </p>
             <ul class="card-links">
-              <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses-Demovideo</a></li>
-              <li><a href="https://github.com/AzizjonKasimov/network-app">Network App</a></li>
               <li><a href="https://github.com/AzizjonKasimov/oneshot-reminder">OneShot Reminder</a></li>
               <li><a href="https://github.com/AzizjonKasimov/note-taking-app">Notes</a></li>
               <li><a href="https://github.com/AzizjonKasimov/life_simulator_app">Life Simulator</a></li>

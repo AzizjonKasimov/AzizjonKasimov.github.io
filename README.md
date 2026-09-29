@@ -12,8 +12,8 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Homepage: photo, headline metrics with small charts, selected work, experience, skills, credentials, contact |
-| `work/<slug>/index.html` | Case-study pages (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) |
+| `index.html` | Homepage: photo, headline metrics with small charts, selected work, how I build (with two personal apps), experience, skills, credentials, contact |
+| `work/<slug>/index.html` | Case-study pages: work projects (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) and personal apps (`expense-tracker`, `network-app`) |
 | `ko/`, `de/`, `ru/`, `uz/`, `zh/` | The same pages in Korean, German, Russian, Uzbek, and Chinese; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
 | `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`) and the work-card drawings (`art/`), inlined into pages at build time |
@@ -67,7 +67,11 @@ shows the same drawing.
   follows the gallery's columns, so phones get the 960 px image instead of a blurry thumbnail. A
   screenshot alone in its gallery takes the full width and is shown whole. The solar case study
   shows seven screenshots of the Recs Innovation systems, with the plant's name, its location, and
-  its sales figures covered.
+  its sales figures covered. Phone screenshots go in a `.shots shots-phone` gallery, three to a row
+  (two below 480px), each shown whole; take them from a test phone or emulator with made-up data
+  (the Expenses app's demo mode, or made-up people in Network App), never from real data.
+- **Videos:** a `.video-card` links to the video on YouTube instead of embedding it, so the page
+  loads nothing from YouTube.
 
 ### Motion
 
@@ -144,7 +148,8 @@ are wrong. Links to pages go to the translation's own folder (`/ko/work/...`); l
 the certificate images, stay exactly as in English.
 Numbers are compared by value, so each language can use its own format (`2M+` is `200만+` in Korean,
 `2 Mio.+` in German, `2 млн+` in Russian, `2 mln+` in Uzbek, and `200 万+` in Chinese; `4.39` is
-`4,39` in German, Russian, and Uzbek). Uzbek text writes oʻ and gʻ with ʻ (U+02BB) and the tutuq
+`4,39` in German, Russian, and Uzbek). Code (`<code>`) must match English exactly, numbers
+included, so its numbers are left out of that comparison. Uzbek text writes oʻ and gʻ with ʻ (U+02BB) and the tutuq
 belgisi with ʼ (U+02BC), as in maʼlumot; the check rejects typed apostrophes, which look the same.
 Chinese text uses full-width punctuation (，。：（）) next to Chinese characters, and the check rejects
 ASCII punctuation there.
@@ -178,8 +183,9 @@ sentence you change.
 
 1. Copy an existing `work/<slug>/index.html` into a new folder and replace the content.
 2. Add the page to `pages` in `site.mjs`.
-3. Add a card to the Selected work section in `index.html`, and update the previous/next links at the
-   bottom of the neighboring case studies.
+3. Add a card to the Selected work section in `index.html` (or, for a personal app, to the How I
+   build section), and update the previous/next links at the bottom of the neighboring case
+   studies. The links run in one loop: the four work case studies, then Expenses, then Network App.
 4. Make the same changes in every language folder, then run `npm run check`.
 
 ## Social preview image and touch icon

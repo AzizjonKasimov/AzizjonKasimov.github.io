@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>은행 거래내역을 불러오는 AI 가계부 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="프로젝트 사례: 제가 매일 쓰는 Android 가계부 앱입니다. 코드가 은행 Excel 파일에서 금액과 날짜를 하나하나 읽고, AI가 카테고리를 고르며, 저장하기 전에 제가 모든 행을 확인합니다."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ko/work/expense-tracker/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="은행 거래내역을 불러오는 AI 가계부 — 프로젝트 사례" />
+    <meta
+      property="og:description"
+      content="숫자는 코드가 읽고, 카테고리는 AI가 고르며, 모든 행은 제가 확인합니다. 매일 쓰는 개인 앱이며, 데모 영상도 있습니다."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ko/work/expense-tracker/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ko/#how-i-build">← 개발 방식</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">매일 사용 중</span>
+            <span class="mono">개인 프로젝트 · 2026</span>
+          </div>
+          <h1>은행 거래내역을 불러오는 AI 가계부</h1>
+          <p class="lead">
+            며칠마다 30~60분씩 들여 지출을 손으로 기록했습니다. 그래서 은행 거래내역을 읽는 앱을 만들었습니다. 앱은 결제마다 AI에게
+            카테고리를 고르게 하고, 각 행을 제게 확인받습니다. 여자친구에게는 제게 정산할 금액도 알려 줍니다.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>역할</dt>
+              <dd>앱을 설계하고, 앱이 AI를 어떻게 쓸지 정했습니다. 코드는 코딩 에이전트인 Claude Code와 Codex가 제가 정한 규칙과 검증 절차에 따라 작성했습니다.</dd>
+            </div>
+            <div>
+              <dt>상태</dt>
+              <dd>2026년 4월부터 매일 쓰고 있습니다. 코드는 비공개라서, 샘플 데이터로 찍은 데모 영상으로 작동 모습을 보여 드립니다.</dd>
+            </div>
+            <div>
+              <dt>기술 스택</dt>
+              <dd>Android, 제 비공개 AI 게이트웨이를 거치는 Claude, Telegram Bot API, 백업과 업데이트용 GitHub</dd>
+            </div>
+            <div>
+              <dt>규모</dt>
+              <dd>2년 동안 쌓인 거래 약 1,000건입니다. 예전 앱에서 옮겨 온 기록도 포함됩니다.</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>문제</h2>
+            <p>
+              제가 쓰는 은행인 Toss Bank는 거래내역을 비밀번호가 걸린 Excel 파일로 제공합니다. 각 행에는 날짜, 금액, 짧은 가맹점 이름이
+              있습니다.
+            </p>
+            <p>
+              저는 제 돈이 어디로 가는지 알고 싶었습니다. 또 여자친구와 저는 많은 비용을 함께 냅니다. 그래서 며칠마다 거래내역을 가계부
+              앱에 옮겨 적고, 거래마다 카테고리를 고르고, 여자친구가 낼 몫을 계산했습니다.
+            </p>
+
+            <h2>발전 과정</h2>
+            <p>
+              작게 시작했습니다. 2026년 4월, 이틀 만에 Telegram 봇을 만들었습니다. 봇은 AI 불러오기 기능을 갖춘 Telegram Mini App이
+              되었습니다. Telegram Mini App은 Telegram 안에서 실행되는 작은 웹 앱입니다. 2026년 6월에는 지금 쓰는 Android 앱이 되었습니다.
+            </p>
+
+            <h2>거래내역을 불러오는 과정</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sheet.svg --></span>
+                  <span class="step-name">거래내역 열기</span>
+                  <span class="step-desc">앱이 저장된 비밀번호로 휴대폰에서 은행 Excel 파일을 엽니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">숫자 읽기</span>
+                  <span class="step-desc">코드가 각 행의 날짜, 금액, 가맹점 이름을 읽습니다. 금액은 AI가 절대 정하지 않습니다.</span>
+                </li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/receipt.svg --></span>
+                  <span class="step-name">영수증 매칭</span>
+                  <span class="step-desc">한국 온라인 쇼핑몰인 Coupang에서 주문한 건이면, 앱이 주문 메일을 찾아 상품명을 붙입니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">AI의 카테고리 선택</span>
+                  <span class="step-desc">Claude가 정해진 카테고리 목록에서 고릅니다. 아는 가맹점에는 제가 정한 규칙이 먼저 적용됩니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">행마다 직접 확인</span>
+                  <span class="step-desc">누가 냈는지 I Pay Full, Half, She Pays 중 하나로 표시합니다. 어느 항목이든 고칠 수 있고, 행을 건너뛸 수도 있습니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/send.svg --></span>
+                  <span class="step-name">저장과 알림</span>
+                  <span class="step-desc">행은 휴대폰에 저장되고, 여자친구는 정산할 총액이 담긴 Telegram 메시지를 받습니다.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>AI가 실패하면</strong>앱 자체 규칙이 행을 분류하고, 알림이 이유를 알려 줍니다</li>
+                <li><strong>백업</strong>변경할 때마다 갱신되는 비공개 GitHub 저장소</li>
+                <li><strong>업데이트</strong>GitHub Releases에서 받는 서명된 앱 업데이트</li>
+              </ul>
+              <figcaption id="flow-caption">
+                은행 거래내역 하나가 파일에서 저장된 지출이 되기까지의 과정입니다. 점선으로 표시한 단계는 이메일 조회를 켰을 때만 실행됩니다.
+              </figcaption>
+            </figure>
+
+            <h3>예시: 거래내역 한 행이 처리되는 과정</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">은행 파일에 있는 행</span>
+                  <code lang="ko">2026-09-23 11:52 · 쿠팡(쿠페이)_KCP · −12,800 KRW</code>
+                </li>
+                <li>
+                  <span class="trace-label">영수증 매칭 후</span>
+                  <code lang="ko">쿠팡(쿠페이)_KCP — A4 복사용지 500매</code>
+                  <span class="trace-note">주문 메일에 상품 이름이 나옵니다. A4 복사용지 한 묶음입니다.</span>
+                </li>
+                <li>
+                  <span class="trace-label">코드가 읽는 값과 AI가 더하는 값</span>
+                  <ul class="trace-chips">
+                    <li><code>date: 2026-09-23</code></li>
+                    <li><code>amount: −12,800 KRW</code></li>
+                    <li><code>type: expense</code></li>
+                    <li><code>category: Paperwork › Printing &amp; scanning</code></li>
+                  </ul>
+                  <span class="trace-note">처음 세 값은 코드가 채웁니다. AI는 카테고리만 고릅니다.</span>
+                </li>
+                <li>
+                  <span class="trace-label">제가 Half를 누르면 Telegram 메시지가 나갑니다</span>
+                  <code lang="ko">2026-09-23 11:52 - 쿠팡(쿠페이)_KCP — A4 복사용지 500매 [Printing &amp; scanning] - 6,400 KRW (total: 12,800 KRW)</code>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">단계를 보여 주기 위해 앱의 샘플 데이터에서 가져온 가상의 행입니다.</figcaption>
+            </figure>
+
+            <h2>설계 결정</h2>
+            <ul>
+              <li>
+                <strong>숫자는 코드가 다룹니다.</strong> 한번은 AI가 계좌 잔액을 수입으로 읽었습니다. 이제는 코드가 모든 금액과 날짜를
+                읽고, 금액의 부호가 그 행이 수입인지 지출인지를 정합니다. AI는 카테고리만 고르므로 합계를 바꿀 수 없습니다.
+              </li>
+              <li>
+                <strong>더 좋은 프롬프트보다 더 좋은 입력이 낫습니다.</strong> 거래내역에서 Coupang 결제는 모두 거의 똑같아 보여서, 어떤
+                프롬프트로도 제대로 분류할 수 없었습니다. 결제마다 주문 메일을 짝지어 주자 AI가 실제 상품명을 알게 되었습니다. 영수증은
+                합계가 결제 금액과 같고, 메일이 결제 시각 기준 2시간 안에 도착했을 때만 인정됩니다.
+              </li>
+              <li>
+                <strong>제 규칙이 먼저입니다.</strong> 제가 아는 가맹점에 정해 둔 규칙은 항상 AI보다 우선합니다.
+              </li>
+              <li>
+                <strong>실패를 절대 조용히 넘기지 않습니다.</strong> AI 호출이 실패하거나 AI가 붙인 카테고리가 목록에 맞지 않으면, 앱 자체
+                규칙이 행을 분류하고 알림이 이유를 알려 줍니다. 어떤 방법으로도 분류하지 못한 행은 제가 고칠 수 있도록 “Unknown”으로
+                남습니다.
+              </li>
+              <li>
+                <strong>결정은 실제 데이터에서 나옵니다.</strong> 예전에는 환불이 수입으로 잡혔습니다. 제 거래내역에서는 Coupang 환불
+                17건 중 10건이 이전 결제 한 건과 정확히 일치했습니다. 그래서 이제 앱은 이런 환불을 해당 구매에서 스스로 빼고, 나머지는
+                제가 직접 맞추도록 남겨 둡니다.
+              </li>
+              <li>
+                <strong>기본값은 비공개입니다.</strong> 데이터는 휴대폰에 저장됩니다. 불러오기를 할 때는 거래내역 텍스트만 제 게이트웨이를
+                거쳐 AI로 갑니다. 백업은 비공개 GitHub 저장소로 가며, 비밀번호나 토큰은 절대 들어가지 않습니다.
+              </li>
+            </ul>
+
+            <h2>작동하는 모습</h2>
+            <a class="video-card" href="https://www.youtube.com/watch?v=8pA2G70gYdI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>YouTube에서 12분 데모 영상 보기</strong>
+                <span>영상은 샘플 데이터만 쓰는 데모 모드로 앱을 보여 줍니다.</span>
+              </span>
+            </a>
+            <p class="shots-note">앱의 데모 모드에서 찍은 스크린샷입니다. 데모 모드는 샘플 데이터만 보여 줍니다.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/expenses-history.jpg">
+                  <img
+                    src="/screenshots/expenses-history-thumb.jpg"
+                    srcset="/screenshots/expenses-history-thumb.jpg 480w, /screenshots/expenses-history-medium.jpg 960w, /screenshots/expenses-history.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">History 화면: 저장된 행마다 카테고리와 낸 사람이 남아 있습니다</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/expenses-charts.jpg">
+                  <img
+                    src="/screenshots/expenses-charts-thumb.jpg"
+                    srcset="/screenshots/expenses-charts-thumb.jpg 480w, /screenshots/expenses-charts-medium.jpg 960w, /screenshots/expenses-charts.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Charts 화면: 한 달 동안의 카테고리별 지출</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>결과</h2>
+            <ul class="metric-grid">
+              <li><span class="num">40~100시간</span><span class="lbl">제가 추정한 연간 절약 시간</span></li>
+              <li><span class="num">약 1,000건</span><span class="lbl">2년 치 내역에 걸쳐 기록한 거래</span></li>
+              <li><span class="num">매일</span><span class="lbl">2026년 4월부터 사용 중</span></li>
+            </ul>
+            <p>예전에는 가계부를 한 번 정리하는 데 30~60분이 걸렸습니다. 이제는 불러오기 한 번에 5~10분이면 됩니다.</p>
+            <p>카테고리별 지출을 보게 된 것도 돈을 아끼는 데 도움이 되었습니다.</p>
+
+            <p class="callout">
+              앱의 코드는 비공개입니다. 영상과 스크린샷은 샘플 데이터로 돌아가는 데모 모드를 보여 줍니다.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="다른 프로젝트 사례">
+            <a href="/ko/work/catalog-agent/">
+              <span class="dir">← 이전</span>
+              <span class="ttl">카탈로그 데이터용 LangGraph 에이전트</span>
+            </a>
+            <a class="next" href="/ko/work/network-app/">
+              <span class="dir">다음 →</span>
+              <span class="ttl">인맥 관리를 위한 AI 에이전트</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="연락처">
+            <p><strong>이런 일을 맡길 사람을 찾고 계신가요?</strong> AI/ML 엔지니어 직무 제안을 기다리고 있습니다.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">이메일 보내기</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

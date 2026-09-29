@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Tanishlarim tarmogʻi uchun AI agent — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: AI agent tanishlarim haqidagi qaydlarni saqlaydigan va ular haqidagi savollarga javob beradigan Android ilova. Agent faqat telefondagi vositalar orqali ishlaydi, saqlashni bekor qilish mumkin, oʻchirish esa bosib tasdiqlashni kutadi. Kod ommaga ochiq."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/network-app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tanishlarim tarmogʻi uchun AI agent — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Qadamlarni Claude modeli rejalashtiradi, har bir vositani telefon oʻz maʼlumotlari ustida ishga tushiradi, saqlashni bekor qilish mumkin, notoʻgʻri javoblar esa tuzatish uchun belgilanadi."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/network-app/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#how-i-build">← Ish uslubim</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Foydalanishda</span>
+            <span class="mono">Shaxsiy loyiha · kod ommaga ochiq · 2026</span>
+          </div>
+          <h1>Tanishlarim tarmogʻi uchun AI agent</h1>
+          <p class="lead">
+            Tanishlarim tarmogʻi shunchalik kattalashdiki, kimga nima kerakligini va kim yordam bera olishini eslab
+            qolish qiyin boʻlib qoldi. Shuning uchun Android ilova yaratdim: unda suhbatni oddiy soʻzlar bilan
+            tasvirlayman. AI agent uni tegishli odamlarga bogʻlab saqlaydi va ular haqidagi savollarga javob beradi.
+            Agent faqat telefonimda ishlaydigan vositalar orqali harakat qila oladi.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Mahsulotni, agentni, uning vositalarini va xavfsizlik qoidalarini loyihaladim. Kodni Claude Code va Codex kod yozuvchi agentlari yozdi.</dd>
+            </div>
+            <div>
+              <dt>Holat</dt>
+              <dd>Uni 2026-yil avgustda boshladim va oʻz tanishlarim tarmogʻi uchun ishlataman. Kod GitHub platformasida ochiq.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>Android, shaxsiy AI shlyuzimda ishlaydigan Claude Agent SDK, JSON Schema asosida vosita chaqirish (tool calling), GitHub platformasidagi shifrlangan zaxira nusxa</dd>
+            </div>
+            <div>
+              <dt>Qamrov</dt>
+              <dd>Yozuvlarni oʻqiydigan, ularni oʻzgartiradigan yoki mendan tasdiq soʻraydigan 17 ta vosita</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>
+              Oddiy suhbatlarda foydali maʼlumotlar chiqadi: kimdir nima ustida ishlayotgani, unga nima kerakligi va u
+              nimani taklif qila olishi. Koʻproq odamlar bilan tanishganim sari bu maʼlumotlarni yodda tutolmay qoldim.
+            </p>
+            <p>
+              Kontaktlar ilovalari ism va telefon raqamlarini saqlaydi. Ular “Bunda kim yordam bera oladi?” yoki
+              “Oxirgi marta nima haqida gaplashgan edik?” kabi savollarga javob bera olmaydi.
+            </p>
+
+            <h2>Qanday rivojlandi</h2>
+            <p>
+              2026-yil avgustdagi birinchi versiyada odamlar, ularning ehtiyojlari va koʻnikmalari uchun formalar bor
+              edi. AI qaydni taklifga aylantirardi, men esa biror narsa saqlanishidan oldin uni koʻrib chiqardim.
+            </p>
+            <p>
+              AI modellarini ilovaning haqiqiy sxemasida sinab koʻrdim. Bir model tuzilmali javoblarda qayta-qayta vaqt
+              chegarasidan oshib ketdi, shuning uchun boshqasiga oʻtdim. 2026-yil sentyabrda barcha AI chaqiruvlarini
+              shaxsiy shlyuzim orqali Claude modeliga oʻtkazdim.
+            </p>
+            <p>
+              Har bir yangi turdagi soʻrov uchun alohida prompt, sxema, parser va ekran kerak boʻlardi. Shuning uchun
+              sentyabr oʻrtalarida yordamchini vositalardan foydalanadigan agent qilib qayta qurdim. Endi bitta chat
+              qaydlarni ham, savollarni ham, tuzatishlarni ham qabul qiladi.
+            </p>
+
+            <h2>Bitta xabar qanday qayta ishlanadi</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Xabar</span>
+                  <span class="step-desc">Suhbat haqida qaydni yozaman yoki ovoz bilan aytaman. Savol ham berishim mumkin.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">Claude rejalashtiradi</span>
+                  <span class="step-desc">Shlyuzimda Claude modeli keyin qaysi vositani chaqirishni hal qiladi. Boshida unda hech qanday saqlangan yozuv boʻlmaydi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shield-check.svg --></span>
+                  <span class="step-name">Shlyuz tekshiruvi</span>
+                  <span class="step-desc">Shlyuz har bir vosita chaqiruvini JSON Schema boʻyicha tekshiradi, keyin uni telefonga yuboradi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/smartphone.svg --></span>
+                  <span class="step-name">Vosita telefonda ishlaydi</span>
+                  <span class="step-desc">Ilova chaqiruvni yana tekshiradi, uni telefondagi maʼlumotlar bazasida bajaradi va faqat natijani qaytaradi. Kontakt maʼlumotlari hech qachon telefondan chiqmaydi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/undo.svg --></span>
+                  <span class="step-name">Undo tugmali javob</span>
+                  <span class="step-desc">Javob har bir oʻzgarishni sanab beradi, bitta bosish esa hammasini bekor qiladi. Oʻchirish va birlashtirish men bosib tasdiqlagunimcha kutib turadi.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Maxfiylik</strong>Maʼlumotlar bazasi telefonda qoladi, zaxira nusxalar esa avval shifrlanadi</li>
+                <li><strong>Ovoz</strong>Imkon boʻlsa, nutq telefonning oʻzida taniladi</li>
+                <li><strong>Fikr-mulohaza</strong>Har qanday javob haqida oldindan belgilangan yorliq bilan xabar berish mumkin</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Bu agentning bitta ish sikli. 2–4-qadamlar Claude modeli kerakli maʼlumotni olguncha takrorlanadi.
+              </figcaption>
+            </figure>
+            <p class="shots-note">Skrinshotlar toʻqima odamlar kiritilgan test telefonidan olingan.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-save.jpg">
+                  <img
+                    src="/screenshots/network-assistant-save-thumb.jpg"
+                    srcset="/screenshots/network-assistant-save-thumb.jpg 480w, /screenshots/network-assistant-save-medium.jpg 960w, /screenshots/network-assistant-save.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Yangi odam haqida qayd: javob har bir saqlangan oʻzgarishni sanab beradi, ularning hammasi uchun bitta Undo tugmasi bor</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-answer.jpg">
+                  <img
+                    src="/screenshots/network-assistant-answer-thumb.jpg"
+                    srcset="/screenshots/network-assistant-answer-thumb.jpg 480w, /screenshots/network-assistant-answer-medium.jpg 960w, /screenshots/network-assistant-answer.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Yaxshi moslik topilmagan savol: javob buni aytadi va sababini tushuntiradi</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-needs.jpg">
+                  <img
+                    src="/screenshots/network-needs-thumb.jpg"
+                    srcset="/screenshots/network-needs-thumb.jpg 480w, /screenshots/network-needs-medium.jpg 960w, /screenshots/network-needs.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Needs boʻlimi: tarmoqdagi odamlar nimani qidirayotgani</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Loyihalash qarorlari</h2>
+            <ul>
+              <li>
+                <strong>Qoidalarni telefon nazorat qiladi.</strong> Har bir vosita chaqiruvi ikki marta tekshiriladi:
+                avval shlyuz uni sxemasi boʻyicha, keyin esa ilova tekshiradi. Ilova yozuvlar mavjudligiga, matn juda
+                uzun emasligiga, hech narsa takrorlanmasligiga va hech bir sana kelajakda emasligiga ishonch hosil
+                qiladi. Rad etilgan chaqiruv hech narsani saqlamaydi, model esa oʻqib tuzata oladigan xato xabarini
+                oladi.
+              </li>
+              <li>
+                <strong>Moslashuvchan, ammo bekor qilsa boʻladi.</strong> Dastlab AI kiritgan har bir oʻzgarish mening
+                tekshiruvimni kutardi. Buning oʻrniga moslashuvchanlikni tanladim: endi qoʻshish va tahrirlash darhol
+                saqlanadi. Har bir javob har bir qatorning oldingi va keyingi nusxasini saqlab qoʻyadi, shuning uchun
+                bitta bosish butun javobni bekor qiladi. Agar oʻshandan beri qatorni tahrirlagan boʻlsam, Undo rad
+                etadi.
+              </li>
+              <li>
+                <strong>Oʻchirish doim meni kutadi.</strong> Odamni, qaydni yoki yozuvni oʻchirish yoki ikki odamni
+                birlashtirish faqat men uning kartasini bosganimda bajariladi.
+              </li>
+              <li>
+                <strong>Saqlangan matn — koʻrsatma emas, maʼlumot.</strong> Prompt modelga saqlangan qaydlar va oldingi
+                xabarlarni hech qachon koʻrsatma sifatida emas, maʼlumot sifatida qabul qilishni aytadi.
+              </li>
+              <li>
+                <strong>Javoblar saqlangan yozuvlarga tayanadi.</strong> Dalillar eski yoki kam boʻlsa, yordamchi buni
+                aytishi shart. U eski qaydda biror koʻnikma tilga olingani uchungina kimdir yordam berishga tayyor deb
+                hech qachon aytmasligi kerak.
+              </li>
+              <li>
+                <strong>Maxfiy qilib loyihalangan.</strong> Ilovada akkauntlar, analitika va kontaktlarni import qilish
+                yoʻq. Zaxira nusxalar GitHub platformasidagi yopiq repozitoriyga yuborilishidan oldin telefonda
+                shifrlanadi. Ilova ochiq repozitoriyga zaxira nusxa saqlashdan bosh tortadi.
+              </li>
+            </ul>
+
+            <h2>Xatolarni topish va tuzatish</h2>
+            <p>
+              Har bir javobda Report a problem tugmasi bor. Unda notoʻgʻri odam, nimadir tushib qolgan yoki yozuv turi
+              notoʻgʻri kabi oldindan belgilangan yorliqlar mavjud. Hisobot xabarni, javobni, nima saqlanganini va
+              barcha vosita chaqiruvlarini tartibi bilan saqlaydi, lekin kontakt maʼlumotlarini saqlamaydi.
+            </p>
+            <p>
+              Hisobotlar shifrlangan zaxira nusxa ichida keladi. Kompyuterimda skript faqat hisobotlarni shifrdan
+              chiqaradi. Men nosozlikni tuzataman va tuzatishni toʻqima odamlar kiritilgan test telefonida tekshiraman.
+            </p>
+            <p>
+              Masalan, hisobotlar oʻqish va koʻngillilik ish joyi sifatida saqlanayotganini koʻrsatdi. Bitta test qaydi
+              toʻrtta ish joyi yozuvini yaratgan edi. Tuzatishdan keyin u bitta ish joyi yaratdi, qolganlari esa taʼlim
+              va tarjimai holga oid faktlarga oʻtdi.
+            </p>
+            <p>
+              Tezlikni ham oʻlchayman. Bitta vosita chaqiruvi qaydni undagi faktlar bilan birga saqlay oladigan boʻlgach,
+              ikki kishi haqidagi yangilanish taxminan 23 soniyadan taxminan 12 soniyaga qisqardi.
+            </p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-report.jpg">
+                  <img
+                    src="/screenshots/network-report-thumb.jpg"
+                    srcset="/screenshots/network-report-thumb.jpg 480w, /screenshots/network-report-medium.jpg 960w, /screenshots/network-report.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Report a problem: oldindan belgilangan yorliqlar tufayli xatolarni sanash va guruhlash oson</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Holat</h2>
+            <p>
+              Ilovani oʻz tanishlarim tarmogʻi uchun ishlataman. U imzolangan GitHub Releases orqali oʻzini oʻzi
+              yangilaydi. Kod, README fayli va maxfiylik boʻyicha izohlar
+              <a href="https://github.com/AzizjonKasimov/network-app">GitHub</a> platformasida ochiq.
+            </p>
+
+            <p class="callout">
+              Skrinshotlar toʻqima odamlar kiritilgan test telefonidan olingan. Bu sahifada birorta ham haqiqiy kontakt
+              koʻrsatilmagan.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/expense-tracker/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">Bank koʻchirmasini import qiladigan AI xarajatlar ilovasi</span>
+            </a>
+            <a class="next" href="/uz/work/semantic-search/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">Avtoehtiyot qismlar uchun AI semantik qidiruv</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

@@ -264,10 +264,58 @@
           <h2 id="build-title">AI-native engineering, with guardrails</h2>
           <p>
             Since April 2026 I write most software by directing coding agents, Claude Code and Codex. The agents are
-            fast. The rules, project notes, and checks I put around them keep the work reliable.
+            fast. The rules, project notes, and checks I put around them keep the work reliable. Two apps I use
+            myself show the result.
           </p>
         </div>
 
+        <div class="card-grid">
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/expense-tracker.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-prod">In daily use</span>
+              <span class="mono">Personal project · 2026</span>
+            </div>
+            <h3><a href="/work/expense-tracker/">AI expense tracker with bank-statement import</a></h3>
+            <p>
+              The app reads my bank's Excel statement on my phone. Code reads every amount and date, AI picks each
+              category, and I check each row. Then my girlfriend gets a Telegram message with what she owes.
+            </p>
+            <p class="result">I estimate it saves me 40 to 100 hours a year.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>Claude</li>
+              <li>Android</li>
+              <li>Telegram Bot API</li>
+              <li>Claude Code</li>
+              <li>Codex</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Read the case study <span>→</span></span>
+          </article>
+
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/network-app.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-prod">In use</span>
+              <span class="mono">Personal project · public code · 2026</span>
+            </div>
+            <h3><a href="/work/network-app/">An AI agent for my personal network</a></h3>
+            <p>
+              I describe a conversation in plain words, and an AI agent saves it on the right people and answers
+              questions about them. It acts only through tools that run on my phone, and deletes wait for my tap.
+            </p>
+            <p class="result">One tap undoes a reply, and every wrong answer can be reported for fixing.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>Claude Agent SDK</li>
+              <li>Tool calling</li>
+              <li>JSON Schema</li>
+              <li>Android</li>
+              <li>Claude Code</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">Read the case study <span>→</span></span>
+          </article>
+        </div>
+
+        <h3 class="subhead">Behind the apps</h3>
         <div class="card-grid card-grid-3">
           <article class="card card-plain">
             <div class="card-meta"><span class="mono">Private repo · 2026</span></div>
@@ -300,14 +348,11 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>Five Android apps, built entirely with AI agents</h3>
             <p>
-              Expenses, the finance app I use every day, plus Network App, OneShot Reminder, Notes, and Life Simulator.
-              Three of them use AI, and each checks the AI's answer before using it. Expenses and OneShot Reminder ask
-              the user before saving, and Network App saves right away but lets the user undo. The apps update
-              themselves from signed GitHub Releases.
+              Besides the two apps above, the agents built OneShot Reminder, Notes, and Life Simulator. OneShot
+              Reminder also uses AI, and it asks me to confirm each task before it saves. The apps update themselves
+              from signed GitHub Releases.
             </p>
             <ul class="card-links">
-              <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses demo video</a></li>
-              <li><a href="https://github.com/AzizjonKasimov/network-app">Network App</a></li>
               <li><a href="https://github.com/AzizjonKasimov/oneshot-reminder">OneShot Reminder</a></li>
               <li><a href="https://github.com/AzizjonKasimov/note-taking-app">Notes</a></li>
               <li><a href="https://github.com/AzizjonKasimov/life_simulator_app">Life Simulator</a></li>

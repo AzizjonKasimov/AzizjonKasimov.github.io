@@ -1,0 +1,48 @@
+<svg viewBox="0 0 320 100">
+  <g class="rise">
+    <path class="art-panel" d="M22 22h52a10 10 0 0 1 10 10v24a10 10 0 0 1-10 10h-8v9l-10-9h-34a10 10 0 0 1-10-10v-24a10 10 0 0 1 10-10z" />
+  </g>
+  <rect class="art-ink grow" x="22" y="32" width="50" height="5" rx="2.5" style="--at: 150ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="22" y="42" width="40" height="5" rx="2.5" style="--at: 220ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="22" y="52" width="28" height="5" rx="2.5" style="--at: 290ms; --dur: 280ms" />
+  <path class="art-flow draw" d="M90 46h12" pathLength="1" style="--at: 420ms; --dur: 200ms" />
+  <path class="art-flow pop" d="m98 42 4 4-4 4" style="--at: 560ms" />
+  <path class="art-pulse" d="M90 46h12" pathLength="100" />
+  <circle class="art-chip pop" cx="122" cy="46" r="13" style="--at: 620ms" />
+  <path class="art-accent pop" d="m122 38.5 1.9 5.2 5.2 1.9-5.2 1.9-1.9 5.2-1.9-5.2-5.2-1.9 5.2-1.9z" style="--at: 720ms" />
+  <path class="art-flow draw" d="M137 40 153 33" pathLength="1" style="--at: 820ms; --dur: 200ms" />
+  <path class="art-flow pop" d="m148 30.3 5 2.7-2.2 5.2" style="--at: 980ms" />
+  <path class="art-pulse" d="M137 40 153 33" pathLength="100" style="--pulse-at: 0.3s" />
+  <g class="rise" style="--at: 900ms">
+    <rect class="art-panel" x="158" y="14" width="40" height="72" rx="8" />
+    <path class="art-line" d="M173 78h10" />
+  </g>
+  <circle class="art-ink pop" cx="168" cy="30" r="3.5" style="--at: 1020ms" />
+  <circle class="art-ink pop" cx="168" cy="44" r="3.5" style="--at: 1080ms" />
+  <circle class="art-ink pop" cx="168" cy="58" r="3.5" style="--at: 1140ms" />
+  <rect class="art-ink grow" x="175" y="28" width="16" height="4" rx="2" style="--at: 1040ms; --dur: 220ms" />
+  <rect class="art-ink-strong grow" x="175" y="42" width="14" height="4" rx="2" style="--at: 1100ms; --dur: 220ms" />
+  <rect class="art-ink grow" x="175" y="56" width="12" height="4" rx="2" style="--at: 1160ms; --dur: 220ms" />
+  <path class="art-flow draw" d="M153 60 137 53" pathLength="1" style="--at: 1220ms; --dur: 200ms" />
+  <path class="art-flow pop" d="m142 50.3-5 2.7 2.2 5.2" style="--at: 1380ms" />
+  <path class="art-pulse" d="M153 60 137 53" pathLength="100" style="--pulse-at: 0.6s" />
+  <path class="art-flow draw" d="M204 50h12" pathLength="1" style="--at: 1460ms; --dur: 200ms" />
+  <path class="art-flow pop" d="m212 46 4 4-4 4" style="--at: 1600ms" />
+  <path class="art-pulse" d="M204 50h12" pathLength="100" style="--pulse-at: 0.9s" />
+  <path class="art-line draw" d="M266 50 236 28" pathLength="1" style="--at: 1660ms; --dur: 260ms" />
+  <path class="art-line draw" d="M266 50 268 20" pathLength="1" style="--at: 1660ms; --dur: 260ms" />
+  <path class="art-line draw" d="M266 50 298 34" pathLength="1" style="--at: 1660ms; --dur: 260ms" />
+  <path class="art-line draw" d="M266 50 244 76" pathLength="1" style="--at: 1660ms; --dur: 260ms" />
+  <path class="art-line draw" d="M266 50 290 74" pathLength="1" style="--at: 1660ms; --dur: 260ms" />
+  <path class="art-pulse" d="M266 50 236 28" pathLength="100" style="--pulse-at: 1.2s" />
+  <path class="art-pulse" d="M266 50 298 34" pathLength="100" style="--pulse-at: 1.2s" />
+  <path class="art-pulse" d="M266 50 290 74" pathLength="100" style="--pulse-at: 1.2s" />
+  <circle class="art-chip pop" cx="236" cy="28" r="6" style="--at: 1840ms" />
+  <circle class="art-chip pop" cx="268" cy="20" r="6" style="--at: 1880ms" />
+  <circle class="art-chip pop" cx="298" cy="34" r="6" style="--at: 1920ms" />
+  <circle class="art-chip pop" cx="244" cy="76" r="6" style="--at: 1960ms" />
+  <circle class="art-chip pop" cx="290" cy="74" r="6" style="--at: 2000ms" />
+  <circle class="art-ripple" cx="266" cy="50" r="8" />
+  <circle class="art-accent pop" cx="266" cy="50" r="8" style="--at: 2080ms" />
+  <path class="art-check draw" d="m262.5 50.2 2.4 2.4 4.6-4.8" pathLength="1" style="--at: 2200ms; --dur: 280ms" />
+</svg>

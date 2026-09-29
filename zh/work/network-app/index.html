@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>管理个人人脉的 AI 智能体 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：一款 Android 应用，其中的 AI 智能体为我认识的人保存笔记，并回答关于他们的问题。它只能通过手机上的工具工作，保存可以撤销，删除要等我点按确认。代码已公开。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/network-app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="管理个人人脉的 AI 智能体 — 项目案例" />
+    <meta
+      property="og:description"
+      content="Claude 规划步骤，手机在自己的数据上运行每一个工具，保存可以撤销，错误的回答会被打上标签以便修复。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/network-app/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#how-i-build">← 工作方式</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">使用中</span>
+            <span class="mono">个人项目 · 代码公开 · 2026</span>
+          </div>
+          <h1>管理个人人脉的 AI 智能体</h1>
+          <p class="lead">
+            我的人脉越来越广，已经记不住谁需要什么、谁能帮上忙。于是我开发了一款 Android 应用，我可以在里面用平常的话描述一次谈话。AI 智能体会把谈话内容记到相关的人名下，并回答关于这些人的问题；它只能通过在我手机上运行的工具来操作。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>我设计了产品、智能体，以及智能体的工具和安全规则。编程智能体 Claude Code 和 Codex 编写了代码。</dd>
+            </div>
+            <div>
+              <dt>状态</dt>
+              <dd>我在 2026&nbsp;年&nbsp;8&nbsp;月开始做这个项目，并用它管理自己的人脉。代码已在 GitHub 上公开。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>Android、运行在我的私有 AI 网关上的 Claude Agent SDK、基于 JSON Schema 的工具调用、加密的 GitHub 备份</dd>
+            </div>
+            <div>
+              <dt>范围</dt>
+              <dd>17 个工具，用于读取记录、修改记录或请我确认</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>
+              有用的信息会出现在普通的谈话中：某人正在做什么、需要什么、能提供什么。随着我认识的人越来越多，我渐渐记不清这些信息了。
+            </p>
+            <p>
+              通讯录应用保存的是姓名和电话号码。它们回答不了“谁能帮上这个忙？”或“我们上次聊了什么？”这样的问题。
+            </p>
+
+            <h2>发展历程</h2>
+            <p>
+              第一个版本诞生于 2026&nbsp;年&nbsp;8&nbsp;月，里面有用于录入人员、需求和技能的表单。AI 会把一条笔记整理成一份修改建议，经我审核后才会保存任何内容。
+            </p>
+            <p>
+              我在这款应用真实的数据结构（schema）上测试了多个 AI 模型。有一个模型在生成结构化回答时屡屡超时，所以我换了另一个模型。2026&nbsp;年&nbsp;9&nbsp;月，我把所有 AI 调用都迁移到了 Claude，并经由我的私有网关发出。
+            </p>
+            <p>
+              每一类新请求都需要各自的提示词、schema、解析器和界面。所以在 9&nbsp;月中旬，我把助手重建成一个会使用工具的智能体。现在，一个聊天会话就能处理笔记、提问和更正。
+            </p>
+
+            <h2>一条消息的处理流程</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">消息</span>
+                  <span class="step-desc">我输入或口述一条关于某次谈话的笔记，或者提一个问题。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">Claude 规划</span>
+                  <span class="step-desc">Claude 在我的网关上决定下一步调用哪个工具。一开始，它手上没有任何已保存的记录。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shield-check.svg --></span>
+                  <span class="step-name">网关检查</span>
+                  <span class="step-desc">网关按照对应的 JSON Schema 检查每次工具调用，然后把它发送到手机。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/smartphone.svg --></span>
+                  <span class="step-name">手机运行工具</span>
+                  <span class="step-desc">应用再次检查这次调用，在手机的数据库上运行它，只把结果发回去。联系方式从不离开手机。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/undo.svg --></span>
+                  <span class="step-name">带 Undo 的回复</span>
+                  <span class="step-desc">回复会列出每一项更改，点一下 Undo 就能全部撤销。删除与合并要等我点按后才执行。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>隐私</strong>数据库留在手机上，备份会先加密</li>
+                <li><strong>语音</strong>只要条件允许，语音都在手机上识别</li>
+                <li><strong>反馈</strong>任何回答都可以用固定的标签来报告问题</li>
+              </ul>
+              <figcaption id="flow-caption">
+                智能体的一轮处理。第 2 到 4 步会重复进行，直到 Claude 获得所需的信息。
+              </figcaption>
+            </figure>
+            <p class="shots-note">截图来自一部存有虚构人物的测试手机。</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-save.jpg">
+                  <img
+                    src="/screenshots/network-assistant-save-thumb.jpg"
+                    srcset="/screenshots/network-assistant-save-thumb.jpg 480w, /screenshots/network-assistant-save-medium.jpg 960w, /screenshots/network-assistant-save.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">一条关于新认识的人的笔记：回复列出每项已保存的更改，并附有一个 Undo 按钮</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-answer.jpg">
+                  <img
+                    src="/screenshots/network-assistant-answer-thumb.jpg"
+                    srcset="/screenshots/network-assistant-answer-thumb.jpg 480w, /screenshots/network-assistant-answer-medium.jpg 960w, /screenshots/network-assistant-answer.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">一个找不到合适人选的问题：回答如实说明这一点，并解释原因</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-needs.jpg">
+                  <img
+                    src="/screenshots/network-needs-thumb.jpg"
+                    srcset="/screenshots/network-needs-thumb.jpg 480w, /screenshots/network-needs-medium.jpg 960w, /screenshots/network-needs.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Needs 标签页：人脉中的人正在寻找什么</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>设计决策</h2>
+            <ul>
+              <li>
+                <strong>规则由手机执行。</strong>每次工具调用都要经过两次检查：先由网关按照它的 schema 检查，再由应用检查。应用会确认记录存在、文本不过长、没有重复，并且没有日期落在未来。被拒绝的调用不会保存任何内容，模型会收到一条它能读懂并据此修正的错误信息。
+              </li>
+              <li>
+                <strong>灵活，但可撤销。</strong>起初，AI 的每项更改都要等我审核。后来我转而选择了灵活性：现在，新增和编辑会立即保存。每条回复都会保留每一行更改前后的副本，所以点一下就能撤销整条回复。如果我在那之后又编辑过这一行，Undo 就会拒绝撤销。
+              </li>
+              <li>
+                <strong>删除一律等待确认。</strong>删除一个人、一条笔记或一条记录，或者合并两个人，都只在我点按对应的卡片后才会执行。
+              </li>
+              <li>
+                <strong>已保存的文本是数据，不是指令。</strong>提示词要求模型把已保存的笔记和之前的消息当作数据，绝不当作指令。
+              </li>
+              <li>
+                <strong>回答以已保存的记录为依据。</strong>当证据陈旧或不足时，助手必须说明。它绝不能仅仅因为一条旧笔记提到某项技能，就暗示某人愿意帮忙。
+              </li>
+              <li>
+                <strong>从设计上保护隐私。</strong>这款应用没有账户、没有数据分析，也不导入通讯录。备份会先在手机上加密，再发送到一个私有 GitHub 仓库；如果目标是公开仓库，应用会拒绝备份。
+              </li>
+            </ul>
+
+            <h2>发现并修复错误</h2>
+            <p>
+              每个回答都有一个 Report a problem 按钮，报告时可以选择固定的标签，例如找错了人、漏掉了内容或记录类型错误。一份报告会保存消息、回答、已保存的内容，以及按顺序排列的每一次工具调用，但不包含联系方式。
+            </p>
+            <p>
+              报告随加密备份一起传输。在我的电脑上，一个脚本只解密这些报告。我修复问题所在，再在一部存有虚构人物的测试手机上检验修复效果。
+            </p>
+            <p>
+              例如，报告显示学习和志愿活动被保存成了工作经历。一条测试笔记曾生成四条工作经历。修复之后，它只生成一条工作经历，其余内容归入了教育经历和背景信息。
+            </p>
+            <p>
+              我也会衡量速度。我让一次工具调用就能同时保存一条笔记及其相关信息，于是一次涉及两个人的更新从约 23 秒缩短到了约 12 秒。
+            </p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-report.jpg">
+                  <img
+                    src="/screenshots/network-report-thumb.jpg"
+                    srcset="/screenshots/network-report-thumb.jpg 480w, /screenshots/network-report-medium.jpg 960w, /screenshots/network-report.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Report a problem：固定的标签让问题易于统计和归类</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>状态</h2>
+            <p>
+              我用这款应用管理自己的人脉，它会通过已签名的 GitHub Releases 自动更新。代码、README 和隐私说明都已在
+              <a href="https://github.com/AzizjonKasimov/network-app">GitHub</a> 上公开。
+            </p>
+
+            <p class="callout">
+              截图来自一部存有虚构人物的测试手机。本页面没有出现任何真实的联系人。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/expense-tracker/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">可导入银行流水的 AI 记账应用</span>
+            </a>
+            <a class="next" href="/zh/work/semantic-search/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">汽车零部件 AI 语义搜索</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

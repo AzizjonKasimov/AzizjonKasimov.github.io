@@ -2041,6 +2041,78 @@ strong {
   font-size: 0.9375rem;
 }
 
+/* Phone screenshots are tall, so each one is shown whole, three to a row (two on small phones). */
+.shots-phone {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.shots-phone .shot img,
+.shots-phone li:only-child .shot img {
+  aspect-ratio: 9 / 20;
+}
+
+@media (max-width: 479px) {
+  .shots-phone {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* A link to a video on YouTube, shaped like a player, so the page loads nothing from YouTube. */
+.video-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px 16px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.video-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+  color: var(--text);
+}
+
+.video-play {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.video-play svg {
+  width: 22px;
+  height: 22px;
+  margin-left: 3px;
+}
+
+.video-text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.video-text strong {
+  font-weight: 650;
+}
+
+.video-card:hover .video-text strong {
+  color: var(--accent);
+}
+
+.video-text span {
+  color: var(--text-2);
+  font-size: 0.9375rem;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));

@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>인맥 관리를 위한 AI 에이전트 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="프로젝트 사례: AI 에이전트가 제가 아는 사람들에 대한 메모를 저장하고, 그들에 관한 질문에 답하는 Android 앱입니다. 에이전트는 휴대폰의 도구로만 일합니다. 저장은 되돌릴 수 있고, 삭제는 제가 누를 때까지 기다립니다. 코드는 공개되어 있습니다."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ko/work/network-app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="인맥 관리를 위한 AI 에이전트 — 프로젝트 사례" />
+    <meta
+      property="og:description"
+      content="Claude가 단계를 계획하고, 휴대폰이 자기 데이터로 모든 도구를 실행합니다. 저장은 되돌릴 수 있고, 틀린 답변에는 수정을 위한 라벨이 붙습니다."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ko/work/network-app/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ko/#how-i-build">← 개발 방식</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">사용 중</span>
+            <span class="mono">개인 프로젝트 · 코드 공개 · 2026</span>
+          </div>
+          <h1>인맥 관리를 위한 AI 에이전트</h1>
+          <p class="lead">
+            인맥이 너무 넓어져서 누가 무엇을 필요로 하는지, 누가 도와줄 수 있는지 기억하기 어려워졌습니다. 그래서 대화 내용을 평범한
+            말로 적는 Android 앱을 만들었습니다. AI 에이전트가 그 내용을 알맞은 사람의 기록에 저장하고, 그 사람들에 관한 질문에
+            답합니다. 에이전트는 제 휴대폰에서 실행되는 도구를 통해서만 움직일 수 있습니다.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>역할</dt>
+              <dd>제품, 에이전트, 에이전트가 쓰는 도구와 안전 규칙을 설계했습니다. 코드는 코딩 에이전트인 Claude Code와 Codex가 작성했습니다.</dd>
+            </div>
+            <div>
+              <dt>상태</dt>
+              <dd>2026년 8월에 시작했고, 지금 제 인맥 관리에 쓰고 있습니다. 코드는 GitHub에 공개되어 있습니다.</dd>
+            </div>
+            <div>
+              <dt>기술 스택</dt>
+              <dd>Android, 제 비공개 AI 게이트웨이의 Claude Agent SDK, JSON Schema를 쓰는 도구 호출, 암호화된 GitHub 백업</dd>
+            </div>
+            <div>
+              <dt>범위</dt>
+              <dd>기록을 읽거나 바꾸거나, 제게 확인을 요청하는 도구 17개</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>문제</h2>
+            <p>
+              평범한 대화에서도 쓸모 있는 사실이 나옵니다. 누가 어떤 일을 하고 있는지, 무엇이 필요한지, 무엇을 제공할 수 있는지 같은
+              것들입니다. 만나는 사람이 늘면서 저는 이런 사실들을 놓치게 되었습니다.
+            </p>
+            <p>
+              연락처 앱은 이름과 전화번호를 저장합니다. 하지만 “이 일을 누가 도와줄 수 있을까?”나 “지난번에 무슨 이야기를 했지?” 같은
+              질문에는 답하지 못합니다.
+            </p>
+
+            <h2>발전 과정</h2>
+            <p>
+              2026년 8월에 만든 첫 버전에는 사람, 필요한 것, 역량을 각각 입력하는 양식이 있었습니다. AI가 메모를 보고 저장할 내용을
+              제안하면, 저장되기 전에 제가 그 제안을 검토했습니다.
+            </p>
+            <p>
+              앱의 실제 스키마로 여러 AI 모델을 시험했습니다. 한 모델은 구조화된 답을 낼 때 계속 시간 초과가 나서 다른 모델로
+              바꿨습니다. 2026년 9월에는 모든 AI 호출을 제 비공개 게이트웨이를 거치는 Claude로 옮겼습니다.
+            </p>
+            <p>
+              새로운 종류의 요청이 생길 때마다 프롬프트, 스키마, 파서, 화면이 따로 필요했습니다. 그래서 9월 중순에 어시스턴트를 도구를
+              쓰는 에이전트로 다시 만들었습니다. 이제 채팅 스레드 하나가 메모, 질문, 수정을 모두 처리합니다.
+            </p>
+
+            <h2>메시지 하나가 처리되는 과정</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">메시지</span>
+                  <span class="step-desc">대화에 관한 메모를 글이나 음성으로 입력합니다. 질문을 할 수도 있습니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">Claude의 계획</span>
+                  <span class="step-desc">제 게이트웨이에서 Claude가 다음에 호출할 도구를 정합니다. Claude는 저장된 기록 없이 시작합니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shield-check.svg --></span>
+                  <span class="step-name">게이트웨이 검증</span>
+                  <span class="step-desc">게이트웨이가 각 도구 호출을 JSON Schema로 검증한 뒤 휴대폰으로 보냅니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/smartphone.svg --></span>
+                  <span class="step-name">휴대폰에서 도구 실행</span>
+                  <span class="step-desc">앱이 호출을 다시 검증하고, 휴대폰의 데이터베이스에서 실행한 뒤, 결과만 돌려보냅니다. 연락처 정보는 절대 휴대폰 밖으로 나가지 않습니다.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/undo.svg --></span>
+                  <span class="step-name">Undo가 있는 응답</span>
+                  <span class="step-desc">응답에 모든 변경 사항이 나오고, 한 번 누르면 전부 되돌려집니다. 삭제와 병합은 제가 누를 때까지 기다립니다.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>개인정보 보호</strong>데이터베이스는 휴대폰에 머물고, 백업은 먼저 암호화됩니다</li>
+                <li><strong>음성</strong>가능하면 언제나 휴대폰 안에서 음성을 인식합니다</li>
+                <li><strong>피드백</strong>어떤 답변이든 정해진 라벨로 보고할 수 있습니다</li>
+              </ul>
+              <figcaption id="flow-caption">
+                에이전트의 한 턴입니다. Claude가 필요한 것을 얻을 때까지 2~4단계를 반복합니다.
+              </figcaption>
+            </figure>
+            <p class="shots-note">가상의 인물로 채운 테스트 휴대폰에서 찍은 스크린샷입니다.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-save.jpg">
+                  <img
+                    src="/screenshots/network-assistant-save-thumb.jpg"
+                    srcset="/screenshots/network-assistant-save-thumb.jpg 480w, /screenshots/network-assistant-save-medium.jpg 960w, /screenshots/network-assistant-save.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">새로운 사람에 관한 메모: 응답에 저장된 변경 사항이 모두 나오고, Undo 버튼은 하나입니다</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-answer.jpg">
+                  <img
+                    src="/screenshots/network-assistant-answer-thumb.jpg"
+                    srcset="/screenshots/network-assistant-answer-thumb.jpg 480w, /screenshots/network-assistant-answer-medium.jpg 960w, /screenshots/network-assistant-answer.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">잘 맞는 사람이 없는 질문: 답변이 그렇다고 밝히고 이유를 설명합니다</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-needs.jpg">
+                  <img
+                    src="/screenshots/network-needs-thumb.jpg"
+                    srcset="/screenshots/network-needs-thumb.jpg 480w, /screenshots/network-needs-medium.jpg 960w, /screenshots/network-needs.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Needs 탭: 인맥 속 사람들이 찾고 있는 것</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>설계 결정</h2>
+            <ul>
+              <li>
+                <strong>규칙은 휴대폰이 강제합니다.</strong> 도구 호출은 두 번 검증됩니다. 먼저 게이트웨이가 스키마로 검증하고, 그다음 앱이
+                검증합니다. 앱은 기록이 실제로 있는지, 텍스트가 너무 길지 않은지, 중복이 없는지, 미래 날짜가 없는지 확인합니다. 거부된
+                호출은 아무것도 저장하지 않고, 모델은 읽고 고칠 수 있는 오류를 돌려받습니다.
+              </li>
+              <li>
+                <strong>유연하지만, 되돌릴 수 있습니다.</strong> 처음에는 AI의 모든 변경이 제 검토를 기다렸습니다. 대신 저는 유연함을
+                택했습니다. 이제 추가와 수정은 바로 저장됩니다. 응답마다 모든 행의 변경 전후 사본을 보관하므로, 한 번 누르면 응답 전체가
+                되돌려집니다. 그 뒤에 제가 그 행을 고쳤다면 Undo는 거부됩니다.
+              </li>
+              <li>
+                <strong>삭제는 항상 기다립니다.</strong> 사람, 메모, 기록을 삭제하거나 두 사람을 병합하는 작업은 제가 해당 카드를 누를
+                때만 실행됩니다.
+              </li>
+              <li>
+                <strong>저장된 텍스트는 지시가 아니라 데이터입니다.</strong> 프롬프트는 모델에게 저장된 메모와 이전 메시지를 데이터로만
+                다루고, 절대 지시로 받아들이지 말라고 알려 줍니다.
+              </li>
+              <li>
+                <strong>답변은 저장된 기록에 근거합니다.</strong> 근거가 오래되었거나 부족하면 어시스턴트는 그렇다고 말해야 합니다. 오래된
+                메모에 어떤 역량이 적혀 있다는 이유만으로 그 사람이 기꺼이 도와줄 것처럼 말해서는 안 됩니다.
+              </li>
+              <li>
+                <strong>설계부터 비공개입니다.</strong> 앱에는 계정, 분석 도구, 연락처 가져오기가 없습니다. 백업은 휴대폰에서 암호화된 뒤
+                비공개 GitHub 저장소로 가고, 앱은 공개 저장소로의 백업을 거부합니다.
+              </li>
+            </ul>
+
+            <h2>실수를 찾아 고치는 방법</h2>
+            <p>
+              모든 답변에는 Report a problem 버튼이 있습니다. 이 버튼에는 잘못된 사람, 빠뜨린 내용, 잘못된 기록 유형 같은 정해진 라벨이
+              있습니다. 보고에는 메시지, 답변, 저장된 내용, 모든 도구 호출이 순서대로 담기며, 연락처 정보는 빠집니다.
+            </p>
+            <p>
+              보고는 암호화된 백업 안에 담겨 옵니다. 제 컴퓨터에서는 스크립트가 보고만 복호화합니다. 저는 오류를 고치고, 가상의 인물로
+              채운 테스트 휴대폰에서 수정 결과를 확인합니다.
+            </p>
+            <p>
+              예를 들어, 보고를 보니 학업과 봉사 활동이 직업으로 저장되고 있었습니다. 한 테스트 메모에서는 직업이 4개 생겼습니다. 수정
+              후에는 직업이 1개만 생겼고, 나머지는 학력과 배경 정보로 들어갔습니다.
+            </p>
+            <p>
+              속도도 측정합니다. 도구 호출 한 번으로 메모와 그 메모의 사실들을 함께 저장하게 하자, 두 사람의 정보를 갱신하는 시간이 약
+              23초에서 약 12초로 줄었습니다.
+            </p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-report.jpg">
+                  <img
+                    src="/screenshots/network-report-thumb.jpg"
+                    srcset="/screenshots/network-report-thumb.jpg 480w, /screenshots/network-report-medium.jpg 960w, /screenshots/network-report.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Report a problem: 정해진 라벨 덕분에 오류를 세고 묶기 쉽습니다</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>상태</h2>
+            <p>
+              저는 이 앱으로 제 인맥을 관리하고 있으며, 앱은 서명된 GitHub Releases에서 스스로 업데이트됩니다. 코드, README, 개인정보
+              보호 문서는
+              <a href="https://github.com/AzizjonKasimov/network-app">GitHub</a>에 공개되어 있습니다.
+            </p>
+
+            <p class="callout">
+              스크린샷은 가상의 인물로 채운 테스트 휴대폰에서 찍었습니다. 이 페이지에는 실제 연락처가 하나도 나오지 않습니다.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="다른 프로젝트 사례">
+            <a href="/ko/work/expense-tracker/">
+              <span class="dir">← 이전</span>
+              <span class="ttl">은행 거래내역을 불러오는 AI 가계부</span>
+            </a>
+            <a class="next" href="/ko/work/semantic-search/">
+              <span class="dir">다음 →</span>
+              <span class="ttl">자동차 부품 AI 의미 검색</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="연락처">
+            <p><strong>이런 일을 맡길 사람을 찾고 계신가요?</strong> AI/ML 엔지니어 직무 제안을 기다리고 있습니다.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">이메일 보내기</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

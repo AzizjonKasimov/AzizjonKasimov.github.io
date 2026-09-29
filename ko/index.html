@@ -228,10 +228,57 @@
           <h2 id="build-title">가드레일을 갖춘 AI 네이티브 개발</h2>
           <p>
             2026년 4월부터 대부분의 소프트웨어를 코딩 에이전트인 Claude Code와 Codex에게 지시하는 방식으로 만듭니다. 에이전트는 빠릅니다. 그 주변에 제가 둔 규칙, 프로젝트 노트, 검증
-            절차가 작업의 신뢰성을 지킵니다.
+            절차가 작업의 신뢰성을 지킵니다. 제가 직접 쓰는 두 앱이 그 결과를 보여 줍니다.
           </p>
         </div>
 
+        <div class="card-grid">
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/expense-tracker.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-prod">매일 사용 중</span>
+              <span class="mono">개인 프로젝트 · 2026</span>
+            </div>
+            <h3><a href="/ko/work/expense-tracker/">은행 거래내역을 불러오는 AI 가계부</a></h3>
+            <p>
+              앱이 제 휴대폰에서 은행의 Excel 거래내역을 읽습니다. 코드가 모든 금액과 날짜를 읽고, AI가 카테고리를 하나씩 고르고, 제가
+              각 행을 확인합니다. 그러면 여자친구는 정산할 금액이 담긴 Telegram 메시지를 받습니다.
+            </p>
+            <p class="result">이 앱이 매년 40~100시간을 아껴 준다고 추정합니다.</p>
+            <ul class="tags" aria-label="기술">
+              <li>Claude</li>
+              <li>Android</li>
+              <li>Telegram Bot API</li>
+              <li>Claude Code</li>
+              <li>Codex</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">사례 자세히 보기 <span>→</span></span>
+          </article>
+
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/network-app.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-prod">사용 중</span>
+              <span class="mono">개인 프로젝트 · 코드 공개 · 2026</span>
+            </div>
+            <h3><a href="/ko/work/network-app/">인맥 관리를 위한 AI 에이전트</a></h3>
+            <p>
+              대화 내용을 평범한 말로 적으면, AI 에이전트가 그 내용을 알맞은 사람의 기록에 저장하고 그 사람들에 관한 질문에 답합니다.
+              에이전트는 제 휴대폰에서 실행되는 도구로만 움직이며, 삭제는 제가 누를 때까지 기다립니다.
+            </p>
+            <p class="result">한 번 누르면 응답을 되돌릴 수 있고, 틀린 답변은 모두 보고해서 고칠 수 있습니다.</p>
+            <ul class="tags" aria-label="기술">
+              <li>Claude Agent SDK</li>
+              <li>Tool calling</li>
+              <li>JSON Schema</li>
+              <li>Android</li>
+              <li>Claude Code</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">사례 자세히 보기 <span>→</span></span>
+          </article>
+        </div>
+
+        <h3 class="subhead">앱을 뒷받침하는 것들</h3>
         <div class="card-grid card-grid-3">
           <article class="card card-plain">
             <div class="card-meta"><span class="mono">비공개 저장소 · 2026</span></div>
@@ -263,13 +310,10 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>AI 에이전트만으로 만든 Android 앱 5개</h3>
             <p>
-              제가 매일 쓰는 가계부 앱 Expenses, 그리고 Network App, OneShot Reminder, Notes, Life Simulator입니다. 이 중 세 개가 AI를 사용하며,
-              각각 AI의 답을 쓰기 전에 검증합니다. Expenses와 OneShot Reminder는 저장하기 전에 사용자에게 확인을 받고, Network App은 바로
-              저장하지만 사용자가 되돌릴 수 있습니다. 앱들은 서명된 GitHub Releases에서 스스로 업데이트됩니다.
+              위의 두 앱 외에도 에이전트는 OneShot Reminder, Notes, Life Simulator를 만들었습니다. OneShot Reminder도 AI를 사용하며,
+              할 일을 저장하기 전에 하나하나 제게 확인을 받습니다. 앱들은 서명된 GitHub Releases에서 스스로 업데이트됩니다.
             </p>
             <ul class="card-links">
-              <li><a href="https://www.youtube.com/watch?v=8pA2G70gYdI">Expenses 데모 영상</a></li>
-              <li><a href="https://github.com/AzizjonKasimov/network-app">Network App</a></li>
               <li><a href="https://github.com/AzizjonKasimov/oneshot-reminder">OneShot Reminder</a></li>
               <li><a href="https://github.com/AzizjonKasimov/note-taking-app">Notes</a></li>
               <li><a href="https://github.com/AzizjonKasimov/life_simulator_app">Life Simulator</a></li>

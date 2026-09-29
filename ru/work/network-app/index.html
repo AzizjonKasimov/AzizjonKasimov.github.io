@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>ИИ-агент для моей сети контактов — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Кейс: Android-приложение, в котором ИИ-агент сохраняет заметки о моих знакомых и отвечает на вопросы о них. Он действует только через инструменты на телефоне, сохранённые изменения можно отменить, а удаление происходит только по нажатию. Код в открытом доступе."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ru/work/network-app/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="ИИ-агент для моей сети контактов — кейс" />
+    <meta
+      property="og:description"
+      content="Claude планирует шаги, телефон запускает каждый инструмент на своих данных, сохранённые изменения можно отменить, а неверные ответы помечаются для исправления."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ru/work/network-app/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ru/#how-i-build">← Как я работаю</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">Используется</span>
+            <span class="mono">Личный проект · код в открытом доступе · 2026</span>
+          </div>
+          <h1>ИИ-агент для моей сети контактов</h1>
+          <p class="lead">
+            Моя сеть контактов разрослась настолько, что я перестал помнить, кому что нужно и кто может помочь. Я
+            создал Android-приложение, в котором описываю разговор обычными словами. ИИ-агент сохраняет его в
+            записях о нужных людях и отвечает на вопросы о них. Действовать он может только через инструменты,
+            которые работают на моём телефоне.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Моя роль</dt>
+              <dd>Я спроектировал продукт, агента, его инструменты и правила безопасности. Код написали кодинг-агенты — Claude Code и Codex.</dd>
+            </div>
+            <div>
+              <dt>Статус</dt>
+              <dd>Я начал проект в августе 2026 года и пользуюсь им для своей сети контактов. Код выложен на GitHub в открытом доступе.</dd>
+            </div>
+            <div>
+              <dt>Стек</dt>
+              <dd>Android, Claude Agent SDK на моём приватном ИИ-шлюзе, вызов инструментов по JSON Schema, зашифрованные резервные копии на GitHub</dd>
+            </div>
+            <div>
+              <dt>Охват</dt>
+              <dd>17 инструментов, которые читают записи, изменяют их или просят меня подтвердить действие</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Задача</h2>
+            <p>
+              Полезные факты всплывают в обычных разговорах: над чем человек работает, что ему нужно и что он может
+              предложить. Чем больше людей я встречал, тем больше таких фактов забывал.
+            </p>
+            <p>
+              Приложения для контактов хранят имена и номера телефонов. Но на вопросы вроде «Кто может с этим
+              помочь?» или «О чём мы говорили в прошлый раз?» они ответить не могут.
+            </p>
+
+            <h2>Как развивалось приложение</h2>
+            <p>
+              Первая версия появилась в августе 2026 года. В ней были формы для людей, их потребностей и навыков. ИИ
+              превращал заметку в предложение изменений, а я проверял его, прежде чем что-либо сохранялось.
+            </p>
+            <p>
+              Я тестировал ИИ-модели на реальной схеме данных приложения. Одна модель раз за разом не успевала дать
+              структурированный ответ до тайм-аута, поэтому я перешёл на другую. В сентябре 2026 года я перевёл все
+              вызовы ИИ на Claude через свой приватный шлюз.
+            </p>
+            <p>
+              Для каждого нового типа запросов нужны были свой промпт, схема, парсер и экран. Поэтому в середине
+              сентября я переделал ассистента в агента, который пользуется инструментами. Теперь один чат принимает и
+              заметки, и вопросы, и исправления.
+            </p>
+
+            <h2>Как обрабатывается одно сообщение</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Сообщение</span>
+                  <span class="step-desc">Я пишу или надиктовываю заметку о разговоре либо задаю вопрос.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">Claude планирует</span>
+                  <span class="step-desc">На моём шлюзе Claude решает, какой инструмент вызвать следующим. В начале у него нет ни одной сохранённой записи.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/shield-check.svg --></span>
+                  <span class="step-name">Проверка на шлюзе</span>
+                  <span class="step-desc">Шлюз сверяет каждый вызов инструмента с его JSON Schema, а затем отправляет вызов на телефон.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/smartphone.svg --></span>
+                  <span class="step-name">Телефон запускает инструмент</span>
+                  <span class="step-desc">Приложение ещё раз проверяет вызов, выполняет его на базе данных телефона и возвращает только результат. Контактные данные никогда не покидают телефон.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/undo.svg --></span>
+                  <span class="step-name">Ответ с кнопкой Undo</span>
+                  <span class="step-desc">В ответе перечислены все изменения, и одно нажатие отменяет их все. Удаление и объединение записей происходят только по моему нажатию.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Приватность</strong>База данных остаётся на телефоне, а резервные копии сначала шифруются</li>
+                <li><strong>Голос</strong>Речь распознаётся на телефоне всегда, когда это возможно</li>
+                <li><strong>Обратная связь</strong>О проблеме в любом ответе можно сообщить, выбрав готовую метку</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Один ход агента. Шаги 2–4 повторяются, пока Claude не получит всё, что ему нужно.
+              </figcaption>
+            </figure>
+            <p class="shots-note">Скриншоты сделаны на тестовом телефоне с вымышленными людьми.</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-save.jpg">
+                  <img
+                    src="/screenshots/network-assistant-save-thumb.jpg"
+                    srcset="/screenshots/network-assistant-save-thumb.jpg 480w, /screenshots/network-assistant-save-medium.jpg 960w, /screenshots/network-assistant-save.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Заметка о новом человеке: в ответе перечислено каждое сохранённое изменение и есть одна кнопка Undo</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-assistant-answer.jpg">
+                  <img
+                    src="/screenshots/network-assistant-answer-thumb.jpg"
+                    srcset="/screenshots/network-assistant-answer-thumb.jpg 480w, /screenshots/network-assistant-answer-medium.jpg 960w, /screenshots/network-assistant-answer.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Вопрос без хорошего совпадения: ответ прямо говорит об этом и объясняет почему</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/network-needs.jpg">
+                  <img
+                    src="/screenshots/network-needs-thumb.jpg"
+                    srcset="/screenshots/network-needs-thumb.jpg 480w, /screenshots/network-needs-medium.jpg 960w, /screenshots/network-needs.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Вкладка Needs: что ищут люди из сети контактов</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Проектные решения</h2>
+            <ul>
+              <li>
+                <strong>За соблюдением правил следит телефон.</strong> Каждый вызов инструмента проверяется дважды:
+                сначала шлюзом по схеме, затем приложением. Приложение проверяет, что записи существуют, текст не
+                слишком длинный, ничего не дублируется и нет дат в будущем. Отклонённый вызов ничего не сохраняет, а
+                модель получает ошибку, которую может прочитать и исправить.
+              </li>
+              <li>
+                <strong>Гибко, но обратимо.</strong> Сначала каждое изменение от ИИ ждало моей проверки. Потом я выбрал
+                гибкость: теперь добавления и правки сохраняются сразу. Каждый ответ хранит копию каждой строки до и
+                после изменения, поэтому одно нажатие отменяет весь ответ. Undo не сработает, если с тех пор я изменил
+                эту строку.
+              </li>
+              <li>
+                <strong>Удаление всегда ждёт подтверждения.</strong> Удаление человека, заметки или записи, а также
+                объединение записей о двух людях выполняется, только когда я нажимаю на карточку этого действия.
+              </li>
+              <li>
+                <strong>Сохранённый текст — это данные, а не инструкции.</strong> Промпт велит модели считать
+                сохранённые заметки и прежние сообщения данными и никогда не принимать их за инструкции.
+              </li>
+              <li>
+                <strong>Ответы опираются на сохранённые записи.</strong> Ассистент обязан сказать, если сведения
+                устарели или их мало. Он никогда не должен намекать, что человек готов помочь, только потому, что в
+                старой заметке упомянут навык.
+              </li>
+              <li>
+                <strong>Приватность заложена в архитектуру.</strong> В приложении нет аккаунтов, аналитики и импорта
+                контактов. Резервные копии шифруются на телефоне, прежде чем уйти в закрытый репозиторий на GitHub, а
+                сохранять копии в открытый репозиторий приложение отказывается.
+              </li>
+            </ul>
+
+            <h2>Как я нахожу и исправляю ошибки</h2>
+            <p>
+              У каждого ответа есть кнопка Report a problem с готовыми метками, например: не тот человек, что-то
+              упущено, неверный тип записи. В отчёт попадают сообщение, ответ, то, что было сохранено, и все вызовы
+              инструментов по порядку, но без контактных данных.
+            </p>
+            <p>
+              Отчёты передаются внутри зашифрованной резервной копии. На моём компьютере скрипт расшифровывает только
+              отчёты. Я исправляю ошибку и проверяю исправление на тестовом телефоне с вымышленными людьми.
+            </p>
+            <p>
+              Например, отчёты показали, что учёба и волонтёрство сохранялись как места работы. Одна тестовая заметка
+              превращалась в четыре места работы. После исправления она дала одно место работы, а остальное попало в
+              образование и факты биографии.
+            </p>
+            <p>
+              Я также измеряю скорость. Когда я позволил одному вызову инструмента сохранять заметку вместе с её
+              фактами, обновление записей о двух людях стало занимать около 12 секунд вместо 23.
+            </p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/network-report.jpg">
+                  <img
+                    src="/screenshots/network-report-thumb.jpg"
+                    srcset="/screenshots/network-report-thumb.jpg 480w, /screenshots/network-report-medium.jpg 960w, /screenshots/network-report.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Report a problem: готовые метки позволяют легко считать и группировать ошибки</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Статус</h2>
+            <p>
+              Я пользуюсь приложением для своей сети контактов, и оно само обновляется из подписанных релизов на
+              GitHub. Код, README и заметки о приватности выложены в открытом доступе на
+              <a href="https://github.com/AzizjonKasimov/network-app">GitHub</a>.
+            </p>
+
+            <p class="callout">
+              Скриншоты сделаны на тестовом телефоне с вымышленными людьми. На этой странице нет ни одного реального
+              контакта.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Другие кейсы">
+            <a href="/ru/work/expense-tracker/">
+              <span class="dir">← Предыдущий</span>
+              <span class="ttl">ИИ-трекер расходов с импортом банковских выписок</span>
+            </a>
+            <a class="next" href="/ru/work/semantic-search/">
+              <span class="dir">Следующий →</span>
+              <span class="ttl">Семантический ИИ-поиск автозапчастей</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Контакты">
+            <p><strong>Ищете специалиста для похожих задач?</strong> Я открыт к предложениям на позицию AI/ML-инженера.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Написать мне</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

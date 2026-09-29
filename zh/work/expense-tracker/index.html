@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>可导入银行流水的 AI 记账应用 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：一款我每天都在用的 Android 记账应用。代码从银行的 Excel 文件中读取每一笔金额和日期，AI 选择类别，每一行在保存前都由我检查。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/expense-tracker/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="可导入银行流水的 AI 记账应用 — 项目案例" />
+    <meta
+      property="og:description"
+      content="代码读取数字，AI 选择类别，每一行都由我检查。这是一款我每天都在用的个人应用，附有演示视频。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/expense-tracker/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#how-i-build">← 工作方式</a>
+          <div class="card-meta">
+            <span class="badge badge-prod">日常使用中</span>
+            <span class="mono">个人项目 · 2026</span>
+          </div>
+          <h1>可导入银行流水的 AI 记账应用</h1>
+          <p class="lead">
+            过去每隔几天，我就要花 30 到 60 分钟手动记账。于是我开发了一款应用：它读取银行流水，让 AI 为每笔付款选择类别，再请我逐行检查。它还会告诉我的女朋友她欠我多少钱。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>我设计了这款应用，并决定它如何使用 AI。代码由编程智能体 Claude Code 和 Codex 编写，受我设定的规则和检查约束。</dd>
+            </div>
+            <div>
+              <dt>状态</dt>
+              <dd>我从 2026&nbsp;年&nbsp;4&nbsp;月起每天使用它。代码不公开，所以由一段使用示例数据的演示视频来展示它的实际运行。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>Android、经由我的私有 AI 网关调用的 Claude、Telegram Bot API、用于备份和更新的 GitHub</dd>
+            </div>
+            <div>
+              <dt>规模</dt>
+              <dd>两年间约 1000 笔交易，包括我从旧应用迁移过来的历史记录</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>
+              我的开户银行 Toss Bank 以设有密码的 Excel 文件提供流水。每一行都有日期、金额和简短的商户名称。
+            </p>
+            <p>
+              我想知道钱都花在了哪里，而且我和女朋友有很多共同开销。所以每隔几天，我都要把这些行复制到一款预算应用里，为每一行选择类别，再算出她应付的那一份。
+            </p>
+
+            <h2>发展历程</h2>
+            <p>
+              我从小处做起。2026&nbsp;年&nbsp;4&nbsp;月，我用两天时间做了一个 Telegram 机器人。后来，它变成了一个 Telegram Mini App，也就是运行在 Telegram 里的小型网页应用，并加入了 AI 导入功能。2026&nbsp;年&nbsp;6&nbsp;月，它变成了我现在使用的 Android 应用。
+            </p>
+
+            <h2>一次导入的流程</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sheet.svg --></span>
+                  <span class="step-name">打开流水</span>
+                  <span class="step-desc">应用在手机上用已保存的密码打开银行的 Excel 文件。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">读取数字</span>
+                  <span class="step-desc">代码读取每一行的日期、金额和商户名称。AI 从不设定金额。</span>
+                </li>
+                <li class="step-optional">
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/receipt.svg --></span>
+                  <span class="step-name">匹配收据</span>
+                  <span class="step-desc">对于 Coupang（一家韩国网上商城）的订单，应用会找到订单邮件，并补上商品名称。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/sparkle.svg --></span>
+                  <span class="step-name">AI 选择类别</span>
+                  <span class="step-desc">Claude 从一份固定的类别列表中选择。我为熟悉的商户设定的规则优先。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">我逐行检查</span>
+                  <span class="step-desc">我标记由谁付款：I Pay Full（我付全款）、Half（各付一半）或 She Pays（她付）。我可以修改任何字段，也可以跳过某一行。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/send.svg --></span>
+                  <span class="step-name">保存并通知</span>
+                  <span class="step-desc">这些行保存在手机上，我的女朋友会收到一条 Telegram 消息，里面写着她应付的总额。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>AI 出错时</strong>由本地规则为各行分类，并有提醒说明原因</li>
+                <li><strong>备份</strong>一个私有 GitHub 仓库，每次更改后都会更新</li>
+                <li><strong>更新</strong>来自 GitHub Releases 的已签名应用更新</li>
+              </ul>
+              <figcaption id="flow-caption">
+                一份银行流水从文件变成已保存支出的过程。虚线步骤只在开启邮件查找时运行。
+              </figcaption>
+            </figure>
+
+            <h3>示例：一行流水的处理过程</h3>
+            <figure class="trace" aria-labelledby="trace-caption">
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">银行文件中的这一行</span>
+                  <code lang="ko">2026-09-23 11:52 · 쿠팡(쿠페이)_KCP · −12,800 KRW</code>
+                </li>
+                <li>
+                  <span class="trace-label">匹配收据之后</span>
+                  <code lang="ko">쿠팡(쿠페이)_KCP — A4 복사용지 500매</code>
+                  <span class="trace-note">订单邮件写明了商品：一包 A4 复印纸。</span>
+                </li>
+                <li>
+                  <span class="trace-label">代码读取的内容，以及 AI 补充的内容</span>
+                  <ul class="trace-chips">
+                    <li><code>date: 2026-09-23</code></li>
+                    <li><code>amount: −12,800 KRW</code></li>
+                    <li><code>type: expense</code></li>
+                    <li><code>category: Paperwork › Printing &amp; scanning</code></li>
+                  </ul>
+                  <span class="trace-note">前三项由代码填写。AI 只选择类别。</span>
+                </li>
+                <li>
+                  <span class="trace-label">我点了 Half，Telegram 消息随即发出</span>
+                  <code lang="ko">2026-09-23 11:52 - 쿠팡(쿠페이)_KCP — A4 복사용지 500매 [Printing &amp; scanning] - 6,400 KRW (total: 12,800 KRW)</code>
+                </li>
+              </ol>
+              <figcaption id="trace-caption">取自应用示例数据的一行虚构记录，用来演示各个步骤。</figcaption>
+            </figure>
+
+            <h2>设计决策</h2>
+            <ul>
+              <li>
+                <strong>数字交给代码处理。</strong>有一次，AI 把我的账户余额当成了收入。现在，每一笔金额和日期都由代码读取，金额的正负号决定这一行是收入还是支出。AI 只选择类别，所以它改变不了任何总额。
+              </li>
+              <li>
+                <strong>更好的输入胜过更好的提示词。</strong>Coupang 的扣款在流水上看起来几乎一模一样，所以任何提示词都没法把它们分好类。把每笔扣款与对应的订单邮件匹配之后，AI 就拿到了真实的商品名称。只有当收据的总额与扣款金额相等，并且邮件与扣款的时间相差不超过两小时，这张收据才算数。
+              </li>
+              <li>
+                <strong>我的规则优先。</strong>我为熟悉的商户设定的规则，总是优先于 AI 的选择。
+              </li>
+              <li>
+                <strong>绝不静默失败。</strong>如果 AI 调用失败，或者它给出的类别不在列表里，就由本地规则为这些行分类，并有提醒说明原因。如果某一行怎么也分不了类，它会保持为“Unknown”（未知），等我来修正。
+              </li>
+              <li>
+                <strong>决策来自真实数据。</strong>退款过去会被算作收入。在我自己的流水中，17 笔 Coupang 退款里有 10 笔恰好只对应一笔之前的扣款。所以现在，应用会自动把这些退款从对应的那笔购买中扣除，其余的留给我手动匹配。
+              </li>
+              <li>
+                <strong>默认保护隐私。</strong>数据保存在手机上。导入时，只有流水的文本会经由我自己的网关发送给 AI。备份存放在一个私有 GitHub 仓库中，从不包含密码或令牌。
+              </li>
+            </ul>
+
+            <h2>实际演示</h2>
+            <a class="video-card" href="https://www.youtube.com/watch?v=8pA2G70gYdI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>在 YouTube 上观看 12 分钟的演示视频</strong>
+                <span>视频展示的是应用的演示模式，只使用示例数据。</span>
+              </span>
+            </a>
+            <p class="shots-note">截图来自应用的演示模式，其中只有示例数据。</p>
+            <ul class="shots shots-phone">
+              <li>
+                <a class="shot" href="/screenshots/expenses-history.jpg">
+                  <img
+                    src="/screenshots/expenses-history-thumb.jpg"
+                    srcset="/screenshots/expenses-history-thumb.jpg 480w, /screenshots/expenses-history-medium.jpg 960w, /screenshots/expenses-history.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">历史记录：每条已保存的记录都保留着类别和付款人</span>
+                </a>
+              </li>
+              <li>
+                <a class="shot" href="/screenshots/expenses-charts.jpg">
+                  <img
+                    src="/screenshots/expenses-charts-thumb.jpg"
+                    srcset="/screenshots/expenses-charts-thumb.jpg 480w, /screenshots/expenses-charts-medium.jpg 960w, /screenshots/expenses-charts.jpg 1080w"
+                    sizes="(min-width: 480px) 191px, 50vw"
+                    alt=""
+                    width="480"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">图表：某个月按类别划分的支出</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>结果</h2>
+            <ul class="metric-grid">
+              <li><span class="num">40–100 小时</span><span class="lbl">每年节省的时间，据我自己估算</span></li>
+              <li><span class="num">约 1000 笔</span><span class="lbl">已记录的交易，涵盖两年的历史</span></li>
+              <li><span class="num">每日</span><span class="lbl">自 2026&nbsp;年&nbsp;4&nbsp;月起一直在用</span></li>
+            </ul>
+            <p>过去，每次更新要花 30 到 60 分钟。现在，一次导入只要 5 到 10 分钟。</p>
+            <p>按类别看清自己的支出，也帮我省下了钱。</p>
+
+            <p class="callout">
+              这款应用的代码不公开。视频和截图展示的都是演示模式，它使用示例数据运行。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/catalog-agent/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">用于目录数据的 LangGraph 智能体</span>
+            </a>
+            <a class="next" href="/zh/work/network-app/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">管理个人人脉的 AI 智能体</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>
