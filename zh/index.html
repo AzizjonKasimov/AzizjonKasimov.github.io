@@ -215,11 +215,11 @@
           <p class="eyebrow">工作方式</p>
           <h2 id="build-title">AI 原生开发，辅以护栏</h2>
           <p>
-            自 2026&nbsp;年&nbsp;4&nbsp;月起，我的大部分软件都是通过指挥编程智能体 Claude Code 和 Codex 来编写的。智能体速度很快。我为它们设定的规则、项目笔记和检查保证了工作的可靠性。我自己在用的两款应用展示了这种方式的成果。
+            自 2026&nbsp;年&nbsp;4&nbsp;月起，我的大部分软件都是通过指挥编程智能体 Claude Code 和 Codex 来编写的。智能体速度很快。我为它们设定的规则、项目笔记和检查保证了工作的可靠性。我自己在用的两款应用，以及一个任何人都能试玩的物理引擎，展示了这种方式的成果。
           </p>
         </div>
 
-        <div class="card-grid">
+        <div class="card-grid card-grid-3">
           <article class="card card-link">
             <div class="card-art" aria-hidden="true"><!-- include: partials/art/expense-tracker.svg --></div>
             <div class="card-meta">
@@ -261,6 +261,26 @@
             </ul>
             <span class="card-cta" aria-hidden="true">阅读案例 <span>→</span></span>
           </article>
+
+          <article class="card card-link">
+            <div class="card-art" aria-hidden="true"><!-- include: partials/art/body-physics.svg --></div>
+            <div class="card-meta">
+              <span class="badge badge-proto">原型</span>
+              <span class="mono">个人项目 · 代码公开 · 2026</span>
+            </div>
+            <h3><a href="/zh/work/body-physics/">对照损伤研究检验的人体物理引擎</a></h3>
+            <p>
+              在浏览器中，皮肤、肌肉和骨骼会通过真实的物理模拟，对每一次击打做出反应。我无法判断物理数值是否合理，所以每项测试都写明现实中的结果和所依据的研究。
+            </p>
+            <p class="result">每次改动上线前，每个挥击测试都会以 45 种略有不同的方式重放。</p>
+            <ul class="tags" aria-label="技术栈">
+              <li>Physics simulation</li>
+              <li>WebAssembly</li>
+              <li>Test automation</li>
+              <li>Claude Code</li>
+            </ul>
+            <span class="card-cta" aria-hidden="true">阅读案例 <span>→</span></span>
+          </article>
         </div>
 
         <h3 class="subhead">应用背后</h3>
@@ -292,7 +312,7 @@
             <div class="card-meta"><span class="mono">Android · 2026</span></div>
             <h3>五款完全由 AI 智能体构建的 Android 应用</h3>
             <p>
-              除了上面两款应用，智能体还构建了 OneShot Reminder、Notes 和 Life Simulator。OneShot Reminder 也使用 AI，它会在保存每项任务之前请我确认。这些应用通过已签名的
+              除了 Expenses 和 Network App，智能体还构建了 OneShot Reminder、Notes 和 Life Simulator。OneShot Reminder 也使用 AI，它会在保存每项任务之前请我确认。这些应用通过已签名的
               GitHub Releases 自动更新。
             </p>
             <ul class="card-links">

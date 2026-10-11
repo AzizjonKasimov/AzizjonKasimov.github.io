@@ -12,8 +12,8 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Homepage: photo, headline metrics with small charts, selected work, how I build (with two personal apps), experience, skills, credentials, contact |
-| `work/<slug>/index.html` | Case-study pages: work projects (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) and personal apps (`expense-tracker`, `network-app`) |
+| `index.html` | Homepage: photo, headline metrics with small charts, selected work, how I build (with two personal apps and the body physics engine), experience, skills, credentials, contact |
+| `work/<slug>/index.html` | Case-study pages: work projects (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) and personal projects (`expense-tracker`, `network-app`, `body-physics`) |
 | `ko/`, `de/`, `ru/`, `uz/`, `zh/` | The same pages in Korean, German, Russian, Uzbek, and Chinese; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
 | `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`) and the work-card drawings (`art/`), inlined into pages at build time |
@@ -71,7 +71,10 @@ shows the same drawing.
   (two below 480px), each shown whole; take them from a test phone or emulator with made-up data
   (the Expenses app's demo mode, or made-up people in Network App), never from real data. Crop the
   status bar off first (the top 110 px of a 1080×2400 screen), so every phone screenshot is
-  1080×2290, the shape the gallery expects.
+  1080×2290, the shape the gallery expects. The body physics screenshots come from that game's own
+  capture mode (`tools\capture.ps1` in its repo) and show the body before any blow; captures keep
+  the window's alpha channel, so make every pixel opaque before running `web-images.ps1`, which
+  would otherwise darken the see-through parts.
 - **Videos:** a `.video-card` links to the video on YouTube instead of embedding it, so the page
   loads nothing from YouTube.
 
@@ -185,9 +188,10 @@ sentence you change.
 
 1. Copy an existing `work/<slug>/index.html` into a new folder and replace the content.
 2. Add the page to `pages` in `site.mjs`.
-3. Add a card to the Selected work section in `index.html` (or, for a personal app, to the How I
-   build section), and update the previous/next links at the bottom of the neighboring case
-   studies. The links run in one loop: the four work case studies, then Expenses, then Network App.
+3. Add a card to the Selected work section in `index.html` (or, for a personal project, to the How
+   I build section), and update the previous/next links at the bottom of the neighboring case
+   studies. The links run in one loop: the four work case studies, then Expenses, Network App, and
+   the body physics engine.
 4. Make the same changes in every language folder, then run `npm run check`.
 
 ## Social preview image and touch icon

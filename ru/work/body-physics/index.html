@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Физический движок человеческого тела, сверенный с исследованиями травм — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Кейс: физический 2D-движок, в котором кожа, мышцы и кости реагируют на каждый удар. В него можно играть прямо в браузере. Его написали кодинг-агенты на базе ИИ, а каждый тест называет реальный исход и исследование, откуда он взят."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/ru/work/body-physics/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Физический движок человеческого тела, сверенный с исследованиями травм — кейс" />
+    <meta
+      property="og:description"
+      content="Я не могу проверить физику по числам, поэтому каждый тест называет реальный исход и его источник, а результат я оцениваю по картинкам. Движок написали кодинг-агенты на базе ИИ."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/ru/work/body-physics/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/ru/#how-i-build">← Как я работаю</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Прототип</span>
+            <span class="mono">Личный проект · код в открытом доступе · 2026</span>
+          </div>
+          <h1>Физический движок человеческого тела, сверенный с исследованиями травм</h1>
+          <p class="lead">
+            Я хотел сделать игрушку, в которой тело реагирует на удар по законам настоящей физики, а не с помощью
+            заранее записанных анимаций. Я никогда раньше не делал игр, поэтому поручил создать движок кодинг-агентам
+            на базе ИИ и направлял их работу. Кожа, мышцы и кости реагируют на каждый удар, а попробовать движок в
+            браузере может любой.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Моя роль</dt>
+              <dd>Я ставил цели и оценивал результаты. Код писали кодинг-агенты в рамках моих правил и проверок. С октября 2026 года его пишет Claude Code.</dd>
+            </div>
+            <div>
+              <dt>Статус</dt>
+              <dd>Это прототип, в который уже можно играть. Версия для браузера доступна с октября 2026 года, а код выложен на GitHub в открытом доступе.</dd>
+            </div>
+            <div>
+              <dt>Стек</dt>
+              <dd>Единая кодовая база для Windows и браузера (WebAssembly), GitHub Pages, Claude Code</dd>
+            </div>
+            <div>
+              <dt>Масштаб</dt>
+              <dd>27 заранее заданных тестовых ударов, каждый из которых сверен с исследованиями травм</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Задача</h2>
+            <p>
+              Игры обычно показывают травмы заранее записанными анимациями и ранами, нарисованными поверх тела. Я
+              хотел, чтобы каждый синяк, порез и перелом следовал из физики самого удара.
+            </p>
+            <p>Я начал работу в мае 2026 года, после того как увидел, насколько улучшились кодинг-агенты.</p>
+
+            <h2>Как развивался проект</h2>
+            <p>
+              Первая версия появилась в июне 2026 года и показывала простое тело в пиксельной графике. Кожа и мышцы
+              уже могли рваться, а кости — ломаться. Но слои ещё не работали слаженно, а переломы возникали по
+              фиксированным шаблонам.
+            </p>
+            <p>
+              В конце июня агенты переписали весь движок. В октябре 2026 года у него появилась версия для браузера, а
+              тело стало простым манекеном.
+            </p>
+            <p>
+              Затем я попросил, чтобы травмы соответствовали реальной жизни. Медленный нажим должен оставлять только
+              синяк, а сильный удар — ломать кость примерно так же часто, как в опубликованных исследованиях.
+            </p>
+
+            <h2>Как проверяется изменение</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Я говорю, что не так</span>
+                  <span class="step-desc">Я играю и описываю проблему простыми словами, например: «от медленных ударов тело лопается».</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                  <span class="step-name">Учиться у других</span>
+                  <span class="step-desc">Прежде чем придумывать своё решение, агент смотрит, как эту проблему решают движки с открытым исходным кодом и научные статьи.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Изменить движок</span>
+                  <span class="step-desc">Агент воссоздаёт идею в собственном коде движка и указывает источник в комментарии.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Повторить тесты</span>
+                  <span class="step-desc">Каждый тестовый удар выполняется 45 раз, а точка попадания и прочность костей при этом слегка меняются.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/book.svg --></span>
+                  <span class="step-name">Сверить с исследованиями</span>
+                  <span class="step-desc">Каждая травма должна случаться примерно так же часто, как сказано в исследовании, на которое ссылается тест.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/image.svg --></span>
+                  <span class="step-name">Я оцениваю по картинкам</span>
+                  <span class="step-desc">Агент показывает мне скриншоты из настоящего приложения. После этого изменение публикуется.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Браузер и десктоп</strong>Браузер должен давать в точности те же результаты, что и приложение для Windows</li>
+                <li><strong>Реальные размеры</strong>Фигура соответствует взрослому человеку ростом 1,75&nbsp;м, а кувалда и бита весят как настоящие</li>
+                <li><strong>Звук</strong>Каждый стук и треск рассчитывается по тому, что сделала физика, без записанных звуков</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Путь одного изменения: от моей жалобы до публикации на сайте. Письменные правила для агентов требуют
+                пройти каждую проверку.
+              </figcaption>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-app.jpg">
+                  <img
+                    src="/screenshots/body-physics-app-thumb.jpg"
+                    srcset="/screenshots/body-physics-app-thumb.jpg 480w, /screenshots/body-physics-app-medium.jpg 960w, /screenshots/body-physics-app.jpg 1280w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="270"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Игра с кувалдой в руке и кнопками управления внизу</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-layers.jpg">
+                  <img
+                    src="/screenshots/body-physics-layers-thumb.jpg"
+                    srcset="/screenshots/body-physics-layers-thumb.jpg 480w, /screenshots/body-physics-layers-medium.jpg 960w, /screenshots/body-physics-layers.jpg 998w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="385"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Тело, каким его видят игроки, и вид на просвет, который нужен только для проверки: сетка мышечного слоя и кости под ней</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Попробуйте сами</h2>
+            <p>
+              Игра работает прямо в браузере, в том числе на телефоне, и ничего не нужно устанавливать. Она показывает
+              смоделированные травмы, включая кровь.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://azizjonkasimov.github.io/realistic-human-body-deformation-physics/">Играть в браузере</a>
+            </div>
+            <a class="video-card" href="https://www.youtube.com/watch?v=YSuN8D9t4ZI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>Смотреть 4-минутное видео об обновлении на YouTube</strong>
+                <span>Версия от октября 2026 года: кувалда оставляет на руке синяк, а затем ломает её.</span>
+              </span>
+            </a>
+
+            <h2>Проектные решения</h2>
+            <ul>
+              <li>
+                <strong>Тесты описывают реальные исходы.</strong> Я не врач и не физик, поэтому одно число мало что мне
+                говорит. Каждый тест называет, что происходит с реальным человеком, и исследование, откуда это
+                известно. Например, медленный нажим никогда не ломает кость, а нож никогда не ломает кости рук и ног.
+              </li>
+              <li>
+                <strong>Реальные удары не бывают одинаковыми.</strong> Каждый тестовый удар выполняется 45 раз: точка
+                попадания немного смещается, а кости становятся слабее или прочнее. Травма, которая в жизни случается
+                «иногда», должна случаться в части прогонов, а не во всех.
+              </li>
+              <li>
+                <strong>Картинки, а не числа.</strong> Приложение само умеет сохранять скриншоты и серии кадров. По ним
+                я оцениваю каждое визуальное изменение, а проблема, которую пропустили тесты, становится новым тестом.
+              </li>
+              <li>
+                <strong>Браузер должен совпадать с десктопом.</strong> Скрипт проигрывает каждый тест в приложении для
+                Windows и в браузере и сравнивает результаты. Однажды они разошлись на один синяк. Агенты нашли
+                причину: математическая функция округляла по-разному на каждой платформе. Они заменили эту функцию.
+              </li>
+              <li>
+                <strong>Сначала учиться у других, потом измерять.</strong> Способ, которым раскрываются порезы от ножа,
+                взят из Rapier — физического движка с открытым исходным кодом. Способ, которым кровь стекает по коже,
+                взят из игры Overgrowth. Когда я попробовал перенести всю симуляцию на Rapier, она работала быстрее,
+                но проходила меньше тестов. Поэтому я оставил собственный движок.
+              </li>
+            </ul>
+
+            <h2>Статус</h2>
+            <ul class="metric-grid">
+              <li><span class="num">27</span><span class="lbl">заранее заданных тестовых ударов, которые повторяются после каждого изменения</span></li>
+              <li><span class="num">45</span><span class="lbl">прогонов каждого удара с разной точкой попадания и прочностью костей</span></li>
+              <li><span class="num">60</span><span class="lbl">шагов расчёта физики в секунду, прямо на устройстве посетителя</span></li>
+            </ul>
+            <p>
+              На октябрь 2026 года почти каждая травма случается примерно так же часто, как говорят исследования. В
+              отчёте о тестах перечислены проверки, которые движок пока не проходит. Например, удар битой сверху по
+              плечу никогда не ломает ключицу, хотя в жизни такой удар обычно её ломает.
+            </p>
+            <p>
+              Код, тесты и исследования, на которых они основаны, выложены в открытом доступе на
+              <a href="https://github.com/AzizjonKasimov/realistic-human-body-deformation-physics">GitHub</a>.
+            </p>
+
+            <p class="callout">
+              Картинки на этой странице показывают тело до первого удара. Сама игра показывает смоделированные травмы,
+              включая кровь.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Другие кейсы">
+            <a href="/ru/work/network-app/">
+              <span class="dir">← Предыдущий</span>
+              <span class="ttl">ИИ-агент для моей сети контактов</span>
+            </a>
+            <a class="next" href="/ru/work/semantic-search/">
+              <span class="dir">Следующий →</span>
+              <span class="ttl">Семантический ИИ-поиск автозапчастей</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Контакты">
+            <p><strong>Ищете специалиста для похожих задач?</strong> Я открыт к предложениям на позицию AI/ML-инженера.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Написать мне</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

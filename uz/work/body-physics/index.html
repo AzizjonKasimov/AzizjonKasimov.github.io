@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Jarohat tadqiqotlari bilan tekshirilgan tana fizikasi dvigateli — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Loyiha tavsifi: teri, mushak va suyak har bir zarbaga javob beradigan 2D fizika dvigateli. Uni brauzerda oʻynash mumkin. Dvigatelni kod yozuvchi AI agentlari yozgan, har bir test esa real natijani va unga asos boʻlgan tadqiqotni koʻrsatadi."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/uz/work/body-physics/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Jarohat tadqiqotlari bilan tekshirilgan tana fizikasi dvigateli — loyiha tavsifi" />
+    <meta
+      property="og:description"
+      content="Fizikaga oid raqamlarni baholay olmayman. Shuning uchun har bir test real natijani va uning manbasini koʻrsatadi, men esa rasmlarni baholayman. Dvigatelni kod yozuvchi AI agentlari yozgan."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/uz/work/body-physics/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/uz/#how-i-build">← Ish uslubim</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Prototip</span>
+            <span class="mono">Shaxsiy loyiha · kod ommaga ochiq · 2026</span>
+          </div>
+          <h1>Jarohat tadqiqotlari bilan tekshirilgan tana fizikasi dvigateli</h1>
+          <p class="lead">
+            Tana zarbaga oldindan tayyorlangan animatsiyalar bilan emas, real fizika asosida javob beradigan
+            oʻyinchoq yaratmoqchi edim. Ilgari hech qachon oʻyin yaratmagan edim, shuning uchun dvigatelni kod
+            yozuvchi AI agentlarini boshqarib yaratdim. Teri, mushak va suyak har bir zarbaga javob beradi, buni esa
+            har kim brauzerda sinab koʻrishi mumkin.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Mening rolim</dt>
+              <dd>Maqsadlarni belgiladim va natijalarni baholadim. Kodni mening qoidalarim va tekshiruvlarim asosida kod yozuvchi agentlar yozdi, 2026-yil oktyabrdan beri esa Claude Code yozadi.</dd>
+            </div>
+            <div>
+              <dt>Holat</dt>
+              <dd>Oʻynasa boʻladigan prototip. Brauzer versiyasi 2026-yil oktyabrdan beri ishlab turibdi, kod esa GitHub platformasida ochiq.</dd>
+            </div>
+            <div>
+              <dt>Texnologiyalar</dt>
+              <dd>Windows va brauzer (WebAssembly) uchun yagona kod bazasi, GitHub Pages, Claude Code</dd>
+            </div>
+            <div>
+              <dt>Koʻlam</dt>
+              <dd>Oldindan belgilangan 27 ta sinov zarbasi, har biri jarohat tadqiqotlari bilan tekshiriladi</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Muammo</h2>
+            <p>
+              Oʻyinlar odatda jarohatlarni oldindan tayyorlangan animatsiyalar va ustiga chizib qoʻyilgan yaralar bilan
+              koʻrsatadi. Men har bir koʻkarish, kesik va singan suyak zarbaning oʻz fizikasidan kelib chiqishini
+              xohladim.
+            </p>
+            <p>Kod yozuvchi agentlar qanchalik yaxshilanganini koʻrganimdan keyin, 2026-yil mayda ishni boshladim.</p>
+
+            <h2>Qanday rivojlandi</h2>
+            <p>
+              2026-yil iyundagi birinchi versiyada piksel grafikada chizilgan oddiy tana bor edi. Uning terisi,
+              mushagi va suyaklari yirtilishi va sinishi mumkin edi. Lekin qatlamlar hali bir-biri bilan yaxshi
+              ishlamasdi, suyaklar esa oldindan belgilangan andozalar boʻyicha sinardi.
+            </p>
+            <p>
+              Iyun oxirida agentlar butun dvigatelni qaytadan yozdi. 2026-yil oktyabrda uning brauzer versiyasi paydo
+              boʻldi, tana esa oddiy manekenga aylandi.
+            </p>
+            <p>
+              Keyin jarohatlar real hayotdagiga mos boʻlishini soʻradim. Sekin itarish faqat koʻkarish qoldirishi,
+              kuchli zarba esa suyakni taxminan chop etilgan tadqiqotlardagidek tez-tez sindirishi kerak.
+            </p>
+
+            <h2>Oʻzgarish qanday tekshiriladi</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Nima notoʻgʻri ekanini aytaman</span>
+                  <span class="step-desc">Oʻyinni oʻynayman va muammoni oddiy soʻzlar bilan tasvirlayman, masalan: “sekin zarbalar tanani yorib yuboryapti”.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                  <span class="step-name">Boshqalardan oʻrganish</span>
+                  <span class="step-desc">Yechim oʻylab topishdan oldin agent ochiq kodli dvigatellar va ilmiy maqolalarda bu muammo qanday hal qilinganini koʻrib chiqadi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Dvigatelni oʻzgartirish</span>
+                  <span class="step-desc">Agent bu gʻoyani dvigatelning oʻz kodida qaytadan amalga oshiradi va manbani kod izohida koʻrsatadi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Testlarni qayta oʻtkazish</span>
+                  <span class="step-desc">Har bir sinov zarbasi 45 marta bajariladi, har safar moʻljal va suyaklar mustahkamligi biroz oʻzgaradi.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/book.svg --></span>
+                  <span class="step-name">Tadqiqotlar bilan solishtirish</span>
+                  <span class="step-desc">Har bir jarohat taxminan keltirilgan tadqiqotda aytilganidek tez-tez yuz berishi kerak.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/image.svg --></span>
+                  <span class="step-name">Rasmlarni baholayman</span>
+                  <span class="step-desc">Agent menga haqiqiy ilovadan olingan skrinshotlarni koʻrsatadi. Shundan keyin oʻzgarish saytga joylanadi.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Brauzer va kompyuter</strong>Brauzer Windows ilovasi bilan aynan bir xil natija berishi shart</li>
+                <li><strong>Haqiqiy oʻlchamlar</strong>Tana — boʻyi 1,75&nbsp;m boʻlgan katta yoshli odam, bolgʻa va beysbol tayogʻining ogʻirligi esa haqiqiy</li>
+                <li><strong>Tovush</strong>Har bir zarba va sinish tovushi fizikada nima yuz berganidan yaratiladi, yozib olingan tovushlar ishlatilmaydi</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Bitta oʻzgarishning yoʻli: shikoyatimdan to saytga joylanguncha. Agentlar uchun yozilgan qoidalar har bir
+                tekshiruvdan oʻtishni talab qiladi.
+              </figcaption>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-app.jpg">
+                  <img
+                    src="/screenshots/body-physics-app-thumb.jpg"
+                    srcset="/screenshots/body-physics-app-thumb.jpg 480w, /screenshots/body-physics-app-medium.jpg 960w, /screenshots/body-physics-app.jpg 1280w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="270"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Oʻyin: qoʻlda katta bolgʻa, boshqaruv tugmalari esa ekranning pastida</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-layers.jpg">
+                  <img
+                    src="/screenshots/body-physics-layers-thumb.jpg"
+                    srcset="/screenshots/body-physics-layers-thumb.jpg 480w, /screenshots/body-physics-layers-medium.jpg 960w, /screenshots/body-physics-layers.jpg 998w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="385"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Tana oʻyinchilar koʻradigan holatda va faqat tekshirish uchun ishlatiladigan shaffof koʻrinishda: mushak toʻri va uning ostidagi suyaklar</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Sinab koʻring</h2>
+            <p>
+              Oʻyin brauzerda, jumladan telefonda ham ishlaydi, hech narsa oʻrnatish kerak emas. Unda simulyatsiya
+              qilingan jarohatlar va qon ham koʻrsatiladi.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://azizjonkasimov.github.io/realistic-human-body-deformation-physics/">Brauzeringizda oʻynang</a>
+            </div>
+            <a class="video-card" href="https://www.youtube.com/watch?v=YSuN8D9t4ZI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>YouTube platformasida yangilanish haqidagi 4 daqiqalik videoni tomosha qiling</strong>
+                <span>2026-yil oktyabrdagi versiya: katta bolgʻa avval qoʻlni koʻkartiradi, keyin uni sindiradi.</span>
+              </span>
+            </a>
+
+            <h2>Loyihalash qarorlari</h2>
+            <ul>
+              <li>
+                <strong>Testlar real natijalarni aytadi.</strong> Men shifokor ham, fizik ham emasman, shuning uchun
+                raqamning oʻzi menga kam narsa aytadi. Har bir test haqiqiy odam bilan nima sodir boʻlishini va bu qaysi
+                tadqiqotdan olinganini koʻrsatadi. Masalan, sekin itarish hech qachon suyakni sindirmaydi, pichoq esa hech
+                qachon qoʻl yoki oyoq suyagini sindirmaydi.
+              </li>
+              <li>
+                <strong>Haqiqiy zarbalar har xil boʻladi.</strong> Har bir sinov zarbasi 45 marta bajariladi: moʻljal
+                biroz suriladi, suyaklar esa zaifroq yoki mustahkamroq qilinadi. Hayotda “baʼzan” uchraydigan jarohat
+                hamma urinishlarda emas, faqat ayrimlarida yuz berishi kerak.
+              </li>
+              <li>
+                <strong>Raqamlar emas, rasmlar.</strong> Ilova skrinshotlar va kadrlar ketma-ketligini oʻzi saqlay
+                oladi. Koʻrinishdagi har bir oʻzgarishni shular orqali baholayman, testlar sezmagan muammo esa yangi
+                testga aylanadi.
+              </li>
+              <li>
+                <strong>Brauzer kompyuterdagi ilova bilan bir xil ishlashi shart.</strong> Skript har bir testni Windows
+                ilovasida va brauzerda bajaradi hamda natijalarni solishtiradi. Bir safar natijalar bor-yoʻgʻi bitta
+                koʻkarish bilan farq qildi. Agentlar sababni topdi: bu har bir platformada boshqacha yaxlitlaydigan
+                matematik funksiya edi. Ular uni almashtirdi.
+              </li>
+              <li>
+                <strong>Avval boshqalardan oʻrganish, keyin oʻlchash.</strong> Pichoq kesiklarining ochilish usuli ochiq
+                kodli Rapier fizika dvigatelidan olingan. Qonning teri boʻylab oqib tushish usuli esa Overgrowth
+                oʻyinidan olingan. Butun simulyatsiyani Rapier dvigateliga oʻtkazib koʻrdim: u tezroq ishladi, lekin
+                kamroq testdan oʻtdi. Shuning uchun oʻz dvigatelimni saqlab qoldim.
+              </li>
+            </ul>
+
+            <h2>Holat</h2>
+            <ul class="metric-grid">
+              <li><span class="num">27</span><span class="lbl">sinov zarbasi, har bir oʻzgarishdan keyin qayta bajariladi</span></li>
+              <li><span class="num">45</span><span class="lbl">urinish har bir zarba uchun, moʻljal va suyaklar har safar boshqacha</span></li>
+              <li><span class="num">60</span><span class="lbl">fizika qadami soniyasiga, sayt mehmonining oʻz qurilmasida</span></li>
+            </ul>
+            <p>
+              2026-yil oktyabr holatiga koʻra, deyarli har bir jarohat taxminan tadqiqotlarda aytilganidek tez-tez yuz
+              beradi. Test hisobotida dvigatel hali oʻta olmaydigan tekshiruvlar sanab oʻtilgan. Masalan, yelkaga
+              yuqoridan tushirilgan beysbol tayogʻi hech qachon oʻmrov suyagini sindirmaydi, holbuki real hayotda oʻmrov
+              suyagi odatda sinadi.
+            </p>
+            <p>
+              Kod, testlar va ular asoslangan tadqiqotlar
+              <a href="https://github.com/AzizjonKasimov/realistic-human-body-deformation-physics">GitHub</a> platformasida ochiq.
+            </p>
+
+            <p class="callout">
+              Bu sahifadagi rasmlar tanani hech qanday zarbadan oldingi holatda koʻrsatadi. Oʻyinning oʻzida esa
+              simulyatsiya qilingan jarohatlar va qon ham koʻrsatiladi.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Boshqa loyihalar">
+            <a href="/uz/work/network-app/">
+              <span class="dir">← Oldingi</span>
+              <span class="ttl">Tanishlarim tarmogʻi uchun AI agent</span>
+            </a>
+            <a class="next" href="/uz/work/semantic-search/">
+              <span class="dir">Keyingi →</span>
+              <span class="ttl">Avtoehtiyot qismlar uchun AI semantik qidiruv</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Aloqa">
+            <p><strong>Shunday ishlar uchun mutaxassis qidiryapsizmi?</strong> AI/ML muhandisi lavozimlarini koʻrib chiqaman.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Menga yozing</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

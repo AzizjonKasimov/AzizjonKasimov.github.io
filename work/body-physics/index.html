@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>A body physics engine, checked against injury research — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Case study: a 2D physics engine where skin, muscle, and bone respond to each blow, playable in the browser. AI coding agents wrote it, and every test names the real outcome and the study behind it."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/work/body-physics/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="A body physics engine, checked against injury research — case study" />
+    <meta
+      property="og:description"
+      content="I can't judge physics numbers, so each test names the real outcome and its source, and I judge pictures. AI coding agents wrote the engine."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/work/body-physics/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/#how-i-build">← How I build</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Prototype</span>
+            <span class="mono">Personal project · public code · 2026</span>
+          </div>
+          <h1>A body physics engine, checked against injury research</h1>
+          <p class="lead">
+            I wanted a toy where a body reacts to a blow through real physics, not canned animations. I had never
+            made a game, so I directed AI coding agents to build the engine. Skin, muscle, and bone respond to each
+            blow, and anyone can try it in a browser.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>My role</dt>
+              <dd>I set the goals and judged the results. Coding agents wrote the code under my rules and checks, Claude Code since October 2026.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>A playable prototype. The browser version has been live since October 2026, and the code is public on GitHub.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>One code base for Windows and the browser (WebAssembly), GitHub Pages, Claude Code</dd>
+            </div>
+            <div>
+              <dt>Scale</dt>
+              <dd>27 scripted test swings, each checked against injury research</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>The problem</h2>
+            <p>
+              Games usually show injuries with canned animations and painted-on wounds. I wanted every bruise, cut,
+              and broken bone to come from the physics of the blow itself.
+            </p>
+            <p>I started in May 2026, after I saw how much coding agents had improved.</p>
+
+            <h2>How it grew</h2>
+            <p>
+              The first version, in June 2026, showed a simple pixel-art body. Its skin, muscle, and bone could tear
+              and break, but the layers did not yet work well together, and bones broke along fixed patterns.
+            </p>
+            <p>
+              At the end of June, the agents rewrote the whole engine. In October 2026 it gained a browser version,
+              and the body became a plain mannequin.
+            </p>
+            <p>
+              Then I asked for injuries that match real life. A slow push should only bruise, and a hard swing
+              should break a bone about as often as it does in published studies.
+            </p>
+
+            <h2>How a change gets checked</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">I say what looks wrong</span>
+                  <span class="step-desc">I play the game and describe the problem in plain words, such as "slow hits burst the body."</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                  <span class="step-name">Learn from others</span>
+                  <span class="step-desc">Before inventing a fix, the agent checks how open-source engines and research papers solve the problem.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Change the engine</span>
+                  <span class="step-desc">It rebuilds the idea in the engine's own code and names the source in a comment.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Replay the tests</span>
+                  <span class="step-desc">Every scripted swing runs 45 times, with the aim and the bone strength varied a little.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/book.svg --></span>
+                  <span class="step-name">Compare with research</span>
+                  <span class="step-desc">Each injury must happen about as often as the cited study says.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/image.svg --></span>
+                  <span class="step-name">I judge pictures</span>
+                  <span class="step-desc">The agent shows me screenshots from the real app. Then the change goes live.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Browser and desktop</strong>The browser must give exactly the same results as the Windows app</li>
+                <li><strong>Real sizes</strong>The figure is a 1.75 m adult, and the hammer and bat have real weights</li>
+                <li><strong>Sound</strong>Each thud and crack is made from what the physics did, with no recordings</li>
+              </ul>
+              <figcaption id="flow-caption">
+                One change, from my complaint to the live site. The agents' written rules require every check to pass.
+              </figcaption>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-app.jpg">
+                  <img
+                    src="/screenshots/body-physics-app-thumb.jpg"
+                    srcset="/screenshots/body-physics-app-thumb.jpg 480w, /screenshots/body-physics-app-medium.jpg 960w, /screenshots/body-physics-app.jpg 1280w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="270"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">The game, with the sledgehammer in hand and the controls along the bottom</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-layers.jpg">
+                  <img
+                    src="/screenshots/body-physics-layers-thumb.jpg"
+                    srcset="/screenshots/body-physics-layers-thumb.jpg 480w, /screenshots/body-physics-layers-medium.jpg 960w, /screenshots/body-physics-layers.jpg 998w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="385"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">The body as players see it, and a see-through view used only for checking: the muscle mesh and the bones underneath</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Try it</h2>
+            <p>
+              The game runs in the browser, phones included, and nothing is installed. It shows simulated injuries,
+              including blood.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://azizjonkasimov.github.io/realistic-human-body-deformation-physics/">Play it in your browser</a>
+            </div>
+            <a class="video-card" href="https://www.youtube.com/watch?v=YSuN8D9t4ZI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>Watch the 4-minute update on YouTube</strong>
+                <span>The October 2026 version: a sledgehammer bruises the arm, then breaks it.</span>
+              </span>
+            </a>
+
+            <h2>Design decisions</h2>
+            <ul>
+              <li>
+                <strong>Tests state real outcomes.</strong> I'm not a doctor or a physicist, so a number alone tells
+                me little. Each test names what happens to a real person and the study it comes from. For example, a
+                slow push never breaks a bone, and a knife never breaks an arm or leg bone.
+              </li>
+              <li>
+                <strong>Real blows vary.</strong> Each test swing runs 45 times, with the aim moved a little and the
+                bones made weaker or stronger. An injury that happens "sometimes" in real life must happen in some of
+                the runs, not in all of them.
+              </li>
+              <li>
+                <strong>Pictures, not numbers.</strong> The app can save screenshots and film strips by itself. I
+                judge every visual change from them, and a problem that the tests miss becomes a new test.
+              </li>
+              <li>
+                <strong>The browser must match the desktop.</strong> A script plays every test in the Windows app and
+                in a browser and compares the results. Once, they differed by a single bruise. The agents traced it to
+                a math function that rounds differently on each platform, and replaced it.
+              </li>
+              <li>
+                <strong>Learn from others, then measure.</strong> The way knife cuts open comes from Rapier, an
+                open-source physics engine. The way blood runs down the skin comes from the game Overgrowth. When I
+                tried moving the whole simulation onto Rapier, it ran faster but passed fewer tests, so I kept my own
+                engine.
+              </li>
+            </ul>
+
+            <h2>Status</h2>
+            <ul class="metric-grid">
+              <li><span class="num">27</span><span class="lbl">scripted test swings, replayed after every change</span></li>
+              <li><span class="num">45</span><span class="lbl">runs of each swing, with the aim and the bones varied</span></li>
+              <li><span class="num">60</span><span class="lbl">physics steps a second, on the visitor's own device</span></li>
+            </ul>
+            <p>
+              As of October 2026, almost every injury happens about as often as the research says. The test report
+              lists the checks that the engine cannot meet yet. For example, a bat brought down on the shoulder never
+              breaks the collarbone, though in real life it usually does.
+            </p>
+            <p>
+              The code, the tests, and the research behind them are public on
+              <a href="https://github.com/AzizjonKasimov/realistic-human-body-deformation-physics">GitHub</a>.
+            </p>
+
+            <p class="callout">
+              The pictures on this page show the body before any blow. The game itself shows simulated injuries,
+              including blood.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="More case studies">
+            <a href="/work/network-app/">
+              <span class="dir">← Previous</span>
+              <span class="ttl">An AI agent for my personal network</span>
+            </a>
+            <a class="next" href="/work/semantic-search/">
+              <span class="dir">Next →</span>
+              <span class="ttl">AI semantic search for auto parts</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Contact">
+            <p><strong>Hiring for work like this?</strong> I'm open to AI/ML engineering roles.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">Email me</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

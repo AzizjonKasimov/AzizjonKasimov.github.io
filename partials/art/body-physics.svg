@@ -1,0 +1,59 @@
+<svg viewBox="0 0 320 100">
+  <g transform="rotate(20 20 84)">
+    <g class="rise">
+      <g class="hover-swing" style="transform-origin: 20px 84px">
+        <path class="art-flow" d="M20 84V32" style="stroke-width: 3" />
+        <rect class="art-ink-strong" x="10" y="22" width="20" height="10" rx="2" />
+      </g>
+    </g>
+  </g>
+  <g class="rise" style="--at: 150ms">
+    <rect class="art-panel" x="63" y="55" width="8" height="35" rx="3" />
+    <rect class="art-panel" x="73" y="55" width="8" height="35" rx="3" />
+    <rect class="art-panel" x="54" y="28" width="6" height="30" rx="3" />
+    <rect class="art-panel" x="84" y="28" width="6" height="30" rx="3" />
+    <rect class="art-panel" x="62" y="26" width="20" height="33" rx="6" />
+    <circle class="art-panel" cx="72" cy="16" r="7" />
+  </g>
+  <path class="art-line draw" d="M65 31h14" pathLength="1" style="--at: 350ms; --dur: 250ms" />
+  <path class="art-line draw" d="M57 31v24" pathLength="1" style="--at: 400ms; --dur: 300ms" />
+  <path class="art-line draw" d="M87 31v24" pathLength="1" style="--at: 400ms; --dur: 300ms" />
+  <path class="art-line draw" d="M67 60v26" pathLength="1" style="--at: 480ms; --dur: 300ms" />
+  <path class="art-line draw" d="M77 60v26" pathLength="1" style="--at: 480ms; --dur: 300ms" />
+  <circle class="art-ripple" cx="55" cy="38.9" r="5" />
+  <path class="art-accent pop" d="m55 34 1.3 3.6 3.6 1.3-3.6 1.3-1.3 3.6-1.3-3.6-3.6-1.3 3.6-1.3z" style="--at: 650ms" />
+  <path class="art-flow draw" d="M100 50h16" pathLength="1" style="--at: 800ms; --dur: 220ms" />
+  <path class="art-flow pop" d="m112 46 4 4-4 4" style="--at: 960ms" />
+  <path class="art-pulse" d="M100 50h16" pathLength="100" />
+  <g class="rise" style="--at: 950ms">
+    <rect class="art-panel" x="124" y="18" width="90" height="64" rx="8" />
+  </g>
+  <circle class="art-accent pop" cx="137" cy="32" r="5" style="--at: 1100ms" />
+  <circle class="art-accent pop" cx="137" cy="50" r="5" style="--at: 1180ms" />
+  <circle class="art-accent pop" cx="137" cy="68" r="5" style="--at: 1260ms" />
+  <path class="art-check draw" d="m134.6 32.1 1.6 1.6 3-3.1" pathLength="1" style="--at: 1180ms; --dur: 220ms" />
+  <path class="art-check draw" d="m134.6 50.1 1.6 1.6 3-3.1" pathLength="1" style="--at: 1260ms; --dur: 220ms" />
+  <path class="art-check draw" d="m134.6 68.1 1.6 1.6 3-3.1" pathLength="1" style="--at: 1340ms; --dur: 220ms" />
+  <rect class="art-ink grow" x="148" y="29.5" width="44" height="5" rx="2.5" style="--at: 1120ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="148" y="47.5" width="34" height="5" rx="2.5" style="--at: 1200ms; --dur: 280ms" />
+  <rect class="art-ink grow" x="148" y="65.5" width="52" height="5" rx="2.5" style="--at: 1280ms; --dur: 280ms" />
+  <path class="art-flow draw" d="M222 50h16" pathLength="1" style="--at: 1450ms; --dur: 220ms" />
+  <path class="art-flow pop" d="m234 46 4 4-4 4" style="--at: 1610ms" />
+  <path class="art-pulse" d="M222 50h16" pathLength="100" style="--pulse-at: 0.6s" />
+  <g class="rise" style="--at: 1600ms">
+    <rect class="art-panel" x="246" y="18" width="66" height="64" rx="6" />
+    <path class="art-line" d="M246 29h66" />
+  </g>
+  <circle class="art-ink pop" cx="252.5" cy="23.5" r="1.6" style="--at: 1720ms" />
+  <circle class="art-ink pop" cx="258" cy="23.5" r="1.6" style="--at: 1760ms" />
+  <circle class="art-ink pop" cx="263.5" cy="23.5" r="1.6" style="--at: 1800ms" />
+  <g class="fade" style="--at: 1820ms">
+    <circle class="art-ink-strong" cx="279" cy="42" r="4.5" />
+    <rect class="art-ink-strong" x="273.5" y="48" width="11" height="15" rx="3.5" />
+    <rect class="art-ink-strong" x="274.5" y="61" width="4" height="13" rx="2" />
+    <rect class="art-ink-strong" x="279.5" y="61" width="4" height="13" rx="2" />
+  </g>
+  <circle class="art-ripple" cx="304" cy="20" r="8" />
+  <circle class="art-accent pop" cx="304" cy="20" r="8" style="--at: 1980ms" />
+  <path class="art-check draw" d="m300.5 20.2 2.4 2.4 4.6-4.8" pathLength="1" style="--at: 2100ms; --dur: 280ms" />
+</svg>

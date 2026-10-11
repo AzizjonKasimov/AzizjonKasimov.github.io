@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>对照损伤研究检验的人体物理引擎 — Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="项目案例：一个可以在浏览器中试玩的 2D 物理引擎，皮肤、肌肉和骨骼会对每一次击打做出反应。它由 AI 编程智能体编写，每项测试都写明现实中的结果和所依据的研究。"
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/zh/work/body-physics/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="对照损伤研究检验的人体物理引擎 — 项目案例" />
+    <meta
+      property="og:description"
+      content="我无法判断物理数值是否合理，所以每项测试都写明现实中的结果及其出处，我则看画面来评判。引擎由 AI 编程智能体编写。"
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/zh/work/body-physics/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/zh/#how-i-build">← 工作方式</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">原型</span>
+            <span class="mono">个人项目 · 代码公开 · 2026</span>
+          </div>
+          <h1>对照损伤研究检验的人体物理引擎</h1>
+          <p class="lead">
+            我想要一个小玩具：身体受到击打时，靠真实的物理模拟做出反应，而不是播放预制的动画。我从没做过游戏，所以我指挥 AI 编程智能体来构建这个引擎。皮肤、肌肉和骨骼会对每一次击打做出反应，任何人都能在浏览器中试玩。
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>我的角色</dt>
+              <dd>我设定目标，并评判结果。代码由编程智能体编写，受我制定的规则和检查约束；自 2026&nbsp;年&nbsp;10&nbsp;月起，我用的是 Claude Code。</dd>
+            </div>
+            <div>
+              <dt>状态</dt>
+              <dd>这是一个可以试玩的原型。浏览器版本于 2026&nbsp;年&nbsp;10&nbsp;月上线，代码已在 GitHub 上公开。</dd>
+            </div>
+            <div>
+              <dt>技术栈</dt>
+              <dd>Windows 和浏览器（WebAssembly）共用的一套代码、GitHub Pages、Claude Code</dd>
+            </div>
+            <div>
+              <dt>规模</dt>
+              <dd>27 个由脚本执行的挥击测试，每个都对照损伤研究进行检验</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>问题</h2>
+            <p>
+              游戏通常用预制的动画和直接画上去的伤口来表现受伤。我希望每一处瘀伤、割伤和骨折，都来自击打本身的物理过程。
+            </p>
+            <p>我看到编程智能体已经进步了很多，于是在 2026&nbsp;年&nbsp;5&nbsp;月开始动手。</p>
+
+            <h2>发展历程</h2>
+            <p>
+              第一个版本诞生于 2026&nbsp;年&nbsp;6&nbsp;月，画面中是一个简单的像素风人体。它的皮肤、肌肉和骨骼已经会撕裂和断裂，但各层之间还不能很好地配合，骨骼的断裂方式也是固定的。
+            </p>
+            <p>
+              6&nbsp;月底，智能体重写了整个引擎。2026&nbsp;年&nbsp;10&nbsp;月，引擎有了浏览器版本，人体也换成了一个造型简洁的假人。
+            </p>
+            <p>
+              接着，我要求损伤与现实相符。缓慢的推压只应造成瘀伤；用力挥击时，骨折的发生频率应与已发表的研究大致相同。
+            </p>
+
+            <h2>一次改动的检查流程</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">我指出哪里不对</span>
+                  <span class="step-desc">我玩这个游戏，用平常的话描述问题，比如“慢速击打会让身体破裂”。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                  <span class="step-name">借鉴他人</span>
+                  <span class="step-desc">在自己设计修复方案之前，智能体会先查看开源引擎和研究论文是怎样解决这个问题的。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">修改引擎</span>
+                  <span class="step-desc">它用引擎自己的代码重新实现这个思路，并在代码注释中注明出处。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">重放测试</span>
+                  <span class="step-desc">每个挥击测试都运行 45 次，每次的落点和骨骼强度都略有不同。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/book.svg --></span>
+                  <span class="step-name">对照研究</span>
+                  <span class="step-desc">每种损伤的发生频率，都必须与所引用的研究大致相符。</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/image.svg --></span>
+                  <span class="step-name">我看画面评判</span>
+                  <span class="step-desc">智能体给我看真实应用中的截图。之后，这次改动才会上线。</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>浏览器与桌面端</strong>浏览器版必须给出与 Windows 应用完全相同的结果</li>
+                <li><strong>真实尺寸</strong>假人按身高 1.75 米的成年人设定，大锤和球棒都有真实的重量</li>
+                <li><strong>声音</strong>每一声闷响和断裂声都根据物理模拟实际发生的情况合成，没有使用任何录音</li>
+              </ul>
+              <figcaption id="flow-caption">
+                这是一次改动从我指出问题到发布上线的全过程。智能体的书面规则要求每一项检查都必须通过。
+              </figcaption>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-app.jpg">
+                  <img
+                    src="/screenshots/body-physics-app-thumb.jpg"
+                    srcset="/screenshots/body-physics-app-thumb.jpg 480w, /screenshots/body-physics-app-medium.jpg 960w, /screenshots/body-physics-app.jpg 1280w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="270"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">游戏画面：当前手持大锤，操作按钮排在底部</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-layers.jpg">
+                  <img
+                    src="/screenshots/body-physics-layers-thumb.jpg"
+                    srcset="/screenshots/body-physics-layers-thumb.jpg 480w, /screenshots/body-physics-layers-medium.jpg 960w, /screenshots/body-physics-layers.jpg 998w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="385"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">玩家看到的身体，以及仅用于检查的内部视图：肌肉网格和下面的骨骼</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>亲自试玩</h2>
+            <p>
+              游戏直接在浏览器中运行，手机上也能玩，无需安装任何东西。游戏中会出现模拟的损伤，包括血液。
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://azizjonkasimov.github.io/realistic-human-body-deformation-physics/">在浏览器中试玩</a>
+            </div>
+            <a class="video-card" href="https://www.youtube.com/watch?v=YSuN8D9t4ZI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>在 YouTube 上观看 4 分钟的更新视频</strong>
+                <span>2026&nbsp;年&nbsp;10&nbsp;月的版本：大锤先在手臂上留下瘀伤，接着造成骨折。</span>
+              </span>
+            </a>
+
+            <h2>设计决策</h2>
+            <ul>
+              <li>
+                <strong>测试写明现实中的结果。</strong>我不是医生，也不是物理学家，所以光看一个数字，对我来说说明不了什么。每项测试都写明真人身上会发生什么，以及这一结论出自哪项研究。例如，缓慢的推压绝不会导致骨折，刀也绝不会让手臂或腿部的骨头折断。
+              </li>
+              <li>
+                <strong>真实的击打各不相同。</strong>每个挥击测试都运行 45 次，落点会略微偏移，骨骼也会调弱或调强。现实中“有时”才会发生的损伤，必须只在其中一部分运行中出现，而不是每次都出现。
+              </li>
+              <li>
+                <strong>看画面，不看数字。</strong>应用可以自动保存截图和逐帧画面。我根据这些图片评判每一处画面上的改动；测试漏掉的问题，会变成一项新的测试。
+              </li>
+              <li>
+                <strong>浏览器版必须与桌面版一致。</strong>一个脚本会分别在 Windows 应用和浏览器中运行每一项测试，再比较结果。有一次，两边的结果只差了一处瘀伤。智能体追查到，原因是一个数学函数在不同平台上的舍入方式不同，于是把它换掉了。
+              </li>
+              <li>
+                <strong>先借鉴，再实测。</strong>刀口张开的方式借鉴自开源物理引擎 Rapier。血液沿皮肤流下的方式借鉴自游戏 Overgrowth。我曾尝试把整个模拟迁移到 Rapier 上。它运行得更快，但通过的测试更少，所以我保留了自己的引擎。
+              </li>
+            </ul>
+
+            <h2>状态</h2>
+            <ul class="metric-grid">
+              <li><span class="num">27 个</span><span class="lbl">挥击测试，每次改动后都会重放</span></li>
+              <li><span class="num">45 次</span><span class="lbl">每个挥击测试的运行次数，落点和骨骼强度每次都不同</span></li>
+              <li><span class="num">60 步/秒</span><span class="lbl">物理模拟每秒计算的步数，在访问者自己的设备上运行</span></li>
+            </ul>
+            <p>
+              截至 2026&nbsp;年&nbsp;10&nbsp;月，几乎每种损伤的发生频率都与研究结果大致相符。测试报告会列出引擎目前还达不到的检查项。例如，球棒自上而下击中肩膀时，从来不会造成锁骨骨折，而在现实中通常会。
+            </p>
+            <p>
+              代码、测试以及它们所依据的研究，都已在
+              <a href="https://github.com/AzizjonKasimov/realistic-human-body-deformation-physics">GitHub</a> 上公开。
+            </p>
+
+            <p class="callout">
+              本页的图片展示的是尚未受到任何击打的身体。游戏本身会显示模拟的损伤，包括血液。
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="更多案例">
+            <a href="/zh/work/network-app/">
+              <span class="dir">← 上一个</span>
+              <span class="ttl">管理个人人脉的 AI 智能体</span>
+            </a>
+            <a class="next" href="/zh/work/semantic-search/">
+              <span class="dir">下一个 →</span>
+              <span class="ttl">汽车零部件 AI 语义搜索</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="联系">
+            <p><strong>正在招聘从事此类工作的人才？</strong>我正在寻找 AI/ML 工程师职位。</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">给我发邮件</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>

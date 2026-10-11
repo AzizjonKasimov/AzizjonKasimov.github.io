@@ -15,6 +15,7 @@ export const pages = [
   'work/catalog-agent/index.html',
   'work/expense-tracker/index.html',
   'work/network-app/index.html',
+  'work/body-physics/index.html',
 ]
 
 // Languages were added one at a time: Korean, German, Russian, Uzbek, then Chinese (Simplified).

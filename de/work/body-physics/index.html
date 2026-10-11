@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <!-- include: partials/head.html -->
+    <title>Eine Physik-Engine für den Körper, geprüft an Verletzungsstudien – Azizjon Kasimov</title>
+    <meta
+      name="description"
+      content="Fallstudie: eine 2D-Physik-Engine, in der Haut, Muskeln und Knochen auf jeden Schlag reagieren, spielbar im Browser. KI-Coding-Agenten haben sie geschrieben, und jeder Test nennt das Ergebnis im echten Leben und die Studie dahinter."
+    />
+    <link rel="canonical" href="https://azizjonkasimov.github.io/de/work/body-physics/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Eine Physik-Engine für den Körper, geprüft an Verletzungsstudien – Fallstudie" />
+    <meta
+      property="og:description"
+      content="Zahlen aus der Physik kann ich nicht beurteilen. Deshalb nennt jeder Test das Ergebnis im echten Leben und seine Quelle, und ich beurteile Bilder. KI-Coding-Agenten haben die Engine geschrieben."
+    />
+    <meta property="og:url" content="https://azizjonkasimov.github.io/de/work/body-physics/" />
+  </head>
+  <body>
+    <!-- include: partials/header.html -->
+
+    <main id="main">
+      <article>
+        <header class="case-hero container">
+          <a class="back-link" href="/de/#how-i-build">← Arbeitsweise</a>
+          <div class="card-meta">
+            <span class="badge badge-proto">Prototyp</span>
+            <span class="mono">Eigenes Projekt · öffentlicher Code · 2026</span>
+          </div>
+          <h1>Eine Physik-Engine für den Körper, geprüft an Verletzungsstudien</h1>
+          <p class="lead">
+            Ich wollte ein Spielzeug, in dem ein Körper durch echte Physik auf einen Schlag reagiert, nicht durch
+            vorgefertigte Animationen. Ich hatte noch nie ein Spiel entwickelt, also habe ich KI-Coding-Agenten
+            angeleitet, die Engine zu bauen. Haut, Muskeln und Knochen reagieren auf jeden Schlag, und alle können es
+            im Browser ausprobieren.
+          </p>
+          <dl class="glance">
+            <div>
+              <dt>Meine Rolle</dt>
+              <dd>Ich habe die Ziele gesetzt und die Ergebnisse beurteilt. Den Code haben Coding-Agenten nach meinen Regeln und mit meinen Prüfungen geschrieben. Seit Oktober 2026 ist das Claude Code.</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>Ein spielbarer Prototyp. Die Browserversion ist seit Oktober 2026 online, und der Code ist öffentlich auf GitHub.</dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>Eine Codebasis für Windows und den Browser (WebAssembly), GitHub Pages, Claude Code</dd>
+            </div>
+            <div>
+              <dt>Größenordnung</dt>
+              <dd>27 vorprogrammierte Testschläge, jeweils an Verletzungsstudien geprüft</dd>
+            </div>
+          </dl>
+        </header>
+
+        <div class="case-body container">
+          <div class="prose">
+            <h2>Das Problem</h2>
+            <p>
+              Spiele zeigen Verletzungen meist mit vorgefertigten Animationen und aufgemalten Wunden. Ich wollte, dass
+              jeder Bluterguss, jeder Schnitt und jeder Knochenbruch aus der Physik des Schlags selbst entsteht.
+            </p>
+            <p>Ich habe im Mai 2026 angefangen, nachdem ich gesehen hatte, wie viel besser Coding-Agenten geworden waren.</p>
+
+            <h2>Wie die Engine gewachsen ist</h2>
+            <p>
+              Die erste Version im Juni 2026 zeigte einen einfachen Körper in Pixelgrafik. Haut, Muskeln und Knochen
+              konnten reißen und brechen, aber die Schichten arbeiteten noch nicht gut zusammen, und Knochen brachen nach
+              festen Mustern.
+            </p>
+            <p>
+              Ende Juni schrieben die Agenten die ganze Engine neu. Im Oktober 2026 bekam sie eine Browserversion, und
+              aus dem Körper wurde eine schlichte Schaufensterpuppe.
+            </p>
+            <p>
+              Dann habe ich verlangt, dass die Verletzungen der Wirklichkeit entsprechen. Ein langsamer Stoß soll nur
+              einen Bluterguss hinterlassen, und ein harter Schlag soll einen Knochen etwa so oft brechen wie in
+              veröffentlichten Studien.
+            </p>
+
+            <h2>So wird eine Änderung geprüft</h2>
+            <figure class="flow" aria-labelledby="flow-caption">
+              <ol class="steps">
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/message.svg --></span>
+                  <span class="step-name">Ich sage, was falsch aussieht</span>
+                  <span class="step-desc">Ich spiele selbst und beschreibe das Problem in einfachen Worten, etwa: „Langsame Schläge lassen den Körper platzen.“</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/search.svg --></span>
+                  <span class="step-name">Von anderen lernen</span>
+                  <span class="step-desc">Bevor der Agent eine eigene Lösung erfindet, prüft er, wie Open-Source-Engines und Forschungsarbeiten das Problem lösen.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/code.svg --></span>
+                  <span class="step-name">Die Engine ändern</span>
+                  <span class="step-desc">Er baut die Idee im eigenen Code der Engine nach und nennt die Quelle in einem Kommentar.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/list-checks.svg --></span>
+                  <span class="step-name">Tests wiederholen</span>
+                  <span class="step-desc">Jeder vorprogrammierte Schlag läuft 45-mal. Trefferpunkt und Knochenfestigkeit ändern sich dabei ein wenig.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/book.svg --></span>
+                  <span class="step-name">Mit Studien vergleichen</span>
+                  <span class="step-desc">Jede Verletzung muss etwa so oft auftreten, wie die zitierte Studie angibt.</span>
+                </li>
+                <li>
+                  <span class="step-icon" aria-hidden="true"><!-- include: partials/icons/image.svg --></span>
+                  <span class="step-name">Ich beurteile Bilder</span>
+                  <span class="step-desc">Der Agent zeigt mir Screenshots aus der echten App. Dann wird die Änderung veröffentlicht.</span>
+                </li>
+              </ol>
+              <ul class="sidecars">
+                <li><strong>Browser und Desktop</strong>Der Browser muss genau dieselben Ergebnisse liefern wie die Windows-App</li>
+                <li><strong>Echte Maße</strong>Die Figur entspricht einem erwachsenen Menschen von 1,75&nbsp;m, und Hammer und Baseballschläger wiegen so viel wie echte</li>
+                <li><strong>Geräusche</strong>Jeder dumpfe Schlag und jedes Knacken entsteht aus dem, was in der Simulation passiert ist, ganz ohne Aufnahmen</li>
+              </ul>
+              <figcaption id="flow-caption">
+                Eine Änderung, von meiner Beschwerde bis zur öffentlichen Website. Die schriftlichen Regeln der Agenten
+                verlangen, dass alle Prüfungen bestanden werden.
+              </figcaption>
+            </figure>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-app.jpg">
+                  <img
+                    src="/screenshots/body-physics-app-thumb.jpg"
+                    srcset="/screenshots/body-physics-app-thumb.jpg 480w, /screenshots/body-physics-app-medium.jpg 960w, /screenshots/body-physics-app.jpg 1280w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="270"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Das Spiel, mit dem Vorschlaghammer in der Hand und den Bedienelementen am unteren Rand</span>
+                </a>
+              </li>
+            </ul>
+            <ul class="shots">
+              <li>
+                <a class="shot" href="/screenshots/body-physics-layers.jpg">
+                  <img
+                    src="/screenshots/body-physics-layers-thumb.jpg"
+                    srcset="/screenshots/body-physics-layers-thumb.jpg 480w, /screenshots/body-physics-layers-medium.jpg 960w, /screenshots/body-physics-layers.jpg 998w"
+                    sizes="(min-width: 653px) 580px, calc(100vw - 50px)"
+                    alt=""
+                    width="480"
+                    height="385"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="shot-caption">Der Körper, wie er im Spiel zu sehen ist, und eine durchsichtige Ansicht nur zur Kontrolle: das Gitternetz der Muskeln und die Knochen darunter</span>
+                </a>
+              </li>
+            </ul>
+
+            <h2>Selbst ausprobieren</h2>
+            <p>
+              Das Spiel läuft im Browser, auch auf dem Handy, und Sie müssen nichts installieren. Es zeigt simulierte
+              Verletzungen, einschließlich Blut.
+            </p>
+            <div class="actions">
+              <a class="btn btn-primary" href="https://azizjonkasimov.github.io/realistic-human-body-deformation-physics/">Im Browser spielen</a>
+            </div>
+            <a class="video-card" href="https://www.youtube.com/watch?v=YSuN8D9t4ZI">
+              <span class="video-play" aria-hidden="true"><!-- include: partials/icons/play.svg --></span>
+              <span class="video-text">
+                <strong>Das 4-minütige Update auf YouTube ansehen</strong>
+                <span>Die Version vom Oktober 2026: Ein Vorschlaghammer prellt erst den Arm und bricht ihn dann.</span>
+              </span>
+            </a>
+
+            <h2>Designentscheidungen</h2>
+            <ul>
+              <li>
+                <strong>Tests nennen reale Folgen.</strong> Ich bin weder Arzt noch Physiker, deshalb sagt mir eine Zahl
+                allein wenig. Jeder Test nennt, was einem echten Menschen passiert, und die Studie, aus der das stammt.
+                Ein langsamer Stoß bricht zum Beispiel nie einen Knochen, und ein Messer bricht nie einen Arm- oder
+                Beinknochen.
+              </li>
+              <li>
+                <strong>Echte Schläge fallen unterschiedlich aus.</strong> Jeder Testschlag läuft 45-mal. Dabei wandert
+                der Trefferpunkt ein wenig, und die Knochen sind mal schwächer, mal stärker. Eine Verletzung, die im
+                echten Leben „manchmal“ vorkommt, muss in einigen Durchläufen auftreten, nicht in allen.
+              </li>
+              <li>
+                <strong>Bilder statt Zahlen.</strong> Die App kann selbstständig Screenshots und Bildfolgen speichern.
+                Anhand dieser Bilder beurteile ich jede sichtbare Änderung, und ein Problem, das die Tests übersehen,
+                wird zu einem neuen Test.
+              </li>
+              <li>
+                <strong>Der Browser muss mit dem Desktop übereinstimmen.</strong> Ein Skript spielt jeden Test in der
+                Windows-App und in einem Browser durch und vergleicht die Ergebnisse. Einmal unterschieden sie sich um
+                einen einzigen Bluterguss. Die Agenten führten das auf eine mathematische Funktion zurück, die auf jeder
+                Plattform anders rundet, und ersetzten sie.
+              </li>
+              <li>
+                <strong>Von anderen lernen, dann messen.</strong> Die Art, wie sich Messerschnitte öffnen, stammt aus
+                Rapier, einer Open-Source-Physik-Engine. Die Art, wie Blut an der Haut herabläuft, stammt aus dem Spiel
+                Overgrowth. Als ich die ganze Simulation testweise auf Rapier umgestellt habe, lief sie schneller, bestand
+                aber weniger Tests. Deshalb habe ich meine eigene Engine behalten.
+              </li>
+            </ul>
+
+            <h2>Status</h2>
+            <ul class="metric-grid">
+              <li><span class="num">27</span><span class="lbl">vorprogrammierte Testschläge, nach jeder Änderung wiederholt</span></li>
+              <li><span class="num">45</span><span class="lbl">Durchläufe pro Schlag, mit wechselndem Trefferpunkt und wechselnder Knochenfestigkeit</span></li>
+              <li><span class="num">60</span><span class="lbl">Physikschritte pro Sekunde, auf Ihrem eigenen Gerät</span></li>
+            </ul>
+            <p>
+              Stand Oktober 2026 tritt fast jede Verletzung etwa so oft auf, wie die Forschung angibt. Der Testbericht
+              nennt die Prüfungen, an denen die Engine noch scheitert. Ein Schlag mit dem Baseballschläger von oben auf
+              die Schulter bricht zum Beispiel nie das Schlüsselbein, obwohl das im echten Leben meist passiert.
+            </p>
+            <p>
+              Der Code, die Tests und die Forschung dahinter sind öffentlich auf
+              <a href="https://github.com/AzizjonKasimov/realistic-human-body-deformation-physics">GitHub</a>.
+            </p>
+
+            <p class="callout">
+              Die Bilder auf dieser Seite zeigen den Körper vor dem ersten Schlag. Das Spiel selbst zeigt simulierte
+              Verletzungen, einschließlich Blut.
+            </p>
+          </div>
+
+          <nav class="case-footer" aria-label="Weitere Fallstudien">
+            <a href="/de/work/network-app/">
+              <span class="dir">← Vorherige</span>
+              <span class="ttl">Ein KI-Agent für mein persönliches Netzwerk</span>
+            </a>
+            <a class="next" href="/de/work/semantic-search/">
+              <span class="dir">Nächste →</span>
+              <span class="ttl">Semantische KI-Suche für Autoteile</span>
+            </a>
+          </nav>
+
+          <aside class="case-cta" aria-label="Kontakt">
+            <p><strong>Sie suchen Verstärkung für solche Aufgaben?</strong> Ich bin offen für Stellen als AI/ML Engineer.</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="mailto:azizkhasimov@gmail.com">E-Mail schreiben</a>
+              <a class="btn" href="https://www.linkedin.com/in/azizjon-kasimov" rel="me">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <!-- include: partials/footer.html -->
+  </body>
+</html>
