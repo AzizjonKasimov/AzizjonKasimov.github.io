@@ -72,9 +72,10 @@ shows the same drawing.
   (the Expenses app's demo mode, or made-up people in Network App), never from real data. Crop the
   status bar off first (the top 110 px of a 1080×2400 screen), so every phone screenshot is
   1080×2290, the shape the gallery expects. The body physics screenshots come from that game's own
-  capture mode (`tools\capture.ps1` in its repo) and show the body before any blow; captures keep
-  the window's alpha channel, so make every pixel opaque before running `web-images.ps1`, which
-  would otherwise darken the see-through parts.
+  capture mode (`tools\capture.ps1` in its repo): the body before any blow, and one bruise from
+  a moderate sledgehammer swing, right after the blow and once it has developed (17 simulated
+  minutes later, with `--frames`). Captures keep the window's alpha channel, so make every pixel
+  opaque before running `web-images.ps1`, which would otherwise darken the see-through parts.
 - **Videos:** a `.video-card` links to the video on YouTube instead of embedding it, so the page
   loads nothing from YouTube.
 
