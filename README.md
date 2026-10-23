@@ -69,7 +69,7 @@ shows the same drawing.
   shows seven screenshots of the Recs Innovation systems, with the plant's name, its location, and
   its sales figures covered. Phone screenshots go in a `.shots shots-phone` gallery, three to a row
   (two below 480px), each shown whole; take them from a test phone or emulator with made-up data
-  (the Expenses app's demo mode, or made-up people in Network App), never from real data. Crop the
+  (the Sorted app's demo mode, or made-up people in Network App), never from real data. Crop the
   status bar off first (the top 110 px of a 1080×2400 screen), so every phone screenshot is
   1080×2290, the shape the gallery expects. The body physics screenshots come from that game's own
   capture mode (`tools\capture.ps1` in its repo): the body before any blow, and one bruise from
@@ -191,8 +191,8 @@ sentence you change.
 2. Add the page to `pages` in `site.mjs`.
 3. Add a card to the Selected work section in `index.html` (or, for a personal project, to the How
    I build section), and update the previous/next links at the bottom of the neighboring case
-   studies. The links run in one loop: the four work case studies, then Expenses, Network App, and
-   the body physics engine.
+   studies. The links run in one loop: the four work case studies, then Sorted (the expense
+   tracker), Network App, and the body physics engine.
 4. Make the same changes in every language folder, then run `npm run check`.
 
 ## Social preview image and touch icon
