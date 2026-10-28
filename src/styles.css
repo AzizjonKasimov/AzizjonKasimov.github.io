@@ -746,10 +746,31 @@ strong {
 }
 
 .units {
+  position: relative;
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   gap: 2px;
+}
+
+/* The forecast meter's line: KPX paid incentives only for an error of 8% or less, so it stands in
+   the gap after the eighth unit, a little taller than the units. That gap is 4px (the unit past
+   the line starts 2px later), so the line keeps 1px of space on each side. It is placed absolutely
+   in the ninth column's area, so it takes no grid cell from the units. */
+.units > .unit-past {
+  margin-left: 2px;
+}
+
+.units-line {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: -1px;
+  grid-column: 9;
+  grid-row: 1;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--text);
 }
 
 .units > i {
@@ -1967,9 +1988,28 @@ strong {
 /* The rows share one set of columns (subgrid), so every bar in a chart starts and ends at the same
    place, and the value column fits the longest value in any language. */
 .bars {
+  position: relative;
   display: grid;
   grid-template-columns: fit-content(7.5rem) minmax(0, 1fr) max-content;
   gap: 10px 12px;
+}
+
+/* A threshold across a chart's bars, at --v percent of the tracks: the forecast chart's line at 8%
+   on its 0-10% scale, where KPX's incentives began. It is placed absolutely in the track column
+   over both rows, so it crosses the gap between them and takes no grid cell from the rows. Both
+   ends of its area are given: an absolutely placed item's missing end line is the container's
+   edge, which would stretch its 0-100% over the value column too. */
+.bar-line {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: calc(var(--v) * 1%);
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--text);
 }
 
 .bar-row {
@@ -2001,7 +2041,9 @@ strong {
   justify-content: center;
   width: calc(var(--v) * 1%);
   overflow: hidden;
-  background: var(--border-strong);
+  /* Grey for "before", halfway between the border and the muted text, so even a short stretch of
+     it, such as the forecast bar's 8-9% past the KPX line, stands out from the track. */
+  background: color-mix(in srgb, var(--text-3), var(--border-strong));
   font: 700 0.75rem/1 var(--font-mono);
   white-space: nowrap;
 }
@@ -2050,6 +2092,7 @@ strong {
   align-items: center;
   gap: 8px;
   margin: 0 !important;
+  text-wrap: balance;
 }
 
 .key {
@@ -2057,6 +2100,14 @@ strong {
   width: 12px;
   height: 12px;
   border-radius: 3px;
+}
+
+.key-line {
+  width: 2px;
+  height: 14px;
+  margin: 0 5px;
+  border-radius: 1px;
+  background: var(--text);
 }
 
 .chart-pair {

@@ -562,9 +562,11 @@
   /* Hero stats, each done within about 1.5 seconds. The accuracy meter's empty slots fill one by
      one, the dashed slot stays open, and the check comes in. A meter for a number that went down
      shows in full at once, holds for about 0.4 seconds, and then the units it lost fade to ghosts
-     from the right (--out, in partials/stats/) before its check comes in, or while its gear turns.
+     from the right (--out, in partials/stats/), while its gear turns or with its check: the
+     forecast's check comes as the unit past the 8% line fades, the moment the error reaches it.
      In the catalog, a lens sweeps across the parts to the one the search finds, then fades. */
-  .motion .units > i {
+  .motion .units > i,
+  .motion .units-line {
     animation: fade-in 200ms ease backwards;
   }
 
@@ -787,6 +789,11 @@
 
   .motion .chart .bar-row + .bar-row {
     --bar-at: 600ms;
+  }
+
+  /* A threshold line is there before the bars grow, so they are seen to cross it or stop short. */
+  .motion .chart .bar-line {
+    animation: fade-in 400ms ease 100ms backwards;
   }
 
   .motion .chart-pair > :nth-child(2) {

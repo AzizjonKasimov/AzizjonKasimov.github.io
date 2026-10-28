@@ -62,12 +62,17 @@ shows the same drawing.
   follows Korean text.
 - **Charts:** bars are `<span class="bar" style="--v: 70">`, where `--v` is the bar's length as a
   percentage of its track. Use only numbers that the page text already states. The translation check
-  compares these `style` values, so a chart cannot show different numbers in another language.
+  compares these `style` values, so a chart cannot show different numbers in another language. A
+  threshold across a chart's bars is `<span class="bar-line" style="--v: 80"></span>` after the
+  rows, with a legend entry (`key key-line`) that says what it is, like the solar forecast chart's
+  KPX 8% incentive line.
 - **Hero stats:** each homepage stat ends in a drawing from `partials/stats/`, the same in every
   language. Three are meters of units to count, and a unit means the same in every tile: solid is
   there now, dashed is not claimed, and a faded ghost was taken away by the drop the number reports.
   The mark after a meter, a check or a gear, is the outcome that the stat's sentence states. Keep
   the units to what the text says: 19 of 20 for 95%+, 7 of 9 points for 9% → 7%, 1 of 5 for −80%.
+  The forecast meter also has KPX's 8% incentive line in the gap after its eighth unit, which its
+  sentence explains in every language.
 - **Screenshots:** `public/screenshots/`, shown in a `.shots` gallery of thumbnails that open the
   full image. Each `<img>` lists the thumbnail, medium, and full image in `srcset`, and its `sizes`
   follows the gallery's columns, so phones get the 960 px image instead of a blurry thumbnail. A
