@@ -14,7 +14,8 @@
 // every page is scrolled from top to bottom with motion on, at a phone and a desktop width:
 // - the page never scrolls sideways while things move in;
 // - every animation has played or is playing by the end, so nothing is left hidden because it
-//   never counted as scrolled into view (see src/motion.css).
+//   never counted as scrolled into view (see src/motion.css);
+// - each figure's Replay button plays its story again after the story has ended.
 //
 // Text is measured in Arial (Windows) or Liberation Sans (Linux) and Courier New or Liberation
 // Mono, because each pair has identical letter widths, so this PC and the GitHub build get the
@@ -182,6 +183,28 @@ async function scrollThrough() {
     problems.push(`${name} never plays its "${animation.animationName}" animation: it never counted as scrolled into view`)
   }
   if (waiting.length > 5) problems.push(`and ${waiting.length - 5} more animations never play`)
+  // Replay: end each figure's story, as if the visitor watched it, then press the button.
+  for (const button of document.querySelectorAll('.replay')) {
+    const figure = button.closest('figure')
+    const title = figure.querySelector('.viz-title')?.textContent.trim()
+    if (button.hidden) {
+      problems.push(`the Replay button in "${title}" stays hidden`)
+      continue
+    }
+    for (const animation of figure.getAnimations({ subtree: true })) {
+      try {
+        animation.finish()
+      } catch {
+        // An endless animation cannot finish, and it is still playing anyway.
+      }
+    }
+    await frames(1)
+    button.click()
+    await frames(2)
+    if (!figure.getAnimations({ subtree: true }).some((animation) => animation.playState === 'running')) {
+      problems.push(`the Replay button in "${title}" does not play the story again once it has ended`)
+    }
+  }
   return problems
 }
 

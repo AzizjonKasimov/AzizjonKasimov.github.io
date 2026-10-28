@@ -19,7 +19,8 @@
      in print: every rule here needs .motion and the screen and no-preference media query.
    - The work-card drawings also play a loop while their card is hovered or focused.
    - tools/check-layout.mjs checks the layout with reduced motion, then scrolls through every page
-     with motion on and fails if the page scrolls sideways or an animation still waits at the end. */
+     with motion on and fails if the page scrolls sideways, an animation still waits at the end,
+     or a figure's Replay button does not play its story again once it has ended. */
 
 :root {
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -825,6 +826,14 @@
 
   .motion .viz-pin {
     animation: pop 420ms var(--ease-pop) var(--at, 0ms) backwards;
+  }
+
+  /* Replay: for one style update the motion script puts .replaying on the figure, which ends
+     every animation in it, so when it comes off they all start again from the first frame. */
+  .motion .replaying *,
+  .motion .replaying *::before,
+  .motion .replaying *::after {
+    animation: none !important;
   }
 
   /* The query among the parts: meaning, then the filters, then the re-ranking. */

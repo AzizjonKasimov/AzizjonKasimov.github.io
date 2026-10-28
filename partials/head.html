@@ -125,13 +125,16 @@
             // The case-study figures (src/figures.css) tell a story over a few seconds, so each
             // waits until it is well on screen. Their Replay button plays the story again.
             watch('.viz', '0px 0px -30% 0px');
+            // An animation that has ended drops out of getAnimations(), because the page's own
+            // styles already show its last frame. So Replay turns the figure's animations off for
+            // one style update (.replaying in src/motion.css) and on again, which starts them over.
             document.querySelectorAll('.replay').forEach(function (button) {
               button.hidden = false;
               button.addEventListener('click', function () {
-                button.closest('figure').getAnimations({ subtree: true }).forEach(function (animation) {
-                  animation.cancel();
-                  animation.play();
-                });
+                var figure = button.closest('figure');
+                figure.classList.add('replaying');
+                void figure.offsetWidth;
+                figure.classList.remove('replaying');
               });
             });
           } catch (e) {
