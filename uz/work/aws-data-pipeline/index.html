@@ -101,7 +101,7 @@
               </ul>
               <figcaption id="flow-caption">Standart AWS xizmatlaridan qurilgan konveyer.</figcaption>
             </figure>
-            <figure class="viz fanout" aria-labelledby="fanout-title">
+            <figure class="viz viz-wide fanout" aria-labelledby="fanout-title">
               <figcaption id="fanout-title" class="viz-title">Koʻp ishchi funksiya, bitta maʼlumotlar bazasi</figcaption>
               <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -111,18 +111,20 @@
                 <!-- include: partials/figures/pipeline-fanout.svg -->
                 <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
               </div>
-              <ol class="viz-steps">
-                <li><strong>Parallel ravishda.</strong> SQS vazifalarni taqsimlaydi, shuning uchun koʻplab Lambda ishchi funksiyalari sahifalarni bir vaqtda yuklab oladi.</li>
-                <li>
-                  <strong>Kam ulanish.</strong> RDS Proxy bir nechta umumiy ulanishni ishchi funksiyalar oʻrtasida taqsimlaydi,
-                  shuning uchun ular koʻp boʻlsa ham, PostgreSQL bazasi ortiqcha yuklanmaydi.
-                </li>
-                <li>
-                  <strong>Xatolar chetga olinadi.</strong> Qayta-qayta xato beradigan xabar dead-letter queue (DLQ) navbatiga
-                  oʻtadi. Keyinroq u navbatga qayta yuboriladi (redrive).
-                </li>
-              </ol>
-              <p class="viz-note">Soddalashtirilgan chizma. Ishchi funksiyalar soni misol tariqasida koʻrsatilgan.</p>
+              <div class="viz-side">
+                <ol class="viz-steps">
+                  <li><strong>Parallel ravishda.</strong> SQS vazifalarni taqsimlaydi, shuning uchun koʻplab Lambda ishchi funksiyalari sahifalarni bir vaqtda yuklab oladi.</li>
+                  <li>
+                    <strong>Kam ulanish.</strong> RDS Proxy bir nechta umumiy ulanishni ishchi funksiyalar oʻrtasida taqsimlaydi,
+                    shuning uchun ular koʻp boʻlsa ham, PostgreSQL bazasi ortiqcha yuklanmaydi.
+                  </li>
+                  <li>
+                    <strong>Xatolar chetga olinadi.</strong> Qayta-qayta xato beradigan xabar dead-letter queue (DLQ) navbatiga
+                    oʻtadi. Keyinroq u navbatga qayta yuboriladi (redrive).
+                  </li>
+                </ol>
+                <p class="viz-note">Soddalashtirilgan chizma. Ishchi funksiyalar soni misol tariqasida koʻrsatilgan.</p>
+              </div>
             </figure>
 
             <h2>Qulab tushmasdan, sekinlashadigan qilib qurilgan</h2>
@@ -142,30 +144,34 @@
                 qolgan vazifalarni tiklaydi, shuning uchun ularning koʻpchiligi bir-biriga xalaqit bermasdan parallel ishlay oladi.
               </li>
             </ul>
-            <figure class="viz backoff" aria-labelledby="backoff-title">
+            <figure class="viz viz-wide backoff" aria-labelledby="backoff-title">
               <figcaption id="backoff-title" class="viz-title">Manba qarshilik koʻrsatganda nima boʻladi</figcaption>
               <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
               </button>
               <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
-              <ul class="viz-legend">
-                <li><span class="viz-key key-pace"></span>Soʻrovlar tezligi</li>
-                <li><span class="viz-key key-tick"></span>Bitta soʻrov</li>
-                <li><span class="viz-key key-block"></span>Bloklangan sahifa</li>
-              </ul>
-              <ol class="viz-steps">
-                <li>Ishchi funksiyalar sahifalarni odatdagi tezlikda yuklab oladi, soʻrovlar orasida esa jitter bor.</li>
-                <li>Manba sahifalarni bloklay boshlaydi, shuning uchun circuit breaker yangi soʻrovlarni toʻxtatadi.</li>
-                <li>Har bir ishchi funksiya pauza tugashini kutadi. Pauza holati hamma uchun umumiy va PostgreSQL bazasida saqlanadi.</li>
-                <li>Ishchi funksiyalar sekin qayta ishga tushadi va bosqichma-bosqich tezlashadi.</li>
-                <li>Konveyer manba qabul qiladigan tezlikda barqarorlashadi.</li>
-              </ol>
-              <p class="viz-note">Shartli tasvir. Vaqt oraliqlari haqiqiy nisbatda emas.</p>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-pace"></span>Soʻrovlar tezligi</li>
+                  <li><span class="viz-key key-lane"><!-- include: partials/icons/lambda.svg --></span>Bitta ishchi funksiya</li>
+                  <li><span class="viz-key key-tick"></span>Bitta soʻrov</li>
+                  <li><span class="viz-key key-block"></span>Bloklangan sahifa</li>
+                  <li><span class="viz-key key-breaker"></span>Circuit breaker: yopiq, ochiq, tezlik oshmoqda</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li>Ishchi funksiyalar sahifalarni odatdagi tezlikda yuklab oladi, soʻrovlar orasida esa jitter bor.</li>
+                  <li>Manba sahifalarni bloklay boshlaydi, shuning uchun circuit breaker yangi soʻrovlarni toʻxtatadi.</li>
+                  <li>Har bir ishchi funksiya pauza tugashini kutadi. Pauza holati hamma uchun umumiy va PostgreSQL bazasida saqlanadi.</li>
+                  <li>Ishchi funksiyalar birin-ketin qayta ishga tushadi va tezlik bosqichma-bosqich oshadi.</li>
+                  <li>Konveyer manba qabul qiladigan tezlikda barqarorlashadi.</li>
+                </ol>
+                <p class="viz-note">Shartli tasvir: vaqt chapdan oʻngga oʻtadi, oraliqlar esa haqiqiy nisbatda emas.</p>
+              </div>
             </figure>
 
             <h2>Monitoring va ekspluatatsiya</h2>
-            <figure class="viz alarms" aria-labelledby="alarms-title">
+            <figure class="viz viz-full alarms" aria-labelledby="alarms-title">
               <figcaption id="alarms-title" class="viz-title">CloudWatch kuzatadigan signallar</figcaption>
               <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -176,47 +182,55 @@
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
                   <span class="alarm-name">Orkestrator toʻxtaydi</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-heartbeat.svg --></span>
                 </li>
                 <li>
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="alarm-name">Ishchi funksiyalar xato beradi</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-errors.svg --></span>
                 </li>
                 <li>
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
                   <span class="alarm-name">Lambda ishchilarni cheklaydi</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-throttles.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">Navbatdagi xabarlar eskiradi</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-age.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">Sahifalar bloklanadi</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-blocked.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">Bazaga yozish xato beradi</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-writes.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">Kunlik eʼlonlar soni tushadi</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-daily.svg --></span>
                 </li>
                 <li class="alarm-on">
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="alarm-name">Navbat toʻlib ketadi</span>
                   <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
                   <code class="alarm-state">ALARM</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
-                  <span class="alarm-name">Navbatdagi xabarlar eskiradi</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
-                  <span class="alarm-name">Sahifalar bloklanadi</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
-                  <span class="alarm-name">Bazaga yozish xato beradi</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
-                  <span class="alarm-name">Kunlik eʼlonlar soni tushadi</span>
-                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-queue.svg --></span>
                 </li>
               </ul>
               <p class="alarm-alert">
                 <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
-                <span>SNS menga ogohlantirish yuboradi.</span>
+                <span class="alarm-alert-text"><span>SNS menga ogohlantirish yuboradi.</span> <code>ALARM: SQS queue backing up</code></span>
               </p>
               <p class="viz-note">Shartli tasvir: ogohlantirishlardan biri ishga tushgan.</p>
             </figure>

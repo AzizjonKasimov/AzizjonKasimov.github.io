@@ -1,15 +1,12 @@
-<svg class="narrow" viewBox="0 0 420 350">
+<svg class="narrow" viewBox="0 0 350 420">
   <defs>
-    <pattern id="tg-right-narrow" class="tg-right" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="0.6" y="0.6" width="5.8" height="5.8" rx="1.2" /></pattern>
-    <pattern id="tg-room-narrow" class="tg-room" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="0.6" y="0.6" width="5.8" height="5.8" rx="1.2" /></pattern>
+    <pattern id="tg-cell-narrow" class="tg-cell" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="0.9" y="0.9" width="5.2" height="5.2" rx="1.2" /></pattern>
+    <pattern id="tg-slot-narrow" class="tg-slot" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="1.3" y="1.3" width="4.4" height="4.4" rx="1" /></pattern>
   </defs>
   <g class="tg-fill">
-    <rect x="0" y="0" width="420" height="329" fill="url(#tg-right-narrow)" />
-    <rect x="0" y="329" width="210" height="7" fill="url(#tg-right-narrow)" />
+    <rect x="0" y="0" width="350" height="399" fill="url(#tg-cell-narrow)" />
+    <rect x="0" y="399" width="350" height="21" fill="url(#tg-slot-narrow)" />
   </g>
-  <g class="fade" style="--at: 1900ms; --dur: 500ms">
-    <rect x="210" y="329" width="210" height="7" fill="url(#tg-room-narrow)" />
-    <rect x="0" y="336" width="420" height="14" fill="url(#tg-room-narrow)" />
-  </g>
-  <path class="tg-line draw" d="M0 336.2h210.2v-7H420" pathLength="1" style="--at: 2300ms; --dur: 700ms" />
+  <rect class="tg-first" x="0.4" y="0.4" width="6.2" height="6.2" rx="1.5" />
+  <path class="tg-line draw" d="M0 399.2H350" pathLength="1" style="--at: 2300ms; --dur: 700ms" />
 </svg>

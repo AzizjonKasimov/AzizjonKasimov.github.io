@@ -1,85 +1,87 @@
-<svg class="narrow" viewBox="0 0 300 352">
+<svg class="narrow" viewBox="0 0 300 380">
   <defs>
     <symbol id="fx-lambda-narrow" viewBox="0 0 24 24"><path d="M5 3h3.5L19 21" /><path d="M12.3 10.6 5 21" /></symbol>
+    <clipPath id="fx-db-clip-narrow"><path d="M164 322c0-4 11.6-7 26-7s26 3 26 7v38c0 4-11.6 7-26 7s-26-3-26-7z" /></clipPath>
   </defs>
   <g class="fade" style="--dur: 600ms">
-    <text class="fx-side" x="4" y="55">SQS</text>
-    <text class="fx-side" x="4" y="175">Lambda</text>
-    <text class="fx-side" x="4" y="251">RDS Proxy</text>
-    <text class="fx-side" x="4" y="324">PostgreSQL</text>
-    <text x="268" y="88">DLQ</text>
+    <text class="fx-side" x="4" y="35">EventBridge</text>
+    <text class="fx-side" x="4" y="93">SQS</text>
+    <text x="268" y="124">DLQ</text>
+    <text class="fx-side" x="4" y="195">Lambda</text>
+    <text class="fx-side" x="4" y="271">RDS Proxy</text>
+    <text class="fx-side" x="4" y="348">PostgreSQL</text>
   </g>
-  <rect class="art-panel rise" x="96" y="30" width="124" height="40" rx="8" />
-  <rect class="art-chip rise" x="104" y="37" width="16" height="26" rx="3.5" style="--at: 150ms; --rise: -10px" />
-  <rect class="art-chip rise" x="127" y="37" width="16" height="26" rx="3.5" style="--at: 230ms; --rise: -10px" />
-  <rect class="art-chip rise" x="150" y="37" width="16" height="26" rx="3.5" style="--at: 310ms; --rise: -10px" />
-  <rect class="art-chip rise" x="173" y="37" width="16" height="26" rx="3.5" style="--at: 390ms; --rise: -10px" />
-  <g class="rise" style="--at: 470ms; --rise: -10px">
-    <g class="fx-gone dim" style="--at: 3400ms; --dur: 300ms">
-      <rect class="art-chip" x="196" y="37" width="16" height="26" rx="3.5" />
-      <rect class="fx-fail pop" x="196" y="37" width="16" height="26" rx="3.5" style="--at: 3250ms; --dur: 350ms" />
+  <g class="pop" style="--at: 0ms">
+    <circle class="art-panel" cx="158" cy="30" r="16" />
+    <circle class="fx-clock-dot" cx="158" cy="30" r="1.6" />
+  </g>
+  <g class="turn" style="--at: 200ms; --dur: 700ms; transform-origin: 158px 30px">
+    <path class="art-accent-line" d="M158 20v10l6 4" />
+  </g>
+  <path class="art-flow draw" d="M158 46v18" pathLength="1" style="--at: 450ms; --dur: 200ms" />
+  <rect class="art-panel rise" x="96" y="66" width="124" height="42" rx="8" style="--at: 200ms" />
+  <rect class="art-chip rise" x="104" y="74" width="16" height="26" rx="3.5" style="--at: 520ms; --rise: -10px" />
+  <rect class="art-chip rise" x="127" y="74" width="16" height="26" rx="3.5" style="--at: 600ms; --rise: -10px" />
+  <rect class="art-chip rise" x="150" y="74" width="16" height="26" rx="3.5" style="--at: 680ms; --rise: -10px" />
+  <rect class="art-chip rise" x="173" y="74" width="16" height="26" rx="3.5" style="--at: 760ms; --rise: -10px" />
+  <g class="rise" style="--at: 840ms; --rise: -10px">
+    <g class="fx-gone dim" style="--at: 3480ms; --dur: 300ms">
+      <rect class="art-chip" x="196" y="74" width="16" height="26" rx="3.5" />
+      <rect class="fx-fail pop" x="196" y="74" width="16" height="26" rx="3.5" style="--at: 3330ms; --dur: 350ms" />
     </g>
   </g>
-  <g class="fade" style="--at: 300ms">
-    <rect class="fx-dlq" x="244" y="32" width="48" height="36" rx="7" />
-    <path class="art-flow" d="M222 44h18m-4-4 4 4-4 4" />
-    <path class="art-dash" d="M242 57h-18m4-4-4 4 4 4" />
+  <g class="fade" style="--at: 900ms">
+    <rect class="fx-dlq" x="244" y="68" width="48" height="38" rx="7" />
+    <path class="art-flow" d="M222 80h18m-4-4 4 4-4 4" />
+    <path class="art-dash" d="M242 96h-18m4-4-4 4 4 4" />
   </g>
-  <path class="art-flow draw" d="M158 70C158 112 120 112 120 153" pathLength="1" style="--at: 600ms; --dur: 300ms" />
-  <path class="art-flow draw" d="M158 70C158 112 166 112 166 153" pathLength="1" style="--at: 600ms; --dur: 300ms" />
-  <path class="art-flow draw" d="M158 70C158 112 212 112 212 153" pathLength="1" style="--at: 600ms; --dur: 300ms" />
-  <path class="art-flow draw" d="M158 70C158 112 258 112 258 153" pathLength="1" style="--at: 600ms; --dur: 300ms" />
-  <g class="pop" style="--at: 300ms">
-    <circle class="art-panel" cx="120" cy="170" r="17" />
-    <use class="fx-worker" href="#fx-lambda-narrow" x="110" y="160" width="20" height="20" />
+  <path class="art-flow draw" d="M158 108C158 146 120 140 120 173" pathLength="1" style="--at: 900ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M158 108C158 146 166 140 166 173" pathLength="1" style="--at: 900ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M158 108C158 146 212 140 212 173" pathLength="1" style="--at: 900ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M158 108C158 146 258 140 258 173" pathLength="1" style="--at: 900ms; --dur: 300ms" />
+  <g class="pop" style="--at: 400ms"><circle class="art-panel" cx="120" cy="190" r="17" /><use class="fx-worker" href="#fx-lambda-narrow" x="110" y="180" width="20" height="20" /></g>
+  <g class="pop" style="--at: 460ms"><circle class="art-panel" cx="166" cy="190" r="17" /><use class="fx-worker" href="#fx-lambda-narrow" x="156" y="180" width="20" height="20" /></g>
+  <g class="pop" style="--at: 520ms"><circle class="art-panel" cx="212" cy="190" r="17" /><use class="fx-worker" href="#fx-lambda-narrow" x="202" y="180" width="20" height="20" /></g>
+  <g class="pop" style="--at: 580ms"><circle class="art-panel" cx="258" cy="190" r="17" /><use class="fx-worker" href="#fx-lambda-narrow" x="248" y="180" width="20" height="20" /></g>
+  <g class="fx-gone blip" style="--at: 2700ms; --dur: 1100ms">
+    <circle class="fx-fail" cx="258" cy="190" r="17" />
+    <use class="fx-fail-line" href="#fx-lambda-narrow" x="248" y="180" width="20" height="20" />
   </g>
-  <g class="pop" style="--at: 380ms">
-    <circle class="art-panel" cx="166" cy="170" r="17" />
-    <use class="fx-worker" href="#fx-lambda-narrow" x="156" y="160" width="20" height="20" />
+  <path class="art-flow draw" d="M120 207C120 226 178 224 178 244" pathLength="1" style="--at: 1100ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M166 207C166 226 186 224 186 244" pathLength="1" style="--at: 1100ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M212 207C212 226 194 224 194 244" pathLength="1" style="--at: 1100ms; --dur: 300ms" />
+  <path class="art-flow draw" d="M258 207C258 226 202 224 202 244" pathLength="1" style="--at: 1100ms; --dur: 300ms" />
+  <g class="pop" style="--at: 700ms">
+    <rect class="art-panel" x="166" y="244" width="48" height="44" rx="10" />
+    <path class="art-accent-line" d="m180 253 10 12m0-12v12m10-12-10 12v14" />
   </g>
-  <g class="pop" style="--at: 460ms">
-    <circle class="art-panel" cx="212" cy="170" r="17" />
-    <use class="fx-worker" href="#fx-lambda-narrow" x="202" y="160" width="20" height="20" />
+  <path class="fx-pool draw" d="M184 288v27" pathLength="1" style="--at: 1250ms; --dur: 220ms" />
+  <path class="fx-pool draw" d="M196 288v27" pathLength="1" style="--at: 1250ms; --dur: 220ms" />
+  <g class="rise" style="--at: 800ms">
+    <path class="art-panel" d="M164 322c0-4 11.6-7 26-7s26 3 26 7v38c0 4-11.6 7-26 7s-26-3-26-7z" />
+    <g clip-path="url(#fx-db-clip-narrow)"><rect class="fx-fill grow-up" x="162" y="338" width="56" height="34" style="--at: 2650ms; --dur: 700ms" /></g>
+    <path class="art-line" d="M164 322c0 4 11.6 7 26 7s26-3 26-7" />
+    <path class="art-line" d="M164 341c0 4 11.6 7 26 7s26-3 26-7" />
   </g>
-  <g class="pop" style="--at: 540ms">
-    <circle class="art-panel" cx="258" cy="170" r="17" />
-    <use class="fx-worker" href="#fx-lambda-narrow" x="248" y="160" width="20" height="20" />
+  <path class="fx-dot" d="M158 108C158 146 120 140 120 173" pathLength="100" style="--at: 1300ms; --dur: 450ms" />
+  <path class="fx-dot" d="M158 108C158 146 166 140 166 173" pathLength="100" style="--at: 1380ms; --dur: 450ms" />
+  <path class="fx-dot" d="M158 108C158 146 212 140 212 173" pathLength="100" style="--at: 1460ms; --dur: 450ms" />
+  <path class="fx-dot" d="M158 108C158 146 258 140 258 173" pathLength="100" style="--at: 1540ms; --dur: 450ms" />
+  <circle class="fx-ping ping-once" cx="120" cy="190" r="17" style="--at: 1720ms" />
+  <circle class="fx-ping ping-once" cx="166" cy="190" r="17" style="--at: 1800ms" />
+  <circle class="fx-ping ping-once" cx="212" cy="190" r="17" style="--at: 1880ms" />
+  <circle class="fx-ping ping-once" cx="258" cy="190" r="17" style="--at: 1960ms" />
+  <path class="fx-dot" d="M120 207C120 226 178 224 178 244" pathLength="100" style="--at: 1850ms; --dur: 450ms" />
+  <path class="fx-dot" d="M166 207C166 226 186 224 186 244" pathLength="100" style="--at: 1930ms; --dur: 450ms" />
+  <path class="fx-dot" d="M212 207C212 226 194 224 194 244" pathLength="100" style="--at: 2010ms; --dur: 450ms" />
+  <rect class="fx-ping ping-once" x="166" y="244" width="48" height="44" rx="10" style="--at: 2330ms" />
+  <path class="fx-dot" d="M184 288v27" pathLength="100" style="--at: 2400ms; --dur: 320ms" />
+  <path class="fx-dot" d="M196 288v27" pathLength="100" style="--at: 2480ms; --dur: 320ms" />
+  <path class="fx-dot fx-dot-alert" d="M258 173C258 140 158 146 158 108" pathLength="100" style="--at: 2950ms; --dur: 450ms" />
+  <g class="pop" style="--at: 3330ms">
+    <circle class="fx-retry-badge" cx="232" cy="122" r="10" />
+    <path class="fx-retry" d="M227.5 122a4.5 4.5 0 1 0 1.3-3.2l-1.3 1.2m0-3v3h3" />
   </g>
-  <g class="fx-gone blip" style="--at: 2600ms; --dur: 1000ms">
-    <circle class="fx-fail" cx="258" cy="170" r="17" />
-    <use class="fx-fail-line" href="#fx-lambda-narrow" x="248" y="160" width="20" height="20" />
-  </g>
-  <path class="art-flow draw" d="M120 187C120 206 178 204 178 224" pathLength="1" style="--at: 800ms; --dur: 300ms" />
-  <path class="art-flow draw" d="M166 187C166 206 186 204 186 224" pathLength="1" style="--at: 800ms; --dur: 300ms" />
-  <path class="art-flow draw" d="M212 187C212 206 194 204 194 224" pathLength="1" style="--at: 800ms; --dur: 300ms" />
-  <path class="art-flow draw" d="M258 187C258 206 202 204 202 224" pathLength="1" style="--at: 800ms; --dur: 300ms" />
-  <g class="pop" style="--at: 620ms">
-    <rect class="art-panel" x="166" y="224" width="48" height="44" rx="10" />
-    <path class="art-accent-line" d="m180 233 10 12m0-12v12m10-12-10 12v14" />
-  </g>
-  <path class="art-flow draw" d="M184 268v25" pathLength="1" style="--at: 950ms; --dur: 200ms" />
-  <path class="art-flow draw" d="M196 268v25" pathLength="1" style="--at: 950ms; --dur: 200ms" />
-  <g class="rise" style="--at: 700ms">
-    <path class="art-panel" d="M164 300c0-4 11.6-7 26-7s26 3 26 7v38c0 4-11.6 7-26 7s-26-3-26-7z" />
-    <path class="art-line" d="M164 300c0 4 11.6 7 26 7s26-3 26-7" />
-    <path class="art-line" d="M164 319c0 4 11.6 7 26 7s26-3 26-7" />
-  </g>
-  <path class="art-pulse" d="M158 70C158 112 120 112 120 153" pathLength="100" style="--at: 1100ms; --dur: 450ms" />
-  <path class="art-pulse" d="M158 70C158 112 166 112 166 153" pathLength="100" style="--at: 1180ms; --dur: 450ms" />
-  <path class="art-pulse" d="M158 70C158 112 212 112 212 153" pathLength="100" style="--at: 1260ms; --dur: 450ms" />
-  <path class="art-pulse" d="M158 70C158 112 258 112 258 153" pathLength="100" style="--at: 1340ms; --dur: 450ms" />
-  <circle class="fx-ping ping-once" cx="120" cy="170" r="17" style="--at: 1500ms" />
-  <circle class="fx-ping ping-once" cx="166" cy="170" r="17" style="--at: 1580ms" />
-  <circle class="fx-ping ping-once" cx="212" cy="170" r="17" style="--at: 1660ms" />
-  <circle class="fx-ping ping-once" cx="258" cy="170" r="17" style="--at: 1740ms" />
-  <path class="art-pulse" d="M120 187C120 206 178 204 178 224" pathLength="100" style="--at: 1650ms; --dur: 450ms" />
-  <path class="art-pulse" d="M166 187C166 206 186 204 186 224" pathLength="100" style="--at: 1730ms; --dur: 450ms" />
-  <path class="art-pulse" d="M212 187C212 206 194 204 194 224" pathLength="100" style="--at: 1810ms; --dur: 450ms" />
-  <path class="art-pulse" d="M258 187C258 206 202 204 202 224" pathLength="100" style="--at: 1890ms; --dur: 450ms" />
-  <rect class="fx-ping ping-once" x="166" y="224" width="48" height="44" rx="10" style="--at: 2150ms" />
-  <path class="art-pulse" d="M184 268v25" pathLength="100" style="--at: 2200ms; --dur: 350ms" />
-  <path class="art-pulse" d="M196 268v25" pathLength="100" style="--at: 2280ms; --dur: 350ms" />
-  <path class="art-pulse art-pulse-alert" d="M258 153C258 112 158 112 158 70" pathLength="100" style="--at: 2850ms; --dur: 450ms" />
-  <path class="art-pulse art-pulse-alert" d="M222 44h18" pathLength="100" style="--at: 3450ms; --dur: 350ms" />
-  <rect class="fx-fail pop" x="260" y="37" width="16" height="26" rx="3.5" style="--at: 3750ms" />
+  <path class="fx-dot fx-dot-alert" d="M222 80h18" pathLength="100" style="--at: 3520ms; --dur: 320ms" />
+  <rect class="fx-fail pop" x="260" y="74" width="16" height="26" rx="3.5" style="--at: 3820ms" />
 </svg>

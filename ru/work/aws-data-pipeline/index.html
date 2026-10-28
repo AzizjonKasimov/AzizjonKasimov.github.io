@@ -101,7 +101,7 @@
               </ul>
               <figcaption id="flow-caption">Пайплайн, собранный из стандартных сервисов AWS.</figcaption>
             </figure>
-            <figure class="viz fanout" aria-labelledby="fanout-title">
+            <figure class="viz viz-wide fanout" aria-labelledby="fanout-title">
               <figcaption id="fanout-title" class="viz-title">Много воркеров, одна база данных</figcaption>
               <button class="replay" type="button" title="Повторить анимацию" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -111,18 +111,20 @@
                 <!-- include: partials/figures/pipeline-fanout.svg -->
                 <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
               </div>
-              <ol class="viz-steps">
-                <li><strong>Параллельно.</strong> SQS раздаёт задания многим воркерам на Lambda, и они загружают страницы одновременно.</li>
-                <li>
-                  <strong>Немного соединений.</strong> RDS Proxy держит общий пул соединений с базой данных, поэтому толпа
-                  воркеров не перегружает PostgreSQL.
-                </li>
-                <li>
-                  <strong>Сбои — в отдельную очередь.</strong> Сообщение, которое снова и снова вызывает ошибку, уходит в
-                  dead-letter queue (DLQ). Позже повторная отправка (redrive) возвращает его в основную очередь.
-                </li>
-              </ol>
-              <p class="viz-note">Схема упрощена, а число воркеров условное.</p>
+              <div class="viz-side">
+                <ol class="viz-steps">
+                  <li><strong>Параллельно.</strong> SQS раздаёт задания многим воркерам на Lambda, и они загружают страницы одновременно.</li>
+                  <li>
+                    <strong>Немного соединений.</strong> RDS Proxy держит общий пул соединений с базой данных, поэтому толпа
+                    воркеров не перегружает PostgreSQL.
+                  </li>
+                  <li>
+                    <strong>Сбои — в отдельную очередь.</strong> Сообщение, которое снова и снова вызывает ошибку, уходит в
+                    dead-letter queue (DLQ). Позже повторная отправка (redrive) возвращает его в основную очередь.
+                  </li>
+                </ol>
+                <p class="viz-note">Схема упрощена, а число воркеров условное.</p>
+              </div>
             </figure>
 
             <h2>Замедляться, а не падать</h2>
@@ -142,30 +144,34 @@
                 восстанавливают зависшие задачи, поэтому многие из них могут работать параллельно без конфликтов.
               </li>
             </ul>
-            <figure class="viz backoff" aria-labelledby="backoff-title">
+            <figure class="viz viz-wide backoff" aria-labelledby="backoff-title">
               <figcaption id="backoff-title" class="viz-title">Что происходит, когда источник сопротивляется</figcaption>
               <button class="replay" type="button" title="Повторить анимацию" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Повторить анимацию</span>
               </button>
               <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
-              <ul class="viz-legend">
-                <li><span class="viz-key key-pace"></span>Темп запросов</li>
-                <li><span class="viz-key key-tick"></span>Запрос</li>
-                <li><span class="viz-key key-block"></span>Заблокированная страница</li>
-              </ul>
-              <ol class="viz-steps">
-                <li>Воркеры загружают страницы в обычном темпе, со случайными промежутками между запросами.</li>
-                <li>Источник начинает блокировать страницы, поэтому circuit breaker останавливает новые запросы.</li>
-                <li>Все воркеры ждут, пока закончится пауза. Она общая для всех и хранится в PostgreSQL.</li>
-                <li>Воркеры медленно возобновляют работу и шаг за шагом ускоряются.</li>
-                <li>Пайплайн выходит на устойчивый темп, который допускает источник.</li>
-              </ol>
-              <p class="viz-note">Это иллюстрация: масштаб времени условный.</p>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-pace"></span>Темп запросов</li>
+                  <li><span class="viz-key key-lane"><!-- include: partials/icons/lambda.svg --></span>Один воркер</li>
+                  <li><span class="viz-key key-tick"></span>Запрос</li>
+                  <li><span class="viz-key key-block"></span>Заблокированная страница</li>
+                  <li><span class="viz-key key-breaker"></span>Circuit breaker: закрыт, открыт, разгон</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li>Воркеры загружают страницы в обычном темпе, со случайными промежутками между запросами.</li>
+                  <li>Источник начинает блокировать страницы, поэтому circuit breaker останавливает новые запросы.</li>
+                  <li>Все воркеры ждут, пока закончится пауза. Она общая для всех и хранится в PostgreSQL.</li>
+                  <li>Воркеры возобновляют работу по одному, и темп растёт шаг за шагом.</li>
+                  <li>Пайплайн выходит на устойчивый темп, который допускает источник.</li>
+                </ol>
+                <p class="viz-note">Это иллюстрация: время идёт слева направо, масштаб условный.</p>
+              </div>
             </figure>
 
             <h2>Наблюдаемость и эксплуатация</h2>
-            <figure class="viz alarms" aria-labelledby="alarms-title">
+            <figure class="viz viz-full alarms" aria-labelledby="alarms-title">
               <figcaption id="alarms-title" class="viz-title">Сигналы, за которыми следит CloudWatch</figcaption>
               <button class="replay" type="button" title="Повторить анимацию" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -176,47 +182,55 @@
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
                   <span class="alarm-name">Оркестра&shy;тор остановлен</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-heartbeat.svg --></span>
                 </li>
                 <li>
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="alarm-name">Воркеры падают</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-errors.svg --></span>
                 </li>
                 <li>
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
                   <span class="alarm-name">Lambda сдерживает воркеров</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-throttles.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">Сообщения в очереди стареют</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-age.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">Источник блокирует страницы</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-blocked.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">Запись в базу не проходит</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-writes.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">Число объявлений за день падает</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-daily.svg --></span>
                 </li>
                 <li class="alarm-on">
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="alarm-name">Очередь растёт</span>
                   <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
                   <code class="alarm-state">ALARM</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
-                  <span class="alarm-name">Сообщения в очереди стареют</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
-                  <span class="alarm-name">Источник блокирует страницы</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
-                  <span class="alarm-name">Запись в базу не проходит</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
-                  <span class="alarm-name">Число объявлений за день падает</span>
-                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-queue.svg --></span>
                 </li>
               </ul>
               <p class="alarm-alert">
                 <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
-                <span>SNS присылает мне уведомление.</span>
+                <span class="alarm-alert-text"><span>SNS присылает мне уведомление.</span> <code>ALARM: SQS queue backing up</code></span>
               </p>
               <p class="viz-note">Это иллюстрация: в ней срабатывает один алерт.</p>
             </figure>

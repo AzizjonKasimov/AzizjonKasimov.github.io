@@ -173,15 +173,15 @@
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Animation erneut abspielen</span>
               </button>
-              <ol class="trace-steps">
+              <ol class="pipe">
                 <li>
                   <span class="trace-label">Ein Datensatz im Teilekatalog</span>
-                  <ul class="trace-fields">
-                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
-                    <li><code class="f-side">side: left</code></li>
-                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
-                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
-                  </ul>
+                  <span class="rec">
+                    <code class="rec-key f-part">part</code><code class="rec-val">Head Lamp Assembly</code>
+                    <code class="rec-key f-side">side</code><code class="rec-val">left</code>
+                    <code class="rec-key f-car">car</code><code class="rec-val">Hyundai Sonata 2019</code>
+                    <code class="rec-key f-also">synonyms</code><code class="rec-val">headlight, head lamp</code>
+                  </span>
                 </li>
                 <li>
                   <span class="trace-label">Der Text, der eingebettet wird</span>
@@ -194,6 +194,11 @@
                     <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
                   </span>
                 </li>
+                <li>
+                  <span class="trace-label">Wo er landet: neben Teilen mit ähnlichem Text</span>
+                  <span class="land-art" aria-hidden="true"><!-- include: partials/figures/vector-land.svg --></span>
+                  <span class="land-near"><span class="land-near-title">Die zwei nächsten Nachbarn</span><code>Head Lamp Assembly · Right</code><code>Fog Lamp · Left</code></span>
+                </li>
               </ol>
               <p class="viz-note">Ein ausgedachter, vereinfachter Datensatz, der die Schritte veranschaulicht.</p>
             </figure>
@@ -204,38 +209,50 @@
                 dafür, dass Auto und Seite stimmen.
               </li>
             </ul>
-            <figure class="viz space" aria-labelledby="space-title">
+            <figure class="viz viz-wide space" aria-labelledby="space-title">
               <figcaption id="space-title" class="viz-title">Beispiel: dieselbe Anfrage zwischen den Teilen des Katalogs</figcaption>
               <button class="replay" type="button" title="Animation erneut abspielen" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Animation erneut abspielen</span>
               </button>
-              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
-              <ul class="viz-legend">
-                <li><span class="viz-key key-query"></span>Anfrage</li>
-                <li><span class="viz-key key-head"></span>Scheinwerfer</li>
-                <li><span class="viz-key key-fog"></span>Nebelscheinwerfer</li>
-                <li><span class="viz-key key-other"></span>Ein anderes Teil</li>
-              </ul>
-              <ol class="viz-steps">
-                <li>
-                  <strong>Bedeutung.</strong> Die Vektorsuche findet die Teile, deren Bedeutung der Anfrage am nächsten
-                  kommt: Scheinwerfer für viele Autos.
-                </li>
-                <li>
-                  <strong>Filter.</strong> Die Entitäten filtern die Teile für ein anderes Auto oder die andere Seite
-                  heraus. Ein Spiegel für dasselbe Auto (gestrichelter Ring) kommt durch die Filter, aber seine Bedeutung
-                  ist weit von der Anfrage entfernt.
-                </li>
-                <li>
-                  <strong>Re-Ranking.</strong> Das LLM sortiert den Nebelscheinwerfer aus, sodass der linke Scheinwerfer
-                  an erster Stelle steht.
-                </li>
-              </ol>
-              <p class="viz-note">
-                Eine schematische Darstellung mit ausgedachten Teilen. Jeder Punkt ist ein Teil. Seine Position ergibt
-                sich aus der Bedeutung seines Textes, daher liegen Teile mit ähnlichem Text nah beieinander.
-              </p>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-map">
+                  <!-- include: partials/figures/vector-space.svg -->
+                  <code class="viz-pin" style="--x: 47.86; --y: 2.5; --at: 900ms">Hyundai Sonata 2019 left headlight</code>
+                  <code class="viz-pin" style="--x: 31; --y: 89; --at: 2150ms">model: Sonata</code>
+                  <code class="viz-pin" style="--x: 50; --y: 89; --at: 2220ms">year: 2019</code>
+                  <code class="viz-pin" style="--x: 67; --y: 89; --at: 2290ms">side: left</code>
+                  <code class="viz-pin pin-right pin-drop" style="--x: 55.6; --y: 41.8; --at: 3150ms">Fog Lamp · Left</code>
+                  <code class="viz-pin pin-left pin-hit" style="--x: 42; --y: 52.9; --at: 3400ms">Head Lamp Assembly · Left</code>
+                </div>
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-query"></span>Anfrage</li>
+                  <li><span class="viz-key key-head"></span>Scheinwerfer</li>
+                  <li><span class="viz-key key-fog"></span>Nebelscheinwerfer</li>
+                  <li><span class="viz-key key-other"></span>Ein anderes Teil</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li>
+                    <strong>Bedeutung.</strong> Die Vektorsuche findet die Teile, deren Bedeutung der Anfrage am nächsten
+                    kommt: Scheinwerfer für viele Autos.
+                  </li>
+                  <li>
+                    <strong>Filter.</strong> Die Entitäten filtern die Teile für ein anderes Auto oder die andere Seite
+                    heraus. Ein Spiegel für dasselbe Auto (gestrichelter Ring) kommt durch die Filter, aber seine Bedeutung
+                    ist weit von der Anfrage entfernt.
+                  </li>
+                  <li>
+                    <strong>Re-Ranking.</strong> Das LLM sortiert den Nebelscheinwerfer aus, sodass der linke Scheinwerfer
+                    an erster Stelle steht.
+                  </li>
+                </ol>
+                <p class="viz-note">
+                  Eine schematische Darstellung mit ausgedachten Teilen. Jeder Punkt ist ein Teil. Seine Position ergibt
+                  sich aus der Bedeutung seines Textes, daher liegen Teile mit ähnlichem Text nah beieinander.
+                </p>
+              </div>
             </figure>
             <ul>
               <li>
@@ -266,7 +283,7 @@
               Die Genauigkeit musste gemessen und nicht geschätzt werden. Ich habe eine interne Testseite gebaut, die dieselbe
               Pipeline wie die Produktivsuche auf einem festen, kuratierten Testdatensatz ausführt.
             </p>
-            <figure class="viz score" aria-labelledby="score-title">
+            <figure class="viz viz-full score" aria-labelledby="score-title">
               <figcaption id="score-title" class="viz-title">Beispiel: So bewertet die Testsuite drei Anfragen</figcaption>
               <button class="replay" type="button" title="Animation erneut abspielen" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -275,8 +292,8 @@
               <ol class="score-rows">
                 <li>
                   <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <ol class="score-results" aria-hidden="true"><li class="res-hit"><code>Tail Lamp · Right</code></li><li><code>Tail Lamp · Left</code></li><li><code>Trunk Lid</code></li></ol>
                   <div class="score-line">
-                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
                     <span class="score-rank">Das richtige Teil stand an erster Stelle.</span>
                     <span class="score-marks">
                       <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 1<span class="visually-hidden">: ja</span></span>
@@ -286,8 +303,8 @@
                 </li>
                 <li>
                   <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <ol class="score-results" aria-hidden="true"><li><code>Bumper Bracket</code></li><li><code>Front Bumper Lip</code></li><li class="res-hit"><code>Front Bumper Cover</code></li></ol>
                   <div class="score-line">
-                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
                     <span class="score-rank">Das richtige Teil stand an dritter Stelle.</span>
                     <span class="score-marks">
                       <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 1<span class="visually-hidden">: nein</span></span>
@@ -297,24 +314,33 @@
                 </li>
                 <li>
                   <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <ol class="score-results res-none" aria-hidden="true"><li></li><li></li><li></li></ol>
                   <div class="score-line">
-                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
                     <span class="score-rank">Die Anfrage lieferte nichts.</span>
                     <span class="score-marks">
                       <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 1<span class="visually-hidden">: nein</span></span>
                       <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 3<span class="visually-hidden">: nein</span></span>
                     </span>
                   </div>
-                  <p class="score-fix">
-                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
-                    <span>Die Fehleranalyse führte das leere Ergebnis auf die Karosseriefarbe in der Anfrage zurück. Nach der Korrektur lief der Test erneut.</span>
-                  </p>
                 </li>
               </ol>
-              <p class="viz-note">
-                Ausgedachte Anfragen. Accuracy@1 ist der Anteil der Testanfragen, bei denen das richtige Teil an erster
-                Stelle steht. Bei accuracy@3 genügt ein Platz unter den ersten drei.
+              <div class="score-board">
+                <div class="meter">
+                  <span class="meter-name">Richtiges Teil an erster Stelle (accuracy@1)</span>
+                  <span class="meter-track"><span class="meter-fill" style="--v: 33.3"></span></span>
+                  <span class="meter-value">1 von 3</span>
+                </div>
+                <div class="meter">
+                  <span class="meter-name">Richtiges Teil unter den ersten drei (accuracy@3)</span>
+                  <span class="meter-track"><span class="meter-fill" style="--v: 66.7"></span></span>
+                  <span class="meter-value">2 von 3</span>
+                </div>
+              </div>
+              <p class="score-fix">
+                <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                <span>Die Fehleranalyse führte das leere Ergebnis auf die Karosseriefarbe in der Anfrage zurück. Nach der Korrektur lief der Test erneut.</span>
               </p>
+              <p class="viz-note">Ausgedachte Anfragen. Die Testsuite bewertet ihren festen Testdatensatz genauso.</p>
             </figure>
             <ul>
               <li><strong>Metriken:</strong> accuracy@1 und accuracy@3, Precision, Recall, F1, eine Konfusionsmatrix und Kreuzvalidierung.</li>
@@ -324,20 +350,48 @@
             </ul>
 
             <h2>Ergebnisse</h2>
-            <figure class="viz pass" aria-labelledby="pass-title">
+            <figure class="viz viz-full pass" aria-labelledby="pass-title">
               <figcaption id="pass-title" class="viz-title">Der Test des staatlichen Programms: 3.000 Teile, ein Quadrat pro Teil</figcaption>
               <button class="replay" type="button" title="Animation erneut abspielen" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Animation erneut abspielen</span>
               </button>
               <div class="viz-canvas" aria-hidden="true">
-                <!-- include: partials/figures/test-grid.svg -->
-                <!-- include: partials/figures/test-grid-narrow.svg -->
+                <div class="pass-head">
+                  <span class="pass-count"><span class="count">3.000</span><span class="count-label">Teile geprüft</span></span>
+                  <span class="pass-samples">
+                    <span class="pass-sample">
+                      <span class="pass-ok"><!-- include: partials/icons/check.svg --></span>
+                      <code>Hyundai Sonata 2019 left headlight</code>
+                      <span class="pass-arrow">→</span>
+                      <code>PN 10421-L · Head Lamp · Left</code>
+                    </span>
+                    <span class="pass-sample">
+                      <span class="pass-no"><!-- include: partials/icons/x.svg --></span>
+                      <code>Hyundai Sonata 2019 left headlight</code>
+                      <span class="pass-arrow">→</span>
+                      <code>PN 10421-R · Head Lamp · Right</code>
+                      <span class="pass-miss">zählt als Fehler</span>
+                    </span>
+                  </span>
+                  <code class="pass-stamp">PASSED</code>
+                </div>
+                <div class="viz-map">
+                  <!-- include: partials/figures/test-grid.svg -->
+                  <!-- include: partials/figures/test-grid-narrow.svg -->
+                  <span class="pass-scan"></span>
+                  <code class="viz-pin pass-mark" style="--x: 50; --y: 95; --at: 2700ms">95%</code>
+                </div>
               </div>
               <ul class="viz-legend">
-                <li><span class="viz-key key-right"></span>Mindestens 95&nbsp;% mussten richtig gefunden werden.</li>
-                <li><span class="viz-key key-room"></span>Höchstens 5&nbsp;% durften falsch sein.</li>
+                <li><span class="viz-key key-checked"></span>Ein geprüftes Teil</li>
+                <li><span class="viz-key key-bar"></span>Die Bestehensgrenze: mindestens 95&nbsp;% richtig</li>
+                <li><span class="viz-key key-slot"></span>Spielraum für Fehler: bis zu 150 (5&nbsp;%)</li>
               </ul>
+              <p class="viz-note">
+                Richtig heißt: die exakte Teilenummer für genau das gesuchte Auto. Die beiden Beispiele sind ausgedacht. Die
+                Linie markiert die Bestehensgrenze, nicht das genaue Ergebnis: Die Suche erreichte 95&nbsp;% oder mehr.
+              </p>
             </figure>
             <ul class="metric-grid">
               <li><span class="num">95&nbsp;%+</span><span class="lbl">Genauigkeit im 3.000-Teile-Test des staatlichen Programms</span></li>

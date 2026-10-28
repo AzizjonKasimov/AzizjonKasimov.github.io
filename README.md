@@ -82,13 +82,18 @@ shows the same drawing.
 - **Figures:** a `<figure class="viz ...">` shows how part of a system works, as a short story that
   plays once (styles in `src/figures.css`). Its drawing is an SVG partial in `partials/figures/`
   inside a `.viz-canvas`, with no words except technology names that every language writes the same
-  way; the title, the numbered steps under the drawing, the legend, and the note are HTML, so they
-  are translated. A drawing that gets too small on phones has a `-narrow.svg` version for screens
-  below 480px (the root `<svg>` carries `class="wide"` or `class="narrow"`, and each version needs
-  its own ids). Every figure says when it is an illustration with made-up data. The semantic search
-  page has four (how a part becomes searchable, the query among the catalog's parts, how the test
-  suite scores a query, the 3,000-part test) and the AWS pipeline page three (many workers and one
-  database, backing off, the CloudWatch alarms).
+  way; the title, the numbered steps, the legend, and the note are HTML, so they are translated.
+  From 1080px a `viz-wide` figure puts its drawing on the left and its story (`.viz-side`) on the
+  right, and a `viz-full` figure simply takes the full width. Labels laid over a drawing are
+  `<code class="viz-pin">` inside a `.viz-map`, placed at `--x`/`--y` percent of it; when the
+  drawing is narrower than 460px they flow as chips under it, in story order. A drawing that gets
+  too small on phones has a `-narrow.svg` version for screens below 480px (the root `<svg>` carries
+  `class="wide"` or `class="narrow"`, and each version needs its own ids). Every figure says when it
+  is an illustration with made-up data. The semantic search page has four (how a part becomes
+  searchable, as four cards in a `.pipe`; the query among the catalog's parts; how the test suite
+  scores three queries; the 3,000-part test run) and the AWS pipeline page three (many workers and
+  one database, backing off with one lane per worker, the CloudWatch alarm board with a line per
+  signal).
 
 ### Motion
 
@@ -107,13 +112,15 @@ item as it comes into view.
 - While a work card is hovered or focused, its drawing plays a loop: a dash travels along its lines
   (`art-pulse` paths with `pathLength="100"`, started in turn by `--pulse-at`), and parts marked
   `hover-*` move. The loop stops when the pointer leaves.
-- A figure (`.viz`) plays its whole story, a few seconds long, once it is well on screen (its top
+- A figure (`.viz`) plays its whole story, under five seconds, once it is well on screen (its top
   above 70% of the screen height), and its Replay button plays it again; the button stays hidden
   without motion. Its drawing uses the same shape classes, plus `spread`, `dim` (fades to the
-  shape's dimmed still opacity), `blip` (shows only while the story plays), and `ping-once`; the
-  steps under it appear as their part of the story begins (`--at` per step in `src/motion.css`).
-  A custom property such as `--dur` passes down to the shapes inside a group, so give a nested
-  animated shape its own `--dur`.
+  shape's dimmed still opacity), `blip` (shows only while the story plays), `grow-up`, `ping-once`,
+  and `fx-dot` (a round dash that travels along a `pathLength="100"` line, like a unit of work).
+  Each step appears as its part of the story begins and stays lit until the next begins (`--at` and
+  `--until` per step in `src/motion.css`). The four cards of a `.pipe` are watched one by one, like
+  diagram steps, so on phones each plays as it scrolls in. A custom property such as `--dur` passes
+  down to the shapes inside a group, so give a nested animated shape its own `--dur`.
 - Anything new that animates must sit inside one of the items the script watches (listed at the top
   of `src/motion.css`). Otherwise its animation waits forever, what it shows stays hidden, and the
   layout check fails.

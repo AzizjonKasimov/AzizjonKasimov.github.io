@@ -1,32 +1,50 @@
-<svg viewBox="0 0 400 150">
+<svg viewBox="0 0 400 284">
   <defs>
     <pattern id="bo-hatch" class="bo-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v6" /></pattern>
+    <symbol id="bo-lambda" viewBox="0 0 24 24"><path d="M5 3h3.5L19 21" /><path d="M12.3 10.6 5 21" /></symbol>
   </defs>
-  <rect class="fade" x="165" y="26" width="75" height="100" fill="url(#bo-hatch)" style="--at: 1685ms; --dur: 400ms" />
-  <path class="art-line" d="M0 96h400" />
-  <path class="bo-sep fade" d="M110 26v100" style="--at: 1190ms" />
-  <path class="bo-sep fade" d="M165 26v100" style="--at: 1685ms" />
-  <path class="bo-sep fade" d="M240 26v100" style="--at: 2360ms" />
-  <path class="bo-sep fade" d="M320 26v100" style="--at: 3080ms" />
+  <rect class="fade" x="170" y="28" width="74" height="224" fill="url(#bo-hatch)" style="--at: 1589ms; --dur: 400ms" />
+  <path class="art-line" d="M28 104h368" />
+  <path class="bo-lane" d="M28 146h368M28 176h368M28 206h368M28 236h368" />
+  <path class="bo-sep fade" d="M118 28v224" style="--at: 1080ms" />
+  <path class="bo-sep fade" d="M170 28v224" style="--at: 1589ms" />
+  <path class="bo-sep fade" d="M244 28v224" style="--at: 2313ms" />
+  <path class="bo-sep fade" d="M322 28v224" style="--at: 3076ms" />
   <g class="wipe" style="--at: 200ms; --dur: 3600ms">
-    <path class="bo-area" d="M0 40C6 37 12 42 18 39S30 36 36 40 48 43 54 39 66 36 72 40 84 42 90 38 102 39 110 40L150 40C157 40 158 96 165 96H240V88H256V80H272V72H288V66H304V62H320C328 61 336 64 344 61S360 62 368 60 384 63 392 61L400 61V96H0Z" />
-    <path class="bo-line" d="M0 40C6 37 12 42 18 39S30 36 36 40 48 43 54 39 66 36 72 40 84 42 90 38 102 39 110 40L150 40C157 40 158 96 165 96H240V88H256V80H272V72H288V66H304V62H320C328 61 336 64 344 61S360 62 368 60 384 63 392 61L400 61" />
-    <path class="bo-tick" d="M4 108v16M9 108v16M13 108v16M19 108v16M23 108v16M28 108v16M34 108v16M38 108v16M43 108v16M49 108v16M52 108v16M58 108v16M63 108v16M67 108v16M73 108v16M77 108v16M82 108v16M88 108v16M92 108v16M97 108v16M103 108v16M107 108v16M112 108v16M117 108v16M127 108v16M136 108v16M150 108v16M244 108v16M253 108v16M261 108v16M268 108v16M274 108v16M280 108v16M285 108v16M290 108v16M295 108v16M299 108v16M303 108v16M307 108v16M311 108v16M315 108v16M318 108v16M324 108v16M331 108v16M337 108v16M344 108v16M350 108v16M357 108v16M363 108v16M370 108v16M376 108v16M383 108v16M389 108v16M396 108v16" />
-    <path class="bo-tick bo-block pop" d="M121 108v16" style="--at: 1289ms; --dur: 350ms" />
-    <path class="bo-tick bo-block pop" d="M131 108v16" style="--at: 1379ms; --dur: 350ms" />
-    <path class="bo-tick bo-block pop" d="M141 108v16" style="--at: 1469ms; --dur: 350ms" />
-    <path class="bo-tick bo-block pop" d="M145 108v16" style="--at: 1505ms; --dur: 350ms" />
-    <path class="bo-tick bo-block pop" d="M155 108v16" style="--at: 1595ms; --dur: 350ms" />
-    <path class="bo-tick bo-block pop" d="M159 108v16" style="--at: 1631ms; --dur: 350ms" />
-    <path class="bo-tick bo-block pop" d="M163 108v16" style="--at: 1667ms; --dur: 350ms" />
+    <path class="bo-area" d="M28 44C34 41 40 46 46 43S58 40 64 44 76 47 82 43 94 40 100 44 112 45 118 44L156 44C163 44 164 104 170 104H244V96H260V88H276V80H292V74H306V70H322C330 69 338 72 346 69S362 70 370 68 386 71 396 69V104H28Z" />
+    <path class="bo-line" d="M28 44C34 41 40 46 46 43S58 40 64 44 76 47 82 43 94 40 100 44 112 45 118 44L156 44C163 44 164 104 170 104H244V96H260V88H276V80H292V74H306V70H322C330 69 338 72 346 69S362 70 370 68 386 71 396 69" />
+    <rect class="bo-closed" x="28" y="114" width="142" height="8" rx="2" />
+    <rect class="bo-open" x="170" y="114" width="74" height="8" rx="2" />
+    <rect class="bo-ramp" x="244" y="114" width="78" height="8" rx="2" />
+    <rect class="bo-closed" x="322" y="114" width="74" height="8" rx="2" />
+    <path class="bo-tick" d="M34 139v14M47 139v14M59 139v14M74 139v14M88 139v14M101 139v14M113 139v14M124 139v14M149 139v14M250 139v14M274 139v14M298 139v14M320 139v14M344 139v14M366 139v14M388 139v14" />
+    <path class="bo-tick" d="M39 169v14M52 169v14M66 169v14M79 169v14M92 169v14M107 169v14M121 169v14M133 169v14M270 169v14M294 169v14M318 169v14M340 169v14M362 169v14M384 169v14" />
+    <path class="bo-tick" d="M31 199v14M45 199v14M57 199v14M70 199v14M84 199v14M97 199v14M110 199v14M140 199v14M290 199v14M314 199v14M336 199v14M358 199v14M380 199v14" />
+    <path class="bo-tick" d="M36 229v14M50 229v14M63 229v14M77 229v14M90 229v14M104 229v14M116 229v14M122 229v14M155 229v14M310 229v14M332 229v14M354 229v14M376 229v14" />
+    <path class="bo-tick bo-block pop" d="M127 199v14" style="--at: 1167ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M131 229v14" style="--at: 1206ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M136 139v14" style="--at: 1257ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M143 229v14" style="--at: 1325ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M145 169v14" style="--at: 1345ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M152 199v14" style="--at: 1413ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M157 169v14" style="--at: 1462ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M161 139v14" style="--at: 1501ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M164 199v14" style="--at: 1530ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M166 229v14" style="--at: 1550ms; --dur: 350ms" />
+    <path class="bo-tick bo-block pop" d="M167 169v14" style="--at: 1560ms; --dur: 350ms" />
   </g>
-  <g class="pop" style="--at: 1750ms">
-    <circle class="art-panel" cx="202.5" cy="62" r="12" />
-    <path class="art-accent-line" d="M199 57v10m7-10v10" />
+  <use class="bo-worker nap" href="#bo-lambda" x="5" y="139" width="14" height="14" style="--nap: 783ms" />
+  <use class="bo-worker nap" href="#bo-lambda" x="5" y="169" width="14" height="14" style="--nap: 978ms" />
+  <use class="bo-worker nap" href="#bo-lambda" x="5" y="199" width="14" height="14" style="--nap: 1174ms" />
+  <use class="bo-worker nap" href="#bo-lambda" x="5" y="229" width="14" height="14" style="--nap: 1370ms" />
+  <g class="pop" style="--at: 1700ms">
+    <circle class="art-panel" cx="207" cy="64" r="13" />
+    <path class="art-accent-line" d="M203.5 58.5v11m7-11v11" />
   </g>
-  <g class="pop" style="--at: 200ms"><circle class="bo-badge" cx="55" cy="13" r="8.5" /><text class="bo-num" x="55" y="13" dy=".36em">1</text></g>
-  <g class="pop" style="--at: 1190ms"><circle class="bo-badge" cx="137.5" cy="13" r="8.5" /><text class="bo-num" x="137.5" y="13" dy=".36em">2</text></g>
-  <g class="pop" style="--at: 1685ms"><circle class="bo-badge" cx="202.5" cy="13" r="8.5" /><text class="bo-num" x="202.5" y="13" dy=".36em">3</text></g>
-  <g class="pop" style="--at: 2360ms"><circle class="bo-badge" cx="280" cy="13" r="8.5" /><text class="bo-num" x="280" y="13" dy=".36em">4</text></g>
-  <g class="pop" style="--at: 3080ms"><circle class="bo-badge" cx="360" cy="13" r="8.5" /><text class="bo-num" x="360" y="13" dy=".36em">5</text></g>
+  <path class="bo-time" d="M28 270h362m-5-4 5 4-5 4" />
+  <g class="pop" style="--at: 200ms"><circle class="bo-badge" cx="73" cy="14" r="8.5" /><text class="bo-num" x="73" y="14" dy=".36em">1</text></g>
+  <g class="pop" style="--at: 1080ms"><circle class="bo-badge" cx="144" cy="14" r="8.5" /><text class="bo-num" x="144" y="14" dy=".36em">2</text></g>
+  <g class="pop" style="--at: 1589ms"><circle class="bo-badge" cx="207" cy="14" r="8.5" /><text class="bo-num" x="207" y="14" dy=".36em">3</text></g>
+  <g class="pop" style="--at: 2313ms"><circle class="bo-badge" cx="283" cy="14" r="8.5" /><text class="bo-num" x="283" y="14" dy=".36em">4</text></g>
+  <g class="pop" style="--at: 3076ms"><circle class="bo-badge" cx="359" cy="14" r="8.5" /><text class="bo-num" x="359" y="14" dy=".36em">5</text></g>
 </svg>

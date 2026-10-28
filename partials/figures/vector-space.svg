@@ -1,48 +1,92 @@
-<svg viewBox="20 14 364 214">
-  <circle class="vs-radius spread" cx="212" cy="110" r="84" style="--at: 1300ms; --dur: 800ms" />
-  <g class="pop" style="--at: 0ms"><circle class="vs-other vs-out dim" cx="48" cy="50" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 40ms"><circle class="vs-other vs-out dim" cx="66" cy="44" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 80ms"><circle class="vs-other vs-out dim" cx="74" cy="62" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 120ms"><circle class="vs-other vs-out dim" cx="56" cy="70" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 160ms"><circle class="vs-other vs-out dim" cx="40" cy="64" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 60ms"><circle class="vs-other vs-out dim" cx="338" cy="40" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 100ms"><circle class="vs-other vs-out dim" cx="356" cy="30" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 140ms"><circle class="vs-other vs-out dim" cx="368" cy="48" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 180ms"><circle class="vs-other vs-out dim" cx="350" cy="58" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 220ms"><circle class="vs-other vs-out dim" cx="334" cy="54" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 120ms"><circle class="vs-other vs-out dim" cx="64" cy="178" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 160ms"><circle class="vs-other vs-out dim" cx="84" cy="172" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 200ms"><circle class="vs-other vs-out dim" cx="92" cy="192" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 240ms"><circle class="vs-other vs-out dim" cx="70" cy="198" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 280ms"><circle class="vs-other vs-out dim" cx="56" cy="190" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 180ms"><circle class="vs-other vs-out dim" cx="320" cy="188" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 220ms"><circle class="vs-other vs-out dim" cx="340" cy="182" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 260ms"><circle class="vs-other vs-out dim" cx="350" cy="200" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 300ms"><circle class="vs-other" cx="330" cy="210" r="4.5" /></g>
-  <g class="pop" style="--at: 340ms"><circle class="vs-other vs-out dim" cx="314" cy="204" r="4.5" style="--at: 2300ms; --dur: 500ms" /></g>
-  <circle class="vs-pass pop" cx="330" cy="210" r="9" style="--at: 2600ms" />
-  <g class="pop" style="--at: 300ms"><circle class="vs-head" cx="196" cy="124" r="7" /></g>
-  <g class="pop" style="--at: 340ms"><circle class="vs-head vs-out dim" cx="176" cy="112" r="7" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 380ms"><circle class="vs-head vs-out dim" cx="182" cy="142" r="7" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 420ms"><circle class="vs-head vs-out dim" cx="204" cy="148" r="7" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 460ms"><circle class="vs-head vs-out dim" cx="224" cy="136" r="7" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 500ms"><circle class="vs-head vs-out dim" cx="164" cy="134" r="7" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 540ms"><circle class="vs-head vs-out dim" cx="190" cy="100" r="7" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 420ms"><path class="vs-fog" d="M244 86.5 251.5 94 244 101.5 236.5 94z" /></g>
-  <g class="pop" style="--at: 460ms"><path class="vs-fog vs-out dim" d="M266 66.5 273.5 74 266 81.5 258.5 74z" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 500ms"><path class="vs-fog vs-out dim" d="M280 88.5 287.5 96 280 103.5 272.5 96z" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 540ms"><path class="vs-fog vs-out dim" d="M256 50.5 263.5 58 256 65.5 248.5 58z" style="--at: 2300ms; --dur: 500ms" /></g>
-  <g class="pop" style="--at: 950ms">
-    <circle class="vs-query-ring" cx="212" cy="110" r="10" />
-    <circle class="vs-query" cx="212" cy="110" r="5" />
+<svg viewBox="0 0 560 340">
+  <defs>
+    <radialGradient id="vs-glow">
+      <stop class="vs-glow-in" offset="0" />
+      <stop class="vs-glow-out" offset="1" />
+    </radialGradient>
+  </defs>
+  <g class="fade" style="--dur: 700ms">
+    <ellipse class="vs-region" cx="88" cy="80" rx="58" ry="40" />
+    <ellipse class="vs-region" cx="470" cy="78" rx="58" ry="40" />
+    <ellipse class="vs-region" cx="88" cy="264" rx="58" ry="40" />
+    <ellipse class="vs-region" cx="468" cy="264" rx="58" ry="40" />
+    <ellipse class="vs-region" cx="246" cy="190" rx="54" ry="44" />
+    <ellipse class="vs-region" cx="322" cy="120" rx="42" ry="34" />
   </g>
-  <circle class="vs-ripple ping-once" cx="212" cy="110" r="10" style="--at: 1050ms" />
+  <circle class="vs-radius spread" cx="268" cy="166" r="112" style="--at: 1300ms; --dur: 800ms" />
+  <g class="pop" style="--at: 60ms">
+    <circle class="vs-badge" cx="40" cy="38" r="15" />
+    <g class="vs-icon"><circle cx="40" cy="38" r="7" /><circle cx="40" cy="38" r="2.4" /><path d="M46.2 32.6a8.6 8.6 0 0 1 0 10.8" /></g>
+  </g>
+  <g class="pop" style="--at: 120ms">
+    <circle class="vs-badge" cx="520" cy="38" r="15" />
+    <g class="vs-icon"><path d="M513.5 45.5v-8l6-6.5h7v14.5z" /><path d="M516 38h10" /><path d="M522 41.5h2.5" /></g>
+  </g>
+  <g class="pop" style="--at: 180ms">
+    <circle class="vs-badge" cx="40" cy="300" r="15" />
+    <g class="vs-icon"><path d="M35 292.5h10v6.5H35z" /><path d="M35 295.5h10" /><path d="M40 299v4.5" /><circle cx="40" cy="305.5" r="1.8" /></g>
+  </g>
+  <g class="pop" style="--at: 240ms">
+    <circle class="vs-badge" cx="520" cy="300" r="15" />
+    <g class="vs-icon"><path d="M515.5 294.5h8.5a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-6l-2.5-3.5z" /><path d="M515.5 300h-4v5" /></g>
+  </g>
+  <g class="pop" style="--at: 0ms"><circle class="vs-other vs-out dim" cx="70" cy="72" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 40ms"><circle class="vs-other vs-out dim" cx="90" cy="58" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 80ms"><circle class="vs-other vs-out dim" cx="112" cy="72" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 120ms"><circle class="vs-other vs-out dim" cx="104" cy="96" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 160ms"><circle class="vs-other vs-out dim" cx="80" cy="100" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 200ms"><circle class="vs-other vs-out dim" cx="60" cy="90" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 60ms"><circle class="vs-other vs-out dim" cx="448" cy="70" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 100ms"><circle class="vs-other vs-out dim" cx="468" cy="56" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 140ms"><circle class="vs-other vs-out dim" cx="492" cy="68" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 180ms"><circle class="vs-other vs-out dim" cx="494" cy="92" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 220ms"><circle class="vs-other vs-out dim" cx="470" cy="100" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 260ms"><circle class="vs-other vs-out dim" cx="448" cy="94" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 120ms"><circle class="vs-other vs-out dim" cx="70" cy="256" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 160ms"><circle class="vs-other vs-out dim" cx="92" cy="244" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 200ms"><circle class="vs-other vs-out dim" cx="114" cy="258" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 240ms"><circle class="vs-other vs-out dim" cx="106" cy="282" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 280ms"><circle class="vs-other vs-out dim" cx="82" cy="286" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 320ms"><circle class="vs-other vs-out dim" cx="62" cy="274" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 180ms"><circle class="vs-other vs-out dim" cx="448" cy="256" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 220ms"><circle class="vs-other vs-out dim" cx="468" cy="244" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 260ms"><circle class="vs-other vs-out dim" cx="490" cy="256" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 300ms"><circle class="vs-other vs-out dim" cx="488" cy="280" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 340ms"><circle class="vs-other" cx="466" cy="286" r="6" /></g>
+  <g class="pop" style="--at: 380ms"><circle class="vs-other vs-out dim" cx="446" cy="276" r="6" style="--at: 2300ms; --dur: 500ms" /></g>
+  <circle class="vs-pass pop" cx="466" cy="286" r="11" style="--at: 2600ms" />
+  <g class="pop" style="--at: 420ms">
+    <circle class="vs-badge vs-badge-head" cx="200" cy="236" r="15" />
+    <g class="vs-icon vs-icon-head"><path d="M193 231h4.5a5 5 0 0 1 0 10H193z" /><path d="M203.5 232h4m-4 4h4m-4 4h4" /></g>
+  </g>
+  <g class="pop" style="--at: 480ms">
+    <circle class="vs-badge vs-badge-fog" cx="368" cy="94" r="15" />
+    <g class="vs-icon vs-icon-fog"><path d="M361 89h4.5a5 5 0 0 1 0 10H361z" /><path d="M371.5 90l4 1.5m-4 2.5 4 1.5m-4 2.5 4 1.5" /></g>
+  </g>
+  <g class="pop" style="--at: 300ms"><circle class="vs-head" cx="248" cy="180" r="7.5" /></g>
+  <g class="pop" style="--at: 340ms"><circle class="vs-head vs-out dim" cx="226" cy="168" r="7.5" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 380ms"><circle class="vs-head vs-out dim" cx="230" cy="204" r="7.5" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 420ms"><circle class="vs-head vs-out dim" cx="256" cy="214" r="7.5" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 460ms"><circle class="vs-head vs-out dim" cx="280" cy="200" r="7.5" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 500ms"><circle class="vs-head vs-out dim" cx="206" cy="190" r="7.5" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 540ms"><circle class="vs-head vs-out dim" cx="238" cy="148" r="7.5" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 420ms"><path class="vs-fog" d="M298 134 306 142 298 150 290 142z" /></g>
+  <g class="pop" style="--at: 460ms"><path class="vs-fog vs-out dim" d="M324 110 332 118 324 126 316 118z" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 500ms"><path class="vs-fog vs-out dim" d="M346 130 354 138 346 146 338 138z" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 540ms"><path class="vs-fog vs-out dim" d="M312 88 320 96 312 104 304 96z" style="--at: 2300ms; --dur: 500ms" /></g>
+  <g class="pop" style="--at: 580ms"><path class="vs-fog vs-out dim" d="M338 100 346 108 338 116 330 108z" style="--at: 2300ms; --dur: 500ms" /></g>
+  <path class="vs-leader pinned-only fade" d="M268 32v118" style="--at: 950ms; --dur: 400ms" />
+  <g class="pop" style="--at: 1000ms">
+    <circle class="vs-query-ring" cx="268" cy="166" r="11" />
+    <circle class="vs-query" cx="268" cy="166" r="5.5" />
+  </g>
+  <circle class="vs-ripple ping-once" cx="268" cy="166" r="11" style="--at: 1100ms" />
   <g class="pop" style="--at: 3100ms">
-    <circle class="vs-miss" cx="244" cy="94" r="8.5" />
-    <path class="vs-mark" d="m241 91 6 6m0-6-6 6" />
+    <circle class="vs-miss" cx="298" cy="142" r="9.5" />
+    <path class="vs-mark" d="m294.5 138.5 7 7m0-7-7 7" />
   </g>
   <g class="pop" style="--at: 3350ms">
-    <circle class="vs-hit" cx="196" cy="124" r="8.5" />
-    <path class="vs-mark" d="m192.4 124.2 2.6 2.6 5-5.2" />
+    <circle class="vs-hit" cx="248" cy="180" r="9.5" />
+    <path class="vs-mark" d="m243.8 180.3 3 3 5.4-5.8" />
   </g>
 </svg>

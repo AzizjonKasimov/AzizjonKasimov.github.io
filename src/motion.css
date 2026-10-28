@@ -7,7 +7,8 @@
    - A small script at the end of partials/head.html adds .motion to <html>. When one of these
      items first scrolls into view, the script gives it .in-view and --n, its place among the
      items of the same figure, list, or card grid that came into view at the same time, so they
-     play in turn: .stat, .card-art, .steps > li, .sidecars, .trace-steps > li, .chart, .shots > li.
+     play in turn: .stat, .card-art, .steps > li, .sidecars, .trace-steps > li, .pipe > li, .chart,
+     .shots > li.
    - The case-study figures (.viz, src/figures.css) are watched the same way, but each waits until
      it is well on screen, because it tells a story over a few seconds; its Replay button plays
      the story again.
@@ -381,6 +382,119 @@
   }
 }
 
+/* A level that fills from the bottom, such as the listings landing in the database. */
+@keyframes grow-up {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* The test run: its sweep, its verdict, and a glow when it passes. */
+@keyframes glow-ok {
+  0%,
+  100% {
+    box-shadow: none;
+  }
+
+  35% {
+    box-shadow:
+      0 0 0 3px var(--ok-soft),
+      0 0 24px color-mix(in srgb, var(--ok) 45%, transparent);
+  }
+}
+
+@keyframes scan-down {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes drop-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+
+  18%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: rotate(-5deg) scale(1.9);
+  }
+}
+
+/* A record field flashing in its color. */
+@keyframes field-flash {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: color-mix(in srgb, var(--field) 30%, transparent);
+  }
+}
+
+/* A notification sliding in. */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px) scale(0.96);
+  }
+}
+
+/* A worker waiting out the cooldown. */
+@keyframes nap {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  12%,
+  88% {
+    opacity: 0.3;
+  }
+}
+
+/* A figure's step while the story is on it. */
+@keyframes step-on {
+  from,
+  to {
+    background-color: var(--accent-soft);
+    color: var(--text);
+  }
+}
+
+@keyframes badge-on {
+  from,
+  to {
+    border-color: var(--accent);
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+}
+
 @media screen and (prefers-reduced-motion: no-preference) {
   /* Every animation waits at its first frame until its item scrolls into view. */
   .motion {
@@ -622,7 +736,7 @@
   /* Case-study figures (src/figures.css). In their drawings, as in the work-card drawings, each
      shape says what it does with a class and when with --at (and how long with --dur). The words
      under a drawing appear as the part of the story they tell begins. */
-  .motion .viz :is(.fade, .rise, .pop, .spread, .draw, .wipe, .dim, .blip) {
+  .motion :is(.viz, .embed) :is(.fade, .rise, .pop, .spread, .draw, .wipe, .dim, .blip, .turn, .grow-up) {
     --rise: 6px;
     animation-duration: var(--dur, 450ms);
     animation-timing-function: var(--ease-out);
@@ -630,52 +744,66 @@
     animation-fill-mode: backwards;
   }
 
-  .motion .viz .fade {
+  .motion :is(.viz, .embed) .fade {
     animation-name: fade-in;
   }
 
-  .motion .viz .rise {
+  .motion :is(.viz, .embed) .rise {
     animation-name: rise;
   }
 
-  .motion .viz .pop {
+  .motion :is(.viz, .embed) .pop {
     animation-name: pop;
     animation-timing-function: var(--ease-pop);
     transform-box: fill-box;
     transform-origin: center;
   }
 
-  .motion .viz .spread {
+  .motion :is(.viz, .embed) .spread {
     animation-name: spread;
     transform-box: fill-box;
     transform-origin: center;
   }
 
-  .motion .viz .draw {
+  .motion :is(.viz, .embed) .draw {
     animation-name: draw;
     animation-timing-function: var(--ease-in-out);
   }
 
-  .motion .viz .wipe {
+  .motion :is(.viz, .embed) .wipe {
     animation-name: wipe;
     animation-timing-function: linear;
   }
 
-  .motion .viz .dim {
+  .motion :is(.viz, .embed) .dim {
     animation-name: dim;
     animation-timing-function: ease;
   }
 
-  .motion .viz .blip {
+  .motion :is(.viz, .embed) .blip {
     animation-name: blip;
     animation-timing-function: linear;
   }
 
-  .motion .viz .ping-once {
+  .motion :is(.viz, .embed) .turn {
+    animation-name: turn;
+  }
+
+  .motion :is(.viz, .embed) .grow-up {
+    animation-name: grow-up;
+    transform-box: fill-box;
+    transform-origin: bottom;
+  }
+
+  .motion :is(.viz, .embed) .fx-dot {
+    animation: travel-once var(--dur, 450ms) linear var(--at, 0ms) backwards;
+  }
+
+  .motion :is(.viz, .embed) .ping-once {
     animation: ping-ring 900ms var(--ease-out) var(--at, 0ms) backwards;
   }
 
-  .motion .viz .art-pulse {
+  .motion :is(.viz, .embed) .art-pulse {
     animation: travel-once var(--dur, 500ms) linear var(--at, 0ms) backwards;
   }
 
@@ -683,44 +811,87 @@
     animation: fade-in 500ms ease 200ms backwards;
   }
 
+  /* Each step appears as its part of the story begins and stays lit until the next one begins
+     (--at to --until); the still figure shows every step unlit. */
   .motion .viz .viz-steps li {
-    animation: rise 450ms var(--ease-out) var(--at, 0ms) backwards;
+    animation:
+      rise 450ms var(--ease-out) var(--at, 0ms) backwards,
+      step-on calc(var(--until, var(--at, 0ms)) - var(--at, 0ms)) linear var(--at, 0ms);
+  }
+
+  .motion .viz .viz-steps li::before {
+    animation: badge-on calc(var(--until, var(--at, 0ms)) - var(--at, 0ms)) linear var(--at, 0ms);
+  }
+
+  .motion .viz-pin {
+    animation: pop 420ms var(--ease-pop) var(--at, 0ms) backwards;
   }
 
   /* The query among the parts: meaning, then the filters, then the re-ranking. */
   .motion .space .viz-steps li:nth-child(1) {
     --at: 1300ms;
+    --until: 2300ms;
   }
 
   .motion .space .viz-steps li:nth-child(2) {
     --at: 2300ms;
+    --until: 3100ms;
   }
 
   .motion .space .viz-steps li:nth-child(3) {
     --at: 3100ms;
+    --until: 4300ms;
   }
 
-  /* How a part becomes searchable: the record's fields pop out, the text builds up field by
-     field, and the vector draws itself from left to right. */
-  .motion .trace-fields li {
-    animation: pop 420ms var(--ease-pop) calc(var(--step) + var(--late, 0ms) + 140ms) backwards;
+  /* How a part becomes searchable: the four cards appear in turn (each is watched, so on phones
+     each plays as it scrolls in). The record's fields pop out, the text lights up field by field,
+     the vector fills in, and the part drops into its place among the lamps. */
+  .motion .pipe > li {
+    --step: calc(var(--n, 0) * 650ms);
+    animation: rise 500ms var(--ease-out) var(--step) backwards;
   }
 
-  .motion .trace-fields li:nth-child(2),
+  .motion .pipe > li:not(:last-child)::after {
+    animation: fade-in 300ms ease calc(var(--step) + 500ms) backwards;
+  }
+
+  .motion .pipe > li > code {
+    animation: rise 500ms var(--ease-out) calc(var(--step) + 140ms) backwards;
+  }
+
+  .motion .rec > code {
+    animation: pop 380ms var(--ease-pop) calc(var(--step) + var(--late, 0ms) + 160ms) backwards;
+  }
+
+  /* Each field flashes in its color as its part of the text appears in the next card. */
+  .motion .rec > .rec-key {
+    animation:
+      pop 380ms var(--ease-pop) calc(var(--step) + var(--late, 0ms) + 160ms) backwards,
+      field-flash 800ms ease calc(var(--step) + var(--late, 0ms) + 950ms);
+  }
+
+  .motion .land-near code {
+    animation: pop 380ms var(--ease-pop) calc(var(--step) + var(--late, 0ms) + 1000ms) backwards;
+  }
+
+  .motion .land-near code + code {
+    --late: 120ms;
+  }
+
+  .motion .rec > code:nth-child(n + 3),
   .motion .trace-embed span:nth-child(2) {
     --late: 120ms;
   }
 
-  .motion .trace-fields li:nth-child(3),
+  .motion .rec > code:nth-child(n + 5),
   .motion .trace-embed span:nth-child(3) {
     --late: 240ms;
   }
 
-  .motion .trace-fields li:nth-child(4),
+  .motion .rec > code:nth-child(n + 7),
   .motion .trace-embed span:nth-child(4) {
     --late: 360ms;
   }
-
   .motion .trace-embed span {
     animation: fade-in 450ms ease calc(var(--step) + var(--late, 0ms) + 300ms) backwards;
   }
@@ -733,40 +904,56 @@
     animation: fade-in 500ms ease calc(var(--step) + 900ms) backwards;
   }
 
-  /* Scoring: one test query after another. The result slots fill in rank order, the one with
-     the right part turns green, and the marks follow. */
+  /* Scoring: one test query after another. Its results come in rank order, the one with the
+     right part turns green, and the marks follow; at the end the two scores fill their meters. */
   .motion .score-rows > li:nth-child(1) {
     --row: 200ms;
   }
 
   .motion .score-rows > li:nth-child(2) {
-    --row: 1300ms;
+    --row: 1150ms;
   }
 
   .motion .score-rows > li:nth-child(3) {
-    --row: 2400ms;
+    --row: 2100ms;
   }
 
   .motion .score-query {
     animation: rise 400ms var(--ease-out) var(--row) backwards;
   }
 
-  .motion .slot {
+  .motion .score-results li {
     animation: pop 350ms var(--ease-pop) calc(var(--row) + var(--late, 0ms) + 250ms) backwards;
   }
 
-  .motion .slot:nth-child(2) {
+  .motion .score-results li:nth-child(2) {
     --late: 110ms;
   }
 
-  .motion .slot:nth-child(3) {
+  .motion .score-results li:nth-child(3) {
     --late: 220ms;
   }
 
-  .motion .slot-hit {
+  .motion .score-results .res-hit {
     animation:
       pop 350ms var(--ease-pop) calc(var(--row) + var(--late, 0ms) + 250ms) backwards,
       turn-green 500ms ease calc(var(--row) + 650ms) backwards;
+  }
+
+  .motion .meter {
+    animation: rise 450ms var(--ease-out) var(--at) backwards;
+  }
+
+  .motion .meter-fill {
+    animation: grow 800ms var(--ease-out) calc(var(--at) + 250ms) backwards;
+  }
+
+  .motion .meter:nth-child(1) {
+    --at: 3200ms;
+  }
+
+  .motion .meter:nth-child(2) {
+    --at: 3350ms;
   }
 
   .motion .score-rank {
@@ -782,16 +969,58 @@
   }
 
   .motion .score-fix {
-    animation: rise 450ms var(--ease-out) calc(var(--row) + 1100ms) backwards;
+    animation: rise 450ms var(--ease-out) 4250ms backwards;
   }
 
-  /* The government program's test: the squares fill row by row, then the misses allowed. */
+  /* The government program's test: one sample check comes first, then a line sweeps down as the
+     3,000 squares are checked row by row, the 95% bar draws in over the room left for misses, and
+     the verdict lands with a glow. */
+  .motion .pass-sample {
+    animation: rise 450ms var(--ease-out) 100ms backwards;
+  }
+
+  .motion .pass-sample + .pass-sample {
+    animation-delay: 380ms;
+  }
+
+  .motion :is(.pass-ok, .pass-no) {
+    animation: pop 400ms var(--ease-pop) 450ms backwards;
+  }
+
+  .motion .pass-no {
+    animation-delay: 730ms;
+  }
+
+  .motion .pass-miss {
+    animation: fade-in 400ms ease 850ms backwards;
+  }
+
   .motion .pass .tg-fill {
-    animation: fill-down 1500ms steps(29, end) 300ms backwards;
+    animation: fill-down 1500ms steps(20, end) 900ms backwards;
   }
 
   .motion .pass .narrow .tg-fill {
-    animation-timing-function: steps(48, end);
+    animation-timing-function: steps(60, end);
+  }
+
+  .motion .pass-scan {
+    animation: scan-down 1500ms linear 900ms;
+  }
+
+  .motion .pass .tg-first {
+    animation: drop-in-out 1700ms var(--ease-out) 650ms backwards;
+  }
+
+  .motion .pass-count {
+    animation: rise 450ms var(--ease-out) 2050ms backwards;
+  }
+
+  .motion .pass-stamp {
+    animation: stamp-in 450ms var(--ease-pop) 3050ms backwards;
+  }
+
+  .motion .pass .viz-canvas {
+    animation: glow-ok 1300ms ease 3150ms;
   }
 
   .motion .pass .viz-legend li {
@@ -803,47 +1032,66 @@
   }
 
   .motion .pass .viz-legend li:nth-child(2) {
-    --at: 2000ms;
+    --at: 2400ms;
+  }
+
+  .motion .pass .viz-legend li:nth-child(3) {
+    --at: 2550ms;
   }
 
   /* Many workers, one database: the work spreads out to the workers and comes together at RDS
      Proxy; then one message fails and moves to the dead-letter queue. */
   .motion .fanout .viz-steps li:nth-child(1) {
-    --at: 1100ms;
+    --at: 1300ms;
+    --until: 2300ms;
   }
 
   .motion .fanout .viz-steps li:nth-child(2) {
-    --at: 1850ms;
+    --at: 2300ms;
+    --until: 2700ms;
   }
 
   .motion .fanout .viz-steps li:nth-child(3) {
-    --at: 2600ms;
+    --at: 2700ms;
+    --until: 4300ms;
   }
 
   /* Backing off: the timeline plays from left to right, and each numbered step appears as the
-     timeline reaches it. */
+     timeline reaches it. Each worker dims while it waits out the cooldown, until its lane starts
+     again (--nap). */
   .motion .backoff .viz-steps li:nth-child(1) {
     --at: 200ms;
+    --until: 1080ms;
   }
 
   .motion .backoff .viz-steps li:nth-child(2) {
-    --at: 1190ms;
+    --at: 1080ms;
+    --until: 1589ms;
   }
 
   .motion .backoff .viz-steps li:nth-child(3) {
-    --at: 1685ms;
+    --at: 1589ms;
+    --until: 2313ms;
   }
 
   .motion .backoff .viz-steps li:nth-child(4) {
-    --at: 2360ms;
+    --at: 2313ms;
+    --until: 3076ms;
   }
 
   .motion .backoff .viz-steps li:nth-child(5) {
-    --at: 3080ms;
+    --at: 3076ms;
+    --until: 4200ms;
   }
 
-  /* The alarms: every signal reports OK, then the queue's alarm goes off and SNS sends an alert. */
+  .motion .backoff .nap {
+    animation: nap var(--nap) linear 1589ms;
+  }
+
+  /* The alarms: every signal reports OK while its line draws, then the queue's line climbs past
+     its threshold, its alarm goes off, and SNS sends an alert. */
   .motion .alarm-grid li {
+    --spark-at: calc(var(--late, 0ms) + 450ms);
     animation: pop 400ms var(--ease-pop) calc(var(--late, 0ms) + 100ms) backwards;
   }
 
@@ -882,28 +1130,28 @@
   .motion .alarm-grid .alarm-on {
     animation:
       pop 400ms var(--ease-pop) calc(var(--late, 0ms) + 100ms) backwards,
-      alarm-on 500ms ease 1700ms backwards;
+      alarm-on 500ms ease 2000ms backwards;
   }
 
   .motion .alarm-on .alarm-icon {
-    animation: quiet 500ms ease 1700ms backwards;
+    animation: quiet 500ms ease 2000ms backwards;
   }
 
   .motion .alarm-on .alarm-state {
-    animation: fade-in 300ms ease 1750ms backwards;
+    animation: fade-in 300ms ease 2050ms backwards;
   }
 
   .motion .alarm-on .alarm-was {
-    animation: dim 250ms ease 1700ms backwards;
+    animation: dim 250ms ease 2000ms backwards;
   }
 
   .motion .viz .alarm-alert {
-    animation: rise 450ms var(--ease-out) 2050ms backwards;
+    animation: toast-in 550ms var(--ease-out) 2250ms backwards;
   }
 
   .motion .alarm-bell svg {
     transform-origin: 50% 15%;
-    animation: ring 900ms ease-in-out 2350ms backwards;
+    animation: ring 900ms ease-in-out 2600ms backwards;
   }
 }
 

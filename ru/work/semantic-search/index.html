@@ -172,15 +172,15 @@
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Повторить анимацию</span>
               </button>
-              <ol class="trace-steps">
+              <ol class="pipe">
                 <li>
                   <span class="trace-label">Запись в каталоге запчастей</span>
-                  <ul class="trace-fields">
-                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
-                    <li><code class="f-side">side: left</code></li>
-                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
-                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
-                  </ul>
+                  <span class="rec">
+                    <code class="rec-key f-part">part</code><code class="rec-val">Head Lamp Assembly</code>
+                    <code class="rec-key f-side">side</code><code class="rec-val">left</code>
+                    <code class="rec-key f-car">car</code><code class="rec-val">Hyundai Sonata 2019</code>
+                    <code class="rec-key f-also">synonyms</code><code class="rec-val">headlight, head lamp</code>
+                  </span>
                 </li>
                 <li>
                   <span class="trace-label">Текст, который превращается в эмбеддинг</span>
@@ -193,6 +193,11 @@
                     <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
                   </span>
                 </li>
+                <li>
+                  <span class="trace-label">Где он оказывается: рядом с деталями с похожим текстом</span>
+                  <span class="land-art" aria-hidden="true"><!-- include: partials/figures/vector-land.svg --></span>
+                  <span class="land-near"><span class="land-near-title">Две ближайшие соседние детали</span><code>Head Lamp Assembly · Right</code><code>Fog Lamp · Left</code></span>
+                </li>
               </ol>
               <p class="viz-note">Запись выдумана и упрощена: она показывает шаги на примере.</p>
             </figure>
@@ -203,31 +208,43 @@
                 автомобиль и сторона указаны верно.
               </li>
             </ul>
-            <figure class="viz space" aria-labelledby="space-title">
+            <figure class="viz viz-wide space" aria-labelledby="space-title">
               <figcaption id="space-title" class="viz-title">Пример: тот же запрос среди деталей каталога</figcaption>
               <button class="replay" type="button" title="Повторить анимацию" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Повторить анимацию</span>
               </button>
-              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
-              <ul class="viz-legend">
-                <li><span class="viz-key key-query"></span>Запрос</li>
-                <li><span class="viz-key key-head"></span>Фара</li>
-                <li><span class="viz-key key-fog"></span>Противотуманная фара</li>
-                <li><span class="viz-key key-other"></span>Другая деталь</li>
-              </ul>
-              <ol class="viz-steps">
-                <li><strong>Смысл.</strong> Векторный поиск находит детали, ближайшие к запросу по смыслу: фары разных автомобилей.</li>
-                <li>
-                  <strong>Фильтры.</strong> Сущности убирают детали для другого автомобиля или для другой стороны. Зеркало
-                  для того же автомобиля (пунктирный кружок) проходит фильтры, но по смыслу оно далеко от запроса.
-                </li>
-                <li><strong>Переранжирование.</strong> LLM отсеивает противотуманную фару, и левая фара выходит на первое место.</li>
-              </ol>
-              <p class="viz-note">
-                Детали выдуманы для иллюстрации. Каждая точка — одна деталь. Точки расставлены по смыслу их текста,
-                поэтому детали с похожим текстом оказываются рядом.
-              </p>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-map">
+                  <!-- include: partials/figures/vector-space.svg -->
+                  <code class="viz-pin" style="--x: 47.86; --y: 2.5; --at: 900ms">Hyundai Sonata 2019 left headlight</code>
+                  <code class="viz-pin" style="--x: 31; --y: 89; --at: 2150ms">model: Sonata</code>
+                  <code class="viz-pin" style="--x: 50; --y: 89; --at: 2220ms">year: 2019</code>
+                  <code class="viz-pin" style="--x: 67; --y: 89; --at: 2290ms">side: left</code>
+                  <code class="viz-pin pin-right pin-drop" style="--x: 55.6; --y: 41.8; --at: 3150ms">Fog Lamp · Left</code>
+                  <code class="viz-pin pin-left pin-hit" style="--x: 42; --y: 52.9; --at: 3400ms">Head Lamp Assembly · Left</code>
+                </div>
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-query"></span>Запрос</li>
+                  <li><span class="viz-key key-head"></span>Фара</li>
+                  <li><span class="viz-key key-fog"></span>Противотуманная фара</li>
+                  <li><span class="viz-key key-other"></span>Другая деталь</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Смысл.</strong> Векторный поиск находит детали, ближайшие к запросу по смыслу: фары разных автомобилей.</li>
+                  <li>
+                    <strong>Фильтры.</strong> Сущности убирают детали для другого автомобиля или для другой стороны. Зеркало
+                    для того же автомобиля (пунктирный кружок) проходит фильтры, но по смыслу оно далеко от запроса.
+                  </li>
+                  <li><strong>Переранжирование.</strong> LLM отсеивает противотуманную фару, и левая фара выходит на первое место.</li>
+                </ol>
+                <p class="viz-note">
+                  Детали выдуманы для иллюстрации. Каждая точка — одна деталь. Точки расставлены по смыслу их текста,
+                  поэтому детали с похожим текстом оказываются рядом.
+                </p>
+              </div>
             </figure>
             <ul>
               <li>
@@ -257,7 +274,7 @@
               Точность нужно было измерять, а не угадывать. Я сделал внутреннюю страницу тестирования, которая запускает тот же
               пайплайн, что и поиск в продакшене, на фиксированном, вручную отобранном тестовом наборе.
             </p>
-            <figure class="viz score" aria-labelledby="score-title">
+            <figure class="viz viz-full score" aria-labelledby="score-title">
               <figcaption id="score-title" class="viz-title">Пример: как набор тестов оценивает три запроса</figcaption>
               <button class="replay" type="button" title="Повторить анимацию" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -266,8 +283,8 @@
               <ol class="score-rows">
                 <li>
                   <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <ol class="score-results" aria-hidden="true"><li class="res-hit"><code>Tail Lamp · Right</code></li><li><code>Tail Lamp · Left</code></li><li><code>Trunk Lid</code></li></ol>
                   <div class="score-line">
-                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
                     <span class="score-rank">Нужная деталь оказалась первой.</span>
                     <span class="score-marks">
                       <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Топ-1<span class="visually-hidden">: да</span></span>
@@ -277,8 +294,8 @@
                 </li>
                 <li>
                   <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <ol class="score-results" aria-hidden="true"><li><code>Bumper Bracket</code></li><li><code>Front Bumper Lip</code></li><li class="res-hit"><code>Front Bumper Cover</code></li></ol>
                   <div class="score-line">
-                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
                     <span class="score-rank">Нужная деталь оказалась третьей.</span>
                     <span class="score-marks">
                       <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Топ-1<span class="visually-hidden">: нет</span></span>
@@ -288,24 +305,33 @@
                 </li>
                 <li>
                   <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <ol class="score-results res-none" aria-hidden="true"><li></li><li></li><li></li></ol>
                   <div class="score-line">
-                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
                     <span class="score-rank">Поиск ничего не вернул.</span>
                     <span class="score-marks">
                       <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Топ-1<span class="visually-hidden">: нет</span></span>
                       <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Топ-3<span class="visually-hidden">: нет</span></span>
                     </span>
                   </div>
-                  <p class="score-fix">
-                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
-                    <span>Анализ ошибок показал, что причиной пустого результата был цвет кузова в запросе. После исправления тест запустили снова.</span>
-                  </p>
                 </li>
               </ol>
-              <p class="viz-note">
-                Запросы выдуманы. Accuracy@1 — доля тестовых запросов, по которым нужная деталь оказывается первой, а
-                accuracy@3 — доля запросов, по которым она попадает в первые три результата.
+              <div class="score-board">
+                <div class="meter">
+                  <span class="meter-name">Нужная деталь на первом месте (accuracy@1)</span>
+                  <span class="meter-track"><span class="meter-fill" style="--v: 33.3"></span></span>
+                  <span class="meter-value">1 из 3</span>
+                </div>
+                <div class="meter">
+                  <span class="meter-name">Нужная деталь в первой тройке (accuracy@3)</span>
+                  <span class="meter-track"><span class="meter-fill" style="--v: 66.7"></span></span>
+                  <span class="meter-value">2 из 3</span>
+                </div>
+              </div>
+              <p class="score-fix">
+                <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                <span>Анализ ошибок показал, что причиной пустого результата был цвет кузова в запросе. После исправления тест запустили снова.</span>
               </p>
+              <p class="viz-note">Запросы выдуманы, но оцениваются так же, как фиксированный тестовый набор.</p>
             </figure>
             <ul>
               <li><strong>Метрики:</strong> accuracy@1 и accuracy@3, precision, recall, F1, матрица ошибок и кросс-валидация.</li>
@@ -315,20 +341,48 @@
             </ul>
 
             <h2>Результаты</h2>
-            <figure class="viz pass" aria-labelledby="pass-title">
+            <figure class="viz viz-full pass" aria-labelledby="pass-title">
               <figcaption id="pass-title" class="viz-title">Тест государственной программы: 3000 деталей, каждая — один квадрат</figcaption>
               <button class="replay" type="button" title="Повторить анимацию" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">Повторить анимацию</span>
               </button>
               <div class="viz-canvas" aria-hidden="true">
-                <!-- include: partials/figures/test-grid.svg -->
-                <!-- include: partials/figures/test-grid-narrow.svg -->
+                <div class="pass-head">
+                  <span class="pass-count"><span class="count">3000</span><span class="count-label">деталей проверено</span></span>
+                  <span class="pass-samples">
+                    <span class="pass-sample">
+                      <span class="pass-ok"><!-- include: partials/icons/check.svg --></span>
+                      <code>Hyundai Sonata 2019 left headlight</code>
+                      <span class="pass-arrow">→</span>
+                      <code>PN 10421-L · Head Lamp · Left</code>
+                    </span>
+                    <span class="pass-sample">
+                      <span class="pass-no"><!-- include: partials/icons/x.svg --></span>
+                      <code>Hyundai Sonata 2019 left headlight</code>
+                      <span class="pass-arrow">→</span>
+                      <code>PN 10421-R · Head Lamp · Right</code>
+                      <span class="pass-miss">считается ошибкой</span>
+                    </span>
+                  </span>
+                  <code class="pass-stamp">PASSED</code>
+                </div>
+                <div class="viz-map">
+                  <!-- include: partials/figures/test-grid.svg -->
+                  <!-- include: partials/figures/test-grid-narrow.svg -->
+                  <span class="pass-scan"></span>
+                  <code class="viz-pin pass-mark" style="--x: 50; --y: 95; --at: 2700ms">95%</code>
+                </div>
               </div>
               <ul class="viz-legend">
-                <li><span class="viz-key key-right"></span>Не менее 95% ответов должны были быть верными.</li>
-                <li><span class="viz-key key-room"></span>Не более 5% могли быть неверными.</li>
+                <li><span class="viz-key key-checked"></span>Одна проверенная тестовая деталь</li>
+                <li><span class="viz-key key-bar"></span>Проходной порог: не менее 95% верных ответов</li>
+                <li><span class="viz-key key-slot"></span>Запас на ошибки: до 150 (5%)</li>
               </ul>
+              <p class="viz-note">
+                Верный ответ — это точный номер детали для конкретного автомобиля; оба примера выдуманы. Линия отмечает порог,
+                а не фактический результат: поиск набрал 95% или больше.
+              </p>
             </figure>
             <ul class="metric-grid">
               <li><span class="num">95%+</span><span class="lbl">точность на тесте из 3000 деталей в рамках государственной программы</span></li>

@@ -1,0 +1,4 @@
+<svg viewBox="0 0 120 30" preserveAspectRatio="none">
+  <path class="spark-limit" d="M0 6H120" />
+  <polyline class="spark-line wipe" points="0,25 10,24 20,25 30,22 40,25 50,24 60,23 70,25 80,24 90,25 100,23 110,24 120,25" style="--at: var(--spark-at); --dur: 900ms" />
+</svg>

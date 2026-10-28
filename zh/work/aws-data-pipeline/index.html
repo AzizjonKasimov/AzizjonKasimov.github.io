@@ -97,7 +97,7 @@
               </ul>
               <figcaption id="flow-caption">这条管道由标准的 AWS 服务搭建而成。</figcaption>
             </figure>
-            <figure class="viz fanout" aria-labelledby="fanout-title">
+            <figure class="viz viz-wide fanout" aria-labelledby="fanout-title">
               <figcaption id="fanout-title" class="viz-title">许多工作函数，一个数据库</figcaption>
               <button class="replay" type="button" title="重新播放动画" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -107,16 +107,18 @@
                 <!-- include: partials/figures/pipeline-fanout.svg -->
                 <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
               </div>
-              <ol class="viz-steps">
-                <li><strong>并行处理。</strong>SQS 负责分发任务，所以许多 Lambda 工作函数能同时抓取页面。</li>
-                <li>
-                  <strong>连接数少。</strong>RDS Proxy 用连接池管理数据库连接，所以工作函数再多，也不会压垮 PostgreSQL。
-                </li>
-                <li>
-                  <strong>失败的消息单独存放。</strong>反复失败的消息会被移到死信队列（DLQ）。之后，通过重新投递，它会回到队列。
-                </li>
-              </ol>
-              <p class="viz-note">简化的示意图，图中工作函数的数量只是举例。</p>
+              <div class="viz-side">
+                <ol class="viz-steps">
+                  <li><strong>并行处理。</strong>SQS 负责分发任务，所以许多 Lambda 工作函数能同时抓取页面。</li>
+                  <li>
+                    <strong>连接数少。</strong>RDS Proxy 用连接池管理数据库连接，所以工作函数再多，也不会压垮 PostgreSQL。
+                  </li>
+                  <li>
+                    <strong>失败的消息单独存放。</strong>反复失败的消息会被移到死信队列（DLQ）。之后，通过重新投递，它会回到队列。
+                  </li>
+                </ol>
+                <p class="viz-note">简化的示意图，图中工作函数的数量只是举例。</p>
+              </div>
             </figure>
 
             <h2>宁可减速，也不宕机</h2>
@@ -132,30 +134,34 @@
                 <strong>安全并发。</strong>工作函数能安全地认领目标、重试并恢复卡住的任务，因此许多工作函数可以并行运行而互不冲突。
               </li>
             </ul>
-            <figure class="viz backoff" aria-labelledby="backoff-title">
+            <figure class="viz viz-wide backoff" aria-labelledby="backoff-title">
               <figcaption id="backoff-title" class="viz-title">数据源开始反制时会发生什么</figcaption>
               <button class="replay" type="button" title="重新播放动画" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
                 <span class="visually-hidden">重新播放动画</span>
               </button>
               <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
-              <ul class="viz-legend">
-                <li><span class="viz-key key-pace"></span>请求速度</li>
-                <li><span class="viz-key key-tick"></span>一个请求</li>
-                <li><span class="viz-key key-block"></span>一个被拦截的页面</li>
-              </ul>
-              <ol class="viz-steps">
-                <li>工作函数以正常速度抓取页面，请求之间带有抖动。</li>
-                <li>数据源开始拦截页面，于是熔断机制停止发出新请求。</li>
-                <li>每个工作函数都要等冷却期结束。冷却状态通过 PostgreSQL 共享。</li>
-                <li>工作函数先慢慢重新开始，再一步步加速。</li>
-                <li>管道最终稳定在数据源能接受的速度。</li>
-              </ol>
-              <p class="viz-note">示意图，时间未按比例绘制。</p>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-pace"></span>请求速度</li>
+                  <li><span class="viz-key key-lane"><!-- include: partials/icons/lambda.svg --></span>一个工作函数</li>
+                  <li><span class="viz-key key-tick"></span>一个请求</li>
+                  <li><span class="viz-key key-block"></span>一个被拦截的页面</li>
+                  <li><span class="viz-key key-breaker"></span>熔断机制：关闭、打开、逐步恢复</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li>工作函数以正常速度抓取页面，请求之间带有抖动。</li>
+                  <li>数据源开始拦截页面，于是熔断机制停止发出新请求。</li>
+                  <li>每个工作函数都要等冷却期结束。冷却状态通过 PostgreSQL 共享。</li>
+                  <li>工作函数一个接一个地重新开始，速度一步步提高。</li>
+                  <li>管道最终稳定在数据源能接受的速度。</li>
+                </ol>
+                <p class="viz-note">示意图：时间从左向右推进，未按比例绘制。</p>
+              </div>
             </figure>
 
             <h2>可观测性与运维</h2>
-            <figure class="viz alarms" aria-labelledby="alarms-title">
+            <figure class="viz viz-full alarms" aria-labelledby="alarms-title">
               <figcaption id="alarms-title" class="viz-title">CloudWatch 监控的信号</figcaption>
               <button class="replay" type="button" title="重新播放动画" hidden>
                 <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
@@ -166,47 +172,55 @@
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
                   <span class="alarm-name">编排器停止运行</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-heartbeat.svg --></span>
                 </li>
                 <li>
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
                   <span class="alarm-name">工作函数失败</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-errors.svg --></span>
                 </li>
                 <li>
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
                   <span class="alarm-name">Lambda 对工作函数限流</span>
                   <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-throttles.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">队列中的消息滞留过久</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-age.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">页面被拦截</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-blocked.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">数据库写入失败</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-writes.svg --></span>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">每天的商品信息数量下降</span>
+                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-daily.svg --></span>
                 </li>
                 <li class="alarm-on">
                   <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
                   <span class="alarm-name">队列积压</span>
                   <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
                   <code class="alarm-state">ALARM</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
-                  <span class="alarm-name">队列中的消息滞留过久</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
-                  <span class="alarm-name">页面被拦截</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
-                  <span class="alarm-name">数据库写入失败</span>
-                  <code class="alarm-state">OK</code>
-                </li>
-                <li>
-                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
-                  <span class="alarm-name">每天的商品信息数量下降</span>
-                  <code class="alarm-state">OK</code>
+                  <span class="spark" aria-hidden="true"><!-- include: partials/figures/spark-queue.svg --></span>
                 </li>
               </ul>
               <p class="alarm-alert">
                 <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
-                <span>SNS 向我发送告警。</span>
+                <span class="alarm-alert-text"><span>SNS 向我发送告警。</span> <code>ALARM: SQS queue backing up</code></span>
               </p>
               <p class="viz-note">示意图，其中一个告警被触发。</p>
             </figure>

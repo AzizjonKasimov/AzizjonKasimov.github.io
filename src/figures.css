@@ -3,11 +3,29 @@
    so a rule here needs more weight than the styles.css rule it changes (.prose li, .trace
    figcaption, and so on).
    - Words are HTML, translated with the page. The drawings are SVG partials in partials/figures/
-     and hold no words, except technology names that every language writes the same way.
+     and hold no words, except technology names that every language writes the same way; labels
+     laid over a drawing are code that stays the same in every language (.viz-pin).
+   - From 1080px, .viz-wide puts the drawing beside its story and .viz-full takes the full width.
    - Each figure plays its story once, when it is well on screen, and its Replay button plays it
      again (the motion script in partials/head.html; the animations are in src/motion.css). The
      still figure, for reduced motion and print, is the story's last frame.
    ========================================================================== */
+
+/* Small text on the soft green and red chips: darker than --ok and --alert in the light theme, so
+   it keeps 4.5:1 contrast (vt audit found 4.45:1 and 4.01:1). */
+:root {
+  --ok-ink: #14662b;
+  --alert-ink: #a8301e;
+  --violet: #7a4cc2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ok-ink: var(--ok);
+    --alert-ink: var(--alert);
+    --violet: #b9a0ff;
+  }
+}
 
 .viz {
   position: relative;
@@ -102,11 +120,104 @@
   }
 }
 
-/* The story under a drawing, one numbered step for each part of it. */
+/* Wide screens: a figure with a drawing takes the full width, with the drawing on the left and
+   its story (legend, steps, note) beside it in .viz-side. */
+@media (min-width: 1080px) {
+  .prose > .viz-wide {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    column-gap: 28px;
+    align-items: start;
+    max-width: none;
+    padding: 24px 26px;
+  }
+
+  .viz-wide > .viz-title {
+    grid-column: 1 / -1;
+  }
+
+  .viz-wide > .viz-canvas {
+    grid-column: 1;
+  }
+
+  .viz-wide > .viz-side {
+    grid-column: 2;
+  }
+
+  .viz .viz-side > :first-child {
+    margin-top: 0;
+  }
+}
+
+/* Labels laid over a drawing (.viz-map wraps the SVG): code that every language writes the same
+   way, placed at --x and --y percent of the drawing and sized with it. A drawing too narrow for
+   them shows the dots alone; the steps beside it tell the same story. */
+.viz-map {
+  position: relative;
+  container-type: inline-size;
+}
+
+.viz-pin {
+  position: absolute;
+  top: calc(var(--y) * 1%);
+  left: calc(var(--x) * 1%);
+  translate: var(--tx, -50%) var(--ty, 0);
+  padding: 0.25em 0.65em;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font: 600 clamp(10px, 2.05cqi, 12.5px) / 1.45 var(--font-mono);
+  white-space: nowrap;
+}
+
+.pin-left {
+  --tx: -100%;
+  --ty: -50%;
+}
+
+.pin-right {
+  --tx: 0%;
+  --ty: -50%;
+}
+
+.pin-hit {
+  border-color: var(--ok);
+  box-shadow:
+    0 0 0 3px var(--ok-soft),
+    var(--shadow);
+}
+
+.pin-drop {
+  border-color: color-mix(in srgb, var(--alert) 60%, transparent);
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--alert);
+}
+
+/* A drawing too narrow for labels on it shows them as a row of chips under it, in story order. */
+@container (max-width: 459px) {
+  .viz-pin {
+    position: static;
+    display: inline-block;
+    margin: 6px 4px 0 0;
+    translate: none;
+    box-shadow: none;
+    font-size: 10.5px;
+  }
+
+  .viz-map .pinned-only {
+    display: none;
+  }
+}
+
+/* The story under a drawing, one numbered step for each part of it. While the story plays, the
+   step it is on lights up (src/motion.css). */
 .viz .viz-steps {
   display: grid;
-  gap: 10px;
-  margin-top: 16px;
+  gap: 4px;
+  margin-top: 14px;
   padding: 0;
   list-style: none;
   counter-reset: viz-step;
@@ -115,7 +226,8 @@
 .viz .viz-steps li {
   position: relative;
   margin: 0;
-  padding-left: 34px;
+  padding: 6px 10px 6px 42px;
+  border-radius: var(--radius-sm);
   font-size: 0.9375rem;
   line-height: 1.5;
 }
@@ -124,8 +236,8 @@
   counter-increment: viz-step;
   content: counter(viz-step);
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 7px;
+  left: 8px;
   display: grid;
   place-items: center;
   width: 24px;
@@ -140,7 +252,7 @@
 .viz .viz-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 18px;
+  gap: 6px 14px;
   margin-top: 12px;
   padding: 0;
   color: var(--text-2);
@@ -182,11 +294,79 @@
    Each dot is a part, placed by meaning; the query sits among the lamps.
    -------------------------------------------------------------------------- */
 
+/* The parts closest in meaning to the query: a glow that fades toward its dashed edge. */
 .vs-radius {
-  fill: color-mix(in srgb, var(--accent) 7%, transparent);
+  fill: url(#vs-glow);
   stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+
+.vs-glow-in {
+  stop-color: var(--accent);
+  stop-opacity: 0.2;
+}
+
+.vs-glow-out {
+  stop-color: var(--accent);
+  stop-opacity: 0.04;
+}
+
+/* Each kind of part sits in its own region of meaning, marked by an icon. */
+.vs-region {
+  fill: color-mix(in srgb, var(--text-3) 9%, transparent);
+}
+
+.vs-badge {
+  fill: var(--surface);
+  stroke: var(--border-strong);
   stroke-width: 1.25;
-  stroke-dasharray: 4 4;
+}
+
+.vs-icon {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.vs-badge-head {
+  stroke: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.vs-icon-head {
+  stroke: var(--accent);
+}
+
+.vs-badge-fog {
+  stroke: color-mix(in srgb, var(--info) 55%, transparent);
+}
+
+.vs-icon-fog {
+  stroke: var(--info);
+}
+
+.vs-leader {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+
+/* On a narrow map the dots and icons would be a few pixels wide, so each grows around its center. */
+@container (max-width: 459px) {
+  .viz-map :is(.vs-other, .vs-head, .vs-fog, .vs-hit, .vs-miss, .vs-query, .vs-query-ring) {
+    scale: 1.3;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .viz-map :is(.vs-badge, .vs-icon) {
+    scale: 1.45;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
 }
 
 .vs-other {
@@ -210,7 +390,7 @@
 
 /* Parts the filters removed. */
 .vs-out {
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
 /* A part far from the query that passes the filters all the same. */
@@ -321,52 +501,200 @@
 }
 
 .f-also {
-  --field: var(--ok);
+  --field: var(--violet);
 }
 
-.trace .trace-fields code {
+/* Four cards, one per step: down the page on narrow screens, across the full width on wide ones,
+   with a chevron from each card to the next. */
+.embed .pipe {
+  display: grid;
+  gap: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.embed .pipe > li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 10px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.embed .pipe > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--border-strong);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@media (min-width: 1080px) {
+  .prose > .embed {
+    max-width: none;
+    padding: 24px 26px;
+  }
+
+  .embed .pipe {
+    grid-template-columns: 1.2fr 1.05fr 0.85fr 1.3fr;
+    align-items: start;
+  }
+
+  .trace .rec code {
+    font-size: 0.75rem;
+    gap: 24px;
+  }
+
+  .embed .pipe > li:not(:last-child)::after {
+    top: 50%;
+    right: -17px;
+    bottom: auto;
+    left: auto;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+}
+
+/* The catalog record: field names on the left, each in its color, values on the right. */
+.rec {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.trace .rec code {
+  padding: 2px 8px;
+  font-size: 0.8125rem;
+}
+
+.trace .rec-key {
+  padding: 0 0 0 8px;
+  border: 0;
   border-left: 3px solid var(--field);
+  border-radius: 0;
+  background: none;
+  color: var(--text-3);
+  font-size: 0.75rem;
 }
 
+.trace .rec-val {
+  border-color: transparent;
+  background: none;
+  padding-left: 0;
+}
+
+/* The embedded text: each part highlighted in the color of the field it came from. */
 .trace-embed span {
-  text-decoration: underline 2px var(--field);
-  text-underline-offset: 4px;
-  text-decoration-skip-ink: none;
+  padding: 1px 2px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--field) 18%, transparent);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .trace-vector {
   display: grid;
   justify-items: start;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
 }
 
 .trace-vector-art {
   display: block;
-  width: min(100%, 330px);
+  width: min(100%, 236px);
 }
 
-.trace-vector-art svg {
+.land-art {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--text-3) 22%, transparent) 1px, transparent 1.6px) 0 0 / 12px 12px,
+    var(--surface);
+}
+
+:is(.trace-vector-art, .land-art) svg {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.vec-up {
-  fill: var(--accent);
-}
-
-.vec-down {
-  fill: var(--info);
-}
-
-.vec-axis {
-  stroke: var(--border-strong);
-  stroke-width: 1;
+.vc-pos,
+.vc-neg {
+  fill: var(--text-2);
 }
 
 .vec-more {
   fill: var(--text-3);
+}
+
+.vs-region-on {
+  fill: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.embed .pipe .trace-label {
+  color: var(--text);
+  font: 650 0.8125rem/1.4 var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* The two nearest other parts, numbered like their dots on the map. */
+.land-near {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  counter-reset: near;
+}
+
+.land-near-title {
+  flex-basis: 100%;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+}
+
+.trace .land-near code {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px 2px 4px;
+  font-size: 0.75rem;
+}
+
+.land-near code::before {
+  counter-increment: near;
+  content: counter(near);
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--text-2);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  font: 700 0.625rem/1 var(--font-mono);
+}
+
+.near-badge circle {
+  fill: var(--surface);
+  stroke: var(--text-2);
+  stroke-width: 1;
+}
+
+.near-badge text {
+  fill: var(--text);
+  font: 700 9px var(--font-mono);
+  text-anchor: middle;
 }
 
 /* --------------------------------------------------------------------------
@@ -414,30 +742,89 @@
   width: 100%;
 }
 
-.slots {
-  display: inline-flex;
-  flex: none;
-  gap: 4px;
+/* The top three results for a query, ranked; the one with the right part is green. */
+.viz .score-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  counter-reset: rank;
 }
 
-.slot {
-  width: 18px;
-  height: 22px;
-  border: 1px solid var(--border-strong);
-  border-radius: 4px;
+.viz .score-results li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 32px;
+  margin: 0;
+  padding: 5px 8px 5px 30px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.score-results li::before {
+  counter-increment: rank;
+  content: counter(rank);
+  position: absolute;
+  top: 50%;
+  left: 7px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
   background: var(--surface-2);
+  color: var(--text-3);
+  font: 700 0.625rem/1 var(--font-mono);
+  translate: 0 -50%;
 }
 
-.slot-hit {
+.score-results code {
+  min-width: 0;
+  color: var(--text-2);
+  font: 0.75rem/1.35 var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.viz .score-results .res-hit {
   border-color: var(--ok);
-  background: var(--ok);
+  background: var(--ok-soft);
 }
 
-.slot-empty {
+.score-results .res-hit::before {
+  background: var(--ok);
+  color: var(--surface);
+}
+
+.score-results .res-hit code {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.viz .res-none li {
   border-style: dashed;
   background: transparent;
 }
 
+.res-none li::before {
+  content: none;
+}
+
+@media (max-width: 479px) {
+  .viz .score-results {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Every row's marks on a line of their own, so the three rows look alike. */
+  .score .score-marks {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
 .score-rank {
   color: var(--text-2);
   font-size: 0.875rem;
@@ -468,17 +855,18 @@
 
 .score-yes {
   background: var(--ok-soft);
-  color: var(--ok);
+  color: var(--ok-ink);
 }
 
 .score-no {
   background: var(--alert-soft);
-  color: var(--alert);
+  color: var(--alert-ink);
 }
 
 .viz .score-fix {
   display: flex;
   gap: 8px;
+  margin-top: 14px;
   color: var(--text-2);
   font-size: 0.875rem;
 }
@@ -491,35 +879,265 @@
   color: var(--accent);
 }
 
+/* What the three queries add up to: the two scores the suite reports, as meters. */
+.score-board {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.meter {
+  display: grid;
+  grid-template-areas:
+    "name value"
+    "track track";
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: baseline;
+}
+
+.meter-name {
+  grid-area: name;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.meter-value {
+  grid-area: value;
+  color: var(--accent);
+  font: 700 0.875rem/1.4 var(--font-mono);
+  white-space: nowrap;
+}
+
+.meter-track {
+  grid-area: track;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.meter-fill {
+  display: block;
+  width: calc(var(--v) * 1%);
+  height: 100%;
+  border-radius: 5px;
+  background: var(--accent);
+}
+
+/* Wide screens: each query on one line, its results beside it, and the verdict at the end. */
+@media (min-width: 1080px) {
+  .viz .score-rows > li {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 13.5rem);
+    align-items: center;
+    column-gap: 18px;
+  }
+
+  .score .score-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .score .score-marks {
+    margin-left: 0;
+  }
+
+  .score-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Semantic search: the government program's test, one square per part
    (partials/figures/test-grid.svg).
    -------------------------------------------------------------------------- */
 
-.tg-right rect {
-  fill: var(--accent);
-}
-
-.tg-room rect {
-  fill: color-mix(in srgb, var(--text-3) 45%, transparent);
+/* Every part the test checked, in one neutral color: the drawing shows the bar to pass, not the
+   score, which the page gives only as 95% or more. */
+.tg-cell rect {
+  fill: color-mix(in srgb, var(--accent) 40%, var(--surface));
 }
 
 .tg-line {
   fill: none;
   stroke: var(--text);
-  stroke-width: 1.5;
+  stroke-width: 2;
+}
+.pass-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin: 2px 4px 10px;
 }
 
-.key-right {
-  border-radius: 3px;
+/* Wide screens: the counter, the two samples, and the verdict side by side. */
+@media (min-width: 1080px) {
+  .pass-head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 28px;
+  }
+
+  .pass-samples {
+    justify-self: center;
+  }
+}
+
+.pass-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.pass-count .count {
+  color: var(--accent);
+  font: 750 1.75rem/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.count-label {
+  color: var(--text-2);
+  font-size: 0.875rem;
+}
+
+.pass-stamp {
+  padding: 3px 10px;
+  border: 2px solid var(--ok);
+  border-radius: 6px;
+  color: var(--ok-ink);
+  font: 800 0.875rem/1.3 var(--font-mono);
+  letter-spacing: 0.12em;
+  transform: rotate(-5deg);
+}
+
+/* The line that sweeps down the squares while they fill; hidden in the still figure. */
+.pass-scan {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  left: -4px;
+  height: 3px;
+  border-radius: 2px;
   background: var(--accent);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--accent) 60%, transparent);
+  opacity: 0;
 }
 
-.key-room {
+.pass-mark {
+  --ty: -100%;
+  border-color: var(--text);
+  font-weight: 800;
+}
+
+/* "95%" is short enough to stay on the squares even on phones. */
+@container (max-width: 459px) {
+  .viz-map .pass-mark {
+    position: absolute;
+    margin: 0;
+    translate: var(--tx, -50%) var(--ty, 0);
+  }
+}
+
+.key-checked {
   border-radius: 3px;
-  background: color-mix(in srgb, var(--text-3) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 40%, var(--surface));
 }
 
+.key-bar {
+  width: 16px;
+  height: 2px;
+  background: var(--text);
+}
+
+.key-slot {
+  border: 1.5px solid var(--text-3);
+  border-radius: 3px;
+}
+
+.tg-slot rect {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 0.9;
+}
+
+/* Two checks from the test, so each square stands for something and the test shows how strict it
+   is: the exact part number counts as right, the same part for the other side as a miss. */
+.pass-samples {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.pass-no {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--alert);
+  color: var(--surface);
+}
+
+.pass-no svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 3;
+}
+
+.pass-miss {
+  color: var(--alert-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* The sample's check landing in the first square: shown only while the story plays, so the still
+   figure has no unexplained green square. */
+.tg-first {
+  fill: var(--ok);
+  opacity: 0;
+}
+
+.pass-sample {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  min-width: 0;
+  color: var(--text-3);
+}
+
+.pass-sample code {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font: 0.75rem/1.45 var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.pass-ok {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ok);
+  color: var(--surface);
+}
+
+.pass-ok svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 3;
+}
 /* --------------------------------------------------------------------------
    AWS pipeline: many workers, one database (partials/figures/pipeline-fanout.svg).
    -------------------------------------------------------------------------- */
@@ -559,7 +1177,8 @@
   stroke: var(--alert);
 }
 
-.viz-canvas .narrow text {
+.viz-canvas .narrow text,
+.fanout .wide text {
   font-size: 14px;
 }
 
@@ -572,6 +1191,53 @@
   stroke: var(--border-strong);
   stroke-width: 1.25;
   stroke-dasharray: 3 3;
+}
+
+.fx-clock-dot {
+  fill: var(--accent);
+}
+
+/* RDS Proxy's few pooled connections, drawn heavier than the many lines into it. */
+.fx-pool {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.fx-fill {
+  fill: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* A unit of work travelling along a line: one round dash (the path has pathLength="100"). */
+.fx-dot {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 0.4 199.6;
+  stroke-dashoffset: 32;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent) 70%, transparent));
+}
+
+.fx-dot-alert {
+  stroke: var(--alert);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--alert) 70%, transparent));
+}
+
+.fx-retry-badge {
+  fill: var(--surface);
+  stroke: var(--alert);
+  stroke-width: 1.25;
+}
+
+.fx-retry {
+  fill: none;
+  stroke: var(--alert);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Shown only while the story plays: the failing worker and the message that leaves the queue. */
@@ -608,6 +1274,40 @@
 .bo-hatch path {
   stroke: color-mix(in srgb, var(--text-3) 35%, transparent);
   stroke-width: 1;
+}
+
+/* One lane per worker, each with its own requests; the strip above them is the circuit breaker. */
+.bo-lane {
+  stroke: color-mix(in srgb, var(--text-3) 25%, transparent);
+  stroke-width: 1;
+}
+
+.bo-worker {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bo-closed {
+  fill: var(--ok);
+}
+
+.bo-open {
+  fill: var(--alert);
+}
+
+.bo-ramp {
+  fill: var(--sun);
+}
+
+.bo-time {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .bo-sep {
@@ -656,9 +1356,37 @@
   background: var(--alert);
 }
 
+.key-lane {
+  display: grid;
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+}
+
+.key-lane svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.2;
+}
+
+.key-breaker {
+  width: 24px;
+  height: 6px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--ok) 0 33%, var(--alert) 33% 67%, var(--sun) 67%);
+}
+
 /* --------------------------------------------------------------------------
    AWS pipeline: the signals CloudWatch watches. One tile per alarm; one of them goes off.
    -------------------------------------------------------------------------- */
+
+/* Wide screens: the board takes the full width, so each tile has room for its line. */
+@media (min-width: 1080px) {
+  .prose > .viz-full {
+    max-width: none;
+    padding: 24px 26px;
+  }
+}
 
 .viz .alarm-grid {
   display: grid;
@@ -674,13 +1402,16 @@
   }
 }
 
+/* A tile: icon and signal, its state under the name, and the metric's recent line at the bottom,
+   with the alarm threshold dashed. */
 .viz .alarm-grid li {
   display: grid;
+  grid-template-rows: auto auto 1fr;
   grid-template-columns: 18px minmax(0, 1fr);
   align-content: start;
   gap: 6px 8px;
   margin: 0;
-  padding: 10px;
+  padding: 10px 10px 8px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface-2);
@@ -691,7 +1422,6 @@
 
 .alarm-icon {
   display: grid;
-  grid-row: 1 / span 2;
   color: var(--text-3);
 }
 
@@ -700,14 +1430,50 @@
   height: 18px;
 }
 
+.spark {
+  display: block;
+  grid-column: 1 / -1;
+  align-self: end;
+  height: 30px;
+}
+
+.spark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.spark-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.spark-alarm {
+  stroke: var(--alert);
+  stroke-width: 2.25;
+}
+
+.spark-limit {
+  stroke: color-mix(in srgb, var(--alert) 55%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  vector-effect: non-scaling-stroke;
+}
+
 .alarm-state {
   grid-area: 2 / 2;
+  align-self: start;
   justify-self: start;
   padding: 0 6px;
   border: 1px solid transparent;
   border-radius: 4px;
   background: var(--ok-soft);
-  color: var(--ok);
+  color: var(--ok-ink);
   font: 700 0.6875rem/1.5 var(--font-mono);
 }
 
@@ -730,18 +1496,60 @@
 .alarm-on .alarm-was {
   border-color: transparent;
   background: var(--ok-soft);
-  color: var(--ok);
+  color: var(--ok-ink);
   opacity: 0;
 }
 
+/* The alert SNS sends, shaped like a phone notification: under the alarm tile, which is the last
+   one, with a dashed line up to it. The figure is a size container, so 100cqi is the board's width
+   and the line can find the middle of the last column. */
+.viz.alarms {
+  container-type: inline-size;
+}
+
+.viz .alarm-alert::before {
+  content: "";
+  position: absolute;
+  right: calc((100cqi - 8px) / 4);
+  bottom: 100%;
+  height: 15px;
+  border-left: 2px dashed color-mix(in srgb, var(--alert) 65%, transparent);
+}
+
+@media (min-width: 640px) {
+  .viz .alarm-alert::before {
+    right: calc((100cqi - 24px) / 8);
+  }
+}
+
 .viz .alarm-alert {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 14px;
+  margin-left: auto;
+  padding: 10px 16px 10px 10px;
+  border: 1px solid color-mix(in srgb, var(--alert) 45%, transparent);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow-pop);
   color: var(--text);
   font-size: 0.875rem;
   font-weight: 600;
+}
+
+.alarm-alert-text {
+  display: grid;
+  gap: 2px;
+}
+
+.alarm-alert-text code {
+  color: var(--alert);
+  font: 700 0.75rem/1.4 var(--font-mono);
+  overflow-wrap: anywhere;
 }
 
 .alarm-bell {
