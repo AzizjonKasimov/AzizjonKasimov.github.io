@@ -1,0 +1,760 @@
+/* ==========================================================================
+   Case-study figures: drawings that show how a system works. Imported at the top of styles.css,
+   so a rule here needs more weight than the styles.css rule it changes (.prose li, .trace
+   figcaption, and so on).
+   - Words are HTML, translated with the page. The drawings are SVG partials in partials/figures/
+     and hold no words, except technology names that every language writes the same way.
+   - Each figure plays its story once, when it is well on screen, and its Replay button plays it
+     again (the motion script in partials/head.html; the animations are in src/motion.css). The
+     still figure, for reduced motion and print, is the story's last frame.
+   ========================================================================== */
+
+.viz {
+  position: relative;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.prose > .viz,
+.prose > .embed,
+.prose > :is(.viz, .embed) + * {
+  margin-top: 24px;
+}
+
+/* The figure's title sits at the top, with room on the right for the Replay button. */
+:is(.viz, .trace) > .viz-title {
+  margin: 0 0 14px;
+  padding-right: 44px;
+  color: var(--text);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.replay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text-3);
+  cursor: pointer;
+}
+
+.replay[hidden] {
+  display: none;
+}
+
+.replay:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.replay svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* The drawing area, on the same dotted ground as the work-card drawings. */
+.viz-canvas {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--text-3) 22%, transparent) 1px, transparent 1.6px) 0 0 / 16px 16px,
+    var(--surface-2);
+}
+
+.viz-canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Technology names inside a drawing scale with it. */
+.viz-canvas text {
+  fill: var(--text-2);
+  font: 600 12px var(--font-sans);
+  letter-spacing: 0;
+  text-anchor: middle;
+}
+
+/* A drawing that would get too small on phones has a narrow version; each screen shows one. */
+.viz-canvas .narrow {
+  display: none;
+}
+
+@media (max-width: 479px) {
+  .viz-canvas .wide {
+    display: none;
+  }
+
+  .viz-canvas .narrow {
+    display: block;
+  }
+}
+
+/* The story under a drawing, one numbered step for each part of it. */
+.viz .viz-steps {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 0;
+  list-style: none;
+  counter-reset: viz-step;
+}
+
+.viz .viz-steps li {
+  position: relative;
+  margin: 0;
+  padding-left: 34px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.viz-steps li::before {
+  counter-increment: viz-step;
+  content: counter(viz-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font: 700 0.75rem/1 var(--font-mono);
+}
+
+.viz .viz-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 12px;
+  padding: 0;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  list-style: none;
+}
+
+.viz .viz-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.viz-key {
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
+:is(.viz, .trace) .viz-note {
+  margin-top: 14px;
+  color: var(--text-3);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 480px) {
+  .viz {
+    padding: 16px;
+  }
+
+  .viz-canvas {
+    padding: 6px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Semantic search: the query among the catalog's parts (partials/figures/vector-space.svg).
+   Each dot is a part, placed by meaning; the query sits among the lamps.
+   -------------------------------------------------------------------------- */
+
+.vs-radius {
+  fill: color-mix(in srgb, var(--accent) 7%, transparent);
+  stroke: var(--accent);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 4;
+}
+
+.vs-other {
+  fill: color-mix(in srgb, var(--text-3) 70%, transparent);
+}
+
+.vs-head,
+.vs-fog {
+  fill: var(--surface);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.vs-head {
+  stroke: var(--accent);
+}
+
+.vs-fog {
+  stroke: var(--info);
+}
+
+/* Parts the filters removed. */
+.vs-out {
+  opacity: 0.2;
+}
+
+/* A part far from the query that passes the filters all the same. */
+.vs-pass {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.25;
+  stroke-dasharray: 2.5 2.5;
+}
+
+.vs-query {
+  fill: var(--accent);
+}
+
+.vs-query-ring,
+.vs-ripple {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.vs-ripple {
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.vs-hit {
+  fill: var(--ok);
+}
+
+.vs-miss {
+  fill: var(--alert);
+}
+
+.vs-mark {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.key-query {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 3.5px var(--accent);
+}
+
+.key-head {
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+}
+
+.key-fog {
+  width: 10px;
+  height: 10px;
+  margin: 0 1px;
+  border: 2px solid var(--info);
+  transform: rotate(45deg);
+}
+
+.key-other {
+  width: 9px;
+  height: 9px;
+  margin: 0 1.5px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text-3) 70%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Semantic search: how one part becomes searchable. A worked example on the same rail as the
+   query example; each field of the record keeps its color in the text that gets embedded.
+   -------------------------------------------------------------------------- */
+
+.embed {
+  position: relative;
+}
+
+.trace .trace-fields {
+  display: grid;
+  justify-items: start;
+  gap: 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.trace .trace-fields li {
+  margin: 0;
+}
+
+.f-part {
+  --field: var(--accent);
+}
+
+.f-side {
+  --field: var(--info);
+}
+
+.f-car {
+  --field: var(--sun);
+}
+
+.f-also {
+  --field: var(--ok);
+}
+
+.trace .trace-fields code {
+  border-left: 3px solid var(--field);
+}
+
+.trace-embed span {
+  text-decoration: underline 2px var(--field);
+  text-underline-offset: 4px;
+  text-decoration-skip-ink: none;
+}
+
+.trace-vector {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  width: 100%;
+}
+
+.trace-vector-art {
+  display: block;
+  width: min(100%, 330px);
+}
+
+.trace-vector-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.vec-up {
+  fill: var(--accent);
+}
+
+.vec-down {
+  fill: var(--info);
+}
+
+.vec-axis {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.vec-more {
+  fill: var(--text-3);
+}
+
+/* --------------------------------------------------------------------------
+   Semantic search: how the test suite scores a query. Three result slots per query; the one
+   holding the right part is green.
+   -------------------------------------------------------------------------- */
+
+.viz .score-rows {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.viz .score-rows > li {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.viz .score-rows > li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.score-query {
+  max-width: 100%;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: 0.875rem/1.5 var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.score-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  width: 100%;
+}
+
+.slots {
+  display: inline-flex;
+  flex: none;
+  gap: 4px;
+}
+
+.slot {
+  width: 18px;
+  height: 22px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--surface-2);
+}
+
+.slot-hit {
+  border-color: var(--ok);
+  background: var(--ok);
+}
+
+.slot-empty {
+  border-style: dashed;
+  background: transparent;
+}
+
+.score-rank {
+  color: var(--text-2);
+  font-size: 0.875rem;
+}
+
+.score-marks {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.score-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 10px 2px 6px;
+  border-radius: 12px;
+  font: 700 0.75rem/1.5 var(--font-mono);
+  white-space: nowrap;
+}
+
+.score-mark svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.8;
+}
+
+.score-yes {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.score-no {
+  background: var(--alert-soft);
+  color: var(--alert);
+}
+
+.viz .score-fix {
+  display: flex;
+  gap: 8px;
+  color: var(--text-2);
+  font-size: 0.875rem;
+}
+
+.score-fix svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Semantic search: the government program's test, one square per part
+   (partials/figures/test-grid.svg).
+   -------------------------------------------------------------------------- */
+
+.tg-right rect {
+  fill: var(--accent);
+}
+
+.tg-room rect {
+  fill: color-mix(in srgb, var(--text-3) 45%, transparent);
+}
+
+.tg-line {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.5;
+}
+
+.key-right {
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.key-room {
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--text-3) 45%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   AWS pipeline: many workers, one database (partials/figures/pipeline-fanout.svg).
+   -------------------------------------------------------------------------- */
+
+.fx-worker {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fx-ping {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.fx-fail {
+  fill: var(--alert-soft);
+  stroke: var(--alert);
+  stroke-width: 1.5;
+}
+
+.fx-fail-line {
+  fill: none;
+  stroke: var(--alert);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.viz .art-pulse-alert {
+  stroke: var(--alert);
+}
+
+.viz-canvas .narrow text {
+  font-size: 14px;
+}
+
+.viz-canvas .fx-side {
+  text-anchor: start;
+}
+
+.fx-dlq {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+  stroke-dasharray: 3 3;
+}
+
+/* Shown only while the story plays: the failing worker and the message that leaves the queue. */
+.fx-gone {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   AWS pipeline: how the pipeline backs off (partials/figures/backoff-timeline.svg).
+   -------------------------------------------------------------------------- */
+
+.bo-area {
+  fill: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.bo-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.bo-tick {
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.bo-block {
+  stroke: var(--alert);
+  stroke-width: 2;
+}
+
+.bo-hatch path {
+  stroke: color-mix(in srgb, var(--text-3) 35%, transparent);
+  stroke-width: 1;
+}
+
+.bo-sep {
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.bo-badge {
+  fill: var(--accent-soft);
+  stroke: color-mix(in srgb, var(--accent) 45%, transparent);
+  stroke-width: 1;
+}
+
+.viz-canvas .bo-num {
+  fill: var(--accent);
+  font: 700 10px var(--font-mono);
+}
+
+/* On phones the timeline is small, so its step numbers grow. */
+@media (max-width: 479px) {
+  .bo-badge {
+    r: 12px;
+  }
+
+  .viz-canvas .bo-num {
+    font-size: 14px;
+  }
+}
+
+.key-pace {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.key-tick,
+.key-block {
+  width: 3px;
+  margin: 0 4.5px;
+  border-radius: 2px;
+  background: var(--text-3);
+}
+
+.key-block {
+  background: var(--alert);
+}
+
+/* --------------------------------------------------------------------------
+   AWS pipeline: the signals CloudWatch watches. One tile per alarm; one of them goes off.
+   -------------------------------------------------------------------------- */
+
+.viz .alarm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .viz .alarm-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.viz .alarm-grid li {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-content: start;
+  gap: 6px 8px;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.alarm-icon {
+  display: grid;
+  grid-row: 1 / span 2;
+  color: var(--text-3);
+}
+
+.alarm-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.alarm-state {
+  grid-area: 2 / 2;
+  justify-self: start;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--ok-soft);
+  color: var(--ok);
+  font: 700 0.6875rem/1.5 var(--font-mono);
+}
+
+.viz .alarm-grid .alarm-on {
+  border-color: var(--alert);
+  background: var(--alert-soft);
+}
+
+.alarm-on .alarm-icon {
+  color: var(--alert);
+}
+
+.alarm-on .alarm-state {
+  border-color: var(--alert);
+  background: var(--surface);
+  color: var(--alert);
+}
+
+/* The OK that the alarm replaces: shown only while the story plays. */
+.alarm-on .alarm-was {
+  border-color: transparent;
+  background: var(--ok-soft);
+  color: var(--ok);
+  opacity: 0;
+}
+
+.viz .alarm-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.alarm-bell {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--alert-soft);
+  color: var(--alert);
+}
+
+.alarm-bell svg {
+  width: 16px;
+  height: 16px;
+}

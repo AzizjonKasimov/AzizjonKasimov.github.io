@@ -94,33 +94,46 @@
         if (window.langRedirect || !window.IntersectionObserver) return;
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         root.classList.add('motion');
+        function watch(selector, rootMargin) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              // Items that come into view together play in turn: --n is an item's place among
+              // the items of its figure, list, or card grid in this batch.
+              var groups = [];
+              var counts = [];
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var item = entry.target;
+                var group = item.closest('figure, .stats, .card-grid, .shots') || item.parentNode;
+                var i = groups.indexOf(group);
+                if (i < 0) i = groups.push(group) - 1;
+                counts[i] = (counts[i] || 0) + 1;
+                item.style.setProperty('--n', counts[i] - 1);
+                item.classList.add('in-view');
+                observer.unobserve(item);
+              });
+            },
+            { rootMargin: rootMargin }
+          );
+          document.querySelectorAll(selector).forEach(function (item) {
+            observer.observe(item);
+          });
+        }
         document.addEventListener('DOMContentLoaded', function () {
           try {
-            var observer = new IntersectionObserver(
-              function (entries) {
-                // Items that come into view together play in turn: --n is an item's place among
-                // the items of its figure, list, or card grid in this batch.
-                var groups = [];
-                var counts = [];
-                entries.forEach(function (entry) {
-                  if (!entry.isIntersecting) return;
-                  var item = entry.target;
-                  var group = item.closest('figure, .stats, .card-grid, .shots') || item.parentNode;
-                  var i = groups.indexOf(group);
-                  if (i < 0) i = groups.push(group) - 1;
-                  counts[i] = (counts[i] || 0) + 1;
-                  item.style.setProperty('--n', counts[i] - 1);
-                  item.classList.add('in-view');
-                  observer.unobserve(item);
+            watch('.stat, .card-art, .steps > li, .sidecars, .trace-steps > li, .chart, .shots > li', '0px 0px -8% 0px');
+            // The case-study figures (src/figures.css) tell a story over a few seconds, so each
+            // waits until it is well on screen. Their Replay button plays the story again.
+            watch('.viz', '0px 0px -30% 0px');
+            document.querySelectorAll('.replay').forEach(function (button) {
+              button.hidden = false;
+              button.addEventListener('click', function () {
+                button.closest('figure').getAnimations({ subtree: true }).forEach(function (animation) {
+                  animation.cancel();
+                  animation.play();
                 });
-              },
-              { rootMargin: '0px 0px -8% 0px' }
-            );
-            document
-              .querySelectorAll('.stat, .card-art, .steps > li, .sidecars, .trace-steps > li, .chart, .shots > li')
-              .forEach(function (item) {
-                observer.observe(item);
               });
+            });
           } catch (e) {
             // Show everything without motion rather than leave it waiting.
             root.classList.remove('motion');

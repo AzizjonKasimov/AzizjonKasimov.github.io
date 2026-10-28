@@ -159,10 +159,70 @@
                 <strong>벡터 검색 핵심.</strong> 부품 카탈로그를 Weaviate에 임베딩하고 Django REST Framework로 검색 서비스를 만들었습니다. 각 부품에서 어떤
                 텍스트를 임베딩할지, 예를 들어 필드 라벨, 부품 위치, 차량 연식, 선별한 동의어를 직접 골라, 올바른 부품이 더 많이 검색되게 했습니다.
               </li>
+            </ul>
+            <figure class="trace embed" aria-labelledby="embed-title">
+              <figcaption id="embed-title" class="viz-title">예시: 부품 하나가 검색 가능해지는 과정</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">부품 카탈로그의 레코드</span>
+                  <ul class="trace-fields">
+                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
+                    <li><code class="f-side">side: left</code></li>
+                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
+                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="trace-label">임베딩되는 텍스트</span>
+                  <code class="trace-embed"><span class="f-part">Part: Head Lamp Assembly.</span> <span class="f-side">Side: left.</span> <span class="f-car">Car: Hyundai Sonata 2019.</span> <span class="f-also">Also called: headlight, head lamp.</span></code>
+                </li>
+                <li>
+                  <span class="trace-label">이 텍스트의 벡터: 의미를 담은 숫자 목록</span>
+                  <span class="trace-vector">
+                    <span class="trace-vector-art" aria-hidden="true"><!-- include: partials/figures/vector-strip.svg --></span>
+                    <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
+                  </span>
+                </li>
+              </ol>
+              <p class="viz-note">단계를 보여 주기 위해 단순하게 만든 가상의 레코드입니다.</p>
+            </figure>
+            <ul>
               <li>
                 <strong>개체를 엄격한 필터로.</strong> spaCy가 자유 형식 질의에서 구조화된 정보를 뽑아 정확한 필터로
                 바꿉니다. 표현의 차이는 벡터 검색이 처리하고, 차량과 위치가 맞는지는 필터가 보장합니다.
               </li>
+            </ul>
+            <figure class="viz space" aria-labelledby="space-title">
+              <figcaption id="space-title" class="viz-title">예시: 같은 검색어가 카탈로그 부품 사이에 놓인 모습</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-query"></span>검색어</li>
+                <li><span class="viz-key key-head"></span>헤드램프</li>
+                <li><span class="viz-key key-fog"></span>안개등</li>
+                <li><span class="viz-key key-other"></span>다른 부품</li>
+              </ul>
+              <ol class="viz-steps">
+                <li><strong>의미.</strong> 벡터 검색이 검색어와 의미가 가장 가까운 부품, 즉 여러 차량의 램프를 찾습니다.</li>
+                <li>
+                  <strong>필터.</strong> 개체 필터가 다른 차량의 부품과 반대쪽 부품을 걸러 냅니다.
+                  같은 차량의 사이드미러(점선 원)는 필터를 통과하지만, 의미는 검색어와 거리가 멉니다.
+                </li>
+                <li><strong>재정렬.</strong> LLM이 안개등을 제외해서, 왼쪽 헤드램프가 가장 먼저 나옵니다.</li>
+              </ol>
+              <p class="viz-note">
+                가상의 부품으로 그린 예시입니다. 점 하나가 부품 하나이며, 텍스트의 의미에 따라 자리가 정해집니다.
+                그래서 텍스트가 비슷한 부품끼리 가까이 모입니다.
+              </p>
+            </figure>
+            <ul>
               <li>
                 <strong>두 가지 검색 모드.</strong> 구매자는 상품 검색을 씁니다. 공급업체는 자동 매칭을 씁니다. 공급업체가 부품을 업로드하면 검색이 그 부품을 카탈로그 레코드와
                 연결하고, 서로 다른 부품 번호마다 별도의 결과를 만듭니다.
@@ -186,6 +246,56 @@
               정확도는 추측이 아니라 측정해야 했습니다. 프로덕션 검색과 같은 파이프라인을 선별된 고정 테스트 세트로
               실행하는 내부 테스트 페이지를 만들었습니다.
             </p>
+            <figure class="viz score" aria-labelledby="score-title">
+              <figcaption id="score-title" class="viz-title">예시: 테스트 스위트가 검색어 세 개를 채점하는 방식</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <ol class="score-rows">
+                <li>
+                  <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
+                    <span class="score-rank">올바른 부품이 첫 번째로 나왔습니다.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>1위<span class="visually-hidden">: 예</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>3위 이내<span class="visually-hidden">: 예</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
+                    <span class="score-rank">올바른 부품이 세 번째로 나왔습니다.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>1위<span class="visually-hidden">: 아니요</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>3위 이내<span class="visually-hidden">: 예</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
+                    <span class="score-rank">결과가 하나도 없었습니다.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>1위<span class="visually-hidden">: 아니요</span></span>
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>3위 이내<span class="visually-hidden">: 아니요</span></span>
+                    </span>
+                  </div>
+                  <p class="score-fix">
+                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                    <span>오류 분석으로 원인을 찾았습니다. 검색어에 들어간 차체 색상 때문에 결과가 비어 있었습니다. 수정한 뒤 테스트를 다시 실행했습니다.</span>
+                  </p>
+                </li>
+              </ol>
+              <p class="viz-note">
+                가상의 검색어입니다. accuracy@1은 테스트 검색어 중 올바른 부품이 1위로 나온 비율이고, accuracy@3은
+                올바른 부품이 3위 이내에 든 비율입니다.
+              </p>
+            </figure>
             <ul>
               <li><strong>지표:</strong> accuracy@1, accuracy@3, precision, recall, F1, 혼동 행렬, 교차 검증.</li>
               <li><strong>반복 가능한 실행:</strong> 자동 또는 수동으로 실행합니다. 실행마다 실행한 사람과 LLM 단계 사용 여부를 기록합니다.</li>
@@ -194,6 +304,21 @@
             </ul>
 
             <h2>결과</h2>
+            <figure class="viz pass" aria-labelledby="pass-title">
+              <figcaption id="pass-title" class="viz-title">정부 R&amp;D 사업의 테스트: 부품 3,000개, 한 칸에 하나씩</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/test-grid.svg -->
+                <!-- include: partials/figures/test-grid-narrow.svg -->
+              </div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-right"></span>적어도 95%는 올바른 결과가 나와야 했습니다.</li>
+                <li><span class="viz-key key-room"></span>최대 5%까지만 틀릴 수 있었습니다.</li>
+              </ul>
+            </figure>
             <ul class="metric-grid">
               <li><span class="num">95%+</span><span class="lbl">정부 R&amp;D 사업의 3,000개 부품 테스트에서 얻은 정확도</span></li>
               <li><span class="num">승인</span><span class="lbl">테스트를 통과한 R&amp;D 과제</span></li>

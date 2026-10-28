@@ -1,0 +1,15 @@
+<svg class="wide" viewBox="0 0 700 210">
+  <defs>
+    <pattern id="tg-right" class="tg-right" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="0.6" y="0.6" width="5.8" height="5.8" rx="1.2" /></pattern>
+    <pattern id="tg-room" class="tg-room" width="7" height="7" patternUnits="userSpaceOnUse"><rect x="0.6" y="0.6" width="5.8" height="5.8" rx="1.2" /></pattern>
+  </defs>
+  <g class="tg-fill">
+    <rect x="0" y="0" width="700" height="196" fill="url(#tg-right)" />
+    <rect x="0" y="196" width="350" height="7" fill="url(#tg-right)" />
+  </g>
+  <g class="fade" style="--at: 1900ms; --dur: 500ms">
+    <rect x="350" y="196" width="350" height="7" fill="url(#tg-room)" />
+    <rect x="0" y="203" width="700" height="7" fill="url(#tg-room)" />
+  </g>
+  <path class="tg-line draw" d="M0 203.2h350.2v-7H700" pathLength="1" style="--at: 2300ms; --dur: 700ms" />
+</svg>

@@ -155,9 +155,67 @@
               <li>
                 <strong>向量搜索核心。</strong>我把零件目录嵌入到 Weaviate 中，并用 Django REST Framework 构建了搜索服务。我为每个零件挑选了要嵌入的文本，例如字段标签、零件位置、车辆年份和精选的同义词，这样能找到更多正确的零件。
               </li>
+            </ul>
+            <figure class="trace embed" aria-labelledby="embed-title">
+              <figcaption id="embed-title" class="viz-title">示例：一个零件如何变得可搜索</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">零件目录中的一条记录</span>
+                  <ul class="trace-fields">
+                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
+                    <li><code class="f-side">side: left</code></li>
+                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
+                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="trace-label">要嵌入的文本</span>
+                  <code class="trace-embed"><span class="f-part">Part: Head Lamp Assembly.</span> <span class="f-side">Side: left.</span> <span class="f-car">Car: Hyundai Sonata 2019.</span> <span class="f-also">Also called: headlight, head lamp.</span></code>
+                </li>
+                <li>
+                  <span class="trace-label">它的向量：用数字表示的含义</span>
+                  <span class="trace-vector">
+                    <span class="trace-vector-art" aria-hidden="true"><!-- include: partials/figures/vector-strip.svg --></span>
+                    <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
+                  </span>
+                </li>
+              </ol>
+              <p class="viz-note">一条虚构的记录，经过简化，用来演示各个步骤。</p>
+            </figure>
+            <ul>
               <li>
                 <strong>实体作为硬过滤条件。</strong>spaCy 从自由文本查询中提取结构化信息，并把它们变成精确的过滤条件。向量搜索负责处理措辞差异，过滤条件则确保车型和位置正确。
               </li>
+            </ul>
+            <figure class="viz space" aria-labelledby="space-title">
+              <figcaption id="space-title" class="viz-title">示例：同一条查询在目录零件中的位置</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-query"></span>查询</li>
+                <li><span class="viz-key key-head"></span>前大灯</li>
+                <li><span class="viz-key key-fog"></span>雾灯</li>
+                <li><span class="viz-key key-other"></span>其他零件</li>
+              </ul>
+              <ol class="viz-steps">
+                <li><strong>含义。</strong>向量搜索找出与查询含义最接近的零件：许多车型的车灯。</li>
+                <li>
+                  <strong>过滤条件。</strong>实体过滤条件会去掉其他车型或另一侧的零件。同一车型的后视镜（虚线圆圈）能通过过滤，但它的含义与查询相差很远。
+                </li>
+                <li><strong>重排序。</strong>LLM 剔除了雾灯，于是左前大灯排在第一。</li>
+              </ol>
+              <p class="viz-note">
+                示意图，零件均为虚构。每个点代表一个零件，位置由它的文本含义决定，所以文本相近的零件会靠在一起。
+              </p>
+            </figure>
+            <ul>
               <li>
                 <strong>两种搜索模式。</strong>买家使用商品搜索。供应商使用自动匹配：他们上传一个零件后，搜索会把它与目录记录匹配，每个不同的零件编号都成为一条单独的结果。
               </li>
@@ -176,6 +234,55 @@
             <p>
               准确率必须靠测量，而不是靠猜测。我构建了一个内部测试页面，在一个固定的、精心整理的测试集上运行与生产搜索相同的流水线。
             </p>
+            <figure class="viz score" aria-labelledby="score-title">
+              <figcaption id="score-title" class="viz-title">示例：测试套件如何给三条查询打分</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <ol class="score-rows">
+                <li>
+                  <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
+                    <span class="score-rank">正确的零件排在第一。</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>第 1 名<span class="visually-hidden">：是</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>前 3 名<span class="visually-hidden">：是</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
+                    <span class="score-rank">正确的零件排在第三。</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>第 1 名<span class="visually-hidden">：否</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>前 3 名<span class="visually-hidden">：是</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
+                    <span class="score-rank">没有返回任何结果。</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>第 1 名<span class="visually-hidden">：否</span></span>
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>前 3 名<span class="visually-hidden">：否</span></span>
+                    </span>
+                  </div>
+                  <p class="score-fix">
+                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                    <span>错误分析发现，结果为空是因为查询中带有车身颜色。修复后，测试重新运行了一遍。</span>
+                  </p>
+                </li>
+              </ol>
+              <p class="viz-note">
+                查询均为虚构。accuracy@1 指正确零件排在第一的测试查询所占的比例，accuracy@3 指正确零件进入前三的比例。
+              </p>
+            </figure>
             <ul>
               <li><strong>指标：</strong>accuracy@1 和 accuracy@3、精确率、召回率、F1、混淆矩阵和交叉验证。</li>
               <li><strong>可重复运行：</strong>自动或手动运行。每次运行都会记录运行者，以及是否开启了 LLM 步骤。</li>
@@ -184,6 +291,21 @@
             </ul>
 
             <h2>结果</h2>
+            <figure class="viz pass" aria-labelledby="pass-title">
+              <figcaption id="pass-title" class="viz-title">政府研发计划的测试：3000 个零件，每个方格代表一个零件</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/test-grid.svg -->
+                <!-- include: partials/figures/test-grid-narrow.svg -->
+              </div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-right"></span>至少 95% 必须返回正确结果。</li>
+                <li><span class="viz-key key-room"></span>最多只允许 5% 出错。</li>
+              </ul>
+            </figure>
             <ul class="metric-grid">
               <li><span class="num">95%+</span><span class="lbl">在政府研发计划的 3000 个零件测试中的准确率</span></li>
               <li><span class="num">已获批准</span><span class="lbl">研发项目，在它通过测试之后</span></li>

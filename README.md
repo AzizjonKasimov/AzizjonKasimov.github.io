@@ -16,10 +16,11 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 | `work/<slug>/index.html` | Case-study pages: work projects (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) and personal projects (`expense-tracker`, `network-app`, `body-physics`) |
 | `ko/`, `de/`, `ru/`, `uz/`, `zh/` | The same pages in Korean, German, Russian, Uzbek, and Chinese; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
-| `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`) and the work-card drawings (`art/`), inlined into pages at build time |
+| `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`), the work-card drawings (`art/`), and the case-study figure drawings (`figures/`), inlined into pages at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
 | `src/styles.css` | All styles, including the dark theme and print styles |
-| `src/motion.css` | The animations of the photo, charts, drawings, and diagrams (imported by `styles.css`) |
+| `src/figures.css` | The case-study figures that show how a system works (imported by `styles.css`) |
+| `src/motion.css` | The animations of the photo, charts, drawings, diagrams, and figures (imported by `styles.css`) |
 | `public/` | Files copied as-is: favicon, social preview image, touch icon, the homepage photo (`images/`), certificate scans (`certificates/`), case-study screenshots (`screenshots/`), `robots.txt` |
 | `tools/` | The translation, language-redirect, and layout checks, the web image script, and the sources and render script for the social preview image and touch icon |
 | `vite.config.mjs` | The build: one entry per page and language, the partial-include plugin, and the generated `sitemap.xml` |
@@ -78,6 +79,16 @@ shows the same drawing.
   opaque before running `web-images.ps1`, which would otherwise darken the see-through parts.
 - **Videos:** a `.video-card` links to the video on YouTube instead of embedding it, so the page
   loads nothing from YouTube.
+- **Figures:** a `<figure class="viz ...">` shows how part of a system works, as a short story that
+  plays once (styles in `src/figures.css`). Its drawing is an SVG partial in `partials/figures/`
+  inside a `.viz-canvas`, with no words except technology names that every language writes the same
+  way; the title, the numbered steps under the drawing, the legend, and the note are HTML, so they
+  are translated. A drawing that gets too small on phones has a `-narrow.svg` version for screens
+  below 480px (the root `<svg>` carries `class="wide"` or `class="narrow"`, and each version needs
+  its own ids). Every figure says when it is an illustration with made-up data. The semantic search
+  page has four (how a part becomes searchable, the query among the catalog's parts, how the test
+  suite scores a query, the 3,000-part test) and the AWS pipeline page three (many workers and one
+  database, backing off, the CloudWatch alarms).
 
 ### Motion
 
@@ -96,6 +107,13 @@ item as it comes into view.
 - While a work card is hovered or focused, its drawing plays a loop: a dash travels along its lines
   (`art-pulse` paths with `pathLength="100"`, started in turn by `--pulse-at`), and parts marked
   `hover-*` move. The loop stops when the pointer leaves.
+- A figure (`.viz`) plays its whole story, a few seconds long, once it is well on screen (its top
+  above 70% of the screen height), and its Replay button plays it again; the button stays hidden
+  without motion. Its drawing uses the same shape classes, plus `spread`, `dim` (fades to the
+  shape's dimmed still opacity), `blip` (shows only while the story plays), and `ping-once`; the
+  steps under it appear as their part of the story begins (`--at` per step in `src/motion.css`).
+  A custom property such as `--dur` passes down to the shapes inside a group, so give a nested
+  animated shape its own `--dur`.
 - Anything new that animates must sit inside one of the items the script watches (listed at the top
   of `src/motion.css`). Otherwise its animation waits forever, what it shows stays hidden, and the
   layout check fails.

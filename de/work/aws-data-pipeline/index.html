@@ -101,6 +101,29 @@
               </ul>
               <figcaption id="flow-caption">Die Pipeline, aufgebaut aus Standard-AWS-Diensten.</figcaption>
             </figure>
+            <figure class="viz fanout" aria-labelledby="fanout-title">
+              <figcaption id="fanout-title" class="viz-title">Viele Worker, eine Datenbank</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/pipeline-fanout.svg -->
+                <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
+              </div>
+              <ol class="viz-steps">
+                <li><strong>Parallel.</strong> SQS verteilt die Arbeit, sodass viele Lambda-Worker gleichzeitig Seiten abrufen.</li>
+                <li>
+                  <strong>Wenige Verbindungen.</strong> RDS Proxy bündelt die Verbindungen zur Datenbank, sodass die vielen
+                  Worker PostgreSQL nicht überlasten.
+                </li>
+                <li>
+                  <strong>Fehler beiseitegelegt.</strong> Eine Nachricht, die immer wieder fehlschlägt, landet in der
+                  Dead-Letter-Queue (DLQ). Ein Redrive schickt sie später zurück in die Queue.
+                </li>
+              </ol>
+              <p class="viz-note">Eine vereinfachte Zeichnung. Die Zahl der Worker ist nur ein Beispiel.</p>
+            </figure>
 
             <h2>Lieber drosseln als ausfallen</h2>
             <p>Eine Datenquelle, die die Anfragerate begrenzt, wehrt sich irgendwann. Die Pipeline war darauf ausgelegt:</p>
@@ -110,23 +133,97 @@
                 versuchen. Ein gemeinsamer Cooldown-Zustand liegt in PostgreSQL.
               </li>
               <li>
-                <strong>Adaptives Rate Limiting.</strong> Die Abstände zwischen Anfragen haben Jitter, die Pipeline fährt
-                automatisch zurück, wenn die Quelle sich wehrt, und die Worker fahren nach einem Cooldown schrittweise wieder
-                hoch.
+                <strong>Adaptives Rate Limiting.</strong> Zwischen den Anfragen liegen kleine, zufällige Pausen (Jitter), die
+                Pipeline fährt automatisch zurück, wenn die Quelle sich wehrt, und die Worker fahren nach einem Cooldown
+                schrittweise wieder hoch.
               </li>
               <li>
                 <strong>Sichere Nebenläufigkeit.</strong> Worker übernehmen Ziele sicher, wiederholen Fehlversuche und holen
                 hängende Jobs zurück, sodass viele von ihnen parallel laufen können, ohne sich in die Quere zu kommen.
               </li>
             </ul>
+            <figure class="viz backoff" aria-labelledby="backoff-title">
+              <figcaption id="backoff-title" class="viz-title">Was passiert, wenn die Quelle sich wehrt</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-pace"></span>Tempo der Anfragen</li>
+                <li><span class="viz-key key-tick"></span>Eine Anfrage</li>
+                <li><span class="viz-key key-block"></span>Eine blockierte Seite</li>
+              </ul>
+              <ol class="viz-steps">
+                <li>Die Worker rufen Seiten in normalem Tempo ab, mit Jitter zwischen den Anfragen.</li>
+                <li>Die Quelle beginnt, Seiten zu blockieren, deshalb stoppt der Circuit Breaker neue Anfragen.</li>
+                <li>Jeder Worker wartet einen Cooldown ab. Alle Worker teilen sich diesen Cooldown über PostgreSQL.</li>
+                <li>Die Worker starten langsam wieder und werden Schritt für Schritt schneller.</li>
+                <li>Die Pipeline pendelt sich bei einem Tempo ein, das die Quelle akzeptiert.</li>
+              </ol>
+              <p class="viz-note">Eine schematische Darstellung. Die Zeitachse ist nicht maßstabsgetreu.</p>
+            </figure>
 
             <h2>Observability und Betrieb</h2>
+            <figure class="viz alarms" aria-labelledby="alarms-title">
+              <figcaption id="alarms-title" class="viz-title">Die Signale, die CloudWatch überwacht</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <ul class="alarm-grid">
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
+                  <span class="alarm-name">Der Orchestrator stoppt</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
+                  <span class="alarm-name">Worker schlagen fehl</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
+                  <span class="alarm-name">Lambda drosselt Worker</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li class="alarm-on">
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
+                  <span class="alarm-name">Die Queue staut sich</span>
+                  <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
+                  <code class="alarm-state">ALARM</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">Nachrichten in der Queue werden alt</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">Seiten werden blockiert</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">Speichern in der Datenbank schlägt fehl</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">Die tägliche Zahl der Inserate sinkt</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+              </ul>
+              <p class="alarm-alert">
+                <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
+                <span>SNS schickt mir eine Benachrichtigung.</span>
+              </p>
+              <p class="viz-note">Eine schematische Darstellung, in der ein Alarm ausgelöst wird.</p>
+            </figure>
             <ul>
               <li>
-                <strong>Alarme für das, was zählt.</strong> CloudWatch benachrichtigt mich, wenn der Orchestrator stehen
-                bleibt, Worker fehlschlagen, Lambda sie drosselt, die Queue sich staut oder ihre Nachrichten alt werden,
-                Seiten blockiert werden, Datenbank-Schreibvorgänge fehlschlagen oder die tägliche Zahl der Inserate
-                sinkt.
+                <strong>Alarme für das, was zählt.</strong> Für jedes der Signale oben gibt es einen CloudWatch-Alarm, und
+                SNS benachrichtigt mich, wenn einer ausgelöst wird.
               </li>
               <li>
                 <strong>Health Checks.</strong> AWS-CLI-Skripte prüfen die Pipeline von jedem Rechner aus, und eine

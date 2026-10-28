@@ -100,6 +100,29 @@
               </ul>
               <figcaption id="flow-caption">표준 AWS 서비스로 구성한 파이프라인입니다.</figcaption>
             </figure>
+            <figure class="viz fanout" aria-labelledby="fanout-title">
+              <figcaption id="fanout-title" class="viz-title">워커는 여럿, 데이터베이스는 하나</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/pipeline-fanout.svg -->
+                <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
+              </div>
+              <ol class="viz-steps">
+                <li><strong>병렬 처리.</strong> SQS가 작업을 나눠 주므로, 많은 Lambda 워커가 동시에 페이지를 가져옵니다.</li>
+                <li>
+                  <strong>적은 커넥션 수.</strong> RDS Proxy가 데이터베이스 커넥션을 풀링하므로, 워커가 많아도
+                  PostgreSQL에 과부하가 걸리지 않습니다.
+                </li>
+                <li>
+                  <strong>실패는 따로 보관.</strong> 계속 실패하는 메시지는 데드레터 큐(DLQ)로 이동합니다. 나중에
+                  재처리하면 메시지가 다시 큐로 돌아갑니다.
+                </li>
+              </ol>
+              <p class="viz-note">단순화한 그림입니다. 워커 수는 설명을 위한 예시입니다.</p>
+            </figure>
 
             <h2>무너지지 않고 속도를 늦추는 설계</h2>
             <p>요청 속도를 제한하는 데이터 소스는 결국 제동을 겁니다. 파이프라인은 이를 전제로 설계했습니다.</p>
@@ -109,20 +132,96 @@
                 공유 쿨다운 상태는 PostgreSQL에 저장됩니다.
               </li>
               <li>
-                <strong>적응형 속도 제한.</strong> 요청 간격에 지터를 두고, 소스가 제동을 걸면 자동으로 속도를 줄이며,
-                쿨다운 후에는 워커를 점진적으로 늘립니다.
+                <strong>적응형 속도 제한.</strong> 요청 사이에 짧은 무작위 간격(지터)을 두고, 소스가 제동을 걸면 자동으로
+                속도를 줄이며, 쿨다운 후에는 워커를 점진적으로 늘립니다.
               </li>
               <li>
                 <strong>안전한 동시성.</strong> 워커는 대상을 안전하게 선점하고, 재시도하며, 멈춘 작업을 복구합니다. 그래서
                 많은 워커가 충돌 없이 병렬로 실행됩니다.
               </li>
             </ul>
+            <figure class="viz backoff" aria-labelledby="backoff-title">
+              <figcaption id="backoff-title" class="viz-title">데이터 소스가 제동을 걸 때 일어나는 일</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-pace"></span>요청 속도</li>
+                <li><span class="viz-key key-tick"></span>요청 하나</li>
+                <li><span class="viz-key key-block"></span>차단된 페이지</li>
+              </ul>
+              <ol class="viz-steps">
+                <li>워커가 요청 사이에 지터를 두고 평소 속도로 페이지를 가져옵니다.</li>
+                <li>소스가 페이지를 차단하기 시작하면, 서킷 브레이커가 새 요청을 멈춥니다.</li>
+                <li>모든 워커가 쿨다운이 끝날 때까지 기다립니다. 쿨다운 상태는 PostgreSQL을 통해 공유됩니다.</li>
+                <li>워커가 천천히 다시 시작하고, 단계적으로 속도를 높입니다.</li>
+                <li>파이프라인은 소스가 허용하는 속도로 안정됩니다.</li>
+              </ol>
+              <p class="viz-note">설명을 위한 그림입니다. 시간 간격은 실제 비율과 다릅니다.</p>
+            </figure>
 
             <h2>관측성과 운영</h2>
+            <figure class="viz alarms" aria-labelledby="alarms-title">
+              <figcaption id="alarms-title" class="viz-title">CloudWatch가 감시하는 신호</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <ul class="alarm-grid">
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
+                  <span class="alarm-name">Orchestrator 중단</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
+                  <span class="alarm-name">워커 실패</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
+                  <span class="alarm-name">Lambda가 워커 실행을 제한</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li class="alarm-on">
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
+                  <span class="alarm-name">큐 적체</span>
+                  <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
+                  <code class="alarm-state">ALARM</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">메시지가 오래 대기</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">페이지 차단</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">DB 쓰기 실패</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">일일 매물 수 감소</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+              </ul>
+              <p class="alarm-alert">
+                <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
+                <span>SNS가 저에게 알림을 보냅니다.</span>
+              </p>
+              <p class="viz-note">설명을 위한 그림입니다. 알람 하나가 울린 상태를 보여 줍니다.</p>
+            </figure>
             <ul>
               <li>
-                <strong>중요한 것에 대한 알람.</strong> 오케스트레이터가 멈추거나, 워커가 실패하거나, Lambda가 워커 실행을 제한(스로틀링)하거나, 큐가 밀리거나 메시지가 오래
-                대기하거나, 페이지가 차단되거나, 데이터베이스 쓰기가 실패하거나, 일일 매물 수가 떨어지면 CloudWatch가 저에게 알립니다.
+                <strong>중요한 것에 대한 알람.</strong> 위의 신호마다 CloudWatch 알람이 있고, 알람이 울리면 SNS가 저에게
+                알림을 보냅니다.
               </li>
               <li>
                 <strong>상태 점검.</strong> AWS CLI 스크립트로 어떤 컴퓨터에서든 파이프라인 상태를 점검하고, 작은 읽기 전용 Lambda가 데이터베이스 상태를 CloudWatch에

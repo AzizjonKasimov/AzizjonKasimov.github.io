@@ -165,11 +165,71 @@
                 qaysi matn embedding qilinishini oʻzim tanladim, masalan, maydon nomlari, tomon, avtomobil yili va
                 tanlangan sinonimlar, shunda toʻgʻri qismlarning koʻprogʻi topiladi.
               </li>
+            </ul>
+            <figure class="trace embed" aria-labelledby="embed-title">
+              <figcaption id="embed-title" class="viz-title">Misol: bitta qism qidiruv uchun qanday tayyorlanadi</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Ehtiyot qismlar katalogidagi yozuv</span>
+                  <ul class="trace-fields">
+                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
+                    <li><code class="f-side">side: left</code></li>
+                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
+                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="trace-label">Embedding qilinadigan matn</span>
+                  <code class="trace-embed"><span class="f-part">Part: Head Lamp Assembly.</span> <span class="f-side">Side: left.</span> <span class="f-car">Car: Hyundai Sonata 2019.</span> <span class="f-also">Also called: headlight, head lamp.</span></code>
+                </li>
+                <li>
+                  <span class="trace-label">Uning vektori: maʼnoni ifodalaydigan sonlar</span>
+                  <span class="trace-vector">
+                    <span class="trace-vector-art" aria-hidden="true"><!-- include: partials/figures/vector-strip.svg --></span>
+                    <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
+                  </span>
+                </li>
+              </ol>
+              <p class="viz-note">Qadamlarni koʻrsatish uchun soddalashtirilgan toʻqima yozuv.</p>
+            </figure>
+            <ul>
               <li>
                 <strong>Obyektlar qatʼiy filtr sifatida.</strong> spaCy erkin matnli soʻrovdan tuzilgan faktlarni ajratib oladi
                 va ularni aniq filtrlarga aylantiradi. Vektor qidiruv turli ifodalarni tushunadi, filtrlar esa avtomobil va
                 tomon toʻgʻri boʻlishini kafolatlaydi.
               </li>
+            </ul>
+            <figure class="viz space" aria-labelledby="space-title">
+              <figcaption id="space-title" class="viz-title">Misol: xuddi shu soʻrov katalogdagi qismlar orasida</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-query"></span>Soʻrov</li>
+                <li><span class="viz-key key-head"></span>Fara</li>
+                <li><span class="viz-key key-fog"></span>Tumanga qarshi fara</li>
+                <li><span class="viz-key key-other"></span>Boshqa qism</li>
+              </ul>
+              <ol class="viz-steps">
+                <li><strong>Maʼno.</strong> Vektor qidiruv soʻrovga maʼnosi eng yaqin qismlarni topadi: turli avtomobillar uchun faralar.</li>
+                <li>
+                  <strong>Filtrlar.</strong> Obyektlar boshqa avtomobilga yoki qarama-qarshi tomonga tegishli qismlarni olib
+                  tashlaydi. Xuddi shu avtomobilning koʻzgusi (punktir halqada) filtrlardan oʻtadi, lekin maʼnosi soʻrovdan uzoq.
+                </li>
+                <li><strong>Qayta saralash.</strong> LLM tumanga qarshi farani chiqarib tashlaydi, shuning uchun chap fara birinchi oʻringa chiqadi.</li>
+              </ol>
+              <p class="viz-note">
+                Tasvirdagi qismlar toʻqima. Har bir nuqta bitta qism boʻlib, u matnining maʼnosiga qarab joylashadi.
+                Shuning uchun matni oʻxshash qismlar bir-biriga yaqin turadi.
+              </p>
+            </figure>
+            <ul>
               <li>
                 <strong>Ikki qidiruv rejimi.</strong> Xaridorlar mahsulot qidiruvidan foydalanadi. Yetkazib beruvchilar
                 avtomatik moslashtirishdan foydalanadi: ular qism yuklaganida qidiruv uni katalog yozuvlari bilan
@@ -198,6 +258,56 @@
               Aniqlikni taxmin qilish emas, oʻlchash kerak edi. Ishlab turgan qidiruv bilan bir xil konveyerni belgilangan,
               saralangan test toʻplamida ishga tushiradigan ichki test sahifasini yaratdim.
             </p>
+            <figure class="viz score" aria-labelledby="score-title">
+              <figcaption id="score-title" class="viz-title">Misol: testlar toʻplami uchta soʻrovni qanday baholaydi</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <ol class="score-rows">
+                <li>
+                  <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
+                    <span class="score-rank">Toʻgʻri qism birinchi oʻrinda chiqdi.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 1<span class="visually-hidden">: ha</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 3<span class="visually-hidden">: ha</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
+                    <span class="score-rank">Toʻgʻri qism uchinchi oʻrinda chiqdi.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 1<span class="visually-hidden">: yoʻq</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 3<span class="visually-hidden">: ha</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
+                    <span class="score-rank">Hech qanday natija qaytmadi.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 1<span class="visually-hidden">: yoʻq</span></span>
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 3<span class="visually-hidden">: yoʻq</span></span>
+                    </span>
+                  </div>
+                  <p class="score-fix">
+                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                    <span>Xatoliklar tahlili boʻsh natijaga soʻrovdagi kuzov rangi sabab boʻlganini aniqladi. Tuzatishdan keyin test qayta ishga tushirildi.</span>
+                  </p>
+                </li>
+              </ol>
+              <p class="viz-note">
+                Soʻrovlar toʻqima. Accuracy@1 — toʻgʻri qism birinchi oʻrinda chiqqan test soʻrovlarining ulushi,
+                accuracy@3 esa toʻgʻri qism dastlabki uchta natija orasida boʻlgan soʻrovlar ulushi.
+              </p>
+            </figure>
             <ul>
               <li><strong>Metrikalar:</strong> accuracy@1 va accuracy@3, precision, recall, F1, confusion matrix va kross-validatsiya.</li>
               <li><strong>Takrorlanadigan sinovlar:</strong> avtomatik yoki qoʻlda. Har bir sinovda uni kim ishga tushirgani va LLM bosqichi yoqilgan-yoqilmagani qayd etiladi.</li>
@@ -206,6 +316,21 @@
             </ul>
 
             <h2>Natijalar</h2>
+            <figure class="viz pass" aria-labelledby="pass-title">
+              <figcaption id="pass-title" class="viz-title">Davlat dasturining testi: 3000 ta qism, har biriga bitta katak</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/test-grid.svg -->
+                <!-- include: partials/figures/test-grid-narrow.svg -->
+              </div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-right"></span>Kamida 95% toʻgʻri topilishi kerak edi.</li>
+                <li><span class="viz-key key-room"></span>Koʻpi bilan 5% xato boʻlishi mumkin edi.</li>
+              </ul>
+            </figure>
             <ul class="metric-grid">
               <li><span class="num">95%+</span><span class="lbl">davlat dasturining 3000 ta qismdan iborat testida aniqlik</span></li>
               <li><span class="num">Tasdiqlandi</span><span class="lbl">R&amp;D loyihasi, testdan oʻtgach</span></li>

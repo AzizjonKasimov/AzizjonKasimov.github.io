@@ -101,6 +101,29 @@
               </ul>
               <figcaption id="flow-caption">Пайплайн, собранный из стандартных сервисов AWS.</figcaption>
             </figure>
+            <figure class="viz fanout" aria-labelledby="fanout-title">
+              <figcaption id="fanout-title" class="viz-title">Много воркеров, одна база данных</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/pipeline-fanout.svg -->
+                <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
+              </div>
+              <ol class="viz-steps">
+                <li><strong>Параллельно.</strong> SQS раздаёт задания многим воркерам на Lambda, и они загружают страницы одновременно.</li>
+                <li>
+                  <strong>Немного соединений.</strong> RDS Proxy держит общий пул соединений с базой данных, поэтому толпа
+                  воркеров не перегружает PostgreSQL.
+                </li>
+                <li>
+                  <strong>Сбои — в отдельную очередь.</strong> Сообщение, которое снова и снова вызывает ошибку, уходит в
+                  dead-letter queue (DLQ). Позже повторная отправка (redrive) возвращает его в основную очередь.
+                </li>
+              </ol>
+              <p class="viz-note">Схема упрощена, а число воркеров условное.</p>
+            </figure>
 
             <h2>Замедляться, а не падать</h2>
             <p>Источник данных, который ограничивает частоту запросов, будет сопротивляться нагрузке. Пайплайн спроектирован с учётом этого:</p>
@@ -110,21 +133,97 @@
                 повторяют запросы ещё настойчивее. Общее состояние паузы хранится в PostgreSQL.
               </li>
               <li>
-                <strong>Адаптивное ограничение частоты.</strong> Интервалы между запросами слегка случайны (jitter), пайплайн
-                автоматически снижает темп, когда источник сопротивляется, а после паузы воркеры наращивают нагрузку постепенно.
+                <strong>Адаптивное ограничение частоты.</strong> Запросы отправляются с небольшими случайными промежутками
+                (jitter), пайплайн автоматически снижает темп, когда источник сопротивляется, а после паузы воркеры
+                наращивают нагрузку постепенно.
               </li>
               <li>
                 <strong>Безопасная параллельность.</strong> Воркеры безопасно берут цели в работу, повторяют попытки и
                 восстанавливают зависшие задачи, поэтому многие из них могут работать параллельно без конфликтов.
               </li>
             </ul>
+            <figure class="viz backoff" aria-labelledby="backoff-title">
+              <figcaption id="backoff-title" class="viz-title">Что происходит, когда источник сопротивляется</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-pace"></span>Темп запросов</li>
+                <li><span class="viz-key key-tick"></span>Запрос</li>
+                <li><span class="viz-key key-block"></span>Заблокированная страница</li>
+              </ul>
+              <ol class="viz-steps">
+                <li>Воркеры загружают страницы в обычном темпе, со случайными промежутками между запросами.</li>
+                <li>Источник начинает блокировать страницы, поэтому circuit breaker останавливает новые запросы.</li>
+                <li>Все воркеры ждут, пока закончится пауза. Она общая для всех и хранится в PostgreSQL.</li>
+                <li>Воркеры медленно возобновляют работу и шаг за шагом ускоряются.</li>
+                <li>Пайплайн выходит на устойчивый темп, который допускает источник.</li>
+              </ol>
+              <p class="viz-note">Это иллюстрация: масштаб времени условный.</p>
+            </figure>
 
             <h2>Наблюдаемость и эксплуатация</h2>
+            <figure class="viz alarms" aria-labelledby="alarms-title">
+              <figcaption id="alarms-title" class="viz-title">Сигналы, за которыми следит CloudWatch</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <ul class="alarm-grid">
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
+                  <span class="alarm-name">Оркестра&shy;тор остановлен</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
+                  <span class="alarm-name">Воркеры падают</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
+                  <span class="alarm-name">Lambda сдерживает воркеров</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li class="alarm-on">
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
+                  <span class="alarm-name">Очередь растёт</span>
+                  <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
+                  <code class="alarm-state">ALARM</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">Сообщения в очереди стареют</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">Источник блокирует страницы</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">Запись в базу не проходит</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">Число объявлений за день падает</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+              </ul>
+              <p class="alarm-alert">
+                <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
+                <span>SNS присылает мне уведомление.</span>
+              </p>
+              <p class="viz-note">Это иллюстрация: в ней срабатывает один алерт.</p>
+            </figure>
             <ul>
               <li>
-                <strong>Алерты на то, что действительно важно.</strong> CloudWatch сообщает мне, когда оркестратор
-                останавливается, воркеры падают, Lambda их ограничивает (троттлинг), очередь растёт или сообщения в ней
-                стареют, страницы блокируются, запись в базу данных не проходит или число объявлений за день падает.
+                <strong>Алерты на то, что действительно важно.</strong> Для каждого сигнала выше в CloudWatch настроен
+                алерт. Когда алерт срабатывает, SNS присылает мне уведомление.
               </li>
               <li>
                 <strong>Проверки состояния.</strong> Скрипты на AWS CLI проверяют пайплайн с любой машины, а небольшая

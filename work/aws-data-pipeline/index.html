@@ -101,6 +101,29 @@
               </ul>
               <figcaption id="flow-caption">The pipeline, built from standard AWS services.</figcaption>
             </figure>
+            <figure class="viz fanout" aria-labelledby="fanout-title">
+              <figcaption id="fanout-title" class="viz-title">Many workers, one database</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/pipeline-fanout.svg -->
+                <!-- include: partials/figures/pipeline-fanout-narrow.svg -->
+              </div>
+              <ol class="viz-steps">
+                <li><strong>In parallel.</strong> SQS hands out the work, so many Lambda workers fetch pages at the same time.</li>
+                <li>
+                  <strong>Few connections.</strong> RDS Proxy pools the database connections, so the crowd of workers does not
+                  overload PostgreSQL.
+                </li>
+                <li>
+                  <strong>Failures set aside.</strong> A message that keeps failing moves to the dead-letter queue (DLQ). A
+                  redrive later sends it back to the queue.
+                </li>
+              </ol>
+              <p class="viz-note">A simplified drawing; the number of workers is illustrative.</p>
+            </figure>
 
             <h2>Built to slow down, not fall over</h2>
             <p>A data source that limits request rates will push back. The pipeline was designed for that:</p>
@@ -110,21 +133,96 @@
                 harder. A shared cooldown state lives in PostgreSQL.
               </li>
               <li>
-                <strong>Adaptive rate limiting.</strong> Request timing has jitter, the pipeline backs off automatically
-                when the source pushes back, and workers ramp up gradually after a cooldown.
+                <strong>Adaptive rate limiting.</strong> Requests are spaced with small random gaps (jitter), the pipeline
+                backs off automatically when the source pushes back, and workers ramp up gradually after a cooldown.
               </li>
               <li>
                 <strong>Safe concurrency.</strong> Workers claim targets safely, retry, and recover stuck jobs, so many of
                 them can run in parallel without clashing.
               </li>
             </ul>
+            <figure class="viz backoff" aria-labelledby="backoff-title">
+              <figcaption id="backoff-title" class="viz-title">What happens when the source pushes back</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/backoff-timeline.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-pace"></span>Pace of requests</li>
+                <li><span class="viz-key key-tick"></span>A request</li>
+                <li><span class="viz-key key-block"></span>A blocked page</li>
+              </ul>
+              <ol class="viz-steps">
+                <li>Workers fetch pages at a normal pace, with jitter between requests.</li>
+                <li>The source starts blocking pages, so the circuit breaker stops new requests.</li>
+                <li>Every worker waits out a cooldown. The cooldown is shared through PostgreSQL.</li>
+                <li>The workers start again slowly and speed up step by step.</li>
+                <li>The pipeline settles at a pace that the source accepts.</li>
+              </ol>
+              <p class="viz-note">An illustration; the timing is not to scale.</p>
+            </figure>
 
             <h2>Observability and operations</h2>
+            <figure class="viz alarms" aria-labelledby="alarms-title">
+              <figcaption id="alarms-title" class="viz-title">The signals that CloudWatch watches</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <ul class="alarm-grid">
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/activity.svg --></span>
+                  <span class="alarm-name">The orchestrator stops</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/lambda.svg --></span>
+                  <span class="alarm-name">Workers fail</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/gauge.svg --></span>
+                  <span class="alarm-name">Lambda throttles workers</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li class="alarm-on">
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/queue.svg --></span>
+                  <span class="alarm-name">The queue backs up</span>
+                  <code class="alarm-state alarm-was" aria-hidden="true">OK</code>
+                  <code class="alarm-state">ALARM</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/hourglass.svg --></span>
+                  <span class="alarm-name">Queued messages grow old</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/ban.svg --></span>
+                  <span class="alarm-name">Pages get blocked</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/database.svg --></span>
+                  <span class="alarm-name">Database writes fail</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+                <li>
+                  <span class="alarm-icon" aria-hidden="true"><!-- include: partials/icons/trend-down.svg --></span>
+                  <span class="alarm-name">The daily count of listings drops</span>
+                  <code class="alarm-state">OK</code>
+                </li>
+              </ul>
+              <p class="alarm-alert">
+                <span class="alarm-bell" aria-hidden="true"><!-- include: partials/icons/bell.svg --></span>
+                <span>SNS sends me an alert.</span>
+              </p>
+              <p class="viz-note">An illustration, with one alarm going off.</p>
+            </figure>
             <ul>
               <li>
-                <strong>Alarms for what matters.</strong> CloudWatch alerts me when the orchestrator stops, workers
-                fail, Lambda throttles them, the queue backs up or its messages grow old, pages get blocked, database
-                writes fail, or the daily count of listings drops.
+                <strong>Alarms for what matters.</strong> Each signal above has a CloudWatch alarm, and SNS notifies me
+                when one goes off.
               </li>
               <li>
                 <strong>Health checks.</strong> AWS CLI scripts check the pipeline from any machine, and a small

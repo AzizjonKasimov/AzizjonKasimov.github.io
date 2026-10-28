@@ -1,5 +1,6 @@
-/* The animations are in their own file; the build inlines it here. */
+/* The animations and the case-study figures are in their own files; the build inlines them here. */
 @import "./motion.css";
+@import "./figures.css";
 
 /* ==========================================================================
    Tokens

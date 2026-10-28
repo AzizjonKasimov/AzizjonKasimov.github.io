@@ -165,11 +165,71 @@
                 детали: названия полей, сторону, год выпуска автомобиля и отобранные синонимы, чтобы поиск находил
                 больше нужных деталей.
               </li>
+            </ul>
+            <figure class="trace embed" aria-labelledby="embed-title">
+              <figcaption id="embed-title" class="viz-title">Пример: как одна деталь становится доступной для поиска</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Запись в каталоге запчастей</span>
+                  <ul class="trace-fields">
+                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
+                    <li><code class="f-side">side: left</code></li>
+                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
+                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="trace-label">Текст, который превращается в эмбеддинг</span>
+                  <code class="trace-embed"><span class="f-part">Part: Head Lamp Assembly.</span> <span class="f-side">Side: left.</span> <span class="f-car">Car: Hyundai Sonata 2019.</span> <span class="f-also">Also called: headlight, head lamp.</span></code>
+                </li>
+                <li>
+                  <span class="trace-label">Вектор текста: числа, в которых заложен его смысл</span>
+                  <span class="trace-vector">
+                    <span class="trace-vector-art" aria-hidden="true"><!-- include: partials/figures/vector-strip.svg --></span>
+                    <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
+                  </span>
+                </li>
+              </ol>
+              <p class="viz-note">Запись выдумана и упрощена: она показывает шаги на примере.</p>
+            </figure>
+            <ul>
               <li>
                 <strong>Сущности как жёсткие фильтры.</strong> spaCy извлекает структурированные факты из запроса в свободной
                 форме и превращает их в точные фильтры. Векторный поиск справляется с формулировками, а фильтры гарантируют, что
                 автомобиль и сторона указаны верно.
               </li>
+            </ul>
+            <figure class="viz space" aria-labelledby="space-title">
+              <figcaption id="space-title" class="viz-title">Пример: тот же запрос среди деталей каталога</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-query"></span>Запрос</li>
+                <li><span class="viz-key key-head"></span>Фара</li>
+                <li><span class="viz-key key-fog"></span>Противотуманная фара</li>
+                <li><span class="viz-key key-other"></span>Другая деталь</li>
+              </ul>
+              <ol class="viz-steps">
+                <li><strong>Смысл.</strong> Векторный поиск находит детали, ближайшие к запросу по смыслу: фары разных автомобилей.</li>
+                <li>
+                  <strong>Фильтры.</strong> Сущности убирают детали для другого автомобиля или для другой стороны. Зеркало
+                  для того же автомобиля (пунктирный кружок) проходит фильтры, но по смыслу оно далеко от запроса.
+                </li>
+                <li><strong>Переранжирование.</strong> LLM отсеивает противотуманную фару, и левая фара выходит на первое место.</li>
+              </ol>
+              <p class="viz-note">
+                Детали выдуманы для иллюстрации. Каждая точка — одна деталь. Точки расставлены по смыслу их текста,
+                поэтому детали с похожим текстом оказываются рядом.
+              </p>
+            </figure>
+            <ul>
               <li>
                 <strong>Два режима поиска.</strong> Покупатели получают поиск товаров. Поставщики получают
                 автосопоставление: когда они загружают деталь, поиск сопоставляет её с записями каталога, и каждый
@@ -197,6 +257,56 @@
               Точность нужно было измерять, а не угадывать. Я сделал внутреннюю страницу тестирования, которая запускает тот же
               пайплайн, что и поиск в продакшене, на фиксированном, вручную отобранном тестовом наборе.
             </p>
+            <figure class="viz score" aria-labelledby="score-title">
+              <figcaption id="score-title" class="viz-title">Пример: как набор тестов оценивает три запроса</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <ol class="score-rows">
+                <li>
+                  <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
+                    <span class="score-rank">Нужная деталь оказалась первой.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Топ-1<span class="visually-hidden">: да</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Топ-3<span class="visually-hidden">: да</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
+                    <span class="score-rank">Нужная деталь оказалась третьей.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Топ-1<span class="visually-hidden">: нет</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Топ-3<span class="visually-hidden">: да</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
+                    <span class="score-rank">Поиск ничего не вернул.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Топ-1<span class="visually-hidden">: нет</span></span>
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Топ-3<span class="visually-hidden">: нет</span></span>
+                    </span>
+                  </div>
+                  <p class="score-fix">
+                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                    <span>Анализ ошибок показал, что причиной пустого результата был цвет кузова в запросе. После исправления тест запустили снова.</span>
+                  </p>
+                </li>
+              </ol>
+              <p class="viz-note">
+                Запросы выдуманы. Accuracy@1 — доля тестовых запросов, по которым нужная деталь оказывается первой, а
+                accuracy@3 — доля запросов, по которым она попадает в первые три результата.
+              </p>
+            </figure>
             <ul>
               <li><strong>Метрики:</strong> accuracy@1 и accuracy@3, precision, recall, F1, матрица ошибок и кросс-валидация.</li>
               <li><strong>Воспроизводимые прогоны:</strong> автоматические или ручные. Каждый прогон фиксирует, кто его запустил и был ли включён этап с LLM.</li>
@@ -205,6 +315,21 @@
             </ul>
 
             <h2>Результаты</h2>
+            <figure class="viz pass" aria-labelledby="pass-title">
+              <figcaption id="pass-title" class="viz-title">Тест государственной программы: 3000 деталей, каждая — один квадрат</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/test-grid.svg -->
+                <!-- include: partials/figures/test-grid-narrow.svg -->
+              </div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-right"></span>Не менее 95% ответов должны были быть верными.</li>
+                <li><span class="viz-key key-room"></span>Не более 5% могли быть неверными.</li>
+              </ul>
+            </figure>
             <ul class="metric-grid">
               <li><span class="num">95%+</span><span class="lbl">точность на тесте из 3000 деталей в рамках государственной программы</span></li>
               <li><span class="num">Одобрен</span><span class="lbl">R&amp;D-проект — после того как поиск прошёл тест</span></li>

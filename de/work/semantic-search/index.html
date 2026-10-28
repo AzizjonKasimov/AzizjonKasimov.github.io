@@ -166,11 +166,78 @@
                 wird, etwa Feldbezeichnungen, die Einbauseite, das Baujahr und kuratierte Synonyme, damit mehr von den
                 richtigen Teilen gefunden werden.
               </li>
+            </ul>
+            <figure class="trace embed" aria-labelledby="embed-title">
+              <figcaption id="embed-title" class="viz-title">Beispiel: So wird ein Teil durchsuchbar</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <ol class="trace-steps">
+                <li>
+                  <span class="trace-label">Ein Datensatz im Teilekatalog</span>
+                  <ul class="trace-fields">
+                    <li><code class="f-part">part: Head Lamp Assembly</code></li>
+                    <li><code class="f-side">side: left</code></li>
+                    <li><code class="f-car">car: Hyundai Sonata 2019</code></li>
+                    <li><code class="f-also">synonyms: headlight, head lamp</code></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="trace-label">Der Text, der eingebettet wird</span>
+                  <code class="trace-embed"><span class="f-part">Part: Head Lamp Assembly.</span> <span class="f-side">Side: left.</span> <span class="f-car">Car: Hyundai Sonata 2019.</span> <span class="f-also">Also called: headlight, head lamp.</span></code>
+                </li>
+                <li>
+                  <span class="trace-label">Sein Vektor: Zahlen, in denen die Bedeutung steckt</span>
+                  <span class="trace-vector">
+                    <span class="trace-vector-art" aria-hidden="true"><!-- include: partials/figures/vector-strip.svg --></span>
+                    <code>[0.12, -0.48, 0.91, 0.07, -0.33, …]</code>
+                  </span>
+                </li>
+              </ol>
+              <p class="viz-note">Ein ausgedachter, vereinfachter Datensatz, der die Schritte veranschaulicht.</p>
+            </figure>
+            <ul>
               <li>
                 <strong>Entitäten als harte Filter.</strong> spaCy zieht strukturierte Fakten aus einer Freitext-Anfrage
                 und macht daraus exakte Filter. Die Vektorsuche kümmert sich um die Formulierung, und die Filter sorgen
                 dafür, dass Auto und Seite stimmen.
               </li>
+            </ul>
+            <figure class="viz space" aria-labelledby="space-title">
+              <figcaption id="space-title" class="viz-title">Beispiel: dieselbe Anfrage zwischen den Teilen des Katalogs</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true"><!-- include: partials/figures/vector-space.svg --></div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-query"></span>Anfrage</li>
+                <li><span class="viz-key key-head"></span>Scheinwerfer</li>
+                <li><span class="viz-key key-fog"></span>Nebelscheinwerfer</li>
+                <li><span class="viz-key key-other"></span>Ein anderes Teil</li>
+              </ul>
+              <ol class="viz-steps">
+                <li>
+                  <strong>Bedeutung.</strong> Die Vektorsuche findet die Teile, deren Bedeutung der Anfrage am nächsten
+                  kommt: Scheinwerfer für viele Autos.
+                </li>
+                <li>
+                  <strong>Filter.</strong> Die Entitäten filtern die Teile für ein anderes Auto oder die andere Seite
+                  heraus. Ein Spiegel für dasselbe Auto (gestrichelter Ring) kommt durch die Filter, aber seine Bedeutung
+                  ist weit von der Anfrage entfernt.
+                </li>
+                <li>
+                  <strong>Re-Ranking.</strong> Das LLM sortiert den Nebelscheinwerfer aus, sodass der linke Scheinwerfer
+                  an erster Stelle steht.
+                </li>
+              </ol>
+              <p class="viz-note">
+                Eine schematische Darstellung mit ausgedachten Teilen. Jeder Punkt ist ein Teil. Seine Position ergibt
+                sich aus der Bedeutung seines Textes, daher liegen Teile mit ähnlichem Text nah beieinander.
+              </p>
+            </figure>
+            <ul>
               <li>
                 <strong>Zwei Suchmodi.</strong> Käufer bekommen eine Produktsuche. Lieferanten bekommen einen
                 automatischen Abgleich: Wenn sie ein Teil hochladen, ordnet die Suche es Katalogdatensätzen zu, und jede
@@ -199,6 +266,56 @@
               Die Genauigkeit musste gemessen und nicht geschätzt werden. Ich habe eine interne Testseite gebaut, die dieselbe
               Pipeline wie die Produktivsuche auf einem festen, kuratierten Testdatensatz ausführt.
             </p>
+            <figure class="viz score" aria-labelledby="score-title">
+              <figcaption id="score-title" class="viz-title">Beispiel: So bewertet die Testsuite drei Anfragen</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <ol class="score-rows">
+                <li>
+                  <code class="score-query">Kia K5 2021 right tail lamp</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-hit"></span><span class="slot"></span><span class="slot"></span></span>
+                    <span class="score-rank">Das richtige Teil stand an erster Stelle.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 1<span class="visually-hidden">: ja</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 3<span class="visually-hidden">: ja</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Avante 2019 front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot"></span><span class="slot"></span><span class="slot slot-hit"></span></span>
+                    <span class="score-rank">Das richtige Teil stand an dritter Stelle.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 1<span class="visually-hidden">: nein</span></span>
+                      <span class="score-mark score-yes"><span aria-hidden="true"><!-- include: partials/icons/check.svg --></span>Top 3<span class="visually-hidden">: ja</span></span>
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <code class="score-query">Hyundai Tucson 2020 white front bumper</code>
+                  <div class="score-line">
+                    <span class="slots" aria-hidden="true"><span class="slot slot-empty"></span><span class="slot slot-empty"></span><span class="slot slot-empty"></span></span>
+                    <span class="score-rank">Die Anfrage lieferte nichts.</span>
+                    <span class="score-marks">
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 1<span class="visually-hidden">: nein</span></span>
+                      <span class="score-mark score-no"><span aria-hidden="true"><!-- include: partials/icons/x.svg --></span>Top 3<span class="visually-hidden">: nein</span></span>
+                    </span>
+                  </div>
+                  <p class="score-fix">
+                    <span aria-hidden="true"><!-- include: partials/icons/retrain.svg --></span>
+                    <span>Die Fehleranalyse führte das leere Ergebnis auf die Karosseriefarbe in der Anfrage zurück. Nach der Korrektur lief der Test erneut.</span>
+                  </p>
+                </li>
+              </ol>
+              <p class="viz-note">
+                Ausgedachte Anfragen. Accuracy@1 ist der Anteil der Testanfragen, bei denen das richtige Teil an erster
+                Stelle steht. Bei accuracy@3 genügt ein Platz unter den ersten drei.
+              </p>
+            </figure>
             <ul>
               <li><strong>Metriken:</strong> accuracy@1 und accuracy@3, Precision, Recall, F1, eine Konfusionsmatrix und Kreuzvalidierung.</li>
               <li><strong>Wiederholbare Läufe:</strong> automatisch oder manuell. Jeder Lauf hält fest, wer ihn gestartet hat und ob der LLM-Schritt aktiv war.</li>
@@ -207,6 +324,21 @@
             </ul>
 
             <h2>Ergebnisse</h2>
+            <figure class="viz pass" aria-labelledby="pass-title">
+              <figcaption id="pass-title" class="viz-title">Der Test des staatlichen Programms: 3.000 Teile, ein Quadrat pro Teil</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/test-grid.svg -->
+                <!-- include: partials/figures/test-grid-narrow.svg -->
+              </div>
+              <ul class="viz-legend">
+                <li><span class="viz-key key-right"></span>Mindestens 95&nbsp;% mussten richtig gefunden werden.</li>
+                <li><span class="viz-key key-room"></span>Höchstens 5&nbsp;% durften falsch sein.</li>
+              </ul>
+            </figure>
             <ul class="metric-grid">
               <li><span class="num">95&nbsp;%+</span><span class="lbl">Genauigkeit im 3.000-Teile-Test des staatlichen Programms</span></li>
               <li><span class="num">Genehmigt</span><span class="lbl">das F&amp;E-Projekt, nachdem es den Test bestanden hatte</span></li>
