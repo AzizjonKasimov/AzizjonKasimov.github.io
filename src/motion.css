@@ -80,6 +80,48 @@
   }
 }
 
+/* A hero-stat meter's empty slot filling, and a unit fading to a ghost when what it stands for is
+   taken away. */
+@keyframes unit-fill {
+  from {
+    border-color: var(--text-3);
+    background-color: transparent;
+  }
+}
+
+@keyframes unit-out {
+  from {
+    border-color: var(--accent);
+    background-color: var(--accent);
+  }
+}
+
+/* The search's lens sweeping across the catalog to the part it finds, then fading away. */
+@keyframes lens-scan {
+  from {
+    left: 4%;
+    opacity: 0;
+  }
+
+  20%,
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lens-off {
+  from {
+    opacity: 1;
+  }
+}
+
+/* Six dot spaces (30px), so the field ends on the grid the found part sits on. */
+@keyframes field-drift {
+  from {
+    background-position: 30px 0;
+  }
+}
+
 @keyframes stretch {
   from {
     transform: scaleX(0);
@@ -517,18 +559,56 @@
     animation: photo-in 900ms var(--ease-out) 100ms backwards;
   }
 
-  /* Hero stats: each bar grows to its value, and in a before-and-after pair the second bar
-     follows the first. The dots fill in from the left. */
-  .motion .stat .viz-bar {
-    animation: grow 900ms var(--ease-out) calc(var(--n, 0) * 120ms + 250ms) backwards;
+  /* Hero stats, each done within about 1.5 seconds. The accuracy meter's empty slots fill one by
+     one, the dashed slot stays open, and the check comes in. A meter for a number that went down
+     shows in full at once, holds for about 0.4 seconds, and then the units it lost fade to ghosts
+     from the right (--out, in partials/stats/) before its check comes in, or while its gear turns.
+     In the catalog, a lens sweeps across the parts to the one the search finds, then fades. */
+  .motion .units > i {
+    animation: fade-in 200ms ease backwards;
   }
 
-  .motion .stat .viz-bar + .viz-bar {
-    animation-delay: calc(var(--n, 0) * 120ms + 650ms);
+  .motion .units > .unit-gone {
+    animation:
+      fade-in 200ms ease backwards,
+      unit-out 220ms ease calc(var(--n, 0) * 80ms + 600ms + var(--out)) backwards;
   }
 
-  .motion .stat .viz-dots {
-    animation: wipe 1200ms linear calc(var(--n, 0) * 120ms + 250ms) backwards;
+  .motion .mark-check {
+    animation: pop 350ms var(--ease-pop) calc(var(--n, 0) * 80ms + var(--mark-at)) backwards;
+  }
+
+  .motion .mark-gear {
+    animation: turn 610ms var(--ease-out) calc(var(--n, 0) * 80ms + 600ms) backwards;
+  }
+
+  .motion .units-20 > i {
+    animation: unit-fill 200ms ease calc(var(--n, 0) * 80ms + 200ms + var(--i) * 30ms) backwards;
+  }
+
+  .motion .units-20 > .unit-open {
+    animation: none;
+  }
+
+  .motion .catalog {
+    animation: wipe 500ms linear calc(var(--n, 0) * 80ms + 100ms) backwards;
+  }
+
+  /* The parts drift past under the fixed fades while the lens sweeps, and stop on their grid as the
+     found part lights up, so the band reads as a window onto a larger catalog. */
+  .motion .catalog::before {
+    animation: field-drift 1050ms var(--ease-out) calc(var(--n, 0) * 80ms + 150ms) backwards;
+  }
+
+  /* The lens fades only once its sweep has ended, because the sweep, listed last, wins until then. */
+  .motion .catalog-lens {
+    animation:
+      lens-off 250ms ease calc(var(--n, 0) * 80ms + 950ms) backwards,
+      lens-scan 700ms var(--ease-in-out) calc(var(--n, 0) * 80ms + 250ms) backwards;
+  }
+
+  .motion .catalog-hit {
+    animation: pop 350ms var(--ease-pop) calc(var(--n, 0) * 80ms + 900ms) backwards;
   }
 
   /* Work-card drawings. Each shape says what it does with a class and when with --at (and how

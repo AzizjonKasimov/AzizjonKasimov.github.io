@@ -16,7 +16,7 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 | `work/<slug>/index.html` | Case-study pages: work projects (`semantic-search`, `aws-data-pipeline`, `solar-mlops`, `catalog-agent`) and personal projects (`expense-tracker`, `network-app`, `body-physics`) |
 | `ko/`, `de/`, `ru/`, `uz/`, `zh/` | The same pages in Korean, German, Russian, Uzbek, and Chinese; each new language gets its own folder |
 | `404.html` | Not-found page (English only); GitHub Pages serves it for unknown URLs |
-| `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`), the work-card drawings (`art/`), and the case-study figure drawings (`figures/`), inlined into pages at build time |
+| `partials/` | Shared `<head>` tags, header (with the language menu), and footer, plus the diagram icons (`icons/`), the work-card drawings (`art/`), the hero stats' drawings (`stats/`), and the case-study figure drawings (`figures/`), inlined into pages at build time |
 | `site.mjs` | The page list, the languages, and the translated header and footer text |
 | `src/styles.css` | All styles, including the dark theme and print styles |
 | `src/figures.css` | The case-study figures that show how a system works (imported by `styles.css`) |
@@ -63,6 +63,11 @@ shows the same drawing.
 - **Charts:** bars are `<span class="bar" style="--v: 70">`, where `--v` is the bar's length as a
   percentage of its track. Use only numbers that the page text already states. The translation check
   compares these `style` values, so a chart cannot show different numbers in another language.
+- **Hero stats:** each homepage stat ends in a drawing from `partials/stats/`, the same in every
+  language. Three are meters of units to count, and a unit means the same in every tile: solid is
+  there now, dashed is not claimed, and a faded ghost was taken away by the drop the number reports.
+  The mark after a meter, a check or a gear, is the outcome that the stat's sentence states. Keep
+  the units to what the text says: 19 of 20 for 95%+, 7 of 9 points for 9% → 7%, 1 of 5 for −80%.
 - **Screenshots:** `public/screenshots/`, shown in a `.shots` gallery of thumbnails that open the
   full image. Each `<img>` lists the thumbnail, medium, and full image in `srcset`, and its `sizes`
   follows the gallery's columns, so phones get the 960 px image instead of a blurry thumbnail. A
