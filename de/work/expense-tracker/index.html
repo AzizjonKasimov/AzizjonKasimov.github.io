@@ -164,6 +164,35 @@
                 wenn seine Summe dem gezahlten Betrag entspricht und zwischen Zahlung und E-Mail höchstens zwei Stunden
                 liegen.
               </li>
+            </ul>
+            <figure class="viz viz-wide receipts" aria-labelledby="receipts-title">
+              <figcaption id="receipts-title" class="viz-title">Beispiel: Welche Bestell-E-Mail gehört zu welcher Zahlung?</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/receipt-match.svg -->
+                <!-- include: partials/figures/receipt-match-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/sheet.svg --></span>Eine Zahlung an Coupang auf dem Kontoauszug</li>
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/mail.svg --></span>Eine E-Mail zu einer Coupang-Bestellung, mit ihrem Gesamtbetrag</li>
+                  <li><span class="viz-key key-window"></span>Zwei Stunden vor und nach einer Zahlung</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>Passt, oder passt nicht</li>
+                  <li><span class="viz-key key-icon key-ai"><!-- include: partials/icons/sparkle.svg --></span>Die KI wählt eine Kategorie</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Gleicher Name.</strong> Auf dem Kontoauszug steht bei jeder Zahlung an Coupang <code lang="ko">쿠팡(쿠페이)_KCP</code>, deshalb kann die KI nicht erkennen, was gekauft wurde.</li>
+                  <li><strong>Gleicher Betrag.</strong> Eine Bestell-E-Mail zählt nur, wenn ihr Gesamtbetrag der Zahlung entspricht. Die erste E-Mail nennt einen anderen Betrag, also zählt sie nicht.</li>
+                  <li><strong>Innerhalb von zwei Stunden.</strong> Zwei Bestellungen kosten hier gleich viel. Jede Zahlung bekommt nur die E-Mail, die höchstens zwei Stunden vor oder nach ihr kam.</li>
+                  <li><strong>Produktnamen.</strong> Die zugeordnete E-Mail ergänzt, was gekauft wurde, und die KI wählt daraus die Kategorie.</li>
+                </ol>
+                <p class="viz-note">Erfundene Bestellungen an einem erfundenen Tag; Beträge in KRW.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Meine Regeln gehen vor.</strong> Regeln, die ich für bekannte Geschäfte festlege, gewinnen immer
                 gegen die KI.

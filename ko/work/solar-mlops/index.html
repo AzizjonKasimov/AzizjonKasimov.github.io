@@ -218,6 +218,34 @@
                 <strong>시간대별 임계값.</strong> 하루 종일 임계값 하나만 쓰면 어떤 시간대의 이상은 놓쳤습니다. 오차가 하루 동안 달라지기 때문입니다. 한 시간에 하나씩 24개의 임계값을
                 쓰자 recall이 10%p 올랐습니다.
               </li>
+            </ul>
+            <figure class="viz viz-wide hourly" aria-labelledby="hourly-title">
+              <figcaption id="hourly-title" class="viz-title">예시: 하루 전체에 임계값 하나, 또는 시간대마다 하나씩</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/hourly-thresholds.svg -->
+                <!-- include: partials/figures/hourly-thresholds-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-band"></span>시간대별 평소 오차</li>
+                  <li><span class="viz-key key-global"></span>하루 전체에 쓰는 임계값 하나</li>
+                  <li><span class="viz-key key-steps"></span>시간대마다 하나씩 둔 임계값</li>
+                  <li><span class="viz-key key-missed"><!-- include: partials/icons/ring-dashed.svg --></span>놓친 이상</li>
+                  <li><span class="viz-key key-hit"></span>찾아낸 이상</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>평소 오차.</strong> 이상 탐지 모델은 측정값의 오차가 임계값을 넘으면 그 값을 이상으로 표시합니다. 이 가상의 하루에서는 평소 오차가 밤에는 작고 한낮에는 더 큽니다.</li>
+                  <li><strong>하루에 선 하나.</strong> 임계값이 하나뿐이면 오차가 큰 한낮보다 높게 잡아야 합니다. 그래서 조용한 아침에 생긴 이상은 그 선 아래에 머물러 놓치게 됩니다.</li>
+                  <li><strong>시간대마다 선 하나.</strong> 임계값을 24개 쓰면 아침의 선이 낮게 놓이므로, 같은 이상이 선을 넘습니다. 실제 데이터에서는 이 방식으로 recall이 10%p 올랐습니다.</li>
+                </ol>
+                <p class="viz-note">단순화한 가상의 하루이며, 시간은 왼쪽에서 오른쪽으로 흐릅니다.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>더 깨끗한 학습 데이터.</strong> 학습 데이터에서 이상값을 제거하자 precision이 30%p, recall이 20%p 올랐습니다.
               </li>

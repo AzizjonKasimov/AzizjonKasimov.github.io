@@ -158,6 +158,35 @@
                 real product names. A receipt counts only when its total equals the charge and the email arrived
                 within two hours of it.
               </li>
+            </ul>
+            <figure class="viz viz-wide receipts" aria-labelledby="receipts-title">
+              <figcaption id="receipts-title" class="viz-title">Example: which order email belongs to which charge</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/receipt-match.svg -->
+                <!-- include: partials/figures/receipt-match-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/sheet.svg --></span>A Coupang charge on the bank statement</li>
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/mail.svg --></span>A Coupang order email, with its total</li>
+                  <li><span class="viz-key key-window"></span>Two hours either side of a charge</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>A match, or not a match</li>
+                  <li><span class="viz-key key-icon key-ai"><!-- include: partials/icons/sparkle.svg --></span>The AI picks a category</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Same name.</strong> On the statement, every Coupang charge reads <code lang="ko">쿠팡(쿠페이)_KCP</code>, so the AI cannot tell what was bought.</li>
+                  <li><strong>Same total.</strong> An order email counts only when its total equals the charge. The first email cost something else, so it does not count.</li>
+                  <li><strong>Within two hours.</strong> Two orders here cost the same. Each charge gets only the email sent within two hours of it.</li>
+                  <li><strong>Product names.</strong> The matched email adds what was bought, and the AI picks the category from it.</li>
+                </ol>
+                <p class="viz-note">Made-up orders on a made-up day; amounts in KRW.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>My rules come first.</strong> Rules I set for shops I know always win over the AI.
               </li>

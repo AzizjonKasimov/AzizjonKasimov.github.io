@@ -1,0 +1,90 @@
+<svg class="narrow" viewBox="0 0 300 428">
+  <defs>
+    <symbol id="at-phone-narrow" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5" /><path d="M11 18h2" /></symbol>
+    <symbol id="at-shield-narrow" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /><path d="m9 12 2 2 4-4" /></symbol>
+    <symbol id="at-sparkle-narrow" viewBox="0 0 24 24"><path d="M12 3 13.9 8.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z" /></symbol>
+    <symbol id="at-message-narrow" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 9h8" /><path d="M8 13h5" /></symbol>
+    <symbol id="at-undo-narrow" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5" /><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11" /></symbol>
+    <symbol id="at-db-narrow" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5" /><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" /></symbol>
+  </defs>
+  <rect class="at-phone fade" x="11" y="2" width="78" height="424" rx="16" style="--dur: 400ms" />
+  <g class="fade" style="--dur: 400ms">
+    <path class="at-lane" d="M150 44V418M250 44V418M50 86.8V418" />
+  </g>
+  <g class="pop" style="--at: 0ms">
+    <circle class="art-panel" cx="50" cy="22" r="16" />
+    <use class="at-icon" href="#at-phone-narrow" x="40.4" y="12.4" width="19.2" height="19.2" />
+  </g>
+  <g class="pop" style="--at: 70ms">
+    <circle class="art-panel" cx="150" cy="22" r="16" />
+    <use class="at-icon" href="#at-shield-narrow" x="140.4" y="12.4" width="19.2" height="19.2" />
+  </g>
+  <g class="pop" style="--at: 140ms">
+    <circle class="art-panel" cx="250" cy="22" r="16" />
+    <use class="at-icon" href="#at-sparkle-narrow" x="240.4" y="12.4" width="19.2" height="19.2" />
+  </g>
+  <g class="fade" style="--at: 150ms">
+    <circle class="art-panel" cx="50" cy="64.4" r="14.4" />
+    <use class="at-icon" href="#at-db-narrow" x="41.72" y="56.12" width="16.56" height="16.56" />
+    <circle class="at-lock-bg" cx="60.37" cy="74.77" r="7" />
+    <path class="at-lock" d="M57.37 74.27h6v4h-6zM58.57 74.27v-1.5a1.8 1.8 0 0 1 3.6 0v1.5" />
+  </g>
+  <circle class="fx-ping ping-once" cx="50" cy="64.4" r="15.4" style="--at: 1160ms" />
+  <circle class="fx-ping ping-once" cx="50" cy="64.4" r="15.4" style="--at: 3210ms" />
+  <g class="pop" style="--at: 150ms">
+    <circle class="art-panel" cx="50" cy="122" r="11.52" />
+    <use class="at-icon" href="#at-message-narrow" x="43.09" y="115.09" width="13.82" height="13.82" />
+  </g>
+  <path class="at-call draw" d="M64.52 122H246" pathLength="1" style="--at: 250ms; --dur: 300ms" />
+  <path class="at-call-head pop" d="M241 117.5l5 4.5-5 4.5" style="--at: 510ms" />
+  <path class="at-call draw" d="M248 170H62" pathLength="1" style="--at: 800ms; --dur: 300ms" />
+  <path class="at-call-head pop" d="M67 165.5l-5 4.5 5 4.5" style="--at: 1060ms" />
+  <g class="pop" style="--at: 950ms">
+    <rect class="at-ok" x="133.8" y="161" width="32.4" height="18" rx="9" />
+    <path class="at-brace" d="M142.35 165.05q-2.7 0-2.7 2.23v1.24q0 1.49-2.52 1.49q2.52 0 2.52 1.49v1.24q0 2.23 2.7 2.23M157.65 165.05q2.7 0 2.7 2.23v1.24q0 1.49 2.52 1.49q-2.52 0-2.52 1.49v1.24q0 2.23-2.7 2.23" />
+    <path class="at-ok-mark" d="m146.22 170 2.7 2.7 4.95-5.4" />
+  </g>
+  <g class="pop" style="--at: 1120ms">
+    <circle class="at-ok" cx="50" cy="170" r="9" />
+    <path class="at-ok-mark" d="m46.22 170 2.7 2.7 4.95-5.4" />
+  </g>
+  <path class="at-result wipe" d="M52 200H246" style="--at: 1200ms; --dur: 300ms" />
+  <path class="at-result-head pop" d="M241 195.5l5 4.5-5 4.5" style="--at: 1460ms" />
+  <path class="at-call draw" d="M248 250H62" pathLength="1" style="--at: 1650ms; --dur: 300ms" />
+  <path class="at-call-head pop" d="M67 245.5l-5 4.5 5 4.5" style="--at: 1910ms" />
+  <g class="pop" style="--at: 1800ms">
+    <rect class="at-ok" x="133.8" y="241" width="32.4" height="18" rx="9" />
+    <path class="at-brace" d="M142.35 245.05q-2.7 0-2.7 2.23v1.24q0 1.49-2.52 1.49q2.52 0 2.52 1.49v1.24q0 2.23 2.7 2.23M157.65 245.05q2.7 0 2.7 2.23v1.24q0 1.49 2.52 1.49q-2.52 0-2.52 1.49v1.24q0 2.23-2.7 2.23" />
+    <path class="at-ok-mark" d="m146.22 250 2.7 2.7 4.95-5.4" />
+  </g>
+  <g class="pop" style="--at: 1970ms">
+    <circle class="at-no" cx="50" cy="250" r="9" />
+    <path class="at-no-mark" d="M46.94 246.94l6.12 6.12m0-6.12-6.12 6.12" />
+  </g>
+  <path class="at-error wipe" d="M52 280H246" style="--at: 2450ms; --dur: 300ms" />
+  <path class="at-error-head pop" d="M241 275.5l5 4.5-5 4.5" style="--at: 2710ms" />
+  <path class="at-call draw" d="M248 326H62" pathLength="1" style="--at: 2850ms; --dur: 300ms" />
+  <path class="at-call-head pop" d="M67 321.5l-5 4.5 5 4.5" style="--at: 3110ms" />
+  <g class="pop" style="--at: 3000ms">
+    <rect class="at-ok" x="133.8" y="317" width="32.4" height="18" rx="9" />
+    <path class="at-brace" d="M142.35 321.05q-2.7 0-2.7 2.23v1.24q0 1.49-2.52 1.49q2.52 0 2.52 1.49v1.24q0 2.23 2.7 2.23M157.65 321.05q2.7 0 2.7 2.23v1.24q0 1.49 2.52 1.49q-2.52 0-2.52 1.49v1.24q0 2.23-2.7 2.23" />
+    <path class="at-ok-mark" d="m146.22 326 2.7 2.7 4.95-5.4" />
+  </g>
+  <g class="pop" style="--at: 3170ms">
+    <circle class="at-ok" cx="50" cy="326" r="9" />
+    <path class="at-ok-mark" d="m46.22 326 2.7 2.7 4.95-5.4" />
+  </g>
+  <path class="at-result wipe" d="M52 356H246" style="--at: 3250ms; --dur: 300ms" />
+  <path class="at-result-head pop" d="M241 351.5l5 4.5-5 4.5" style="--at: 3510ms" />
+  <path class="at-call draw" d="M248 402H82" pathLength="1" style="--at: 3650ms; --dur: 300ms" />
+  <path class="at-call-head pop" d="M87 397.5l-5 4.5 5 4.5" style="--at: 3910ms" />
+  <g class="pop" style="--at: 3990ms">
+    <rect class="at-card" x="20" y="389" width="60" height="26" rx="6" />
+    <path class="at-card-line" d="M27 398h25.2M27 406h18" />
+    <use class="at-undo" href="#at-undo-narrow" x="62" y="395.5" width="13" height="13" />
+  </g>
+  <g class="pop" style="--at: 150ms"><circle class="fig-badge" cx="286" cy="122" r="10" /><text class="fig-num" x="286" y="122" dy=".36em">1</text></g>
+  <g class="pop" style="--at: 750ms"><circle class="fig-badge" cx="286" cy="170" r="10" /><text class="fig-num" x="286" y="170" dy=".36em">2</text></g>
+  <g class="pop" style="--at: 1600ms"><circle class="fig-badge" cx="286" cy="250" r="10" /><text class="fig-num" x="286" y="250" dy=".36em">3</text></g>
+  <g class="pop" style="--at: 3600ms"><circle class="fig-badge" cx="286" cy="402" r="10" /><text class="fig-num" x="286" y="402" dy=".36em">4</text></g>
+</svg>

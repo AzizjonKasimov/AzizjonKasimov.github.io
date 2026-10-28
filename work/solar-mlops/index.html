@@ -225,6 +225,34 @@
                 <strong>Hourly thresholds.</strong> One threshold for the whole day missed anomalies at some hours,
                 because the error changes during the day. Using 24 thresholds, one per hour, raised recall by 10 points.
               </li>
+            </ul>
+            <figure class="viz viz-wide hourly" aria-labelledby="hourly-title">
+              <figcaption id="hourly-title" class="viz-title">Example: one threshold for the whole day, or one for each hour</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/hourly-thresholds.svg -->
+                <!-- include: partials/figures/hourly-thresholds-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-band"></span>The usual error at each hour</li>
+                  <li><span class="viz-key key-global"></span>One threshold for the whole day</li>
+                  <li><span class="viz-key key-steps"></span>A threshold for each hour</li>
+                  <li><span class="viz-key key-missed"><!-- include: partials/icons/ring-dashed.svg --></span>An anomaly that was missed</li>
+                  <li><span class="viz-key key-hit"></span>An anomaly that was flagged</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>The usual error.</strong> The detector flags a reading when its error is above a threshold. In this made-up day, the usual error is small at night and larger around midday.</li>
+                  <li><strong>One line for the day.</strong> A single threshold has to stay above the busy midday hours. An anomaly in the quiet morning stays under it, so it is missed.</li>
+                  <li><strong>A line for each hour.</strong> With 24 thresholds, the morning line sits low, and the same anomaly crosses it. On real data, this raised recall by 10 points.</li>
+                </ol>
+                <p class="viz-note">A made-up day, simplified: hours run from left to right.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Cleaner training data.</strong> Removing anomalous points from the training set raised precision
                 by 30 points and recall by 20.

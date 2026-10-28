@@ -119,6 +119,36 @@
                 <strong>Built for very large jobs.</strong> Saves are chunked and resumable, so a vehicle model with
                 100K+ variations does not start over after a failure.
               </li>
+            </ul>
+            <figure class="viz viz-wide resume" aria-labelledby="resume-title">
+              <figcaption id="resume-title" class="viz-title">When a big job fails partway</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/resume-job.svg -->
+                <!-- include: partials/figures/resume-job-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/clock.svg --></span>A scheduled run</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/play.svg --></span>The job runs again</li>
+                  <li><span class="viz-key key-batch"></span>A batch, saved to PostgreSQL</li>
+                  <li><span class="viz-key key-flag"></span>A checkpoint: how far the job got</li>
+                  <li><span class="viz-key key-fail"><!-- include: partials/icons/x.svg --></span>The batch that failed</li>
+                  <li><span class="viz-key key-skip"></span>Already saved, so not run again</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>In batches.</strong> A scheduled job works through its scope one batch at a time.</li>
+                  <li><strong>Checkpoints.</strong> Each batch is saved to PostgreSQL with a checkpoint: how far the job got.</li>
+                  <li><strong>A failure.</strong> Partway through, a batch fails, and the job stops.</li>
+                  <li><strong>Resume.</strong> The job runs again from the last checkpoint. The saved batches stay, and only the rest are written.</li>
+                </ol>
+                <p class="viz-note">An illustration; the number of batches is made up.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Scheduling.</strong> APScheduler runs jobs on a schedule or on demand, from a small UI.
               </li>

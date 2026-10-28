@@ -1,0 +1,189 @@
+<svg class="wide" viewBox="0 0 480 194">
+  <g class="fade" style="--at: 100ms; --dur: 300ms">
+    <rect class="sw-slot" x="12" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="40" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="68" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="96" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="124" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="12" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="40" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="68" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="96" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="124" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="12" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="40" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="68" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="96" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="124" y="60" width="24" height="24" rx="3" />
+  </g>
+  <g class="fade" style="--at: 180ms; --dur: 300ms">
+    <rect class="sw-slot" x="172" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="200" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="228" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="256" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="284" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="172" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="200" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="228" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="256" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="284" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="172" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="200" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="228" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="256" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="284" y="60" width="24" height="24" rx="3" />
+  </g>
+  <g class="fade" style="--at: 260ms; --dur: 300ms">
+    <rect class="sw-slot" x="332" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="360" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="388" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="416" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="444" y="4" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="332" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="360" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="388" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="416" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="444" y="32" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="332" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="360" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="388" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="416" y="60" width="24" height="24" rx="3" />
+    <rect class="sw-slot" x="444" y="60" width="24" height="24" rx="3" />
+  </g>
+  <rect class="sw-held pop" x="172" y="4" width="24" height="24" rx="3" style="--at: 450ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="200" y="4" width="24" height="24" rx="3" style="--at: 495ms; --dur: 260ms" />
+  <g class="pop" style="--at: 540ms; --dur: 260ms">
+    <rect class="sw-broke" x="228" y="4" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M236.16 7.84L241.44 14.56L237.6 17.92L243.84 24.64" />
+  </g>
+  <rect class="sw-held pop" x="256" y="4" width="24" height="24" rx="3" style="--at: 585ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="284" y="4" width="24" height="24" rx="3" style="--at: 630ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="172" y="32" width="24" height="24" rx="3" style="--at: 675ms; --dur: 260ms" />
+  <g class="pop" style="--at: 720ms; --dur: 260ms">
+    <rect class="sw-broke" x="200" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M208.16 35.84L213.44 42.56L209.6 45.92L215.84 52.64" />
+  </g>
+  <g class="pop" style="--at: 765ms; --dur: 260ms">
+    <rect class="sw-broke" x="228" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M236.16 35.84L241.44 42.56L237.6 45.92L243.84 52.64" />
+  </g>
+  <g class="pop" style="--at: 810ms; --dur: 260ms">
+    <rect class="sw-broke" x="256" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M264.16 35.84L269.44 42.56L265.6 45.92L271.84 52.64" />
+  </g>
+  <rect class="sw-held pop" x="284" y="32" width="24" height="24" rx="3" style="--at: 855ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="172" y="60" width="24" height="24" rx="3" style="--at: 900ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="200" y="60" width="24" height="24" rx="3" style="--at: 945ms; --dur: 260ms" />
+  <g class="pop" style="--at: 990ms; --dur: 260ms">
+    <rect class="sw-broke" x="228" y="60" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M236.16 63.84L241.44 70.56L237.6 73.92L243.84 80.64" />
+  </g>
+  <rect class="sw-held pop" x="256" y="60" width="24" height="24" rx="3" style="--at: 1035ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="284" y="60" width="24" height="24" rx="3" style="--at: 1080ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="12" y="4" width="24" height="24" rx="3" style="--at: 1245ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="332" y="4" width="24" height="24" rx="3" style="--at: 1245ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1290ms; --dur: 260ms">
+    <rect class="sw-broke" x="40" y="4" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M48.16 7.84L53.44 14.56L49.6 17.92L55.84 24.64" />
+  </g>
+  <rect class="sw-held pop" x="360" y="4" width="24" height="24" rx="3" style="--at: 1290ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1335ms; --dur: 260ms">
+    <rect class="sw-broke" x="68" y="4" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M76.16 7.84L81.44 14.56L77.6 17.92L83.84 24.64" />
+  </g>
+  <rect class="sw-held pop" x="388" y="4" width="24" height="24" rx="3" style="--at: 1335ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1380ms; --dur: 260ms">
+    <rect class="sw-broke" x="96" y="4" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M104.16 7.84L109.44 14.56L105.6 17.92L111.84 24.64" />
+  </g>
+  <rect class="sw-held pop" x="416" y="4" width="24" height="24" rx="3" style="--at: 1380ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="124" y="4" width="24" height="24" rx="3" style="--at: 1425ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="444" y="4" width="24" height="24" rx="3" style="--at: 1425ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="12" y="32" width="24" height="24" rx="3" style="--at: 1470ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="332" y="32" width="24" height="24" rx="3" style="--at: 1470ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1515ms; --dur: 260ms">
+    <rect class="sw-broke" x="40" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M48.16 35.84L53.44 42.56L49.6 45.92L55.84 52.64" />
+  </g>
+  <g class="pop" style="--at: 1515ms; --dur: 260ms">
+    <rect class="sw-broke" x="360" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M368.16 35.84L373.44 42.56L369.6 45.92L375.84 52.64" />
+  </g>
+  <g class="pop" style="--at: 1560ms; --dur: 260ms">
+    <rect class="sw-broke" x="68" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M76.16 35.84L81.44 42.56L77.6 45.92L83.84 52.64" />
+  </g>
+  <g class="pop" style="--at: 1560ms; --dur: 260ms">
+    <rect class="sw-broke" x="388" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M396.16 35.84L401.44 42.56L397.6 45.92L403.84 52.64" />
+  </g>
+  <g class="pop" style="--at: 1605ms; --dur: 260ms">
+    <rect class="sw-broke" x="96" y="32" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M104.16 35.84L109.44 42.56L105.6 45.92L111.84 52.64" />
+  </g>
+  <rect class="sw-held pop" x="416" y="32" width="24" height="24" rx="3" style="--at: 1605ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="124" y="32" width="24" height="24" rx="3" style="--at: 1650ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="444" y="32" width="24" height="24" rx="3" style="--at: 1650ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="12" y="60" width="24" height="24" rx="3" style="--at: 1695ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="332" y="60" width="24" height="24" rx="3" style="--at: 1695ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1740ms; --dur: 260ms">
+    <rect class="sw-broke" x="40" y="60" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M48.16 63.84L53.44 70.56L49.6 73.92L55.84 80.64" />
+  </g>
+  <rect class="sw-held pop" x="360" y="60" width="24" height="24" rx="3" style="--at: 1740ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1785ms; --dur: 260ms">
+    <rect class="sw-broke" x="68" y="60" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M76.16 63.84L81.44 70.56L77.6 73.92L83.84 80.64" />
+  </g>
+  <rect class="sw-held pop" x="388" y="60" width="24" height="24" rx="3" style="--at: 1785ms; --dur: 260ms" />
+  <g class="pop" style="--at: 1830ms; --dur: 260ms">
+    <rect class="sw-broke" x="96" y="60" width="24" height="24" rx="3" />
+    <path class="sw-crack" d="M104.16 63.84L109.44 70.56L105.6 73.92L111.84 80.64" />
+  </g>
+  <rect class="sw-held pop" x="416" y="60" width="24" height="24" rx="3" style="--at: 1830ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="124" y="60" width="24" height="24" rx="3" style="--at: 1875ms; --dur: 260ms" />
+  <rect class="sw-held pop" x="444" y="60" width="24" height="24" rx="3" style="--at: 1875ms; --dur: 260ms" />
+  <g class="fade" style="--at: 300ms; --dur: 300ms">
+    <path class="sw-axis" d="M175 91H305M179 87.5l-4 3.5 4 3.5M301 87.5l4 3.5-4 3.5" />
+    <path class="sw-axis" d="M160 7V81M156.5 11l3.5-4 3.5 4M156.5 77l3.5 4 3.5-4" />
+  </g>
+  <g class="fade" style="--at: 300ms; --dur: 300ms">
+    <rect class="sw-track" x="64" y="160" width="352" height="12" rx="3" />
+  </g>
+  <rect class="sw-count fade" x="64" y="160" width="8.22" height="12" style="--at: 660ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="71.82" y="160" width="8.22" height="12" style="--at: 840ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="79.64" y="160" width="8.22" height="12" style="--at: 885ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="87.47" y="160" width="8.22" height="12" style="--at: 930ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="95.29" y="160" width="8.22" height="12" style="--at: 1110ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="103.11" y="160" width="8.22" height="12" style="--at: 1410ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="110.93" y="160" width="8.22" height="12" style="--at: 1455ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="118.76" y="160" width="8.22" height="12" style="--at: 1500ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="126.58" y="160" width="8.22" height="12" style="--at: 1635ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="134.4" y="160" width="8.22" height="12" style="--at: 1635ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="142.22" y="160" width="8.22" height="12" style="--at: 1680ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="150.04" y="160" width="8.22" height="12" style="--at: 1680ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="157.87" y="160" width="8.22" height="12" style="--at: 1725ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="165.69" y="160" width="8.22" height="12" style="--at: 1860ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="173.51" y="160" width="8.22" height="12" style="--at: 1905ms; --dur: 120ms" />
+  <rect class="sw-count fade" x="181.33" y="160" width="8.22" height="12" style="--at: 1950ms; --dur: 120ms" />
+  <g class="fade" style="--at: 300ms; --dur: 300ms">
+    <path class="sw-ticks" d="M71.82 163v6M79.64 163v6M87.47 163v6M95.29 163v6M103.11 163v6M110.93 163v6M118.76 163v6M126.58 163v6M134.4 163v6M142.22 163v6M150.04 163v6M157.87 163v6M165.69 163v6M173.51 163v6M181.33 163v6M189.16 163v6M196.98 163v6M204.8 163v6M212.62 163v6M220.44 163v6M228.27 163v6M236.09 163v6M243.91 163v6M251.73 163v6M259.56 163v6M267.38 163v6M275.2 163v6M283.02 163v6M290.84 163v6M298.67 163v6M306.49 163v6M314.31 163v6M322.13 163v6M329.96 163v6M337.78 163v6M345.6 163v6M353.42 163v6M361.24 163v6M369.07 163v6M376.89 163v6M384.71 163v6M392.53 163v6M400.36 163v6M408.18 163v6" />
+    <rect class="sw-track-edge" x="64" y="160" width="352" height="12" rx="3" />
+    <text class="sw-end" x="64" y="188">0</text>
+    <text class="sw-end" x="416" y="188">45</text>
+  </g>
+  <path class="sw-band draw" d="M71.82 157V152H408.18V157" pathLength="1" style="--at: 2255ms; --dur: 450ms" />
+  <path class="sw-out pop" d="M65.31 148.4l5.2 5.2m0-5.2-5.2 5.2" style="--at: 2605ms" />
+  <path class="sw-out pop" d="M409.49 148.4l5.2 5.2m0-5.2-5.2 5.2" style="--at: 2665ms" />
+  <text class="sw-n fade" x="189.16" y="188" style="--at: 2050ms">16</text>
+  <path class="sw-n-tick fade" d="M189.16 172v4" style="--at: 2050ms" />
+  <g class="pop" style="--at: 2755ms">
+    <circle class="at-ok" cx="211.16" cy="183.5" r="8.5" />
+    <path class="at-ok-mark" d="m207.56 183.5 2.6 2.6 4.8-5.2" />
+  </g>
+  <circle class="fx-ping ping-once sw-ping" cx="211.16" cy="183.5" r="8.5" style="--at: 2805ms" />
+  <g class="pop" style="--at: 450ms"><circle class="fig-badge" cx="240" cy="108.5" r="9.5" /><text class="fig-num" x="240" y="108.5" dy=".36em">1</text></g>
+  <g class="pop" style="--at: 1245ms"><circle class="fig-badge" cx="80" cy="108.5" r="9.5" /><text class="fig-num" x="80" y="108.5" dy=".36em">2</text></g>
+  <g class="pop" style="--at: 1245ms"><circle class="fig-badge" cx="400" cy="108.5" r="9.5" /><text class="fig-num" x="400" y="108.5" dy=".36em">2</text></g>
+  <g class="pop" style="--at: 2255ms"><circle class="fig-badge" cx="45.5" cy="166" r="9.5" /><text class="fig-num" x="45.5" y="166" dy=".36em">3</text></g>
+</svg>

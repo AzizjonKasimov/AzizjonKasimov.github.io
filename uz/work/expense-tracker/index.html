@@ -163,6 +163,35 @@
                 boshladi. Chek faqat uning jami summasi toʻlovga teng boʻlsa hisobga olinadi. Bundan tashqari, xat bilan
                 toʻlov orasida ikki soatdan koʻp vaqt oʻtmagan boʻlishi kerak.
               </li>
+            </ul>
+            <figure class="viz viz-wide receipts" aria-labelledby="receipts-title">
+              <figcaption id="receipts-title" class="viz-title">Misol: qaysi buyurtma xati qaysi toʻlovga tegishli</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/receipt-match.svg -->
+                <!-- include: partials/figures/receipt-match-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/sheet.svg --></span>Bank koʻchirmasidagi Coupang toʻlovi</li>
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/mail.svg --></span>Jami summasi yozilgan Coupang buyurtma xati</li>
+                  <li><span class="viz-key key-window"></span>Toʻlovdan oldin va keyin ikki soat</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>Mos keladi yoki mos kelmaydi</li>
+                  <li><span class="viz-key key-icon key-ai"><!-- include: partials/icons/sparkle.svg --></span>AI kategoriya tanlaydi</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Bir xil nom.</strong> Koʻchirmada har bir Coupang toʻlovi <code lang="ko">쿠팡(쿠페이)_KCP</code> deb yoziladi, shuning uchun AI nima sotib olinganini bila olmaydi.</li>
+                  <li><strong>Bir xil summa.</strong> Buyurtma xati faqat jami summasi toʻlovga teng boʻlsagina hisobga olinadi. Birinchi xatdagi summa boshqa, shuning uchun u hisobga olinmaydi.</li>
+                  <li><strong>Ikki soat ichida.</strong> Bu yerda ikki buyurtma bir xil narxda. Har bir toʻlovga faqat undan oldin yoki keyin ikki soat ichida kelgan xat biriktiriladi.</li>
+                  <li><strong>Mahsulot nomlari.</strong> Biriktirilgan xat nima sotib olinganini qoʻshadi, AI esa kategoriyani shu nomlarga qarab tanlaydi.</li>
+                </ol>
+                <p class="viz-note">Toʻqima kundagi toʻqima buyurtmalar; summalar KRW hisobida.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Avval mening qoidalarim ishlaydi.</strong> Tanish doʻkonlar uchun oʻzim belgilagan qoidalar har
                 doim AI tanlovidan ustun turadi.

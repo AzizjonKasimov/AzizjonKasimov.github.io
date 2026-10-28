@@ -185,6 +185,37 @@
                 bitta bosish butun javobni bekor qiladi. Agar oʻshandan beri qatorni tahrirlagan boʻlsam, Undo rad
                 etadi.
               </li>
+            </ul>
+            <figure class="viz viz-wide agent-turn" aria-labelledby="turn-title">
+              <figcaption id="turn-title" class="viz-title">Agentning bir navbati: har bir vosita chaqiruvi ikki marta tekshiriladi</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-heads"><span>Mening telefonim</span><span>Mening AI shlyuzim</span><span>Claude</span></div>
+                <!-- include: partials/figures/agent-turn.svg -->
+                <!-- include: partials/figures/agent-turn-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-call"></span>Xabar, vosita chaqiruvi yoki javob</li>
+                  <li><span class="viz-key key-result"></span>Faqat natija qaytadi</li>
+                  <li><span class="viz-key key-error"></span>Rad etilgan chaqiruv xatosi</li>
+                  <li><span class="viz-key key-schema"><!-- include: partials/icons/braces-check.svg --></span>Shlyuzning JSON Schema boʻyicha tekshiruvi</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>Telefonning oʻz tekshiruvi: chaqiruv oʻtadi yoki rad etiladi</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/database.svg --></span>Telefonning maʼlumotlar bazasi: u telefondan chiqmaydi</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Mening qaydim.</strong> Claude modeli uni 17 ta vosita taʼrifi bilan oladi, ammo saqlangan yozuvlarsiz.</li>
+                  <li><strong>Ikki tekshiruv.</strong> Claude <code>find_people</code> vositasini chaqiradi. Shlyuz chaqiruvni JSON Schema boʻyicha tekshiradi, telefon esa uni yana tekshiradi. Keyin telefon uni oʻz maʼlumotlar bazasida bajaradi va faqat natijani qaytaradi.</li>
+                  <li><strong>Rad etilgan chaqiruv.</strong> Claude <code>add_note</code> vositasini kelajakdagi sana bilan chaqiradi. Telefon chaqiruvni rad etadi va hech narsa saqlamaydi. Claude xatoni oʻqiydi va chaqiruvni toʻgʻri sana bilan qayta yuboradi.</li>
+                  <li><strong>Javob.</strong> Unda har bir oʻzgarish sanab oʻtiladi, bitta bosish esa hammasini bekor qiladi.</li>
+                </ol>
+                <p class="viz-note">Toʻqima qayd bilan tuzilgan shartli tasvir. <code>find_people</code> va <code>add_note</code> ilovadagi 17 ta vositadan ikkitasi.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Oʻchirish doim meni kutadi.</strong> Odamni, qaydni yoki yozuvni oʻchirish yoki ikki odamni
                 birlashtirish faqat men uning kartasini bosganimda bajariladi.

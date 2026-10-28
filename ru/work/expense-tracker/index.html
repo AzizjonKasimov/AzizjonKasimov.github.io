@@ -163,6 +163,35 @@
                 товаров. Чек засчитывается, только если его сумма равна списанию, а письмо пришло в пределах двух
                 часов от него.
               </li>
+            </ul>
+            <figure class="viz viz-wide receipts" aria-labelledby="receipts-title">
+              <figcaption id="receipts-title" class="viz-title">Пример: какое письмо о заказе относится к какому списанию</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/receipt-match.svg -->
+                <!-- include: partials/figures/receipt-match-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/sheet.svg --></span>Списание Coupang в банковской выписке</li>
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/mail.svg --></span>Письмо о заказе Coupang с итоговой суммой</li>
+                  <li><span class="viz-key key-window"></span>Два часа до и после списания</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>Совпадение или несовпадение</li>
+                  <li><span class="viz-key key-icon key-ai"><!-- include: partials/icons/sparkle.svg --></span>ИИ выбирает категорию</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Одно и то же название.</strong> В выписке каждое списание Coupang выглядит как <code lang="ko">쿠팡(쿠페이)_KCP</code>, поэтому ИИ не может понять, что куплено.</li>
+                  <li><strong>Та же сумма.</strong> Письмо о заказе подходит, только если его итоговая сумма равна списанию. В первом письме другая сумма, поэтому оно не подходит.</li>
+                  <li><strong>В пределах двух часов.</strong> Здесь два заказа стоят одинаково. Каждому списанию достаётся только письмо, пришедшее в пределах двух часов от него.</li>
+                  <li><strong>Названия товаров.</strong> Сопоставленное письмо добавляет, что именно куплено, и по этим названиям ИИ выбирает категорию.</li>
+                </ol>
+                <p class="viz-note">Выдуманные заказы в выдуманный день; суммы в KRW.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Мои правила идут первыми.</strong> Правила, которые я задал для знакомых магазинов, всегда
                 перекрывают выбор ИИ.

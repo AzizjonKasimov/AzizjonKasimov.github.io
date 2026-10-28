@@ -229,6 +229,34 @@
                 что ошибка меняется в течение дня. Переход на 24 порога, по одному на каждый час, поднял recall на 10
                 пунктов.
               </li>
+            </ul>
+            <figure class="viz viz-wide hourly" aria-labelledby="hourly-title">
+              <figcaption id="hourly-title" class="viz-title">Пример: один порог на весь день или по одному на каждый час</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/hourly-thresholds.svg -->
+                <!-- include: partials/figures/hourly-thresholds-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-band"></span>Обычная ошибка в каждый час</li>
+                  <li><span class="viz-key key-global"></span>Один порог на весь день</li>
+                  <li><span class="viz-key key-steps"></span>Порог на каждый час</li>
+                  <li><span class="viz-key key-missed"><!-- include: partials/icons/ring-dashed.svg --></span>Пропущенная аномалия</li>
+                  <li><span class="viz-key key-hit"></span>Найденная аномалия</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Обычная ошибка.</strong> Детектор помечает показание, если его ошибка выше порога. В этом выдуманном дне обычная ошибка ночью мала, а около полудня больше.</li>
+                  <li><strong>Одна линия на день.</strong> Единственный порог приходится держать выше беспокойных полуденных часов. Аномалия тихим утром остаётся под ним, и детектор её пропускает.</li>
+                  <li><strong>Линия на каждый час.</strong> С 24 порогами утренняя линия лежит низко, и та же аномалия её пересекает. На реальных данных это подняло recall на 10 пунктов.</li>
+                </ol>
+                <p class="viz-note">Выдуманный и упрощённый день: часы идут слева направо.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Более чистые обучающие данные.</strong> Удаление аномальных точек из обучающей выборки подняло
                 precision на 30 пунктов, а recall — на 20.

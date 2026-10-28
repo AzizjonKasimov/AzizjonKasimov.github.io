@@ -180,6 +180,37 @@
                 flexibility instead: now adds and edits save at once. Each reply keeps a copy of every row before and after, so
                 one tap undoes the whole reply. Undo refuses if I have edited the row since.
               </li>
+            </ul>
+            <figure class="viz viz-wide agent-turn" aria-labelledby="turn-title">
+              <figcaption id="turn-title" class="viz-title">One agent turn, with every tool call checked twice</figcaption>
+              <button class="replay" type="button" title="Replay the animation" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Replay the animation</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-heads"><span>My phone</span><span>My AI gateway</span><span>Claude</span></div>
+                <!-- include: partials/figures/agent-turn.svg -->
+                <!-- include: partials/figures/agent-turn-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-call"></span>A message, a tool call, or the reply</li>
+                  <li><span class="viz-key key-result"></span>Only the result comes back</li>
+                  <li><span class="viz-key key-error"></span>The error from a refused call</li>
+                  <li><span class="viz-key key-schema"><!-- include: partials/icons/braces-check.svg --></span>The gateway's check against the JSON Schema</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>The phone's own check: it passes or refuses the call</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/database.svg --></span>The phone's database, which stays on the phone</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>My note.</strong> Claude gets it with the 17 tool definitions, but no saved records.</li>
+                  <li><strong>Two checks.</strong> Claude calls <code>find_people</code>. The gateway checks the call against its JSON Schema, and the phone checks it again. Then the phone runs it on its own database and sends back only the result.</li>
+                  <li><strong>A refused call.</strong> Claude calls <code>add_note</code> with a date in the future. The phone refuses it and saves nothing. Claude reads the error and sends the call again with the right date.</li>
+                  <li><strong>The reply.</strong> It lists every change, and one tap undoes them all.</li>
+                </ol>
+                <p class="viz-note">An illustration with a made-up note. <code>find_people</code> and <code>add_note</code> are two of the app's 17 tools.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Deletes always wait.</strong> Deleting a person, a note, or a record, or merging two people,
                 runs only when I tap its card.

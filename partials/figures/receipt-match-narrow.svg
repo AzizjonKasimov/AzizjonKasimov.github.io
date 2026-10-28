@@ -1,0 +1,78 @@
+<svg class="narrow" viewBox="0 0 300 316">
+  <defs>
+    <symbol id="rm-mail-narrow" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+    <symbol id="rm-row-narrow" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M3 15h18" /><path d="M9 9v12" /></symbol>
+    <symbol id="rm-spark-narrow" viewBox="0 0 24 24"><path d="M12 3 13.9 8.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z" /></symbol>
+  </defs>
+  <rect class="rm-window fade" x="40.92" y="43" width="99.44" height="239" rx="6" style="--at: 1900ms; --dur: 400ms" />
+  <rect class="rm-window fade" x="177.64" y="43" width="99.44" height="239" rx="6" style="--at: 2020ms; --dur: 400ms" />
+  <g class="fade" style="--dur: 300ms">
+    <path class="rm-track" d="M26 80H292M26 220H292" />
+    <path class="rm-axis" d="M26 282H292" />
+    <path class="rm-axis" d="M40.92 279v6M90.64 279v6M140.36 279v6M190.07 279v6M239.79 279v6" />
+    <text class="rm-hour" x="40.92" y="300">10:00</text>
+    <text class="rm-hour" x="90.64" y="300">12:00</text>
+    <text class="rm-hour" x="140.36" y="300">14:00</text>
+    <text class="rm-hour" x="190.07" y="300">16:00</text>
+    <text class="rm-hour" x="239.79" y="300">18:00</text>
+  </g>
+  <g class="pop" style="--at: 150ms">
+    <rect class="rm-glyph-bg" x="79.64" y="69" width="22" height="22" rx="3" />
+    <use class="rm-row" href="#rm-row-narrow" x="79.64" y="69" width="22" height="22" />
+  </g>
+  <text class="rm-amount fade" x="90.64" y="63" style="--at: 250ms">−12 800</text>
+  <g class="pop" style="--at: 240ms">
+    <rect class="rm-glyph-bg" x="216.36" y="69" width="22" height="22" rx="3" />
+    <use class="rm-row" href="#rm-row-narrow" x="216.36" y="69" width="22" height="22" />
+  </g>
+  <text class="rm-amount fade" x="227.36" y="63" style="--at: 340ms">−12 800</text>
+  <g class="pop" style="--at: 450ms">
+    <rect class="rm-glyph-bg" x="50.63" y="209" width="22" height="22" rx="3" />
+    <use class="rm-mail rm-mail-off" href="#rm-mail-narrow" x="50.63" y="209" width="22" height="22" />
+  </g>
+  <text class="rm-amount rm-amount-off rm-start fade" x="45.92" y="262" style="--at: 550ms">8 900</text>
+  <g class="pop" style="--at: 540ms">
+    <rect class="rm-glyph-bg" x="79.64" y="209" width="22" height="22" rx="3" />
+    <use class="rm-mail" href="#rm-mail-narrow" x="79.64" y="209" width="22" height="22" />
+  </g>
+  <text class="rm-amount fade" x="90.64" y="246" style="--at: 640ms">12 800</text>
+  <g class="pop" style="--at: 630ms">
+    <rect class="rm-glyph-bg" x="216.36" y="209" width="22" height="22" rx="3" />
+    <use class="rm-mail" href="#rm-mail-narrow" x="216.36" y="209" width="22" height="22" />
+  </g>
+  <text class="rm-amount fade" x="227.36" y="246" style="--at: 730ms">12 800</text>
+  <path class="rm-nomatch draw" d="M90.64 93L61.63 207" pathLength="1" style="--at: 1000ms; --dur: 300ms" />
+  <g class="pop" style="--at: 1280ms">
+    <circle class="at-no" cx="70.91" cy="170.52" r="8" />
+    <path class="at-no-mark" d="M68.21 167.82l5.4 5.4m0-5.4-5.4 5.4" />
+  </g>
+  <path class="rm-nomatch draw" d="M90.64 93L227.36 207" pathLength="1" style="--at: 2150ms; --dur: 300ms" />
+  <g class="pop" style="--at: 2430ms">
+    <circle class="at-no" cx="159" cy="150" r="8" />
+    <path class="at-no-mark" d="M156.3 147.3l5.4 5.4m0-5.4-5.4 5.4" />
+  </g>
+  <path class="rm-match draw" d="M90.64 93L90.64 207" pathLength="1" style="--at: 2700ms; --dur: 300ms" />
+  <g class="pop" style="--at: 2980ms">
+    <circle class="at-ok" cx="90.64" cy="150" r="8" />
+    <path class="at-ok-mark" d="m87.24 150 2.4 2.4 4.4-4.8" />
+  </g>
+  <path class="rm-match draw" d="M227.36 93L227.36 207" pathLength="1" style="--at: 2850ms; --dur: 300ms" />
+  <g class="pop" style="--at: 3130ms">
+    <circle class="at-ok" cx="227.36" cy="150" r="8" />
+    <path class="at-ok-mark" d="m223.96 150 2.4 2.4 4.4-4.8" />
+  </g>
+  <path class="fx-dot" d="M90.64 207L90.64 39" pathLength="100" style="--at: 3350ms; --dur: 600ms" />
+  <g class="pop" style="--at: 3870ms">
+    <circle class="art-panel" cx="90.64" cy="30" r="8.5" />
+    <use class="rm-spark" href="#rm-spark-narrow" x="84.64" y="24" width="12" height="12" />
+  </g>
+  <path class="fx-dot" d="M227.36 207L227.36 39" pathLength="100" style="--at: 3500ms; --dur: 600ms" />
+  <g class="pop" style="--at: 4020ms">
+    <circle class="art-panel" cx="227.36" cy="30" r="8.5" />
+    <use class="rm-spark" href="#rm-spark-narrow" x="221.36" y="24" width="12" height="12" />
+  </g>
+  <g class="pop" style="--at: 150ms"><circle class="fig-badge" cx="12" cy="80" r="10" /><text class="fig-num" x="12" y="80" dy=".36em">1</text></g>
+  <g class="pop" style="--at: 1000ms"><circle class="fig-badge" cx="12" cy="170.52" r="10" /><text class="fig-num" x="12" y="170.52" dy=".36em">2</text></g>
+  <g class="pop" style="--at: 1900ms"><circle class="fig-badge" cx="159" cy="126" r="10" /><text class="fig-num" x="159" y="126" dy=".36em">3</text></g>
+  <g class="pop" style="--at: 3300ms"><circle class="fig-badge" cx="251.86" cy="30" r="10" /><text class="fig-num" x="251.86" y="30" dy=".36em">4</text></g>
+</svg>

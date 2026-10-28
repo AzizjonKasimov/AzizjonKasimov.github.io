@@ -167,6 +167,37 @@
               <li>
                 <strong>灵活，但可撤销。</strong>起初，AI 的每项更改都要等我审核。后来我转而选择了灵活性：现在，新增和编辑会立即保存。每条回复都会保留每一行更改前后的副本，所以点一下就能撤销整条回复。如果我在那之后又编辑过这一行，Undo 就会拒绝撤销。
               </li>
+            </ul>
+            <figure class="viz viz-wide agent-turn" aria-labelledby="turn-title">
+              <figcaption id="turn-title" class="viz-title">智能体的一轮：每次工具调用都检查两次</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-heads"><span>我的手机</span><span>我的 AI 网关</span><span>Claude</span></div>
+                <!-- include: partials/figures/agent-turn.svg -->
+                <!-- include: partials/figures/agent-turn-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-call"></span>一条消息、一次工具调用或回复</li>
+                  <li><span class="viz-key key-result"></span>只有结果会传回</li>
+                  <li><span class="viz-key key-error"></span>被拒绝的调用返回的错误</li>
+                  <li><span class="viz-key key-schema"><!-- include: partials/icons/braces-check.svg --></span>网关按 JSON Schema 做的检查</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>手机自己的检查：放行或拒绝这次调用</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/database.svg --></span>手机的数据库，始终留在手机上</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>我的笔记。</strong>Claude 收到笔记和 17 个工具定义，但收不到任何已保存的记录。</li>
+                  <li><strong>两道检查。</strong>Claude 调用 <code>find_people</code>。网关按照 JSON Schema 检查这次调用，手机再检查一次。然后手机在自己的数据库上运行它，只把结果发回去。</li>
+                  <li><strong>被拒绝的调用。</strong>Claude 调用 <code>add_note</code> 时用了一个未来的日期。手机拒绝了这次调用，什么都没有保存。Claude 读到错误后，用正确的日期重新发送这次调用。</li>
+                  <li><strong>回复。</strong>回复列出每一项更改，点一下就能全部撤销。</li>
+                </ol>
+                <p class="viz-note">示意图，其中的笔记是虚构的。<code>find_people</code> 和 <code>add_note</code> 是这个应用 17 个工具中的两个。</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>删除一律等待确认。</strong>删除一个人、一条笔记或一条记录，或者合并两个人，都只在我点按对应的卡片后才会执行。
               </li>

@@ -1249,6 +1249,118 @@
     transform-origin: 50% 15%;
     animation: ring 900ms ease-in-out 2600ms backwards;
   }
+
+  /* A big job that fails partway: the first run saves batch after batch, each with its
+     checkpoint, until a batch fails; the batches it never reached fade, and the resumed run picks
+     up at the last checkpoint and finishes. */
+  .motion .resume .viz-steps li:nth-child(1) {
+    --at: 150ms;
+    --until: 1050ms;
+  }
+
+  .motion .resume .viz-steps li:nth-child(2) {
+    --at: 1050ms;
+    --until: 1730ms;
+  }
+
+  .motion .resume .viz-steps li:nth-child(3) {
+    --at: 1730ms;
+    --until: 2750ms;
+  }
+
+  .motion .resume .viz-steps li:nth-child(4) {
+    --at: 2750ms;
+    --until: 4400ms;
+  }
+
+  /* One agent turn: the message goes to Claude, then each tool call comes down to the phone past
+     the gateway's check and the phone's own, and its result goes back; one call is refused and
+     sent again; the reply lands with its Undo. */
+  .motion .agent-turn .viz-steps li:nth-child(1) {
+    --at: 150ms;
+    --until: 750ms;
+  }
+
+  .motion .agent-turn .viz-steps li:nth-child(2) {
+    --at: 750ms;
+    --until: 1600ms;
+  }
+
+  .motion .agent-turn .viz-steps li:nth-child(3) {
+    --at: 1600ms;
+    --until: 3600ms;
+  }
+
+  .motion .agent-turn .viz-steps li:nth-child(4) {
+    --at: 3600ms;
+    --until: 4500ms;
+  }
+
+  .motion .agent-turn .viz-heads {
+    animation: fade-in 400ms ease backwards;
+  }
+
+  /* One threshold or one for each hour: the usual error fills in, the day's one line draws and the
+     morning anomaly stays under it, then the 24 lines draw hour by hour and the same anomaly
+     crosses its own. */
+  .motion .hourly .viz-steps li:nth-child(1) {
+    --at: 100ms;
+    --until: 950ms;
+  }
+
+  .motion .hourly .viz-steps li:nth-child(2) {
+    --at: 950ms;
+    --until: 2150ms;
+  }
+
+  .motion .hourly .viz-steps li:nth-child(3) {
+    --at: 2150ms;
+    --until: 4100ms;
+  }
+
+  /* Matching charges to order emails: the day's charges and emails appear, the email with another
+     total is ruled out, the two-hour windows show and rule out the far one, the matches are
+     made, and the product names go up to the charges. */
+  .motion .receipts .viz-steps li:nth-child(1) {
+    --at: 150ms;
+    --until: 1000ms;
+  }
+
+  .motion .receipts .viz-steps li:nth-child(2) {
+    --at: 1000ms;
+    --until: 1900ms;
+  }
+
+  .motion .receipts .viz-steps li:nth-child(3) {
+    --at: 1900ms;
+    --until: 3300ms;
+  }
+
+  .motion .receipts .viz-steps li:nth-child(4) {
+    --at: 3300ms;
+    --until: 4300ms;
+  }
+
+  /* One test swing, run 45 times: the runs fill block by block, each break adds to the tally,
+     and the tally is checked against what "sometimes" allows. */
+  .motion .sweep .viz-steps li:nth-child(1) {
+    --at: 450ms;
+    --until: 1245ms;
+  }
+
+  .motion .sweep .viz-steps li:nth-child(2) {
+    --at: 1245ms;
+    --until: 2255ms;
+  }
+
+  .motion .sweep .viz-steps li:nth-child(3) {
+    --at: 2255ms;
+    --until: 3500ms;
+  }
+
+  .motion .sweep .viz-heads {
+    animation: fade-in 400ms ease backwards;
+  }
 }
 
 /* Wide screens: the diagram runs across, so its lines grow sideways. */

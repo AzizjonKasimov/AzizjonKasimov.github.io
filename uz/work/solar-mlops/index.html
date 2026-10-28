@@ -234,6 +234,34 @@
                 oʻtkazib yuborardi, chunki xatolik kun davomida oʻzgaradi. Har soat uchun bittadan, jami 24 ta chegara
                 ishlatish recall koʻrsatkichini 10 punktga oshirdi.
               </li>
+            </ul>
+            <figure class="viz viz-wide hourly" aria-labelledby="hourly-title">
+              <figcaption id="hourly-title" class="viz-title">Misol: butun kun uchun bitta chegara yoki har soat uchun bittadan</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/hourly-thresholds.svg -->
+                <!-- include: partials/figures/hourly-thresholds-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-band"></span>Har soatdagi odatiy xatolik</li>
+                  <li><span class="viz-key key-global"></span>Butun kun uchun bitta chegara</li>
+                  <li><span class="viz-key key-steps"></span>Har soat uchun alohida chegara</li>
+                  <li><span class="viz-key key-missed"><!-- include: partials/icons/ring-dashed.svg --></span>Oʻtkazib yuborilgan anomaliya</li>
+                  <li><span class="viz-key key-hit"></span>Aniqlangan anomaliya</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Odatiy xatolik.</strong> Detektor koʻrsatkichning xatoligi chegaradan oshsa, uni belgilaydi. Bu toʻqima kunda odatiy xatolik tunda kichik, tush paytida esa kattaroq.</li>
+                  <li><strong>Kun uchun bitta chiziq.</strong> Yagona chegara xatoligi katta tush soatlaridan yuqorida turishi kerak. Sokin tongdagi anomaliya uning ostida qoladi va oʻtkazib yuboriladi.</li>
+                  <li><strong>Har soat uchun chiziq.</strong> 24 ta chegara bilan tongdagi chiziq pastda turadi va oʻsha anomaliya uni kesib oʻtadi. Haqiqiy maʼlumotlarda bu recall koʻrsatkichini 10 punktga oshirdi.</li>
+                </ol>
+                <p class="viz-note">Toʻqima va soddalashtirilgan kun: soatlar chapdan oʻngga oʻtadi.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Tozaroq oʻqitish maʼlumotlari.</strong> Oʻqitish toʻplamidan anomal nuqtalarni olib tashlash
                 precision koʻrsatkichini 30 punktga, recall koʻrsatkichini esa 20 punktga oshirdi.

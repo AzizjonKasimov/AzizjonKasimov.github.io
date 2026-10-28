@@ -178,6 +178,37 @@
                 택했습니다. 이제 추가와 수정은 바로 저장됩니다. 응답마다 모든 행의 변경 전후 사본을 보관하므로, 한 번 누르면 응답 전체가
                 되돌려집니다. 그 뒤에 제가 그 행을 고쳤다면 Undo는 거부됩니다.
               </li>
+            </ul>
+            <figure class="viz viz-wide agent-turn" aria-labelledby="turn-title">
+              <figcaption id="turn-title" class="viz-title">에이전트의 한 차례: 모든 도구 호출을 두 번 검증</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-heads"><span>내 휴대폰</span><span>내 AI 게이트웨이</span><span>Claude</span></div>
+                <!-- include: partials/figures/agent-turn.svg -->
+                <!-- include: partials/figures/agent-turn-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-call"></span>메시지, 도구 호출 또는 응답</li>
+                  <li><span class="viz-key key-result"></span>돌아오는 것은 결과뿐</li>
+                  <li><span class="viz-key key-error"></span>거부된 호출의 오류</li>
+                  <li><span class="viz-key key-schema"><!-- include: partials/icons/braces-check.svg --></span>게이트웨이의 JSON Schema 검증</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>휴대폰 자체 검증: 호출을 통과시키거나 거부</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/database.svg --></span>휴대폰 밖으로 나가지 않는 휴대폰 데이터베이스</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>내 메모.</strong> Claude는 메모와 함께 도구 정의 17개를 받지만, 저장된 기록은 받지 않습니다.</li>
+                  <li><strong>두 번의 검증.</strong> Claude가 <code>find_people</code>을 호출합니다. 게이트웨이가 호출을 JSON Schema로 검증하고, 휴대폰이 한 번 더 검증합니다. 그다음 휴대폰이 자체 데이터베이스에서 호출을 실행하고 결과만 돌려보냅니다.</li>
+                  <li><strong>거부된 호출.</strong> Claude가 미래 날짜로 <code>add_note</code>를 호출합니다. 휴대폰은 호출을 거부하고 아무것도 저장하지 않습니다. Claude는 오류를 읽고 올바른 날짜로 다시 호출합니다.</li>
+                  <li><strong>응답.</strong> 응답에 모든 변경 사항이 나오고, 한 번 누르면 전부 되돌려집니다.</li>
+                </ol>
+                <p class="viz-note">지어낸 메모로 만든 설명용 그림입니다. <code>find_people</code>과 <code>add_note</code>는 앱의 도구 17개 중 두 가지입니다.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>삭제는 항상 기다립니다.</strong> 사람, 메모, 기록을 삭제하거나 두 사람을 병합하는 작업은 제가 해당 카드를 누를
                 때만 실행됩니다.

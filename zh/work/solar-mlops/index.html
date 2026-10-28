@@ -214,6 +214,34 @@
               <li>
                 <strong>按小时设定阈值。</strong>全天只用一个阈值时，某些时段的异常会被漏掉，因为误差在一天之内会变化。改用 24 个阈值、每小时一个后，召回率提高了 10 个百分点。
               </li>
+            </ul>
+            <figure class="viz viz-wide hourly" aria-labelledby="hourly-title">
+              <figcaption id="hourly-title" class="viz-title">示例：全天一个阈值，还是每小时一个阈值</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/hourly-thresholds.svg -->
+                <!-- include: partials/figures/hourly-thresholds-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-band"></span>每个小时的常见误差</li>
+                  <li><span class="viz-key key-global"></span>全天共用一个阈值</li>
+                  <li><span class="viz-key key-steps"></span>每小时一个阈值</li>
+                  <li><span class="viz-key key-missed"><!-- include: partials/icons/ring-dashed.svg --></span>被漏掉的异常</li>
+                  <li><span class="viz-key key-hit"></span>被标记的异常</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>常见误差。</strong>读数的误差超过阈值时，异常检测器就会标记它。在这个虚构的一天里，常见误差夜间较小，中午前后较大。</li>
+                  <li><strong>全天一条线。</strong>只用一个阈值时，它必须高于误差较大的中午时段。于是，安静的早晨出现的异常落在线下，被漏掉了。</li>
+                  <li><strong>每小时一条线。</strong>用 24 个阈值时，早晨的线较低，同一个异常就越过了它。在真实数据上，这种做法让召回率提高了 10 个百分点。</li>
+                </ol>
+                <p class="viz-note">虚构并简化的一天：时间从左向右推进。</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>更干净的训练数据。</strong>从训练集中剔除异常点后，精确率提高了 30 个百分点，召回率提高了 20 个百分点。
               </li>

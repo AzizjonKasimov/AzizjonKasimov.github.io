@@ -231,6 +231,34 @@
                 Stunden Anomalien, weil sich der Fehler im Tagesverlauf ändert. Mit 24 Schwellenwerten, einem pro
                 Stunde, stieg der Recall um 10 Prozentpunkte.
               </li>
+            </ul>
+            <figure class="viz viz-wide hourly" aria-labelledby="hourly-title">
+              <figcaption id="hourly-title" class="viz-title">Beispiel: ein Schwellenwert für den ganzen Tag oder einer pro Stunde</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/hourly-thresholds.svg -->
+                <!-- include: partials/figures/hourly-thresholds-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-band"></span>Der übliche Fehler zu jeder Stunde</li>
+                  <li><span class="viz-key key-global"></span>Ein Schwellenwert für den ganzen Tag</li>
+                  <li><span class="viz-key key-steps"></span>Ein Schwellenwert pro Stunde</li>
+                  <li><span class="viz-key key-missed"><!-- include: partials/icons/ring-dashed.svg --></span>Eine übersehene Anomalie</li>
+                  <li><span class="viz-key key-hit"></span>Eine gemeldete Anomalie</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Der übliche Fehler.</strong> Der Detektor meldet einen Messwert, wenn sein Fehler über einem Schwellenwert liegt. An diesem erfundenen Tag ist der übliche Fehler nachts klein und um die Mittagszeit größer.</li>
+                  <li><strong>Eine Linie für den Tag.</strong> Ein einziger Schwellenwert muss über den unruhigen Mittagsstunden liegen. Eine Anomalie am ruhigen Morgen bleibt darunter und wird übersehen.</li>
+                  <li><strong>Eine Linie pro Stunde.</strong> Mit 24 Schwellenwerten liegt die Linie am Morgen tief, und dieselbe Anomalie überschreitet sie. Auf echten Daten stieg der Recall dadurch um 10 Prozentpunkte.</li>
+                </ol>
+                <p class="viz-note">Ein erfundener, vereinfachter Tag: Die Stunden verlaufen von links nach rechts.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Sauberere Trainingsdaten.</strong> Das Entfernen anomaler Punkte aus dem Trainingsdatensatz
                 erhöhte die Precision um 30 Prozentpunkte und den Recall um 20.

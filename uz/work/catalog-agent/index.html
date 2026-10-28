@@ -123,6 +123,36 @@
                 boʻladi, shuning uchun 100&nbsp;mingdan ortiq variantga ega avtomobil modeli nosozlikdan keyin boshidan
                 boshlanmaydi.
               </li>
+            </ul>
+            <figure class="viz viz-wide resume" aria-labelledby="resume-title">
+              <figcaption id="resume-title" class="viz-title">Katta vazifa yarim yoʻlda toʻxtasa</figcaption>
+              <button class="replay" type="button" title="Animatsiyani qayta koʻrsatish" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animatsiyani qayta koʻrsatish</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/resume-job.svg -->
+                <!-- include: partials/figures/resume-job-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/clock.svg --></span>Jadval boʻyicha ishga tushirish</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/play.svg --></span>Vazifa qayta ishga tushadi</li>
+                  <li><span class="viz-key key-batch"></span>PostgreSQL bazasiga saqlangan paket</li>
+                  <li><span class="viz-key key-flag"></span>Nazorat nuqtasi: vazifa qayergacha yetgani</li>
+                  <li><span class="viz-key key-fail"><!-- include: partials/icons/x.svg --></span>Nosozlik boʻlgan paket</li>
+                  <li><span class="viz-key key-skip"></span>Allaqachon saqlangan, shuning uchun qayta bajarilmaydi</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Paketlab.</strong> Jadval boʻyicha ishga tushgan vazifa oʻz qamrovini paketma-paket bajaradi.</li>
+                  <li><strong>Nazorat nuqtalari.</strong> Har bir paket PostgreSQL bazasiga saqlanadi, nazorat nuqtasi esa vazifa qayergacha yetganini qayd etadi.</li>
+                  <li><strong>Nosozlik.</strong> Yarim yoʻlda bir paketda nosozlik yuz beradi va vazifa toʻxtaydi.</li>
+                  <li><strong>Davom ettirish.</strong> Vazifa oxirgi nazorat nuqtasidan qayta ishga tushadi. Saqlangan paketlar oʻz joyida qoladi, faqat qolganlari yoziladi.</li>
+                </ol>
+                <p class="viz-note">Shartli tasvir: paketlar soni misol tariqasida olingan.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Jadval boʻyicha ishga tushirish.</strong> APScheduler vazifalarni jadval boʻyicha yoki talab
                 boʻyicha, kichik interfeysdan ishga tushiradi.

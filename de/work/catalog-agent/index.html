@@ -122,6 +122,36 @@
                 <strong>Für sehr große Jobs gebaut.</strong> Das Speichern erfolgt stückweise und lässt sich fortsetzen,
                 sodass ein Fahrzeugmodell mit über 100.000 Varianten nach einem Fehler nicht von vorn beginnt.
               </li>
+            </ul>
+            <figure class="viz viz-wide resume" aria-labelledby="resume-title">
+              <figcaption id="resume-title" class="viz-title">Wenn ein großer Job mittendrin scheitert</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/resume-job.svg -->
+                <!-- include: partials/figures/resume-job-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/clock.svg --></span>Ein geplanter Lauf</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/play.svg --></span>Der Job läuft erneut</li>
+                  <li><span class="viz-key key-batch"></span>Ein Batch, in PostgreSQL gespeichert</li>
+                  <li><span class="viz-key key-flag"></span>Ein Checkpoint: wie weit der Job gekommen ist</li>
+                  <li><span class="viz-key key-fail"><!-- include: partials/icons/x.svg --></span>Der Batch, der fehlschlug</li>
+                  <li><span class="viz-key key-skip"></span>Schon gespeichert, daher nicht noch einmal ausgeführt</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>In Batches.</strong> Ein geplanter Job arbeitet seinen Umfang Batch für Batch ab.</li>
+                  <li><strong>Checkpoints.</strong> Jeder Batch wird in PostgreSQL gespeichert, mit einem Checkpoint, der festhält, wie weit der Job gekommen ist.</li>
+                  <li><strong>Ein Fehler.</strong> Mittendrin schlägt ein Batch fehl, und der Job stoppt.</li>
+                  <li><strong>Fortsetzen.</strong> Der Job läuft ab dem letzten Checkpoint erneut. Die gespeicherten Batches bleiben, und nur der Rest wird geschrieben.</li>
+                </ol>
+                <p class="viz-note">Eine schematische Darstellung; die Zahl der Batches ist nur ein Beispiel.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Zeitplanung.</strong> APScheduler führt Jobs nach Zeitplan oder auf Abruf aus, gesteuert über
                 eine kleine Oberfläche.

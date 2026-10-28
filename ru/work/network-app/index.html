@@ -183,6 +183,37 @@
                 после изменения, поэтому одно нажатие отменяет весь ответ. Undo не сработает, если с тех пор я изменил
                 эту строку.
               </li>
+            </ul>
+            <figure class="viz viz-wide agent-turn" aria-labelledby="turn-title">
+              <figcaption id="turn-title" class="viz-title">Один ход агента: каждый вызов инструмента проверяется дважды</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-heads"><span>Мой телефон</span><span>Мой ИИ‑шлюз</span><span>Claude</span></div>
+                <!-- include: partials/figures/agent-turn.svg -->
+                <!-- include: partials/figures/agent-turn-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-call"></span>Сообщение, вызов инструмента или ответ</li>
+                  <li><span class="viz-key key-result"></span>Обратно приходит только результат</li>
+                  <li><span class="viz-key key-error"></span>Ошибка отклонённого вызова</li>
+                  <li><span class="viz-key key-schema"><!-- include: partials/icons/braces-check.svg --></span>Проверка на шлюзе по JSON Schema</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>Собственная проверка телефона: вызов проходит или отклоняется</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/database.svg --></span>База данных телефона, которая не покидает телефон</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Моя заметка.</strong> Claude получает её вместе с 17 описаниями инструментов, но без сохранённых записей.</li>
+                  <li><strong>Две проверки.</strong> Claude вызывает <code>find_people</code>. Шлюз сверяет вызов с его JSON Schema, а телефон проверяет его ещё раз. Затем телефон выполняет вызов на своей базе данных и возвращает только результат.</li>
+                  <li><strong>Отклонённый вызов.</strong> Claude вызывает <code>add_note</code> с датой в будущем. Телефон отклоняет вызов и ничего не сохраняет. Claude читает ошибку и отправляет вызов снова, уже с правильной датой.</li>
+                  <li><strong>Ответ.</strong> В нём перечислены все изменения, и одно нажатие отменяет их все.</li>
+                </ol>
+                <p class="viz-note">Это иллюстрация с выдуманной заметкой. <code>find_people</code> и <code>add_note</code> — два из 17 инструментов приложения.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Удаление всегда ждёт подтверждения.</strong> Удаление человека, заметки или записи, а также
                 объединение записей о двух людях выполняется, только когда я нажимаю на карточку этого действия.

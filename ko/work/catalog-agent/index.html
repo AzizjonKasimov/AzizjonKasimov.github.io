@@ -117,6 +117,36 @@
               <li>
                 <strong>대규모 작업 대응.</strong> 저장은 청크 단위로 나뉘고 재개할 수 있으므로, 변형이 10만 개 이상인 차량 모델도 실패한 뒤 처음부터 다시 시작하지 않습니다.
               </li>
+            </ul>
+            <figure class="viz viz-wide resume" aria-labelledby="resume-title">
+              <figcaption id="resume-title" class="viz-title">큰 작업이 중간에 실패하면</figcaption>
+              <button class="replay" type="button" title="애니메이션 다시 보기" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">애니메이션 다시 보기</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/resume-job.svg -->
+                <!-- include: partials/figures/resume-job-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/clock.svg --></span>예약 실행</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/play.svg --></span>작업 다시 실행</li>
+                  <li><span class="viz-key key-batch"></span>PostgreSQL에 저장된 배치</li>
+                  <li><span class="viz-key key-flag"></span>체크포인트: 작업이 어디까지 진행됐는지</li>
+                  <li><span class="viz-key key-fail"><!-- include: partials/icons/x.svg --></span>실패한 배치</li>
+                  <li><span class="viz-key key-skip"></span>이미 저장되어 다시 실행하지 않는 배치</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>배치 단위.</strong> 예약된 작업이 맡은 범위를 한 번에 한 배치씩 처리합니다.</li>
+                  <li><strong>체크포인트.</strong> 각 배치를 PostgreSQL에 저장하면서, 작업이 어디까지 진행됐는지 체크포인트로 기록합니다.</li>
+                  <li><strong>실패.</strong> 작업 도중 한 배치가 실패하고, 작업이 멈춥니다.</li>
+                  <li><strong>재개.</strong> 작업은 마지막 체크포인트부터 다시 실행됩니다. 저장된 배치는 그대로 남고, 나머지만 기록됩니다.</li>
+                </ol>
+                <p class="viz-note">설명을 위한 그림이며, 배치 수는 예시입니다.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>일정 관리.</strong> APScheduler가 작은 UI에서 작업을 예약 실행하거나 요청 즉시 실행합니다.
               </li>

@@ -49,6 +49,7 @@
   font-size: 0.9375rem;
   font-weight: 650;
   line-height: 1.4;
+  text-wrap: balance;
 }
 
 .replay {
@@ -142,6 +143,11 @@
 
   .viz-wide > .viz-side {
     grid-column: 2;
+  }
+
+  /* A short drawing keeps its legend under it (.viz-main), so the two columns stay even. */
+  .viz-wide > .viz-main {
+    grid-column: 1;
   }
 
   .viz .viz-side > :first-child {
@@ -277,6 +283,20 @@
   margin-top: 14px;
   color: var(--text-3);
   font-size: 0.8125rem;
+}
+
+/* Headings over a drawing's three columns, in words that get translated: the drawing puts each
+   column's centre at 1/6, 3/6, and 5/6 of its width, under its heading. */
+.viz-heads {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 4px;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
 }
 
 @media (max-width: 480px) {
@@ -1565,4 +1585,796 @@
 .alarm-bell svg {
   width: 16px;
   height: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Catalog agent: a big job that fails partway (partials/figures/resume-job.svg). Each box is a
+   batch; the top row is the first run, the bottom row the run that resumes it.
+   -------------------------------------------------------------------------- */
+
+.rj-slot {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+}
+
+.rj-saved {
+  fill: var(--accent);
+}
+
+.rj-fail {
+  fill: var(--alert-soft);
+  stroke: var(--alert);
+  stroke-width: 1.5;
+}
+
+.rj-x {
+  fill: none;
+  stroke: var(--alert);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* Saved by the first run, so the resumed run skips it. */
+.rj-skip {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.25;
+  stroke-dasharray: 3 2.5;
+}
+
+/* A checkpoint: a flag after each saved batch. */
+.rj-flag {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rj-resume,
+.rj-resume-icon {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rj-resume-icon {
+  stroke-width: 1.6;
+}
+
+.rj-play {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+/* What the database holds, one level per saved batch: opaque, so the levels meet without seams.
+   Faint lines part the batches, and a strong one marks where the first run stopped. */
+.rj-level {
+  fill: color-mix(in srgb, var(--accent) 30%, var(--surface));
+}
+
+.rj-level-sep {
+  stroke: color-mix(in srgb, var(--surface) 70%, transparent);
+  stroke-width: 1;
+}
+
+.rj-stop {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.viz-canvas .rj-db-name {
+  text-anchor: end;
+}
+
+/* The database's outline, drawn again over its levels. */
+.rj-db-edge {
+  fill: none;
+  stroke: color-mix(in srgb, var(--text-3) 60%, transparent);
+  stroke-width: 1.25;
+}
+
+/* A step's number on a drawing, matching the numbered steps beside it. */
+.fig-badge {
+  fill: var(--accent-soft);
+  stroke: color-mix(in srgb, var(--accent) 45%, transparent);
+  stroke-width: 1;
+}
+
+.viz-canvas .fig-num {
+  fill: var(--accent);
+  font: 700 10px var(--font-mono);
+}
+
+.key-batch {
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.key-flag {
+  position: relative;
+  height: 14px;
+}
+
+.key-flag::before,
+.key-flag::after {
+  content: "";
+  position: absolute;
+  background: var(--accent);
+}
+
+/* The pole on the right and the pennant pointing left, as on the drawing's flags. */
+.key-flag::before {
+  top: 0;
+  bottom: 0;
+  left: 9px;
+  width: 2px;
+  border-radius: 1px;
+}
+
+.key-flag::after {
+  top: 0;
+  left: 1px;
+  width: 8px;
+  height: 7px;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+.key-fail {
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--alert);
+  border-radius: 3px;
+  background: var(--alert-soft);
+  color: var(--alert);
+}
+
+.key-fail svg {
+  width: 9px;
+  height: 9px;
+  stroke-width: 3.5;
+}
+
+.key-skip {
+  border: 1.5px dashed var(--text-3);
+  border-radius: 3px;
+}
+
+/* 16px across, but laid out as 12px like the other keys, so every label starts at one x. */
+.key-run {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin: 0 -2px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.key-run svg {
+  width: 10px;
+  height: 10px;
+  stroke-width: 2.6;
+}
+
+/* One legend item a line, so the icons and marks read as a list; two columns of them beside a
+   wide drawing. */
+.viz.resume .viz-legend {
+  flex-direction: column;
+}
+
+@media (min-width: 1080px) {
+  .viz.resume .viz-legend {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Network App: one agent turn (partials/figures/agent-turn.svg), as a sequence diagram. The
+   lanes are the phone with its database, the gateway, and Claude; time runs down.
+   -------------------------------------------------------------------------- */
+
+/* The phone's lane: its edge keeps 3:1, since it carries "stays on the phone". */
+.at-phone {
+  fill: color-mix(in srgb, var(--accent) 7%, transparent);
+  stroke: var(--accent);
+  stroke-width: 1.25;
+}
+
+.at-lane {
+  fill: none;
+  stroke: color-mix(in srgb, var(--text-3) 85%, transparent);
+  stroke-width: 1.25;
+  stroke-dasharray: 2 4;
+  stroke-linecap: round;
+}
+
+.at-icon,
+.at-undo {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.at-undo {
+  stroke-width: 2.4;
+}
+
+.at-call,
+.at-result,
+.at-error {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* What comes back, dashed: only a call's result, or the error of a refused call. */
+.at-result {
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+/* Dash and dot, so the error differs from a result by more than its color. */
+.at-error {
+  stroke: var(--alert);
+  stroke-width: 1.75;
+  stroke-dasharray: 8 3 1.5 3;
+}
+
+.at-call-head,
+.at-result-head,
+.at-error-head {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.at-result-head {
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+}
+
+.at-error-head {
+  stroke: var(--alert);
+  stroke-width: 1.75;
+}
+
+/* The gateway's check against the JSON Schema, in braces; the phone's own check is a circle. */
+.at-brace {
+  fill: none;
+  stroke: var(--ok-ink);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The checks, opaque so the lines they sit on do not show through. */
+.at-ok {
+  fill: color-mix(in srgb, var(--ok) 14%, var(--surface));
+  stroke: var(--ok);
+  stroke-width: 1.25;
+}
+
+.at-no {
+  fill: color-mix(in srgb, var(--alert) 14%, var(--surface));
+  stroke: var(--alert);
+  stroke-width: 1.25;
+}
+
+.at-ok-mark,
+.at-no-mark {
+  fill: none;
+  stroke: var(--ok-ink);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.at-no-mark {
+  stroke: var(--alert-ink);
+}
+
+.at-lock-bg {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+
+.at-lock {
+  fill: none;
+  stroke: var(--text-2);
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+}
+
+/* The reply on the phone: its list of changes and one Undo. */
+.at-card {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 1.25;
+}
+
+.at-card-line {
+  stroke: var(--border-strong);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* Legend keys a line long, so the solid and dashed lines show. */
+.key-call,
+.key-result,
+.key-error {
+  width: 24px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.key-result {
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--text-3) 0 4px, transparent 4px 7px);
+}
+
+.key-error {
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--alert) 0 8px, transparent 8px 11px, var(--alert) 11px 12.5px, transparent 12.5px 15.5px);
+}
+
+.key-schema {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 16px;
+  border: 1px solid var(--ok);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ok) 14%, var(--surface));
+  color: var(--ok-ink);
+}
+
+.key-schema svg {
+  width: 22px;
+  height: 12px;
+}
+
+/* The agent turn's legend: one item a line, and since its keys differ in width, they share one
+   column so every label starts at one x. */
+.viz.agent-turn .viz-legend {
+  flex-direction: column;
+}
+
+.viz.agent-turn .viz-legend li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.viz.agent-turn .viz-key {
+  justify-self: center;
+}
+
+.viz.agent-turn .key-run {
+  margin: 0;
+}
+
+.key-checks {
+  display: inline-flex;
+  gap: 3px;
+  width: auto;
+}
+
+.key-checks > span {
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--ok);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ok) 14%, var(--surface));
+  color: var(--ok-ink);
+}
+
+.key-checks > span + span {
+  border-color: var(--alert);
+  background: color-mix(in srgb, var(--alert) 14%, var(--surface));
+  color: var(--alert-ink);
+}
+
+.key-checks svg {
+  width: 9px;
+  height: 9px;
+  stroke-width: 3.5;
+}
+
+/* --------------------------------------------------------------------------
+   Solar: one threshold for the day or one for each hour (partials/figures/hourly-thresholds.svg).
+   Two panels of the same made-up day; the same morning anomaly in both.
+   -------------------------------------------------------------------------- */
+
+.th-axis {
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+}
+
+.th-grid {
+  stroke: color-mix(in srgb, var(--text-3) 25%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+/* The usual error at each hour. */
+.th-band {
+  fill: color-mix(in srgb, var(--text-3) 16%, transparent);
+}
+
+.th-curve {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+}
+
+/* One threshold for the whole day, and one for each hour. */
+.th-global {
+  fill: none;
+  stroke: var(--text-2);
+  stroke-width: 1.75;
+  stroke-dasharray: 6 4;
+}
+
+/* The day's one line again under the hourly ones, lighter but still 3:1, for comparison. */
+.th-global-ref {
+  opacity: 0.7;
+}
+
+.th-steps {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+/* The anomaly's own hour, whose line it crosses. */
+.th-hour {
+  stroke: var(--accent);
+  stroke-width: 4.5;
+  stroke-linecap: round;
+}
+
+.th-stem {
+  stroke: var(--alert);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.th-missed {
+  fill: var(--surface);
+  stroke: var(--alert);
+  stroke-width: 2;
+  stroke-dasharray: 2.6 2;
+}
+
+.th-hit {
+  fill: var(--alert);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+
+.th-ping {
+  stroke: var(--alert);
+}
+
+/* How far the missed anomaly stayed under the day's line. */
+.th-gap {
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+  stroke-dasharray: 0.5 3.5;
+  stroke-linecap: round;
+}
+
+.key-band {
+  border-top: 1.5px solid var(--text-3);
+  background: color-mix(in srgb, var(--text-3) 16%, transparent);
+}
+
+/* Keys a line long, so the dashes show; the missed anomaly's ring dashed as in the drawing. */
+.key-global,
+.key-steps {
+  width: 24px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--text-2) 0 6px, transparent 6px 10px);
+}
+
+.key-steps {
+  background: var(--accent);
+}
+
+.key-missed {
+  display: grid;
+  width: 14px;
+  height: 14px;
+  color: var(--alert);
+}
+
+.key-missed svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--surface);
+}
+
+.key-hit {
+  border-radius: 50%;
+  background: var(--alert);
+}
+
+/* The hourly legend: one item a line, its keys in one column. */
+.viz.hourly .viz-legend {
+  flex-direction: column;
+}
+
+.viz.hourly .viz-legend li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.viz.hourly .viz-key {
+  justify-self: center;
+}
+
+/* --------------------------------------------------------------------------
+   Sorted: matching each Coupang charge to its order email (partials/figures/receipt-match.svg).
+   Charges on the statement above, order emails below, a made-up day from left to right.
+   -------------------------------------------------------------------------- */
+
+/* Two hours either side of a charge: opaque, so the dots of the ground stay out of it, with an
+   edge that keeps 3:1. */
+.rm-window {
+  fill: color-mix(in srgb, var(--accent) 8%, var(--surface-2));
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.rm-track {
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-dasharray: 0.5 4;
+  stroke-linecap: round;
+}
+
+.rm-axis {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+}
+
+.viz-canvas .rm-hour {
+  fill: var(--text-3);
+  font-size: 11px;
+}
+
+.rm-glyph-bg {
+  fill: var(--surface);
+}
+
+.rm-row,
+.rm-mail,
+.rm-spark {
+  fill: none;
+  stroke: var(--text-2);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rm-mail-off {
+  stroke: var(--text-3);
+}
+
+.rm-spark {
+  stroke: var(--accent);
+}
+
+.viz-canvas .rm-amount {
+  fill: var(--text);
+  font: 650 12px var(--font-mono);
+}
+
+/* --text-2, not --text-3: on the window's tint, --text-3 measured 4.45:1. */
+.viz-canvas .rm-amount-off {
+  fill: var(--text-2);
+}
+
+/* On phones the other-total email's amount starts just inside its window. */
+.viz-canvas .rm-start {
+  text-anchor: start;
+}
+
+/* On phones the amounts are 11px on screen at 320px. */
+.viz-canvas .narrow .rm-amount {
+  font-size: 13.5px;
+}
+
+/* The statement text stays on one line. */
+.receipts .viz-steps code {
+  white-space: nowrap;
+}
+
+.rm-match,
+.rm-nomatch {
+  fill: none;
+  stroke: var(--ok);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.rm-nomatch {
+  stroke: var(--alert);
+  stroke-width: 1.5;
+}
+
+.key-icon {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  color: var(--text-2);
+}
+
+.key-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.key-ai {
+  color: var(--accent);
+}
+
+.key-window {
+  width: 18px;
+  border: 1.5px solid var(--accent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface-2));
+}
+
+/* --------------------------------------------------------------------------
+   Body physics: one test swing, run 45 times (partials/figures/swing-sweep.svg). A block of
+   aims for each bone strength, then the tally of breaks against what "sometimes" allows.
+   -------------------------------------------------------------------------- */
+
+.sw-slot {
+  fill: var(--surface);
+  stroke: var(--border-strong);
+  stroke-width: 1.25;
+}
+
+/* A run where the bone broke: red, with a crack, so it is not told by color alone. */
+.sw-broke,
+.sw-count {
+  fill: var(--alert);
+}
+
+.sw-crack {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* A run where no bone broke, and the empty tally: outlined at 3:1 or more against the panel. */
+.sw-held {
+  fill: color-mix(in srgb, var(--text-3) 30%, var(--surface));
+  stroke: color-mix(in srgb, var(--text-3) 90%, var(--surface));
+  stroke-width: 1.25;
+}
+
+.sw-track {
+  fill: var(--surface);
+}
+
+.sw-track-edge {
+  fill: none;
+  stroke: color-mix(in srgb, var(--text-3) 90%, var(--surface));
+  stroke-width: 1.25;
+}
+
+/* Along the limb and across it: the aims of each block. */
+.sw-axis {
+  fill: none;
+  stroke: var(--text-3);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The count of breaks, and the two ends that "sometimes" rules out. */
+.viz-canvas .sw-n {
+  fill: var(--text);
+  font: 700 12px var(--font-mono);
+}
+
+.sw-n-tick {
+  stroke: var(--text-2);
+  stroke-width: 1.25;
+}
+
+.sw-out {
+  fill: none;
+  stroke: var(--alert);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.sw-ticks {
+  stroke: color-mix(in srgb, var(--text-3) 35%, transparent);
+  stroke-width: 1;
+}
+
+.viz-canvas .sw-end {
+  fill: var(--text-3);
+  font-size: 11px;
+}
+
+/* What "sometimes" allows: more than none, fewer than all. */
+.sw-band {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sw-ping {
+  stroke: var(--ok);
+}
+
+.key-broke,
+.key-held {
+  border-radius: 3px;
+  background: var(--alert);
+}
+
+.key-held {
+  border: 1.25px solid color-mix(in srgb, var(--text-3) 90%, var(--surface));
+  background: color-mix(in srgb, var(--text-3) 30%, var(--surface));
+}
+
+/* Each heading no wider than the block under it, so the three read as three. */
+.viz.sweep .viz-heads > span {
+  padding-inline: 8%;
+}
+
+@media (max-width: 479px) {
+  .viz.sweep .viz-heads {
+    font-size: 0.75rem;
+  }
+}
+
+/* Chinese titles and headings break only where a word ends: at punctuation, at a space, or at a
+   zero-width space placed between words. */
+:lang(zh) .viz:is(.resume, .agent-turn, .hourly, .receipts, .sweep) :is(.viz-title, .viz-heads) {
+  word-break: keep-all;
+}
+
+.key-allow {
+  width: 18px;
+  height: 7px;
+  border: 2px solid var(--accent);
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
 }

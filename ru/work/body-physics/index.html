@@ -202,6 +202,35 @@
                 попадания немного смещается, а кости становятся слабее или прочнее. Травма, которая в жизни случается
                 «иногда», должна случаться в части прогонов, а не во всех.
               </li>
+            </ul>
+            <figure class="viz viz-wide sweep" aria-labelledby="sweep-title">
+              <figcaption id="sweep-title" class="viz-title">Пример: один тестовый удар, выполненный 45 раз</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-main">
+                <div class="viz-canvas" aria-hidden="true">
+                  <div class="viz-heads"><span>Кости слабее</span><span>Кости как настроены</span><span>Кости прочнее</span></div>
+                  <!-- include: partials/figures/swing-sweep.svg -->
+                  <!-- include: partials/figures/swing-sweep-narrow.svg -->
+                </div>
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-broke"></span>Прогон, в котором кость сломалась</li>
+                  <li><span class="viz-key key-held"></span>Прогон, в котором кость не сломалась</li>
+                  <li><span class="viz-key key-allow"></span>Что допускает «иногда»: перелом в части прогонов — хотя бы в одном, но не во всех</li>
+                </ul>
+              </div>
+              <div class="viz-side">
+                <ol class="viz-steps">
+                  <li><strong>Много точек попадания.</strong> Удар выполняется снова и снова, а точка попадания немного смещается вдоль руки и поперёк неё. Каждый квадрат — один прогон.</li>
+                  <li><strong>Кости слабее и прочнее.</strong> Те же точки попадания проверяются с костями чуть слабее и чуть прочнее, ведь у людей они разные. Всего выходит 45 прогонов.</li>
+                  <li><strong>Подсчитать и сравнить.</strong> По данным исследования, этот удар иногда ломает кость. Значит, перелом должен случиться в части из 45 прогонов, но не во всех. Здесь кость сломалась в 16 прогонах, и тест пройден.</li>
+                </ol>
+                <p class="viz-note">Это иллюстрация: 45 прогонов устроены так же, как в настоящих тестах, но результаты выдуманы.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Картинки, а не числа.</strong> Приложение само умеет сохранять скриншоты и серии кадров. По ним
                 я оцениваю каждое визуальное изменение, а проблема, которую пропустили тесты, становится новым тестом.

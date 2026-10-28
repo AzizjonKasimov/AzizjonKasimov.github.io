@@ -22,7 +22,7 @@ by GitHub Actions. The site is in English, Korean, German, Russian, Uzbek, and C
 | `src/figures.css` | The case-study figures that show how a system works (imported by `styles.css`) |
 | `src/motion.css` | The animations of the photo, charts, drawings, diagrams, and figures (imported by `styles.css`) |
 | `public/` | Files copied as-is: favicon, social preview image, touch icon, the homepage photo (`images/`), certificate scans (`certificates/`), case-study screenshots (`screenshots/`), `robots.txt` |
-| `tools/` | The translation, language-redirect, and layout checks, the web image script, and the sources and render script for the social preview image and touch icon |
+| `tools/` | The translation, language-redirect, and layout checks, the web image script, the sources and render script for the social preview image and touch icon, and the scripts that draw five of the figures (`figures/`) |
 | `vite.config.mjs` | The build: one entry per page and language, the partial-include plugin, and the generated `sitemap.xml` |
 
 ## Development
@@ -98,12 +98,22 @@ shows the same drawing.
   `<code class="viz-pin">` inside a `.viz-map`, placed at `--x`/`--y` percent of it; when the
   drawing is narrower than 460px they flow as chips under it, in story order. A drawing that gets
   too small on phones has a `-narrow.svg` version for screens below 480px (the root `<svg>` carries
-  `class="wide"` or `class="narrow"`, and each version needs its own ids). Every figure says when it
-  is an illustration with made-up data. The semantic search page has four (how a part becomes
-  searchable, as four cards in a `.pipe`; the query among the catalog's parts; how the test suite
-  scores three queries; the 3,000-part test run) and the AWS pipeline page three (many workers and
-  one database, backing off with one lane per worker, the CloudWatch alarm board with a line per
-  signal).
+  `class="wide"` or `class="narrow"`, and each version needs its own ids). Headings over a drawing's
+  three columns are HTML in a `.viz-heads` row, so they are translated; the drawing puts each
+  column's centre at 1/6, 3/6, and 5/6 of its width. A short drawing keeps its legend under it in a
+  `.viz-main` wrapper, so the two columns stay even, and a step's number on a drawing is a
+  `.fig-badge`. Every figure says when it is an illustration with made-up data. The semantic search
+  page has four (how a part becomes searchable, as four cards in a `.pipe`; the query among the
+  catalog's parts; how the test suite scores three queries; the 3,000-part test run) and the AWS
+  pipeline page three (many workers and one database, backing off with one lane per worker, the
+  CloudWatch alarm board with a line per signal). The catalog agent page shows a big job that fails
+  partway and resumes from its last checkpoint, Network App one agent turn as a sequence diagram
+  (the phone, the gateway, and Claude, with each tool call checked twice), the solar page one
+  threshold for the whole day against one for each hour, Sorted how an order email is matched to its
+  charge, and the body physics page one test swing run 45 times. These five drawings are written by
+  Python scripts in `tools/figures/` (standard library only), which draw the desktop and phone
+  versions with the same timing: change a script and run it (`python tools/figures/swing-sweep.py`)
+  rather than editing its SVGs by hand.
 
 ### Motion
 

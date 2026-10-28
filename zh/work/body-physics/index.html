@@ -188,6 +188,35 @@
               <li>
                 <strong>真实的击打各不相同。</strong>每个挥击测试都运行 45 次，落点会略微偏移，骨骼也会调弱或调强。现实中“有时”才会发生的损伤，必须只在其中一部分运行中出现，而不是每次都出现。
               </li>
+            </ul>
+            <figure class="viz viz-wide sweep" aria-labelledby="sweep-title">
+              <figcaption id="sweep-title" class="viz-title">示例：一次挥击测试，运行 45 次</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <div class="viz-main">
+                <div class="viz-canvas" aria-hidden="true">
+                  <div class="viz-heads"><span>较弱的骨骼</span><span>按设定强度​的骨骼</span><span>较强的骨骼</span></div>
+                  <!-- include: partials/figures/swing-sweep.svg -->
+                  <!-- include: partials/figures/swing-sweep-narrow.svg -->
+                </div>
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-broke"></span>骨头折断的一次运行</li>
+                  <li><span class="viz-key key-held"></span>骨头没有折断的一次运行</li>
+                  <li><span class="viz-key key-allow"></span>“有时”允许的范围：部分运行折断，但不能一次都没有，也不能全部折断</li>
+                </ul>
+              </div>
+              <div class="viz-side">
+                <ol class="viz-steps">
+                  <li><strong>多个落点。</strong>同一次挥击反复运行，落点沿着手臂、也横跨手臂稍作移动。每个方格代表一次运行。</li>
+                  <li><strong>更弱和更强的骨骼。</strong>同样的落点，再分别用稍弱和稍强的骨骼运行，因为每个人的骨骼都不一样。这样一共是 45 次运行。</li>
+                  <li><strong>先计数，再对照。</strong>研究表明，这种击打有时会造成骨折。所以在 45 次运行中，骨头必须在部分运行中折断，但不能全部折断。这里折断了 16 次，所以测试通过。</li>
+                </ol>
+                <p class="viz-note">示意图：这 45 次运行按真实测试的方式设置，但结果是虚构的。</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>看画面，不看数字。</strong>应用可以自动保存截图和逐帧画面。我根据这些图片评判每一处画面上的改动；测试漏掉的问题，会变成一项新的测试。
               </li>

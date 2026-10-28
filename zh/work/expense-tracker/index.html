@@ -148,6 +148,35 @@
               <li>
                 <strong>更好的输入胜过更好的提示词。</strong>Coupang 的扣款在流水上看起来几乎一模一样，所以任何提示词都没法把它们分好类。把每笔扣款与对应的订单邮件匹配之后，AI 就拿到了真实的商品名称。只有当收据的总额与扣款金额相等，并且邮件与扣款的时间相差不超过两小时，这张收据才算数。
               </li>
+            </ul>
+            <figure class="viz viz-wide receipts" aria-labelledby="receipts-title">
+              <figcaption id="receipts-title" class="viz-title">示例：哪封订单邮件​对应哪笔扣款</figcaption>
+              <button class="replay" type="button" title="重新播放动画" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">重新播放动画</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/receipt-match.svg -->
+                <!-- include: partials/figures/receipt-match-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/sheet.svg --></span>银行流水上的一笔 Coupang 扣款</li>
+                  <li><span class="viz-key key-icon"><!-- include: partials/icons/mail.svg --></span>一封 Coupang 订单邮件及其总额</li>
+                  <li><span class="viz-key key-window"></span>扣款前后各两小时</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>匹配或不匹配</li>
+                  <li><span class="viz-key key-icon key-ai"><!-- include: partials/icons/sparkle.svg --></span>AI 选择类别</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>同一个名称。</strong>在流水上，每笔 Coupang 扣款都显示为 <code lang="ko">쿠팡(쿠페이)_KCP</code>，所以 AI 看不出买了什么。</li>
+                  <li><strong>总额相同。</strong>只有总额与扣款相同的订单邮件才算数。第一封邮件的金额不同，所以不算。</li>
+                  <li><strong>两小时之内。</strong>这里有两笔订单金额相同。每笔扣款只对应在它前后两小时内发来的邮件。</li>
+                  <li><strong>商品名称。</strong>匹配上的邮件补上了买的是什么，AI 再据此选择类别。</li>
+                </ol>
+                <p class="viz-note">虚构的一天里虚构的订单，金额单位为 KRW。</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>我的规则优先。</strong>我为熟悉的商户设定的规则，总是优先于 AI 的选择。
               </li>

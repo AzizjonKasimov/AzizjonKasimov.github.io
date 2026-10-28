@@ -185,6 +185,37 @@
                 ein Fingertipp die ganze Antwort rückgängig macht. Undo lehnt ab, wenn ich die Zeile seitdem bearbeitet
                 habe.
               </li>
+            </ul>
+            <figure class="viz viz-wide agent-turn" aria-labelledby="turn-title">
+              <figcaption id="turn-title" class="viz-title">Ein Durchgang des Agenten: Jeder Tool-Aufruf wird zweimal geprüft</figcaption>
+              <button class="replay" type="button" title="Animation erneut abspielen" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Animation erneut abspielen</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <div class="viz-heads"><span>Mein Handy</span><span>Mein KI‑Gateway</span><span>Claude</span></div>
+                <!-- include: partials/figures/agent-turn.svg -->
+                <!-- include: partials/figures/agent-turn-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-call"></span>Eine Nachricht, ein Tool-Aufruf oder die Antwort</li>
+                  <li><span class="viz-key key-result"></span>Zurück kommt nur das Ergebnis</li>
+                  <li><span class="viz-key key-error"></span>Der Fehler eines abgelehnten Aufrufs</li>
+                  <li><span class="viz-key key-schema"><!-- include: partials/icons/braces-check.svg --></span>Die Prüfung des Gateways gegen das JSON Schema</li>
+                  <li><span class="viz-key key-checks"><span><!-- include: partials/icons/check.svg --></span><span><!-- include: partials/icons/x.svg --></span></span>Die eigene Prüfung des Handys: Sie lässt den Aufruf zu oder lehnt ihn ab</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/database.svg --></span>Die Datenbank des Handys, die auf dem Handy bleibt</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Meine Notiz.</strong> Claude erhält sie mit den 17 Tool-Definitionen, aber ohne gespeicherte Datensätze.</li>
+                  <li><strong>Zwei Prüfungen.</strong> Claude ruft <code>find_people</code> auf. Das Gateway prüft den Aufruf gegen sein JSON Schema, und das Handy prüft ihn noch einmal. Dann führt das Handy ihn auf seiner eigenen Datenbank aus und schickt nur das Ergebnis zurück.</li>
+                  <li><strong>Ein abgelehnter Aufruf.</strong> Claude ruft <code>add_note</code> mit einem Datum in der Zukunft auf. Das Handy lehnt den Aufruf ab und speichert nichts. Claude liest den Fehler und schickt den Aufruf mit dem richtigen Datum noch einmal.</li>
+                  <li><strong>Die Antwort.</strong> Sie listet jede Änderung auf, und ein Fingertipp macht alle rückgängig.</li>
+                </ol>
+                <p class="viz-note">Eine schematische Darstellung mit einer erfundenen Notiz. <code>find_people</code> und <code>add_note</code> sind zwei der 17 Tools der App.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Löschungen warten immer.</strong> Die App löscht eine Person, eine Notiz oder einen Datensatz
                 erst, wenn ich die zugehörige Karte antippe. Auch zwei Personen führt sie erst dann zusammen.

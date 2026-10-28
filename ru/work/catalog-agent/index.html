@@ -122,6 +122,36 @@
                 возобновления, поэтому модель автомобиля с более чем 100&nbsp;тыс. вариантов не начинает загрузку заново
                 после сбоя.
               </li>
+            </ul>
+            <figure class="viz viz-wide resume" aria-labelledby="resume-title">
+              <figcaption id="resume-title" class="viz-title">Когда большая задача обрывается на середине</figcaption>
+              <button class="replay" type="button" title="Повторить анимацию" hidden>
+                <span aria-hidden="true"><!-- include: partials/icons/replay.svg --></span>
+                <span class="visually-hidden">Повторить анимацию</span>
+              </button>
+              <div class="viz-canvas" aria-hidden="true">
+                <!-- include: partials/figures/resume-job.svg -->
+                <!-- include: partials/figures/resume-job-narrow.svg -->
+              </div>
+              <div class="viz-side">
+                <ul class="viz-legend">
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/clock.svg --></span>Запуск по расписанию</li>
+                  <li><span class="viz-key key-run"><!-- include: partials/icons/play.svg --></span>Задача запускается снова</li>
+                  <li><span class="viz-key key-batch"></span>Пакет, сохранённый в PostgreSQL</li>
+                  <li><span class="viz-key key-flag"></span>Контрольная точка: докуда дошла задача</li>
+                  <li><span class="viz-key key-fail"><!-- include: partials/icons/x.svg --></span>Пакет, на котором случился сбой</li>
+                  <li><span class="viz-key key-skip"></span>Уже сохранён, поэтому повторно не запускается</li>
+                </ul>
+                <ol class="viz-steps">
+                  <li><strong>Пакетами.</strong> Задача по расписанию проходит свой объём по одному пакету за раз.</li>
+                  <li><strong>Контрольные точки.</strong> Каждый пакет сохраняется в PostgreSQL вместе с контрольной точкой — отметкой о том, докуда дошла задача.</li>
+                  <li><strong>Сбой.</strong> На середине пакет даёт сбой, и задача останавливается.</li>
+                  <li><strong>Возобновление.</strong> Задача запускается снова с последней контрольной точки. Сохранённые пакеты остаются, а записывается только остальное.</li>
+                </ol>
+                <p class="viz-note">Это иллюстрация, число пакетов условное.</p>
+              </div>
+            </figure>
+            <ul>
               <li>
                 <strong>Планирование.</strong> APScheduler запускает задачи по расписанию или по требованию из простого
                 интерфейса.

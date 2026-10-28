@@ -1,0 +1,109 @@
+<svg class="wide" viewBox="0 0 470 276">
+  <defs>
+    <clipPath id="rj-db-clip"><path d="M410 124c0-3.85 10.8-7 24-7s24 3.15 24 7v88c0 3.85-10.8 7-24 7s-24-3.15-24-7z" /></clipPath>
+  </defs>
+  <g class="pop" style="--at: 0ms">
+    <circle class="art-panel" cx="24" cy="92" r="13" />
+    <path class="art-accent-line" d="M24 84.85v7.15l5 3" />
+  </g>
+  <g class="fade" style="--at: 150ms">
+    <rect class="rj-slot" x="52" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="79" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="106" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="133" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="160" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="187" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="214" y="74" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="241" y="74" width="24" height="36" rx="4" />
+    <g class="fx-gone dim" style="--at: 1830ms; --dur: 300ms">
+      <rect class="rj-slot" x="268" y="74" width="24" height="36" rx="4" />
+      <rect class="rj-slot" x="295" y="74" width="24" height="36" rx="4" />
+      <rect class="rj-slot" x="322" y="74" width="24" height="36" rx="4" />
+      <rect class="rj-slot" x="349" y="74" width="24" height="36" rx="4" />
+    </g>
+  </g>
+  <g class="fade" style="--at: 150ms">
+    <path class="art-panel" d="M410 124c0-3.85 10.8-7 24-7s24 3.15 24 7v88c0 3.85-10.8 7-24 7s-24-3.15-24-7z" />
+    <text x="434" y="238">PostgreSQL</text>
+  </g>
+  <g clip-path="url(#rj-db-clip)">
+    <rect class="rj-level fade" x="408" y="211.08" width="52" height="8.42" style="--at: 790ms" />
+    <rect class="rj-level fade" x="408" y="203.17" width="52" height="8.42" style="--at: 920ms" />
+    <rect class="rj-level fade" x="408" y="195.25" width="52" height="8.42" style="--at: 1050ms" />
+    <rect class="rj-level fade" x="408" y="187.33" width="52" height="8.42" style="--at: 1180ms" />
+    <rect class="rj-level fade" x="408" y="179.42" width="52" height="8.42" style="--at: 1310ms" />
+    <rect class="rj-level fade" x="408" y="171.5" width="52" height="8.42" style="--at: 1440ms" />
+    <rect class="rj-level fade" x="408" y="163.58" width="52" height="8.42" style="--at: 1570ms" />
+    <rect class="rj-level fade" x="408" y="155.67" width="52" height="8.42" style="--at: 3340ms" />
+    <rect class="rj-level fade" x="408" y="147.75" width="52" height="8.42" style="--at: 3470ms" />
+    <rect class="rj-level fade" x="408" y="139.83" width="52" height="8.42" style="--at: 3600ms" />
+    <rect class="rj-level fade" x="408" y="131.92" width="52" height="8.42" style="--at: 3730ms" />
+    <rect class="rj-level fade" x="408" y="115" width="52" height="17.42" style="--at: 3860ms" />
+    <path class="rj-level-sep fade" d="M410 211.08h48M410 203.17h48M410 195.25h48M410 187.33h48M410 179.42h48M410 171.5h48M410 155.67h48M410 147.75h48M410 139.83h48M410 131.92h48" style="--at: 3860ms" />
+    <path class="rj-stop draw" d="M410 163.58h48" pathLength="1" style="--at: 1780ms; --dur: 250ms" />
+  </g>
+  <g class="fade" style="--at: 150ms">
+    <path class="rj-db-edge" d="M410 124c0-3.85 10.8-7 24-7s24 3.15 24 7v88c0 3.85-10.8 7-24 7s-24-3.15-24-7z" />
+    <path class="rj-db-edge" d="M410 124c0 3.85 10.8 7 24 7s24-3.15 24-7" />
+  </g>
+  <g class="pop" style="--at: 790ms">
+    <circle class="art-panel" cx="389" cy="191.29" r="8.5" />
+    <path class="art-accent-line rj-mini" d="M389 186.62v4.68l3.27 1.96" />
+  </g>
+  <g class="pop" style="--at: 3340ms">
+    <circle class="art-panel" cx="389" cy="143.79" r="8.5" />
+    <path class="rj-play" d="M386.13 139.97v7.65l6.31-3.83z" />
+  </g>
+  <path class="rj-flag pop" d="M410 163.58V151.18l-7.5 3.15 7.5 3.15" style="--at: 1810ms" />
+  <rect class="rj-saved wipe" x="52" y="74" width="24" height="36" rx="4" style="--at: 650ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="79" y="74" width="24" height="36" rx="4" style="--at: 780ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="106" y="74" width="24" height="36" rx="4" style="--at: 910ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="133" y="74" width="24" height="36" rx="4" style="--at: 1040ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="160" y="74" width="24" height="36" rx="4" style="--at: 1170ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="187" y="74" width="24" height="36" rx="4" style="--at: 1300ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="214" y="74" width="24" height="36" rx="4" style="--at: 1430ms; --dur: 140ms" />
+  <g class="fx-gone dim" style="--at: 1730ms; --dur: 150ms">
+    <rect class="rj-saved wipe" x="241" y="74" width="13.92" height="36" rx="4" style="--at: 1580ms; --dur: 150ms" />
+  </g>
+  <rect class="rj-fail pop" x="241" y="74" width="24" height="36" rx="4" style="--at: 1730ms" />
+  <path class="rj-x pop" d="M247.24 86.24l11.52 11.52m0-11.52-11.52 11.52" style="--at: 1780ms" />
+  <path class="rj-flag pop" d="M77.5 73V54l-10 4.2 10 4.2" style="--at: 790ms" />
+  <path class="rj-flag pop" d="M104.5 73V54l-10 4.2 10 4.2" style="--at: 920ms" />
+  <path class="rj-flag pop" d="M131.5 73V54l-10 4.2 10 4.2" style="--at: 1050ms" />
+  <path class="rj-flag pop" d="M158.5 73V54l-10 4.2 10 4.2" style="--at: 1180ms" />
+  <path class="rj-flag pop" d="M185.5 73V54l-10 4.2 10 4.2" style="--at: 1310ms" />
+  <path class="rj-flag pop" d="M212.5 73V54l-10 4.2 10 4.2" style="--at: 1440ms" />
+  <path class="rj-flag pop" d="M239.5 73V46l-14 5.88 14 5.88" style="--at: 1570ms" />
+  <g class="fade" style="--at: 2750ms; --dur: 300ms">
+    <rect class="rj-skip" x="52" y="214" width="186" height="36" rx="4" />
+    <rect class="rj-slot" x="241" y="214" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="268" y="214" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="295" y="214" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="322" y="214" width="24" height="36" rx="4" />
+    <rect class="rj-slot" x="349" y="214" width="24" height="36" rx="4" />
+  </g>
+  <g class="pop" style="--at: 2750ms">
+    <circle class="art-panel" cx="24" cy="232" r="13" />
+    <path class="rj-play" d="M19.61 226.15v11.7l9.65-5.85z" />
+  </g>
+  <path class="rj-resume draw" d="M239.5 114V211" pathLength="1" style="--at: 2850ms; --dur: 300ms" />
+  <path class="rj-resume pop" d="M234.5 206l5 5 5-5" style="--at: 3110ms" />
+  <rect class="rj-saved wipe" x="241" y="214" width="24" height="36" rx="4" style="--at: 3200ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="268" y="214" width="24" height="36" rx="4" style="--at: 3330ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="295" y="214" width="24" height="36" rx="4" style="--at: 3460ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="322" y="214" width="24" height="36" rx="4" style="--at: 3590ms; --dur: 140ms" />
+  <rect class="rj-saved wipe" x="349" y="214" width="24" height="36" rx="4" style="--at: 3720ms; --dur: 140ms" />
+  <path class="rj-flag pop" d="M266.5 213V194l-10 4.2 10 4.2" style="--at: 3340ms" />
+  <path class="rj-flag pop" d="M293.5 213V194l-10 4.2 10 4.2" style="--at: 3470ms" />
+  <path class="rj-flag pop" d="M320.5 213V194l-10 4.2 10 4.2" style="--at: 3600ms" />
+  <path class="rj-flag pop" d="M347.5 213V194l-10 4.2 10 4.2" style="--at: 3730ms" />
+  <path class="rj-flag pop" d="M374.5 213V194l-10 4.2 10 4.2" style="--at: 3860ms" />
+  <g class="pop" style="--at: 3950ms">
+    <circle class="art-accent" cx="434" cy="108" r="9" />
+    <path class="art-check" d="m430.22 108 2.83 2.83 4.91-5.48" />
+  </g>
+  <g class="pop" style="--at: 150ms"><circle class="fig-badge" cx="77.5" cy="126.5" r="9.5" /><text class="fig-num" x="77.5" y="126.5" dy=".36em">1</text></g>
+  <g class="pop" style="--at: 790ms"><circle class="fig-badge" cx="158.5" cy="26" r="9.5" /><text class="fig-num" x="158.5" y="26" dy=".36em">2</text></g>
+  <g class="pop" style="--at: 2130ms"><circle class="fig-badge" cx="286.5" cy="92" r="9.5" /><text class="fig-num" x="286.5" y="92" dy=".36em">3</text></g>
+  <g class="pop" style="--at: 2950ms"><circle class="fig-badge" cx="258" cy="162.5" r="9.5" /><text class="fig-num" x="258" y="162.5" dy=".36em">4</text></g>
+</svg>
